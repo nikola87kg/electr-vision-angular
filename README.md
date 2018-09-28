@@ -1,2 +1,2 @@
-# electr-vision-angular
+# electro-vision-angular
 Electrovision FE
