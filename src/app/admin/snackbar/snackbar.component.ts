@@ -1,17 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material';
-
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_SNACK_BAR_DATA } from "@angular/material";
 
 @Component({
-    selector: 'px-snackbar-component',
-    templateUrl: './snackbar.component.html',
-    styleUrls: ['./snackbar.component.scss']
+  selector: "px-snackbar-component",
+  templateUrl: "./snackbar.component.html",
+  styleUrls: ["./snackbar.component.scss"]
 })
 export class SnackbarComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) { }
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {}
 
-  actionWord = '';
-  typeWord = '';
+  actionWord = "";
+  typeWord = "";
 
   ngOnInit() {
     this.switchActions();
@@ -20,51 +19,54 @@ export class SnackbarComponent implements OnInit {
 
   switchActions() {
     switch (this.data.action) {
-      case 'create':
-        this.actionWord = 'sačuvan';
+      case "create":
+        this.actionWord = "sačuvan";
         break;
-      case 'create2':
-        this.actionWord = 'sačuvana';
+      case "create2":
+        this.actionWord = "sačuvana";
         break;
-      case 'update':
-      this.actionWord = 'ažuriran';
+      case "update":
+        this.actionWord = "ažuriran";
         break;
-      case 'update2':
-      this.actionWord = 'ažurirana';
+      case "update2":
+        this.actionWord = "ažurirana";
         break;
-        case 'delete':
-        this.actionWord = 'izbrisan';
-          break;
-        case 'delete2':
-        this.actionWord = 'izbrisana';
-          break;
+      case "delete":
+        this.actionWord = "izbrisan";
+        break;
+      case "delete2":
+        this.actionWord = "izbrisana";
+        break;
       default:
-      this.actionWord = 'obrađen';
+        this.actionWord = "obrađen";
     }
   }
 
   switchTypes() {
     switch (this.data.type) {
-      case 'product':
-        this.typeWord = 'Proizvod';
+      case "product":
+        this.typeWord = "Proizvod";
         break;
-      case 'brand':
-      this.typeWord = 'Brend';
+      case "brand":
+        this.typeWord = "Brend";
         break;
-      case 'group':
-      this.typeWord = 'Potkategorija';
+      case "group":
+        this.typeWord = "Potkategorija";
         break;
-      case 'category':
-      this.typeWord = 'Kategorija';
+      case "category":
+        this.typeWord = "Kategorija";
         break;
-      case 'image':
-      this.typeWord = 'Slika';
+      case "image":
+        this.typeWord = "Slika";
         break;
-      case 'gallery':
-      this.typeWord = 'Slika galerije';
+      case "gallery":
+        this.typeWord = "Slika galerije";
+        break;
+      case "pricelist":
+        this.typeWord = "Stavka cenovnika";
         break;
       default:
-      this.typeWord = 'Podatak';
+        this.typeWord = "Podatak";
     }
   }
 }
