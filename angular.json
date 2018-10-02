@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../dist/electro-vision",
+            "outputPath": "dist/electro-vision",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -45,8 +45,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              {
+            "styles": [{
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
               },
               "src/px-material-theme.scss",
@@ -58,12 +57,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -100,8 +97,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              {
+            "styles": [{
                 "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
               },
               "styles.scss"
