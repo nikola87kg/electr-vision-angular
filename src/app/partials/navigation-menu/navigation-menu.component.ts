@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +26,7 @@ export class NavigationMenuComponent implements OnInit {
     }
 
     constructor(
-        public global: GlobalService,
+        public sharedService: SharedService,
         private router: Router
     ) {}
 

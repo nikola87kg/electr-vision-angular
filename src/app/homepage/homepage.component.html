@@ -94,7 +94,7 @@
                 <li class="category"
                     *ngFor="let cat of categoryList; let i = index"
                     (click)="goToCategory(cat.slug)">
-                    <span [ngClass]=" { 'small-text-category': windowSize === 'medium' }">
+                    <span [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
                         {{cat.name}}
                     </span>
                 </li>

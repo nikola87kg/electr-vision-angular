@@ -10,7 +10,7 @@ import { CategoriesService } from '../../_services/categories.service';
 /* Material */
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 
 /* Interfaces */
@@ -30,13 +30,13 @@ export class ProductsComponent implements OnInit {
         private categoryService: CategoriesService,
         private brandService: BrandsService,
         public snackBar: MatSnackBar,
-        public global: GlobalService
+        public sharedService: SharedService
     ) { }
 
     product: ProductModel;
     displayedColumns = ProductColumns;
 
-    windowSize;
+    screenSize;
     currentIndex: number;
     productList: Array<ProductModel> ;
     dataSource;
@@ -61,8 +61,8 @@ export class ProductsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getGroups();
         this.getBrands();

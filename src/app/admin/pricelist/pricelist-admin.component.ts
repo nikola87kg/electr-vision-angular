@@ -6,7 +6,7 @@ import { PricelistService } from '../../_services/pricelist.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 /* Interfaces */
@@ -23,14 +23,14 @@ export class PricelistAdminComponent implements OnInit {
     /* Constructor */
     constructor(
         private pricelistService: PricelistService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
 
     pricelist: PricelistModel;
     displayedColumns = PricelistColumns;
 
-    windowSize;
+    screenSize;
     pricelistList: Array<PricelistModel>;
     currentIndex: number;
     dataSource;
@@ -44,8 +44,8 @@ export class PricelistAdminComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getPricelists();
     }

@@ -6,7 +6,7 @@ import { GalleryService } from '../../_services/gallery.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 /* Interfaces */
@@ -23,14 +23,14 @@ export class GalleryAdminComponent implements OnInit {
     /* Constructor */
     constructor(
         private galleryService: GalleryService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
 
     gallery: GalleryModel;
     displayedColumns = GalleryColumns;
 
-    windowSize;
+    screenSize;
     galleryList: Array<GalleryModel>;
     currentIndex: number;
     dataSource;
@@ -51,8 +51,8 @@ export class GalleryAdminComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getGalleries();
     }

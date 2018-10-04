@@ -5,9 +5,9 @@ import { BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 
-export class GlobalService {
+export class SharedService {
     constructor() {}
 
-    windowSize = new BehaviorSubject('small');
+    screenSize = new BehaviorSubject('small');
 
 }

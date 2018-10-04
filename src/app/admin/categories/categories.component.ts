@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 /* Services */
 import { CategoriesService } from '../../_services/categories.service';
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 /* Interfaces */
@@ -19,14 +19,14 @@ export class CategoriesComponent implements OnInit {
     /* Constructor */
     constructor(
         private categoryService: CategoriesService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
 
     category: CategoryModel;
     displayedColumns = CategoryColumns;
 
-    windowSize: string;
+    screenSize: string;
     categoryList: Array<CategoryModel>;
     currentIndex: number;
     dataSource;
@@ -47,8 +47,8 @@ export class CategoriesComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getCategories();
     }

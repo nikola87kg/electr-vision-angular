@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { PricelistService } from '../../_services/pricelist.service';
 
 interface PricelistModel {
@@ -22,7 +22,7 @@ export class PricelistComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
         public pricelistService: PricelistService
     ) {}
@@ -30,14 +30,14 @@ export class PricelistComponent implements OnInit {
     pricelist: PricelistModel;
     displayedColumns = PricelistColumnsUser;
 
-    windowSize;
+    screenSize;
     pricelistList: Array<PricelistModel>;
     dataSource;
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getPricelists();
     }

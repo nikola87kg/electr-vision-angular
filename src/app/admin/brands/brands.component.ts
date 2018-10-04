@@ -6,7 +6,7 @@ import { BrandsService } from '../../_services/brands.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../../../node_modules/@angular/material';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 /* Interfaces */
@@ -23,14 +23,14 @@ export class BrandsComponent implements OnInit {
     /* Constructor */
     constructor(
         private brandService: BrandsService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
 
     brand: BrandModel;
     displayedColumns = BrandColumns;
 
-    windowSize;
+    screenSize;
     brandList: Array<BrandModel>;
     currentIndex: number;
     dataSource;
@@ -51,8 +51,8 @@ export class BrandsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getBrands();
     }

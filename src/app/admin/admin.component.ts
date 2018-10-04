@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/core';
-import { GlobalService } from '../_services/global.service';
+import { SharedService } from '../_services/shared.service';
 
 @Component({
   selector: 'px-admin',
@@ -10,25 +10,25 @@ import { GlobalService } from '../_services/global.service';
 export class AdminComponent implements OnInit {
 
     wideMenu = localStorage.getItem('sidebarOpen') || 'closed';
-    windowSize = null;
+    screenSize = null;
 
-    constructor( public global: GlobalService ) {}
+    constructor( public sharedService: SharedService ) {}
 
     ngOnInit() {
         this.checkWidth();
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
 
     @HostListener('window:resize', ['$event']) onResize(event) {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
-            this.windowSize = 'large';
+            this.screenSize = 'large';
         } else if (innerWidth > 768) {
-            this.windowSize = 'medium';
+            this.screenSize = 'medium';
         } else {
-            this.windowSize = 'small';
+            this.screenSize = 'small';
         }
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
 
     togleMenu() {
@@ -45,13 +45,13 @@ export class AdminComponent implements OnInit {
     checkWidth() {
         const innerWidth = window.innerWidth;
         if (innerWidth > 1028) {
-            this.windowSize = 'large';
+            this.screenSize = 'large';
         } else if (innerWidth > 768) {
-            this.windowSize = 'medium';
+            this.screenSize = 'medium';
         } else {
-            this.windowSize = 'small';
+            this.screenSize = 'small';
         }
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
 
 }

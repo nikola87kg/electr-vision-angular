@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { BrandsService } from '../_services/brands.service';
 import { CategoriesService } from '../_services/categories.service';
 import { ProductsService } from '../_services/products.service';
-import { GlobalService } from '../_services/global.service';
+import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
 
 @Component({
@@ -41,7 +41,7 @@ export class HomepageComponent implements OnInit {
     brandList = [];
     categoryList = [];
     navItemsVisible = false;
-    windowSize;
+    screenSize;
     currentSlider = 1;
     firstSlideOn = true;
     maxItems = 4;
@@ -67,17 +67,17 @@ export class HomepageComponent implements OnInit {
         private brandService: BrandsService,
         private categoryService: CategoriesService,
         private productService: ProductsService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         private router: Router) { }
 
     ngOnInit() {
         this.getBrands();
         this.getCategories();
         this.getProducts();
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
-        if(this.windowSize === "large") {
+        if(this.screenSize === "large") {
             this.maxItems = 3;
         } else {
             this.maxItems = 4;
@@ -94,18 +94,18 @@ export class HomepageComponent implements OnInit {
     @HostListener('window:resize', ['$event']) onResize(event) {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
-            this.windowSize = 'large';
+            this.screenSize = 'large';
         } else if (innerWidth > 768) {
-            this.windowSize = 'medium';
+            this.screenSize = 'medium';
         } else {
-            this.windowSize = 'small';
+            this.screenSize = 'small';
         }
-        if(this.windowSize === "large") {
+        if(this.screenSize === "large") {
             this.maxItems = 3;
         } else {
             this.maxItems = 4;
         }
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
     
     /* Carousel */

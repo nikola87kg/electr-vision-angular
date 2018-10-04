@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { ProductsService } from '../../_services/products.service';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     constructor(
         private productService: ProductsService,
         private router: Router,
-        public global: GlobalService
+        public sharedService: SharedService
     ) {}
 
     showResult = false;
@@ -26,23 +26,23 @@ export class HeaderComponent implements OnInit {
     searchInput = new FormControl();
     options = [];
     filteredOptions: Observable<any[]>;
-    windowSize = null;
+    screenSize = null;
 
     @HostListener('window:resize', ['$event']) onResize(event) {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
-            this.windowSize = 'large';
+            this.screenSize = 'large';
         } else if (innerWidth > 768) {
-            this.windowSize = 'medium';
+            this.screenSize = 'medium';
         } else {
-            this.windowSize = 'small';
+            this.screenSize = 'small';
         }
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
 
     ngOnInit() {
         this.checkWidth();
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
         this.getAllProuducts();
         setTimeout(() => {
             this.filteredOptions = this.searchInput.valueChanges.pipe(
@@ -76,12 +76,12 @@ export class HeaderComponent implements OnInit {
     checkWidth() {
         const innerWidth = window.innerWidth;
         if (innerWidth > 1028) {
-            this.windowSize = 'large';
+            this.screenSize = 'large';
         } else if (innerWidth > 768) {
-            this.windowSize = 'medium';
+            this.screenSize = 'medium';
         } else {
-            this.windowSize = 'small';
+            this.screenSize = 'small';
         }
-        this.global.windowSize.next(this.windowSize);
+        this.sharedService.screenSize.next(this.screenSize);
     }
 }

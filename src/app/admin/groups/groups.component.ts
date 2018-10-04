@@ -8,7 +8,7 @@ import { CategoriesService } from '../../_services/categories.service';
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { GlobalService } from '../../_services/global.service';
+import { SharedService } from '../../_services/shared.service';
 
 /* Interfaces */
 import { GroupModel, GroupColumns, CategoryModel } from '../admin.interfaces';
@@ -24,14 +24,14 @@ export class GroupsComponent implements OnInit {
     constructor(
         private groupService: GroupsService,
         private categoryService: CategoriesService,
-        public global: GlobalService,
+        public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
 
     subcategory: GroupModel;
     displayedColumns = GroupColumns;
 
-    windowSize;
+    screenSize;
     groupList: Array<GroupModel>;
     categoryList: Array<CategoryModel>;
     currentIndex: number;
@@ -54,8 +54,8 @@ export class GroupsComponent implements OnInit {
 
     /* INIT */
     ngOnInit() {
-        this.global.windowSize.subscribe(
-            (result => this.windowSize = result)
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
         );
         this.getGroups();
         this.getCategories();
