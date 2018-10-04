@@ -17,15 +17,15 @@ import { ProductsAllComponent } from './pages/products-all/products-all.componen
 import { AdminGuard } from './admin/admin.guard';
 
 const routes: Routes = [
-    { path: 'pocetna',              component: HomepageComponent },
-    { path: 'kontakt',              component: ContactComponent },
-    { path: 'galerija',             component: GalleryComponent },
-    { path: 'cenovnik',             component: PricelistComponent },
-    { path: 'proizvod/:slug',       component: ProductPageComponent },
-    { path: 'brend/:slug',          component: BrandPageComponent },
-    { path: 'potkategorija/:slug',  component: GroupPageComponent },
-    { path: 'kategorija/:slug',     component: CategoryPageComponent },
-    { path: 'kategorije',           component: ProductsAllComponent },
+    { path: 'pocetna', component: HomepageComponent, data: { title: 'Početna stranica' } },
+    { path: 'kontakt', component: ContactComponent, data: { title: 'Kontakt podaci' } },
+    { path: 'galerija', component: GalleryComponent, data: { title: 'Galerija slika' } },
+    { path: 'cenovnik', component: PricelistComponent, data: { title: 'Cenovnik usluga' } },
+    { path: 'proizvod/:slug', component: ProductPageComponent },
+    { path: 'brend/:slug', component: BrandPageComponent },
+    { path: 'potkategorija/:slug', component: GroupPageComponent },
+    { path: 'kategorija/:slug', component: CategoryPageComponent },
+    { path: 'kategorije', component: ProductsAllComponent, data: { title: 'Kategorije proizvoda' } },
     { path: 'admin',                canActivate: [ AdminGuard ], loadChildren: './admin/admin.module#AdminModule' },
     { path: '',                     redirectTo: '/pocetna', pathMatch: 'full' },
     { path: '**',                   redirectTo: '/pocetna', }
