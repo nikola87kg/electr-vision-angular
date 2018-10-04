@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavigationMenuComponent implements OnInit {
     navItemsVisible = false;
-    actualWidth = window.innerWidth;
+    actualWidth = Math.min(window.innerWidth, screen.width);
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },

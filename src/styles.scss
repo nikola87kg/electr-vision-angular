@@ -6,13 +6,16 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 /**** BASIC ELEMENTS ****/
 
-html, body { height: 100%; }
+html, body {
+    height: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
 
 body {
     padding: 0;
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
 }
 
 a {

@@ -2,6 +2,7 @@
 
     <!-- Slider Banner -->
     <mat-grid-list cols="1" class="slider">
+
         <!-- Social icons -->
         <div class="header-icons">
             <a class="facebook" href="https://www.facebook.com/mihajlo.jeremic" target="_blank">
@@ -17,6 +18,7 @@
                 <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
             </a>
         </div>
+
         <!-- Carousel -->
         <div class="px-carousel" >
             <ng-container> <!-- first banner -->
@@ -59,9 +61,9 @@
                 </h4>
                 <!-- list -->
                 <div class="row">
-                    <ng-container *ngFor="let prod of productList | slice:0:3; let i = index ">
+                    <ng-container *ngFor="let prod of productList | slice:0:maxItems; let i = index ">
                         <div
-                            class="col-sm-12 col-md-6 col-lg-6 col-xl-4 top-product-box"
+                            class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 top-product-box"
                             *ngIf="prod.vip"
                             (click)="goToProduct(prod.slug)"
                             (pxMiddleClick)="goToProduct(prod.slug, true)" >

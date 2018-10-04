@@ -1,5 +1,5 @@
 /* Angular */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 /* Services */
@@ -44,6 +44,7 @@ export class HomepageComponent implements OnInit {
     windowSize;
     currentSlider = 1;
     firstSlideOn = true;
+    maxItems = 4;
     banners = [
         {
             title: 'Ugradnja kamera',
@@ -76,6 +77,11 @@ export class HomepageComponent implements OnInit {
         this.global.windowSize.subscribe(
             (result => this.windowSize = result)
         );
+        if(this.windowSize === "large") {
+            this.maxItems = 3;
+        } else {
+            this.maxItems = 4;
+        }
         setInterval( () => {
             this.rollSlides();
         }, 5000 );
@@ -84,6 +90,24 @@ export class HomepageComponent implements OnInit {
         }, 2200 );
     }
 
+
+    @HostListener('window:resize', ['$event']) onResize(event) {
+        const innerWidth = event.target.innerWidth;
+        if (innerWidth > 1028) {
+            this.windowSize = 'large';
+        } else if (innerWidth > 768) {
+            this.windowSize = 'medium';
+        } else {
+            this.windowSize = 'small';
+        }
+        if(this.windowSize === "large") {
+            this.maxItems = 3;
+        } else {
+            this.maxItems = 4;
+        }
+        this.global.windowSize.next(this.windowSize);
+    }
+    
     /* Carousel */
     rollSlides() {
         const sliderIndex = this.currentSlider;
