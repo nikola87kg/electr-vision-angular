@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
     constructor(private router: Router, private title: Title , private route:ActivatedRoute) {
         router.events.pipe(
-            .filter(e => e instanceof NavigationEnd)
+            filter(e => e instanceof NavigationEnd)
         )
         .forEach(e => {
             let titleData = route.root.firstChild.snapshot.data['title']
