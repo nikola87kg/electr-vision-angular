@@ -1,12 +1,14 @@
 <div id="group-page" style="position: relative;">
 
-        <!-- Background -->
-        <div class="group-background">
-            <h1>{{group?.name}}</h1>
-        </div>
-
         <!-- Navigation -->
         <px-navigation-menu></px-navigation-menu>
+
+        <!-- Toolbar -->
+        <mat-toolbar color="accent">
+            <span class="toolbar-title">
+                Potkategorija: {{group.name}}
+            </span>
+        </mat-toolbar>
 
         <!-- Category products -->
         <div class="row">
@@ -17,13 +19,29 @@
             <div class="category-info col-sm-12 col-md-7 col-lg-8 ">
                 <div class="group-products">
                     <br>
+
+                    <!-- Cards -->
                     <div
-                        *ngFor="let product of productList; let i = index"
-                        class="product-single"
-                        [ngStyle]="{'background': 'url(' + product.image + ') center/contain no-repeat '}"
-                        (click)="goToProduct(product.slug)">
-                        <h3 [innerHtml]="product.name"></h3>
+                        class="cards"
+                        [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
+                        <mat-card
+                            *ngFor="let product of productList; let i = index"
+                            (click)="goToProduct(product.slug)">
+                            <!-- Title -->
+                            <mat-card-title>  {{ product.name }} </mat-card-title>
+                            <!-- Image -->
+                            <div class="image-wrapper">
+                                <img mat-card-image [src]="product.image">
+                            </div>
+                            <br>
+                            <!-- Button -->
+                            <mat-card-actions>
+                                <button mat-raised-button color="accent">Izaberi</button>
+                            </mat-card-actions>
+                        </mat-card>
                     </div>
+
+                    <!-- No products -->
                     <p class="no-results" *ngIf="productList.length === 0">
                         Nema ubačenih proizvoda za ovu kategoriju
                     </p>

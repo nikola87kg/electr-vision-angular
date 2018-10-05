@@ -3,6 +3,7 @@ import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../_services/shared.service';
 
 @Component({
     selector: 'px-products-all',
@@ -11,19 +12,22 @@ import { Router } from '@angular/router';
 })
 export class ProductsAllComponent implements OnInit {
     headline: string;
-    isLoaded: Boolean;
+    isLoaded: boolean;
     currentLevel: number;
     currentList: Array<any>;
     categoryList: Array<any>;
     lastCategory: any;
     lastGroup: any;
-    selectedItemName = 'Sve kategorije';
+    screenSize: string;
+    selectedItemName: string = 'Sve kategorije';
     selectedCategory = {};
+    backButtontext: string = 'Nazad';
 
     constructor(
         public productService: ProductsService,
         public groupService: GroupsService,
         public categorytService: CategoriesService,
+        public sharedService: SharedService,
         private router: Router
     ) {}
 
@@ -31,6 +35,9 @@ export class ProductsAllComponent implements OnInit {
         this.currentLevel = 1;
         this.headline = 'Kategorije proizvoda';
         this.getCategories();
+        this.sharedService.screenSize.subscribe(
+            (result => this.screenSize = result)
+        );
     }
 
     onLoadCompleted() {

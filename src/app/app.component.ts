@@ -16,12 +16,12 @@ export class AppComponent implements OnInit {
         )
         .forEach(e => {
             let titleData = route.root.firstChild.snapshot.data['title']
-            if(!titleData) {
-                const arrayURL = this.router.url.split('/');
-                const lastItemURL = arrayURL[arrayURL.length - 1];
-                titleData = lastItemURL;
+            if(titleData) {
+                title.setTitle(titleData + ' | Electrovision Kragujevac');
+                // const arrayURL = this.router.url.split('/');
+                // const lastItemURL = arrayURL[arrayURL.length - 1];
+                // titleData = lastItemURL;
             }
-            title.setTitle(titleData + ' | Electrovision Kragujevac');
         });
     }
 

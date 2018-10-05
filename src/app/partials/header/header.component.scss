@@ -38,10 +38,10 @@ form.searchbox {
     bottom: 0;
     .mat-form-field {
         font-size: 20px;
-        line-height: 20px;
+        line-height: 28px;
         @media screen and (max-width: 768px) {
             font-size: 16px;
-            line-height: 16px;
+            line-height: 20px;
             margin-top: 12px;
             width: 140px;
         }

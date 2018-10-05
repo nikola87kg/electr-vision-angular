@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ProductsService } from '../../_services/products.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-product-page',
@@ -30,7 +31,8 @@ export class ProductPageComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private productService: ProductsService,
-        private router: Router
+        private router: Router,
+        private title: Title
     ) {
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -69,6 +71,7 @@ export class ProductPageComponent implements OnInit {
         });
         this.productService.getBySlug(slug).subscribe(response => {
             this.product = response.object;
+            this.title.setTitle(this.product.name + ' | ElectroVision Kragujevac');
         });
     }
 

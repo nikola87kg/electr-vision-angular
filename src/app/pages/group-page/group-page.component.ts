@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationEnd, Params } from '@angular/router';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { ProductsService } from '../../_services/products.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'px-group-page',
@@ -25,7 +26,8 @@ export class GroupPageComponent implements OnInit {
         private categoryService: CategoriesService,
         private groupService: GroupsService,
         private router: Router,
-        private productService: ProductsService
+        private productService: ProductsService,
+        private title: Title
     ) {
     this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
@@ -51,6 +53,7 @@ export class GroupPageComponent implements OnInit {
         });
         this.groupService.getBySlug(slug).subscribe(response => {
             this.group = response.object;
+            this.title.setTitle(this.group.name + ' | ElectroVision Kragujevac');
         });
     }
 

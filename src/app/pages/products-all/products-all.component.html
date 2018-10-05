@@ -18,12 +18,12 @@
         mat-stroked-button
         (click)="OnLevelChange(-1);">
         <mat-icon>arrow_back_ios</mat-icon>
-        Vrati se nazad
+        {{ backButtontext }}
     </button>
 </mat-toolbar>
 
 <!-- Stepper -->
-<div class="step-buttons">
+<div class="step-buttons" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
     <button
         mat-raised-button
         [color]=" currentLevel === 1 ? 'primary' : '' "
@@ -61,19 +61,21 @@
 </mat-form-field>
 
 <!-- Cards -->
-<mat-card
-    (click)="OnLevelChange(1, item);"
-    *ngFor="let item of currentList">
-    <!-- Title -->
-    <mat-card-title>  {{ item.name }} </mat-card-title>
-    <!-- Image -->
-    <div class="image-wrapper">
-        <img mat-card-image [src]="item.image">
-    </div>
-    <br>
-    <!-- Button -->
-    <mat-card-actions>
-        <button mat-raised-button color="accent">Izaberi</button>
-    </mat-card-actions>
-</mat-card>
+<div class="cards" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
+    <mat-card
+        (click)="OnLevelChange(1, item);"
+        *ngFor="let item of currentList">
+        <!-- Title -->
+        <mat-card-title>  {{ item.name }} </mat-card-title>
+        <!-- Image -->
+        <div class="image-wrapper">
+            <img mat-card-image [src]="item.image">
+        </div>
+        <br>
+        <!-- Button -->
+        <mat-card-actions>
+            <button mat-raised-button color="accent">Izaberi</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
 

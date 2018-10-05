@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationEnd, Params } from '@angular/router';
 import { ProductsService } from '../../_services/products.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'px-category-page',
@@ -11,6 +12,7 @@ import { GroupsService } from '../../_services/groups.service';
 })
 export class CategoryPageComponent implements OnInit {
     category = {
+        _id: '',
         name: '',
         description: '',
         image: ''
@@ -25,13 +27,15 @@ export class CategoryPageComponent implements OnInit {
         private categoryService: CategoriesService,
         private groupService: GroupsService,
         private router: Router,
-        private productService: ProductsService
+        private productService: ProductsService,
+        private title: Title
     ) {
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.getCategory();
                 this.getProducts();
                 this.getGroups();
+                this.getCategories()
             }
         });
     }
@@ -41,6 +45,7 @@ export class CategoryPageComponent implements OnInit {
         this.getCategories();
         this.getProducts();
         this.getGroups();
+        this.title.setTitle('test | Electrovision Kragujevac');
     }
 
     /* Get category */
@@ -51,6 +56,7 @@ export class CategoryPageComponent implements OnInit {
         });
         this.categoryService.getBySlug(slug).subscribe(response => {
             this.category = response.object;
+            this.title.setTitle(this.category.name + ' | ElectroVision Kragujevac');
         });
     }
 
@@ -66,7 +72,8 @@ export class CategoryPageComponent implements OnInit {
     /* Get categories */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
+            let catList = response.object.filter(cat => cat._id !== this.category._id);
+            this.categoryList = catList;
         });
     }
 

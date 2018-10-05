@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BrandsService } from '../../_services/brands.service';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { ProductsService } from '../../_services/products.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-brand-page',
@@ -21,7 +22,8 @@ export class BrandPageComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private brandService: BrandsService,
         private router: Router,
-        private productService: ProductsService
+        private productService: ProductsService,
+        private title: Title
     ) {
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -44,6 +46,7 @@ export class BrandPageComponent implements OnInit {
         });
         this.brandService.getBySlug(slug).subscribe(response => {
             this.brand = response.object;
+            this.title.setTitle(this.brand.name + ' | ElectroVision Kragujevac');
         });
     }
 
