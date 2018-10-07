@@ -15,8 +15,8 @@ export interface ProductModel {
 
 export const ProductColumns = [
     'position',
-    'image',
     'name',
+    'image',
     'vip',
     'category',
     'group',

@@ -3,7 +3,7 @@
 <mat-toolbar class="row">
     <!-- Page title -->
     <div class="col-sm-12 col-lg-6">
-        Lista proizvoda
+        Lista proizvoda ({{ productList?.length || 0 }})
         <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
             <mat-icon>add</mat-icon>
             <span class="button-title">Dodaj proizvod</span>
@@ -62,24 +62,39 @@
         <!-- Position Column Setup -->
         <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef>
-                <b>{{ productList?.length || 0 }}</b>
             </th>
             <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
-        </ng-container>
-
-        <!-- Image Column Setup -->
-        <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef> Slika </th>
-            <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
-                <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
-                <img *ngIf="!item.image" src="./assets/logo/EV.svg">
-            </td>
         </ng-container>
 
         <!-- Name Column Setup -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
-            <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+            <td mat-cell *matCellDef="let item"> 
+                <button
+                    mat-raised-button
+                    class="name-button"
+                    color="primary"
+                    type="button"
+                    (click)="openDialog(true, item, i)">{{ item.name }}
+                </button>
+            </td>
+        </ng-container>
+
+
+        <!-- Image Column Setup -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Slika </th>
+            <td mat-cell *matCellDef="let item, let i = index" >
+                <!-- <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
+                <img *ngIf="!item.image" src="./assets/logo/EV.svg"> -->
+            <button
+                mat-raised-button
+                color="accent"
+                class="photo-button"
+                type="button"
+                (click)="openImageDialog($event, i)">Foto
+            </button>
+            </td>
         </ng-container>
 
         <!-- Slug Column Setup -->
@@ -100,7 +115,9 @@
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef> Opis </th>
             <td mat-cell *matCellDef="let item">
-                <span style="white-space: pre-wrap;">{{ item.description }} </span>
+                <span style="white-space: pre-wrap;">
+                    {{ item.description }} 
+                </span>
             </td>
         </ng-container>
 
@@ -132,9 +149,7 @@
 
         <!-- rows -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
-        <tr mat-row
-            *matRowDef="let row; let i = index;columns: displayedColumns;"
-            (click)="openDialog(true, row, i)">
+        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;">
         </tr>
     </table>
 </div>
@@ -175,8 +190,15 @@
         <!-- Description -->
         <mat-form-field>
             <textarea
-                matInput [(ngModel)]="product.description" placeholder="Opis proizvoda" name="description"
-                type="text" autocomplete="off" required></textarea>
+                matInput 
+                [(ngModel)]="product.description" 
+                placeholder="Opis proizvoda" 
+                name="description"
+                type="text" 
+                rows="5"
+                autocomplete="off" 
+                required>
+            </textarea>
         </mat-form-field>
 
         <!-- Category -->

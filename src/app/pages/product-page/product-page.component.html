@@ -13,15 +13,18 @@
         <img src="{{product.image}}">
     </div>
     <div class="product-info col-sm-12 col-md-6 col-lg-7">
-        <h1>{{product.name}} </h1>
-        <h5>
+        <!-- Product name -->
+        <h1 class="product-name">{{product.name}} </h1>
+        <!-- breadcrumb -->
+        <h5 class="breadcrumb">
             <span (click)="goToCategory(product.category.slug)"> {{product.category.name | lowercase}} </span>
             <i class="fa fa-chevron-right" ></i>
             <span (click)="goToGroup(product.group.slug)"> {{product.group.name | lowercase}} </span>
             <i class="fa fa-chevron-right" ></i>
             <span (click)="goToBrand(product.brand.slug)"> {{product.brand.name}} </span>
         </h5>
-        <h4>"{{product.description}}" </h4>
+        <!-- description -->
+        <h4 class="description"> {{product.description}} </h4>
     </div>
 </div>
 <br>

@@ -15,7 +15,7 @@
         <mat-form-field>
             <input
                 type="text"
-                placeholder="Pretraga"
+                placeholder="Pretraga proizvoda"
                 matInput
                 [formControl]="searchInput"
                 (keyup.enter)="goToProduct(searchInput.value)"
@@ -25,9 +25,9 @@
                 #auto="matAutocomplete">
                 <mat-option
                     *ngFor="let option of filteredOptions | async"
-                    (click)="goToProduct(option)"
-                    [value]="option">
-                    {{option}}
+                    (click)="goToProduct(option.slug)"
+                    [value]="option.name">
+                    {{option.name}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>

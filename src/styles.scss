@@ -150,6 +150,52 @@ select {
   }
 }
 
+/* Mat cards */
 
-// material themes: indigo-pink, deeppurple-amber, pink-bluegrey, purple-green
+/* cards */
+
+.mat-card.mat-card.mat-card {
+    display: inline-block;
+    width: 350px;
+    height: 300px;
+    margin: 15px;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.mat-card .mat-card-title.mat-card-title {
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10px;
+    font-size: 20px;
+    font-weight: 400;
+    height: 60px;
+}
+
+mat-card .image-wrapper {
+    height: 150px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .mat-card-image {
+        max-width: 200px;
+        max-height: 130px;
+    }
+}
+
+.mat-card .mat-card-actions.mat-card-actions {
+    float: right;
+    margin-top: -20px;
+}
+
+mat-form-field {
+    margin-left: 10px;
+    display: block;
+    width: 200px;
+}
+
 

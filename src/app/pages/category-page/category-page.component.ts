@@ -21,6 +21,7 @@ export class CategoryPageComponent implements OnInit {
     categoryList = [];
     groupList = [];
     productList = [];
+    screenSize: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,

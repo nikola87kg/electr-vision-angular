@@ -10,13 +10,13 @@
 .product-info {
     color: gray;
     padding: 10px 20px;
-    h1 {
+    h1.product-name {
         padding: 10px;
-        border-bottom: 2px solid $px-material-accent;
+        margin-top: 5px;
         font-size: 30px;
         color: $px-material-accent;
     }
-    h5 {
+    h5.breadcrumb {
         color: $px-material-primary;
         padding: 10px;
         span {
@@ -24,7 +24,7 @@
             font-size: 16px;
             display: inline-block;
             padding: 2px;
-            border-bottom: 1px solid white;
+            border-bottom: 1px solid #E9ECEF;
             &:hover {
                 border-bottom: 1px solid black;
                 color: gray;
@@ -39,10 +39,13 @@
             margin-left: 10px;
         }
     }
-    h4 {
-        font-style: italic;
+    h4.description {
+        font-weight: 400;
         padding: 10px;
         font-size: 20px;
+        color: black;
+        white-space: pre-line;
+
     }
 }
 

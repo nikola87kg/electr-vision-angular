@@ -20,6 +20,7 @@ export class GroupPageComponent implements OnInit {
     categoryList = [];
     groupList = [];
     productList = [];
+    screenSize: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,

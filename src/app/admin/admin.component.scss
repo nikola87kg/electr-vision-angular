@@ -85,17 +85,8 @@ table.full-screen {
         &:hover { background: rgb(245, 245, 245); }
         img { height: 20px; }
     }
-    b {
-        background: $px-material-primary;
-        font-weight: normal;
-        color: white;
-        padding: 5px;
-        border-radius: 10%;
-        font-size: 12px;
-        text-align: center;
-        min-width: 30px;
-        margin-left: -10px;
-        display: inline-block;
+    th, td {
+        padding-left: 10px;
     }
 }
 
@@ -134,7 +125,6 @@ mat-toolbar {
         padding: 5px  !important;
     }
 }
-
 
 mat-button-toggle {
     border-right: 1px solid #e7e7e7 !important;

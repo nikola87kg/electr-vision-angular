@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit {
 
     searchInput = new FormControl();
     options = [];
+    products = [];
     filteredOptions: Observable<any[]>;
     screenSize = null;
 
@@ -43,7 +44,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
-        this.getAllProuducts();
+        this.getAllProducts();
         setTimeout(() => {
             this.filteredOptions = this.searchInput.valueChanges.pipe(
                 startWith(''),
@@ -53,18 +54,15 @@ export class HeaderComponent implements OnInit {
     }
 
     private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
+        const lcValue = value.toLowerCase();
         return this.options.filter(
-            option => option.toLowerCase().indexOf(filterValue) === 0
+            option => option.name.toLowerCase().indexOf(lcValue) === 0
         );
     }
 
-    getAllProuducts() {
+    getAllProducts() {
         this.productService.get().subscribe( (result) => {
-            this.options = result.object.map(
-                object => object.slug
-            );
-
+            this.options = result.object
         });
     }
 

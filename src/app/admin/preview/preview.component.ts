@@ -16,7 +16,7 @@ export class PreviewComponent implements OnInit {
     brandList = [];
     groupList = [];
     categoryList = [];
-    displayedColumns: string[] = ['name', 'created'];
+    displayedColumns: string[] = ['name' ];
 
     constructor(
         private brandService: BrandsService,
