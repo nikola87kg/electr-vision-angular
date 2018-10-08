@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GalleryService } from '../../_services/gallery.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-gallery',
@@ -16,7 +17,9 @@ export class GalleryComponent implements OnInit {
     filteredArray = [];
     galleryList = [];
 
-    constructor(private galleryService: GalleryService) {}
+    constructor( public title: Title, private galleryService: GalleryService) {
+        title.setTitle('Galerija slika | ElectroVision Kragujevac');
+    }
 
     ngOnInit() {
         this.galleryService.get().subscribe( (response) => {

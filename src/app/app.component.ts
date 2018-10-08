@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 
@@ -10,19 +10,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private router: Router, private title: Title , private route:ActivatedRoute) {
-        router.events.pipe(
-            filter(e => e instanceof NavigationEnd)
-        )
-        .forEach(e => {
-            let titleData = route.root.firstChild.snapshot.data['title']
-            if(titleData) {
-                title.setTitle(titleData + ' | Electrovision Kragujevac');
-                // const arrayURL = this.router.url.split('/');
-                // const lastItemURL = arrayURL[arrayURL.length - 1];
-                // titleData = lastItemURL;
-            }
-        });
+    constructor(private router: Router, ) {
     }
 
     isAdminPanel = false;

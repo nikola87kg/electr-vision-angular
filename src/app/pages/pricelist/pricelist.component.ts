@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { PricelistService } from '../../_services/pricelist.service';
+import { Title } from '@angular/platform-browser';
 
 interface PricelistModel {
     _id: string;
@@ -20,12 +21,13 @@ export const PricelistColumnsUser = [ 'position', 'name', 'description', 'price'
 
 export class PricelistComponent implements OnInit {
 
-    /* Constructor */
-    constructor(
+    constructor( public title: Title,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
         public pricelistService: PricelistService
-    ) {}
+    ) {
+        title.setTitle('Cenovnik proizvoda i usluga | ElectroVision Kragujevac');
+    }
 
     pricelist: PricelistModel;
     displayedColumns = PricelistColumnsUser;

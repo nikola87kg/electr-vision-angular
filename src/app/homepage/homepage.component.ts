@@ -8,6 +8,7 @@ import { CategoriesService } from '../_services/categories.service';
 import { ProductsService } from '../_services/products.service';
 import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-homepage',
@@ -68,7 +69,10 @@ export class HomepageComponent implements OnInit {
         private categoryService: CategoriesService,
         private productService: ProductsService,
         public sharedService: SharedService,
-        private router: Router) { }
+        public title: Title,
+        private router: Router) { 
+            title.setTitle('ElectroVision Kragujevac');
+        }
 
     ngOnInit() {
         this.getBrands();

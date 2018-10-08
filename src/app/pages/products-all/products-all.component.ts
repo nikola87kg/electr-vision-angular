@@ -4,6 +4,7 @@ import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../_services/shared.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-products-all',
@@ -28,8 +29,11 @@ export class ProductsAllComponent implements OnInit {
         public groupService: GroupsService,
         public categorytService: CategoriesService,
         public sharedService: SharedService,
-        private router: Router
-    ) {}
+        private router: Router,
+        public title: Title
+    ) {
+        title.setTitle('Proizvodi | ElectroVision Kragujevac');
+    }
 
     ngOnInit() {
         this.currentLevel = 1;

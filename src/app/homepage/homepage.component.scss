@@ -168,6 +168,9 @@
             margin-top: 20px;
             font-size: 15px;
             padding-bottom: 5px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
         h6 {
             font-size: 13px;

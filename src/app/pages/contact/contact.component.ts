@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-contact',
@@ -19,7 +20,9 @@ export class ContactComponent implements OnInit {
         {key: 'Matični broj', value: 'XXXXXXXXXXXXXXXX'},
     ];
 
-    constructor() {}
+    constructor( public title: Title) {
+        title.setTitle('Kontakt informacije | ElectroVision Kragujevac');
+    }
 
     ngOnInit() {}
 
