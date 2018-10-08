@@ -1,6 +1,7 @@
 <!-- TOOLBAR  -->
 
 <mat-toolbar class="row">
+
     <!-- Page title -->
     <div class="col-sm-12 col-lg-6">
         Lista proizvoda ({{ productList?.length || 0 }})
@@ -9,6 +10,7 @@
             <span class="button-title">Dodaj proizvod</span>
         </button>
     </div>
+
     <!-- Filter -->
     <div class="col-sm-12 col-lg-6">
         <form class="select-filter">
@@ -54,11 +56,13 @@
             </mat-form-field>
         </form>
     </div>
+
 </mat-toolbar>
 
 <!-- TABLE -->
 <div class="table-wrapper">
     <table mat-table matSort [dataSource]="dataSource" class="full-screen"  >
+
         <!-- Position Column Setup -->
         <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef>
@@ -69,17 +73,20 @@
         <!-- Name Column Setup -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
-            <td mat-cell *matCellDef="let item"> 
+            <td mat-cell *matCellDef="let item" (click)="openDialog(true, item, i)">
                 <button
                     mat-raised-button
                     class="name-button"
                     color="primary"
                     type="button"
-                    (click)="openDialog(true, item, i)">{{ item.name }}
+                    > 
+                    <i class="fa fa-edit"></i>
                 </button>
+                <span class="name-text">
+                    {{ item.name }}
+                </span>
             </td>
         </ng-container>
-
 
         <!-- Image Column Setup -->
         <ng-container matColumnDef="image">
@@ -88,7 +95,7 @@
                 <!-- <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
                 <img *ngIf="!item.image" src="./assets/logo/EV.svg"> -->
             <button
-                mat-raised-button
+                mat-stroked-button
                 color="accent"
                 class="photo-button"
                 type="button"
@@ -111,16 +118,6 @@
             </td>
         </ng-container>
 
-        <!-- Description Column Setup -->
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Opis </th>
-            <td mat-cell *matCellDef="let item">
-                <span style="white-space: pre-wrap;">
-                    {{ item.description }} 
-                </span>
-            </td>
-        </ng-container>
-
         <!-- Category Column Setup -->
         <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Kategorija </th>
@@ -137,6 +134,16 @@
         <ng-container matColumnDef="brand">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Brend </th>
             <td mat-cell *matCellDef="let item"> {{ item.brand.name }} </td>
+        </ng-container>
+
+        <!-- Description Column Setup -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Opis </th>
+            <td mat-cell *matCellDef="let item">
+                <span style="white-space: pre-wrap;">
+                    {{ item.description }} 
+                </span>
+            </td>
         </ng-container>
 
         <!-- Created At Column Steup -->
@@ -187,20 +194,6 @@
                 autocomplete="off" required>
         </mat-form-field>
 
-        <!-- Description -->
-        <mat-form-field>
-            <textarea
-                matInput 
-                [(ngModel)]="product.description" 
-                placeholder="Opis proizvoda" 
-                name="description"
-                type="text" 
-                rows="5"
-                autocomplete="off" 
-                required>
-            </textarea>
-        </mat-form-field>
-
         <!-- Category -->
         <mat-form-field>
             <mat-select [(ngModel)]="product.category._id" name="category" placeholder="Kategorija" required>
@@ -232,6 +225,21 @@
         <mat-checkbox [(ngModel)]="product.vip" color="primary" name="vip" >
             Na naslovnoj strani
         </mat-checkbox>
+
+
+        <!-- Description -->
+        <mat-form-field>
+            <textarea
+                matInput 
+                [(ngModel)]="product.description" 
+                placeholder="Opis proizvoda" 
+                name="description"
+                type="text" 
+                rows="3"
+                autocomplete="off" 
+                required>
+            </textarea>
+        </mat-form-field>
 
         <br>
         <br>
