@@ -12,6 +12,9 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 /* Interfaces */
 import { BrandModel, BrandColumns } from '../admin.interfaces';
 
+/* 3rd party */
+import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+
 /* Decorator */
 @Component({
     selector: 'px-brands',
@@ -108,8 +111,17 @@ export class BrandsComponent implements OnInit {
         };
     }
 
+    fixSlug(text: string) {
+        const options = { maintainCase: false, separator: '-' };
+        const mySlug = slugify.createSlug(options);
+        const slug = mySlug(text);
+        return slug;
+    }
+
     /* Add new brand */
     postBrand(brand, event) {
+        const fixedSlug = this.fixSlug(brand.slug);
+        brand.slug = fixedSlug;
         this.brandService.post(brand).subscribe(
             (response) => {
                 this.closeDialog(event);
@@ -124,6 +136,8 @@ export class BrandsComponent implements OnInit {
 
     /* Update brand */
     putBrand(brand, event) {
+        const fixedSlug = this.fixSlug(brand.slug);
+        brand.slug = fixedSlug;
         this.brandService.put(brand._id, brand).subscribe(
             (data) => {
                 this.closeDialog(event);

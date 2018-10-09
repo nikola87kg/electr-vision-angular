@@ -11,6 +11,8 @@ import { CategoriesService } from '../../_services/categories.service';
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SharedService } from '../../_services/shared.service';
+
+/* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 
 /* Interfaces */

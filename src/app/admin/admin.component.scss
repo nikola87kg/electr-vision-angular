@@ -139,7 +139,7 @@ mat-paginator {
 }
 
 .mat-column-image {
-    width: 180px;
+    width: 100px;
 }
 
 .mat-column-created {
@@ -172,11 +172,6 @@ td.mat-column-vip.mat-column-vip {
     }
 }
 
-.name-button.name-button {
-    display: inline-block;
-    min-width: 30px;
-}
-
 span.name-text {
     text-overflow: ellipsis;
     display: inline-block;
@@ -190,4 +185,17 @@ span.name-text {
     @media (max-width:768px) {
         width: 120px;
     }
+}
+
+.edit-on-hover {
+    color: $px-material-primary;
+    display: none;
+    i {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+.mat-column-name:hover .edit-on-hover {
+    display: inline;
 }

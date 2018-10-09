@@ -13,6 +13,9 @@ import { SharedService } from '../../_services/shared.service';
 /* Interfaces */
 import { GroupModel, GroupColumns, CategoryModel } from '../admin.interfaces';
 
+/* 3rd party */
+import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+
 @Component({
     selector: 'px-groups',
     templateUrl: './groups.component.html'
@@ -59,6 +62,13 @@ export class GroupsComponent implements OnInit {
         );
         this.getGroups();
         this.getCategories();
+    }
+    
+    fixSlug(text: string) {
+        const options = { maintainCase: false, separator: '-' };
+        const mySlug = slugify.createSlug(options);
+        const slug = mySlug(text);
+        return slug;
     }
 
     /* Dialog  */
@@ -115,6 +125,8 @@ export class GroupsComponent implements OnInit {
 
     /* Add new group */
     postGroup(group, event) {
+        const fixedSlug = this.fixSlug(group.slug);
+        group.slug = fixedSlug;
         this.groupService.post(group).subscribe(
             (response) => {
             this.closeDialog(event);
@@ -129,6 +141,8 @@ export class GroupsComponent implements OnInit {
 
     /* Update group */
     putGroup(group, event) {
+        const fixedSlug = this.fixSlug(group.slug);
+        group.slug = fixedSlug;
         this.groupService.put(group._id, group).subscribe(
             (response) => {
                 this.closeDialog(event);

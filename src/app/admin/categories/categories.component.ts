@@ -10,6 +10,9 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 /* Interfaces */
 import { CategoryModel, CategoryColumns } from '../admin.interfaces';
 
+/* 3rd party */
+import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+
 @Component({
     selector: 'px-categories',
     templateUrl: './categories.component.html'
@@ -51,6 +54,13 @@ export class CategoriesComponent implements OnInit {
             (result => this.screenSize = result)
         );
         this.getCategories();
+    }
+    
+    fixSlug(text: string) {
+        const options = { maintainCase: false, separator: '-' };
+        const mySlug = slugify.createSlug(options);
+        const slug = mySlug(text);
+        return slug;
     }
 
     /* Dialog  */
@@ -105,6 +115,8 @@ export class CategoriesComponent implements OnInit {
     }
     /* Add new category */
     postCategory(category, event) {
+        const fixedSlug = this.fixSlug(category.slug);
+        category.slug = fixedSlug;
         this.categoryService.post(category).subscribe(
             (response) => {
                 this.closeDialog(event);
@@ -118,6 +130,8 @@ export class CategoriesComponent implements OnInit {
 
     /* Update category */
     putCategory(category, event) {
+        const fixedSlug = this.fixSlug(category.slug);
+        category.slug = fixedSlug;
         this.categoryService.put(category._id, category).subscribe(
             (response) => {
                 this.closeDialog(event);

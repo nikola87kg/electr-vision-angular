@@ -65,57 +65,43 @@
 
         <!-- Position Column Setup -->
         <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef>
-            </th>
+            <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+
+
+        <!-- Image Column Setup -->
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Slika </th>
+            <td mat-cell *matCellDef="let item, let i = index" >
+            <button
+                mat-stroked-button
+                color="accent"
+                class="photo-button"
+                type="button"
+                (click)="openImageDialog($event, i)">
+                Foto
+            </button>
+            </td>
         </ng-container>
 
         <!-- Name Column Setup -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
             <td mat-cell *matCellDef="let item" (click)="openDialog(true, item, i)">
-                <button
-                    mat-raised-button
-                    class="name-button"
-                    color="primary"
-                    type="button"
-                    > 
-                    <i class="fa fa-edit"></i>
-                </button>
                 <span class="name-text">
                     {{ item.name }}
+                    <span class="edit-on-hover">
+                        <i class="fa fa-arrow-circle-left"></i> izmeni 
+                    </span>
                 </span>
-            </td>
-        </ng-container>
-
-        <!-- Image Column Setup -->
-        <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef> Slika </th>
-            <td mat-cell *matCellDef="let item, let i = index" >
-                <!-- <img *ngIf="item.image" [src]="item.image" [alt]="item.image">
-                <img *ngIf="!item.image" src="./assets/logo/EV.svg"> -->
-            <button
-                mat-stroked-button
-                color="accent"
-                class="photo-button"
-                type="button"
-                (click)="openImageDialog($event, i)">Foto
-            </button>
             </td>
         </ng-container>
 
         <!-- Slug Column Setup -->
         <ng-container matColumnDef="slug">
-            <th mat-header-cell *matHeaderCellDef> Slug </th>
+            <th mat-header-cell *matHeaderCellDef> Hiperlink </th>
             <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
-        </ng-container>
-
-        <!-- VIP Column Setup -->
-        <ng-container matColumnDef="vip">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
-            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
-                {{ item.vip ? ' ✔' : ' ✖' }}
-            </td>
         </ng-container>
 
         <!-- Category Column Setup -->
@@ -136,6 +122,7 @@
             <td mat-cell *matCellDef="let item"> {{ item.brand.name }} </td>
         </ng-container>
 
+
         <!-- Description Column Setup -->
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef> Opis </th>
@@ -143,6 +130,15 @@
                 <span style="white-space: pre-wrap;">
                     {{ item.description }} 
                 </span>
+            </td>
+        </ng-container>
+
+
+        <!-- VIP Column Setup -->
+        <ng-container matColumnDef="vip">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
+            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
+                {{ item.vip ? ' ✔' : ' ✖' }}
             </td>
         </ng-container>
 
@@ -156,14 +152,14 @@
 
         <!-- rows -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
-        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;">
+        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;" (click)="openDialog(true, row, i)">
         </tr>
     </table>
 </div>
 
 <mat-paginator
     #paginator
-    [pageSize] = "10"
+    [pageSize] = "20"
     [pageSizeOptions] =  "[5, 10, 20, 50]"
     [showFirstLastButtons] = " screenSize !== 'small' ">
 </mat-paginator>
@@ -172,7 +168,7 @@
 <div class="fixed dialog-wrapper" *ngIf="isAddDialogOpen" (click)="isAddDialogOpen = false">
 
     <form class="form-dialog" #products="ngForm" (click)="$event.stopPropagation()">
-        <!-- header -->
+        <!-- DIALOG HEADER -->
         <div class="dialog-header">
             <span class="dialog-header-title"> {{dialogTitle}} </span>
             <button type="button" class="cancel-x btn btn-link" (click)="closeDialog($event)">
@@ -180,6 +176,7 @@
             </button>
         </div>
         <br>
+
         <!-- Name -->
         <mat-form-field>
             <input
@@ -221,45 +218,51 @@
             </mat-select>
         </mat-form-field>
 
+        <!-- Description -->
+        <mat-form-field>
+            <textarea
+                matInput
+                [(ngModel)]="product.description"
+                placeholder="Opis proizvoda"
+                name="description"
+                rows="3"
+                autocomplete="off"
+                required></textarea>
+        </mat-form-field>
+
         <!-- Vip -->
         <mat-checkbox [(ngModel)]="product.vip" color="primary" name="vip" >
             Na naslovnoj strani
         </mat-checkbox>
 
-
-        <!-- Description -->
-        <mat-form-field>
-            <textarea
-                matInput 
-                [(ngModel)]="product.description" 
-                placeholder="Opis proizvoda" 
-                name="description"
-                type="text" 
-                rows="3"
-                autocomplete="off" 
-                required>
-            </textarea>
-        </mat-form-field>
-
         <br>
         <br>
-        <!-- dialog footer -->
+
+        <!-- DIALOG FOOTER -->
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteProduct(product._id, $event)" *ngIf="isDialogEditing">
+                    (click)="deleteButtonActive = true" *ngIf="isDialogEditing && !deleteButtonActive">
                     Obriši
                 </mat-button-toggle>
-                <mat-button-toggle class="cancel-item" (click)="closeDialog($event)">
+                <mat-button-toggle class="delete-item"
+                    (click)="deleteProduct(product._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    Da, briši
+                </mat-button-toggle>
+                <mat-button-toggle class="save-item"
+                    (click)="deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    Ne briši
+                </mat-button-toggle>
+                <mat-button-toggle class="cancel-item" (click)="closeDialog($event)" *ngIf="!deleteButtonActive">
                     Odustani
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item" [disabled]="!products.form.valid"
                     (click)="postProduct(product, $event)"
-                    *ngIf="!isDialogEditing">
+                    *ngIf="!isDialogEditing && !deleteButtonActive">
                     Sačuvaj
                 </mat-button-toggle>
                 <mat-button-toggle class="update-item" [disabled]="!products.form.valid"
-                    (click)="putProduct(product, $event)" *ngIf="isDialogEditing">
+                    (click)="putProduct(product, $event)" *ngIf="isDialogEditing && !deleteButtonActive">
                     Ažuriraj
                 </mat-button-toggle>
             </mat-button-toggle-group>
@@ -268,8 +271,8 @@
 </div>
 
 <!-- IMAGE DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen">
-    <form class="form-dialog image-dialog" #image="ngForm">
+<div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen" (click)="isImageDialogOpen = false">
+    <form class="form-dialog image-dialog" #image="ngForm" (click)="$event.stopPropagation()">
         <!-- header -->
         <div class="dialog-header">
             <span class="dialog-header-title"> Postavi sliku </span>

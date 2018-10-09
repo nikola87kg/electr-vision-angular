@@ -3,7 +3,7 @@
 <mat-toolbar class="row">
         <!-- Page title -->
         <div class="col-sm-12 col-lg-6">
-            Lista kategorija
+            Lista kategorija ({{ categoryList?.length || 0 }})
             <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
                 <mat-icon>add</mat-icon>
                 <span class="button-title">Dodaj kategoriju</span>
@@ -17,7 +17,6 @@
             <!-- Position Column Setup -->
             <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef>
-                    <b>{{ categoryList?.length || 0 }}</b>
                 </th>
                 <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
             </ng-container>
@@ -25,21 +24,34 @@
             <!-- Image Column Setup -->
             <ng-container matColumnDef="image">
                 <th mat-header-cell *matHeaderCellDef> Slika </th>
-                <td mat-cell *matCellDef="let item, let i = index" (click)="openImageDialog($event, i)">
-                    <img *ngIf="item.image" src="{{item.image}}">
-                    <img *ngIf="!item.image" src="./assets/default_images/default-product.jpg">
+                <td mat-cell *matCellDef="let item, let i = index" >
+                        <button
+                            mat-stroked-button
+                            color="accent"
+                            class="photo-button"
+                            type="button"
+                            (click)="openImageDialog($event, i)">
+                            Foto
+                        </button>
                 </td>
             </ng-container>
 
             <!-- Name Column Setup -->
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
-                <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+                <td mat-cell *matCellDef="let item" (click)="openDialog(true, item, i)">
+                    <span class="name-text">
+                        {{ item.name }}
+                        <span class="edit-on-hover">
+                            <i class="fa fa-arrow-circle-left"></i> izmeni 
+                        </span>
+                    </span>
+                </td>
             </ng-container>
 
             <!-- Slug Column Setup -->
             <ng-container matColumnDef="slug">
-                <th mat-header-cell *matHeaderCellDef> Slug </th>
+                <th mat-header-cell *matHeaderCellDef> Hiperlink </th>
                 <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
             </ng-container>
 
@@ -104,29 +116,38 @@
             <!-- Description -->
             <mat-form-field>
                 <textarea
-                    matInput [(ngModel)]="category.description" placeholder="Opis kategorije" name="description"
+                    matInput [(ngModel)]="category.description" placeholder="Opis kategorije" name="description" rows="3"
                     type="text" autocomplete="off" required></textarea>
             </mat-form-field>
 
             <br>
             <br>
-            <!-- dialog footer -->
+
+            <!-- DIALOG FOOTER -->
             <div class="dialog-footer">
                 <mat-button-toggle-group #group="matButtonToggleGroup">
                     <mat-button-toggle class="delete-item"
-                        (click)="deleteCategory(category._id, $event)" *ngIf="isDialogEditing">
+                        (click)="deleteButtonActive = true" *ngIf="isDialogEditing && !deleteButtonActive">
                         Obriši
                     </mat-button-toggle>
-                    <mat-button-toggle class="cancel-item" (click)="closeDialog($event)">
+                    <mat-button-toggle class="delete-item"
+                        (click)="deleteCategory(category._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                        Da, briši
+                    </mat-button-toggle>
+                    <mat-button-toggle class="save-item"
+                        (click)="deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                        Ne briši
+                    </mat-button-toggle>
+                    <mat-button-toggle class="cancel-item" (click)="closeDialog($event)" *ngIf="!deleteButtonActive">
                         Odustani
                     </mat-button-toggle>
                     <mat-button-toggle class="save-item" [disabled]="!categories.form.valid"
                         (click)="postCategory(category, $event)"
-                        *ngIf="!isDialogEditing">
+                        *ngIf="!isDialogEditing && !deleteButtonActive">
                         Sačuvaj
                     </mat-button-toggle>
                     <mat-button-toggle class="update-item" [disabled]="!categories.form.valid"
-                        (click)="putCategory(category, $event)" *ngIf="isDialogEditing">
+                        (click)="putCategory(category, $event)" *ngIf="isDialogEditing && !deleteButtonActive">
                         Ažuriraj
                     </mat-button-toggle>
                 </mat-button-toggle-group>
@@ -135,8 +156,8 @@
     </div>
 
     <!-- IMAGE DIALOG -->
-    <div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen">
-        <form class="form-dialog image-dialog" #image="ngForm">
+    <div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen" (click)="isImageDialogOpen = false">
+        <form class="form-dialog image-dialog" #image="ngForm" (click)="$event.stopPropagation()">
             <!-- header -->
             <div class="dialog-header">
                 <span class="dialog-header-title"> Postavi sliku </span>

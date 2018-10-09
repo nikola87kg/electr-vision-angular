@@ -15,8 +15,8 @@ export interface ProductModel {
 
 export const ProductColumns = [
     'position',
-    'name',
     'image',
+    'name',
     'vip',
     'category',
     'group',
@@ -35,7 +35,7 @@ export interface BrandModel {
     createdAt: Date;
 }
 
-export const BrandColumns = [ 'position', 'image', 'name', 'created' ];
+export const BrandColumns = [ 'position', 'image', 'name', 'slug', 'description', 'created' ];
 
 
 /* Group */
@@ -63,7 +63,7 @@ export interface CategoryModel {
     createdAt: Date;
 }
 
-export const CategoryColumns = [ 'position', 'image', 'name', 'created' ];
+export const CategoryColumns = [ 'position', 'image', 'name', 'slug', 'created' ];
 
 /* Gallery */
 
