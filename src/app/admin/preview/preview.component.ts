@@ -5,6 +5,10 @@ import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
+import { AuthService } from '../../_services/auth.service';
+
+/* Interfaces */
+import { UserModel } from '../admin.interfaces';
 
 @Component({
     selector: 'px-preview',
@@ -16,16 +20,29 @@ export class PreviewComponent implements OnInit {
     brandList = [];
     groupList = [];
     categoryList = [];
+    errorMessage: string;
     displayedColumns: string[] = ['name' ];
+    isLogged = false;
+    isAuthDialogOpen = false;
+    confirmPassword: string;
+    user = {
+        username: '',
+        email: '',
+        password: ''
+    };
+    dialogTitle = 'Registracija'
 
     constructor(
         private brandService: BrandsService,
         private categoryService: CategoriesService,
         private productService: ProductsService,
-        private groupService: GroupsService
+        private groupService: GroupsService,
+        private authService: AuthService
+        
     ) {}
 
     ngOnInit() {
+        this.checkAuth();
         this.getBrands();
         this.getCategories();
         this.getProducts();
@@ -59,4 +76,53 @@ export class PreviewComponent implements OnInit {
             this.groupList = response.object;
         });
     }
+
+    /* Auth dialog */
+    toggleAuthDialog( type? ){
+        console.log(type);
+        this.isAuthDialogOpen = !this.isAuthDialogOpen;
+        if(!this.isAuthDialogOpen) {
+            this.confirmPassword = '';
+            this.user = {
+                username: '',
+                email: '',
+                password: ''
+            }
+        }
+    }
+
+    onRegister() {
+        if( this.user.password === this.confirmPassword ) {
+            this.errorMessage = ''
+            const payload = {
+                username: this.user.username,
+                password: this.user.password,
+                email: this.user.email,
+            }
+            this.authService.registerUser(payload).subscribe( res => {
+                if (res.object.admin) {
+                    localStorage.setItem('user', res.object.username)
+                }
+                this.checkAuth();
+                this.toggleAuthDialog();
+            })
+        } else {
+            this.errorMessage = 'Lozinke se ne poklapaju'
+        }
+    }
+
+    checkAuth() {
+        const user = localStorage.getItem('user');
+        if (user) {
+            this.isLogged = true;
+        } else {
+            this.isLogged = false;
+        }
+    }
+
+    onLogout() {
+        localStorage.removeItem('user');
+        this.checkAuth();
+    }
+
 }

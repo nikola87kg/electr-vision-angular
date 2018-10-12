@@ -62,14 +62,15 @@ mat-button-toggle-group {
     background: white;
     mat-button-toggle {
         width: 100px;
+        &.wider {width: 150px;}
     }
     mat-button-toggle:hover {
         background: #f1f1f1;
     }
-    .delete-item { color: $px-material-accent; }
-    .cancel-item { color: $px-material-warn; }
-    .save-item   { color: $px-material-primary; }
-    .update-item { color: $px-material-primary; }
+    .delete-item.delete-item { color: $px-material-accent; }
+    .cancel-item.cancel-item { color: $px-material-warn; }
+    .save-item.save-item   { color: $px-material-primary; }
+    .update-item.update-item { color: $px-material-primary; }
 }
 
 /* Image upload */
