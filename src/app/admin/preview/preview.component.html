@@ -3,9 +3,9 @@
         <mat-toolbar>
             Kontrolna tabla
             <span class="toolbar-spacer"></span>
-            <button mat-raised-button color="primary" *ngIf="!isLogged" (click)="toggleAuthDialog('login')">Login</button>
-            <button mat-raised-button *ngIf="!isLogged" (click)="toggleAuthDialog('register')">Register</button>
-            <button mat-raised-button color="accent" *ngIf="isLogged" (click)="onLogout()">Logout</button>
+            <button mat-raised-button color="primary" *ngIf="!isLogged" (click)="toggleAuthDialog('login')">Uloguj se</button>
+            <button mat-raised-button *ngIf="!isLogged" (click)="toggleAuthDialog('register')">Registruj se</button>
+            <button mat-raised-button color="accent" *ngIf="isLogged" (click)="onLogout()">Izloguj se</button>
         </mat-toolbar>
     </div>
 
@@ -134,7 +134,7 @@
             </button>
         </div>
         <br>
-        <mat-form-field>
+        <mat-form-field *ngIf="authType === 'register'">
             <input type="text" placeholder="Username" matInput [(ngModel)]="user.username" name="user">
         </mat-form-field>
         <mat-form-field>
@@ -143,7 +143,7 @@
         <mat-form-field>
             <input type="password" placeholder="Password" matInput [(ngModel)]="user.password" name="pass">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field   *ngIf="authType === 'register'">
             <input type="password" placeholder="Repeat password" matInput [(ngModel)]="confirmPassword"  name="confirm">
         </mat-form-field>
         <p class="error-message" *ngIf="errorMessage"> {{errorMessage}} </p>
@@ -154,10 +154,18 @@
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
 
-                <mat-button-toggle 
+                <mat-button-toggle  
+                    *ngIf="authType === 'register'"
                     class="save-item wider"
                     (click)="onRegister()" >
                     Registruj se
+                </mat-button-toggle>
+
+                <mat-button-toggle 
+                    *ngIf="authType === 'login'"
+                    class="save-item wider"
+                    (click)="onLogin()" >
+                    Uloguj se
                 </mat-button-toggle>
 
                 <mat-button-toggle 

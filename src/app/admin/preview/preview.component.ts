@@ -5,10 +5,8 @@ import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService, UserInterface } from '../../_services/auth.service';
 
-/* Interfaces */
-import { UserModel } from '../admin.interfaces';
 
 @Component({
     selector: 'px-preview',
@@ -24,12 +22,9 @@ export class PreviewComponent implements OnInit {
     displayedColumns: string[] = ['name' ];
     isLogged = false;
     isAuthDialogOpen = false;
+    authType: string;
     confirmPassword: string;
-    user = {
-        username: '',
-        email: '',
-        password: ''
-    };
+    user: UserInterface = {email:'', username: '', password: '', token: '', admin: true};
     dialogTitle = 'Registracija'
 
     constructor(
@@ -47,6 +42,7 @@ export class PreviewComponent implements OnInit {
         this.getCategories();
         this.getProducts();
         this.getGroups();
+        console.log(this.user)
     }
 
     /* Get products + filter */
@@ -79,14 +75,19 @@ export class PreviewComponent implements OnInit {
 
     /* Auth dialog */
     toggleAuthDialog( type? ){
-        console.log(type);
+        
+        this.authType = type;
+        console.log(123, this.authType)
+
         this.isAuthDialogOpen = !this.isAuthDialogOpen;
         if(!this.isAuthDialogOpen) {
             this.confirmPassword = '';
             this.user = {
                 username: '',
                 email: '',
-                password: ''
+                token: '',
+                password: '',
+                admin: true
             }
         }
     }
@@ -100,9 +101,6 @@ export class PreviewComponent implements OnInit {
                 email: this.user.email,
             }
             this.authService.registerUser(payload).subscribe( res => {
-                if (res.object.admin) {
-                    localStorage.setItem('user', res.object.username)
-                }
                 this.checkAuth();
                 this.toggleAuthDialog();
             })
@@ -111,9 +109,21 @@ export class PreviewComponent implements OnInit {
         }
     }
 
+    onLogin() {
+        const payload = {
+            email: this.user.email,
+            password: this.user.password,
+        }
+        this.authService.loginUser(payload).subscribe( (response)=> {
+            localStorage.setItem('auth_token', response.token); 
+            this.toggleAuthDialog();
+            this.checkAuth();
+        } )
+    }
+
     checkAuth() {
-        const user = localStorage.getItem('user');
-        if (user) {
+        const ls = localStorage.getItem('auth_token');
+        if (ls) {
             this.isLogged = true;
         } else {
             this.isLogged = false;
@@ -121,8 +131,9 @@ export class PreviewComponent implements OnInit {
     }
 
     onLogout() {
-        localStorage.removeItem('user');
+        localStorage.removeItem('auth_token');
         this.checkAuth();
+        this.isLogged = false;
     }
 
 }

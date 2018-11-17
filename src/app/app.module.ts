@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 /* App modules */
@@ -26,6 +26,7 @@ import { AdminGuard } from './admin/admin.guard';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { MiddleClickDirective } from './_directives/middle-click.directive';
+import { AuthInterceptor } from './_services/auth.intereceptor';
 
     @NgModule({
     imports: [
@@ -56,6 +57,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
     ],
     providers: [
         AdminGuard,
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
     })
