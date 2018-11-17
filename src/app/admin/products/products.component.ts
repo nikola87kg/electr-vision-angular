@@ -128,9 +128,9 @@ export class ProductsComponent implements OnInit {
             vip: false,
             slug: '',
             description: '',
-            category: { _id: '', name: '' },
-            group: { _id: '', name: '' },
-            brand: { _id: '', name: '' },
+            category: { _id: '', name: '', slug: '' },
+            group: { _id: '', name: '', slug: '' },
+            brand: { _id: '', name: '', slug: '' },
             image: '',
             createdAt: null
         };

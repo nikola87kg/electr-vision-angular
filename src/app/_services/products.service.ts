@@ -12,9 +12,9 @@ export interface ProductInterface {
     slug: string;
     description: string;
     image: string;
-    category:  { _id: string, name: string };
-    group:  { _id: string, name: string };
-    brand:  { _id: string, name: string };
+    category:  { _id: string, name: string, slug: string };
+    group:  { _id: string, name: string, slug: string  };
+    brand:  { _id: string, name: string, slug: string };
     vip: boolean;
     createdAt: Date;
 }

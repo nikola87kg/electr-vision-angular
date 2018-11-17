@@ -115,7 +115,7 @@ export class GroupsComponent implements OnInit {
             slug: '',
             description: '',
             image: '',
-            category: { _id: '', name: '' },
+            category: { _id: '', name: '', slug: '' },
             createdAt: null
         };
     }

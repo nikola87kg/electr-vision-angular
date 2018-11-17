@@ -12,7 +12,7 @@ export interface GroupInterface {
     slug: string;
     description: string;
     image: string;
-    category:  { _id: string, name: string };
+    category:  { _id: string, name: string, slug: string };
     createdAt: Date;
 }
 
