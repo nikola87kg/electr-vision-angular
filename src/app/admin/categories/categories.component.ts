@@ -2,13 +2,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { CategoriesService } from '../../_services/categories.service';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-
-/* Interfaces */
-import { CategoryModel, CategoryColumns } from '../admin.interfaces';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
@@ -26,11 +23,11 @@ export class CategoriesComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    category: CategoryModel;
-    displayedColumns = CategoryColumns;
+    category: CategoryInterface;
+    displayedColumns = [ 'position', 'image', 'name', 'slug', 'created' ];;
 
     screenSize: string;
-    categoryList: Array<CategoryModel>;
+    categoryList: Array<CategoryInterface>;
     currentIndex: number;
     dataSource;
 
@@ -164,7 +161,7 @@ export class CategoriesComponent implements OnInit {
     /* Get category */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
+            this.categoryList = response;
             this.dataSource = new MatTableDataSource(this.categoryList);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;

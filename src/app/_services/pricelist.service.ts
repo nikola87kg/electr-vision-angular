@@ -2,11 +2,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+/* Environment */
 import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+/* Interface */
+export interface PricelistInterface {
+    _id: string;
+    name: string;
+    description: string;
+    price: string;
+    createdAt: Date;
+}
+@Injectable( { providedIn: 'root' } )
 
 export class PricelistService {
 
@@ -16,22 +23,22 @@ export class PricelistService {
 
     /* GET Pricelist */
     get() {
-      return this.http.get<{message: string, object}>(this.baseUrl + '/pricelist');
+      return this.http.get<PricelistInterface[]>(this.baseUrl + '/pricelist');
     }
 
     /* POST Pricelist */
     post(payload) {
-        return this.http.post<{title, success, data}>(this.baseUrl + '/pricelist', payload);
+        return this.http.post<PricelistInterface>(this.baseUrl + '/pricelist', payload);
     }
 
     /* PUT Pricelist */
     put(id, payload) {
-        return this.http.put<{title, success, id}>(this.baseUrl + '/pricelist/' + id, payload);
+        return this.http.put<PricelistInterface>(this.baseUrl + '/pricelist/' + id, payload);
     }
 
     /* DELETE Pricelist */
     delete(id) {
-        return this.http.delete<{title, success, data}>(this.baseUrl + '/pricelist/' + id);
+        return this.http.delete<PricelistInterface>(this.baseUrl + '/pricelist/' + id);
     }
 
 }

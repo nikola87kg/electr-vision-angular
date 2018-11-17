@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
-import { ProductsService } from '../../_services/products.service';
+import { ProductsService, ProductInterface } from '../../_services/products.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -9,24 +9,9 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['./product-page.component.scss']
 })
 export class ProductPageComponent implements OnInit {
-    product = {
-        name: '',
-        description: '',
-        image: '',
-        group: {
-            name: '',
-            slug: ''
-        },
-        brand: {
-            name: '',
-            slug: ''
-        },
-        category: {
-            name: '',
-            slug: ''
-        }
-    };
-    productList = [];
+
+    product: ProductInterface;
+    productList: Array<ProductInterface> ;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -70,7 +55,7 @@ export class ProductPageComponent implements OnInit {
             slug = params['slug'];
         });
         this.productService.getBySlug(slug).subscribe(response => {
-            this.product = response.object;
+            this.product = response;
             this.title.setTitle(this.product.name + ' | ElectroVision Kragujevac');
         });
     }
@@ -79,7 +64,7 @@ export class ProductPageComponent implements OnInit {
     getProducts() {
         this.productService.get().subscribe(response => {
             const categoryFilter = this.product.category.name;
-            this.productList = response.object.filter(
+            this.productList = response.filter(
                 p => p.name !== this.product.name
             );
             if (categoryFilter) {

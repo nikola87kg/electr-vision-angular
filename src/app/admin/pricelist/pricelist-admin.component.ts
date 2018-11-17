@@ -2,15 +2,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { PricelistService } from '../../_services/pricelist.service';
+import { PricelistService, PricelistInterface } from '../../_services/pricelist.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-
-/* Interfaces */
-import { PricelistModel, PricelistColumns } from '../admin.interfaces';
 
 /* Decorator */
 @Component({
@@ -27,11 +24,11 @@ export class PricelistAdminComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    pricelist: PricelistModel;
-    displayedColumns = PricelistColumns;
+    pricelist: PricelistInterface;
+    pricelistList: Array<PricelistInterface>;
+    displayedColumns = [ 'position', 'name', 'description', 'price' ];;
 
     screenSize;
-    pricelistList: Array<PricelistModel>;
     currentIndex: number;
     dataSource;
 
@@ -133,7 +130,7 @@ export class PricelistAdminComponent implements OnInit {
     /* Get pricelist */
     getPricelists() {
         this.pricelistService.get().subscribe(response => {
-            this.pricelistList = response.object;
+            this.pricelistList = response;
             this.dataSource = new MatTableDataSource(this.pricelistList);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;

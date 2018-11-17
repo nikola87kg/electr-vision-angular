@@ -2,15 +2,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { BrandsService } from '../../_services/brands.service';
+import { BrandsService, BrandInterface } from '../../_services/brands.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../../../node_modules/@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-
-/* Interfaces */
-import { BrandModel, BrandColumns } from '../admin.interfaces';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
@@ -30,11 +27,11 @@ export class BrandsComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    brand: BrandModel;
-    displayedColumns = BrandColumns;
+    brand: BrandInterface;
+    displayedColumns = [ 'position', 'image', 'name', 'vip', 'slug', 'created' ];
 
     screenSize;
-    brandList: Array<BrandModel>;
+    brandList: Array<BrandInterface>;
     currentIndex: number;
     dataSource;
 
@@ -55,7 +52,7 @@ export class BrandsComponent implements OnInit {
     /* INIT */
     ngOnInit() {
         this.sharedService.screenSize.subscribe(
-            (result => this.screenSize = result)
+            result => this.screenSize = result
         );
         this.getBrands();
     }
@@ -106,6 +103,7 @@ export class BrandsComponent implements OnInit {
             name: '',
             slug: '',
             description: '',
+            vip: false,
             image: '',
             createdAt: null
         };
@@ -126,10 +124,7 @@ export class BrandsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getBrands();
-                this.openSnackBar({
-                    action: 'create',
-                    type: 'brand'
-                });
+                this.openSnackBar( {action: 'create', type: 'brand'} );
             }
         );
     }
@@ -170,8 +165,8 @@ export class BrandsComponent implements OnInit {
     /* Get brand */
     getBrands() {
         this.brandService.get().subscribe(response => {
-            this.brandList = response.object;
-            this.dataSource = new MatTableDataSource(this.brandList);
+            this.brandList = response;
+            this.dataSource = new MatTableDataSource(response);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;
         });

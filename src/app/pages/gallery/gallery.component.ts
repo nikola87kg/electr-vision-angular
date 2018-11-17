@@ -23,7 +23,7 @@ export class GalleryComponent implements OnInit {
 
     ngOnInit() {
         this.galleryService.get().subscribe( (response) => {
-            this.imagesArray = response.object;
+            this.imagesArray = response;
             this.imagesArray.forEach( (element) => {
                 if (!this.galleryList.includes(element.gallery) ) {
                     this.galleryList.push(element.gallery);

@@ -53,7 +53,7 @@ export class GroupPageComponent implements OnInit {
             slug = params['slug'];
         });
         this.groupService.getBySlug(slug).subscribe(response => {
-            this.group = response.object;
+            this.group = response;
             this.title.setTitle(this.group.name + ' | ElectroVision Kragujevac');
         });
     }
@@ -61,7 +61,7 @@ export class GroupPageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            this.productList = response.object.filter(
+            this.productList = response.filter(
                 product => product.group.name === this.group.name
             );
         });
@@ -70,8 +70,7 @@ export class GroupPageComponent implements OnInit {
     /* Get categories */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
-
+            this.categoryList = response;
         });
     }
 

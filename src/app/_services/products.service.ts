@@ -2,11 +2,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+/* Environment */
 import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+/* Interface */
+export interface ProductInterface {
+    _id: string;
+    name: string;
+    slug: string;
+    description: string;
+    image: string;
+    category:  { _id: string, name: string };
+    group:  { _id: string, name: string };
+    brand:  { _id: string, name: string };
+    vip: boolean;
+    createdAt: Date;
+}
+
+/* PRODUCT SERVICE */
+@Injectable( { providedIn: 'root' })
+
 export class ProductsService {
 
     baseUrl = environment.baseUrl;
@@ -15,31 +30,31 @@ export class ProductsService {
 
     /* GET Products */
     get() {
-      return this.http.get<{message: string, object}>(this.baseUrl + '/products');
+      return this.http.get<ProductInterface[]>(this.baseUrl + '/products');
     }
 
     getBySlug(slug) {
         const URL = this.baseUrl + '/products/' + slug;
-        return this.http.get<{message: string, object}>(URL);
+        return this.http.get<ProductInterface>(URL);
     }
 
     /* POST Products */
     post(payload) {
-        return this.http.post<{title, success, data}>(this.baseUrl + '/products', payload);
+        return this.http.post<ProductInterface>(this.baseUrl + '/products', payload);
     }
 
     /* PUT Products */
     put(id, payload) {
-        return this.http.put<{title, success, id}>(this.baseUrl + '/products/' + id, payload);
+        return this.http.put<ProductInterface>(this.baseUrl + '/products/' + id, payload);
     }
 
     /* DELETE Products */
     delete(id) {
-        return this.http.delete<{title, success, data}>(this.baseUrl + '/products/' + id);
+        return this.http.delete<ProductInterface>(this.baseUrl + '/products/' + id);
     }
 
     /* POST Product Image */
     postImage(id, file) {
-        return this.http.post<any>(this.baseUrl + '/products/images/' + id, file);
+        return this.http.post<{image: string}>(this.baseUrl + '/products/images/' + id, file);
     }
 }

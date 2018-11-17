@@ -2,15 +2,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { GalleryService } from '../../_services/gallery.service';
+import { GalleryService, GalleryInterface} from '../../_services/gallery.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-
-/* Interfaces */
-import { GalleryModel, GalleryColumns } from '../admin.interfaces';
 
 /* Decorator */
 @Component({
@@ -27,11 +24,11 @@ export class GalleryAdminComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    gallery: GalleryModel;
-    displayedColumns = GalleryColumns;
+    gallery: GalleryInterface;
+    displayedColumns = [ 'position', 'image', 'name', 'description', 'gallery', 'created' ];
 
     screenSize;
-    galleryList: Array<GalleryModel>;
+    galleryList: Array<GalleryInterface>;
     currentIndex: number;
     dataSource;
 
@@ -156,7 +153,7 @@ export class GalleryAdminComponent implements OnInit {
     /* Get gallery */
     getGalleries() {
         this.galleryService.get().subscribe(response => {
-            this.galleryList = response.object;
+            this.galleryList = response;
             this.dataSource = new MatTableDataSource(this.galleryList);
             this.dataSource.sort = this.sort;
             this.dataSource.paginator = this.paginator;

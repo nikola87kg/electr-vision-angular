@@ -131,7 +131,7 @@
                         Obriši
                     </mat-button-toggle>
                     <mat-button-toggle class="delete-item"
-                        (click)="deleteCategory(category._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                        (click)="deleteCategory(category._id, $event); deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
                         Da, briši
                     </mat-button-toggle>
                     <mat-button-toggle class="save-item"

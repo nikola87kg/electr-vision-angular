@@ -56,7 +56,7 @@ export class CategoryPageComponent implements OnInit {
             slug = params['slug'];
         });
         this.categoryService.getBySlug(slug).subscribe(response => {
-            this.category = response.object;
+            this.category = response;
             this.title.setTitle(this.category.name + ' | ElectroVision Kragujevac');
         });
     }
@@ -64,7 +64,7 @@ export class CategoryPageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            this.productList = response.object.filter(
+            this.productList = response.filter(
                 product => product.category.name === this.category.name
             );
         });
@@ -73,7 +73,7 @@ export class CategoryPageComponent implements OnInit {
     /* Get categories */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            let catList = response.object.filter(cat => cat._id !== this.category._id);
+            let catList = response.filter(cat => cat._id !== this.category._id);
             this.categoryList = catList;
         });
     }
@@ -81,7 +81,7 @@ export class CategoryPageComponent implements OnInit {
     /* Get groups */
     getGroups() {
         this.groupService.get().subscribe(response => {
-            this.groupList = response.object.filter(
+            this.groupList = response.filter(
                 group => group.category.name === this.category.name
             );
         });

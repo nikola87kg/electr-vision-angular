@@ -2,7 +2,8 @@
   "name": "electro-vision",
   "version": "1.9.10",
   "scripts": {
-    "angular": "ng serve"
+    "dev": "ng serve",
+    "prod": "ng build --prod"
   },
   "private": true,
   "dependencies": {

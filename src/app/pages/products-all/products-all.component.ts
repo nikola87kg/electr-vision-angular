@@ -87,8 +87,8 @@ export class ProductsAllComponent implements OnInit {
     /* Get categories*/
     getCategories() {
         this.categorytService.get().subscribe(response => {
-            this.currentList = response.object;
-            this.categoryList = response.object;
+            this.currentList = response;
+            this.categoryList = response;
             this.onLoadCompleted();
         });
     }
@@ -96,17 +96,9 @@ export class ProductsAllComponent implements OnInit {
     /* Get groups by Category */
     getGroups(categoryId) {
         this.groupService.get().subscribe(response => {
-            this.currentList = response.object.filter(
+            this.currentList = response.filter(
                 group => group.category._id === categoryId
             );
-            // this.currentList = [];
-            // let responseArray = [];
-            // responseArray = response.object;
-            // responseArray.forEach( (group) => {
-            //     if (group.category._id === categoryId) {
-            //         this.currentList.push(group);
-            //     }
-            // });
 
         });
     }
@@ -114,7 +106,7 @@ export class ProductsAllComponent implements OnInit {
     /* Get products by Group */
     getProducts(groupId) {
         this.productService.get().subscribe(response => {
-            this.currentList = response.object.filter(
+            this.currentList = response.filter(
                 product => product.group._id === groupId
             );
         });

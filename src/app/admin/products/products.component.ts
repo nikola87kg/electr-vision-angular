@@ -2,10 +2,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { ProductsService } from '../../_services/products.service';
-import { GroupsService } from '../../_services/groups.service';
-import { BrandsService } from '../../_services/brands.service';
-import { CategoriesService } from '../../_services/categories.service';
+import { ProductsService, ProductInterface } from '../../_services/products.service';
+import { GroupsService,GroupInterface } from '../../_services/groups.service';
+import { BrandsService, BrandInterface } from '../../_services/brands.service';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 
 /* Material */
 import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
@@ -14,9 +14,6 @@ import { SharedService } from '../../_services/shared.service';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
-
-/* Interfaces */
-import { ProductModel, ProductColumns, BrandModel, GroupModel, CategoryModel } from '../admin.interfaces';
 
 @Component({
     selector: 'px-products',
@@ -35,17 +32,26 @@ export class ProductsComponent implements OnInit {
         public sharedService: SharedService
     ) { }
 
-    product: ProductModel;
-    displayedColumns = ProductColumns;
+    product: ProductInterface;
+    displayedColumns = [
+        'position',
+        'image',
+        'name',
+        'vip',
+        'category',
+        'group',
+        'brand',
+        'created'
+    ];;
 
     screenSize;
     currentIndex: number;
-    productList: Array<ProductModel> ;
+    productList: Array<ProductInterface> ;
     dataSource;
 
-    brandList: Array<BrandModel>;
-    groupList: Array<GroupModel>;
-    categoryList: Array<CategoryModel>;
+    brandList: Array<BrandInterface>;
+    groupList: Array<GroupInterface>;
+    categoryList: Array<CategoryInterface>;
 
     isAddDialogOpen: boolean;
     isDialogEditing: boolean;
@@ -191,7 +197,7 @@ export class ProductsComponent implements OnInit {
         this.productService.get().subscribe(
             (response) => {
                 if (categoryFilter) {
-                    this.productList = response.object.filter(
+                    this.productList = response.filter(
                         p => p.category._id === categoryFilter
                     );
                     if (brandFilter) {
@@ -200,7 +206,7 @@ export class ProductsComponent implements OnInit {
                         );
                     }
                 } else if (groupFilter) {
-                    this.productList = response.object.filter(
+                    this.productList = response.filter(
                         p => p.group._id === groupFilter
                     );
                     if (brandFilter) {
@@ -209,11 +215,11 @@ export class ProductsComponent implements OnInit {
                         );
                     }
                 } else if (brandFilter) {
-                    this.productList = response.object.filter(
+                    this.productList = response.filter(
                         p => p.brand._id === brandFilter
                     );
                 } else {
-                    this.productList = response.object;
+                    this.productList = response;
                 }
                 this.dataSource = new MatTableDataSource(this.productList);
                 this.dataSource.sort = this.sort;
@@ -226,21 +232,21 @@ export class ProductsComponent implements OnInit {
     /* Get brands */
     getBrands() {
         this.brandService.get().subscribe(response => {
-            this.brandList = response.object;
+            this.brandList = response;
         });
     }
 
     /* Get groups */
     getGroups() {
         this.groupService.get().subscribe(response => {
-            this.groupList = response.object;
+            this.groupList = response;
         });
     }
 
     /* Get categories */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
+            this.categoryList = response;
         });
     }
 

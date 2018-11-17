@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
 
     getAllProducts() {
         this.productService.get().subscribe( (result) => {
-            this.options = result.object
+            this.options = result
         });
     }
 

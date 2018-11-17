@@ -62,6 +62,14 @@
             </td>
         </ng-container>
 
+        <!-- VIP Column Setup -->
+        <ng-container matColumnDef="vip">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
+            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
+                {{ item.vip ? ' ✔' : ' ✖' }}
+            </td>
+        </ng-container>
+
         <!-- Created At Column Steup -->
         <ng-container matColumnDef="created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kreiranja </th>
@@ -78,7 +86,7 @@
 
 <mat-paginator
     #paginator
-    [pageSize] = "20"
+    [pageSize]="10"
     [pageSizeOptions] =  "[5, 10, 20, 50]"
     [showFirstLastButtons] = "screenSize !== 'small' ">
 </mat-paginator>
@@ -122,6 +130,11 @@
                 required></textarea>
         </mat-form-field>
 
+        <!-- Vip -->
+        <mat-checkbox [(ngModel)]="brand.vip" color="primary" name="vip" >
+            Na naslovnoj strani
+        </mat-checkbox>
+
         <br>
         <br>
 
@@ -133,7 +146,7 @@
                     Obriši
                 </mat-button-toggle>
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteBrand(brand._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    (click)="deleteBrand(brand._id, $event); deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
                     Da, briši
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item"

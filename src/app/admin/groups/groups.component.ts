@@ -2,16 +2,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { GroupsService } from '../../_services/groups.service';
-import { CategoriesService } from '../../_services/categories.service';
+import { GroupsService, GroupInterface } from '../../_services/groups.service';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { SharedService } from '../../_services/shared.service';
-
-/* Interfaces */
-import { GroupModel, GroupColumns, CategoryModel } from '../admin.interfaces';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
@@ -31,12 +28,12 @@ export class GroupsComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) {}
 
-    subcategory: GroupModel;
-    displayedColumns = GroupColumns;
+    subcategory: GroupInterface;
+    displayedColumns = [ 'position', 'image', 'name', 'category', 'created' ];
 
     screenSize;
-    groupList: Array<GroupModel>;
-    categoryList: Array<CategoryModel>;
+    groupList: Array<GroupInterface>;
+    categoryList: Array<CategoryInterface>;
     currentIndex: number;
     dataSource;
 
@@ -173,14 +170,14 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Get groups */
-    getGroups(categoryFilter?) {
+    getGroups(filter?) {
         this.groupService.get().subscribe(response => {
-            if (categoryFilter) {
-                this.groupList = response.object.filter(
-                    g => g.category._id === categoryFilter
+            if (filter) {
+                this.groupList = response.filter(
+                    g => g.category._id === filter
                 );
             } else {
-                this.groupList = response.object;
+                this.groupList = response;
             }
             this.dataSource = new MatTableDataSource(this.groupList);
             this.dataSource.sort = this.sort;
@@ -191,7 +188,7 @@ export class GroupsComponent implements OnInit {
     /* Get categories */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
+            this.categoryList = response;
         });
     }
 

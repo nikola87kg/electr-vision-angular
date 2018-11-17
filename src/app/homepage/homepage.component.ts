@@ -127,23 +127,21 @@ export class HomepageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            this.productList = response.object.filter(
-                item => item.vip === true
-            );
+            this.productList = response.filter(item => item.vip);
         });
     }
 
     /* Get brand */
     getBrands() {
         this.brandService.get().subscribe(response => {
-            this.brandList = response.object;
+            this.brandList = response;
         });
     }
 
     /* Get category */
     getCategories() {
         this.categoryService.get().subscribe(response => {
-            this.categoryList = response.object;
+            this.categoryList = response;
         });
     }
 

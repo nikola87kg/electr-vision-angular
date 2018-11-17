@@ -23,7 +23,7 @@ export class BrandRollerComponent implements OnInit {
     /* Get brand */
     getBrands() {
         this.brandService.get().subscribe(response => {
-            this.brandList = response.object;
+            this.brandList = response.filter(brand => brand.vip);
         });
     }
 

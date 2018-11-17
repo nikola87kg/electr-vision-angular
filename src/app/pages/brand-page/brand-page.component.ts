@@ -45,7 +45,7 @@ export class BrandPageComponent implements OnInit {
             slug = params['slug'];
         });
         this.brandService.getBySlug(slug).subscribe(response => {
-            this.brand = response.object;
+            this.brand = response;
             this.title.setTitle(this.brand.name + ' | ElectroVision Kragujevac');
         });
     }
@@ -53,7 +53,7 @@ export class BrandPageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            this.productList = response.object.filter(
+            this.productList = response.filter(
                 p => p.brand.name === this.brand.name
             );
         });

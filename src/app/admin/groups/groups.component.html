@@ -14,13 +14,15 @@
         <form class="select-filter">
             <!-- Category filter -->
             <mat-form-field>
-                <mat-select #categoryFilter placeholder="Kategorije">
-                    <mat-option (click)="categoryFilter.value = '';
-                            getGroups(categoryFilter.value)">
+                <mat-select placeholder="Kategorije">
+                    <mat-option 
+                        (click)="getGroups()">
                         Sve kategorije
                     </mat-option>
-                    <mat-option *ngFor="let cat of categoryList" [value]="cat._id" (click)="groupFilter.value = '';
-                    getGroups(categoryFilter.value)">
+                    <mat-option 
+                        *ngFor="let cat of categoryList" 
+                        [value]="cat._id" 
+                        (click)="getGroups(cat._id)">
                         {{cat.name}}
                     </mat-option>
                 </mat-select>
@@ -106,7 +108,7 @@
 
 <mat-paginator
     #paginator
-    [pageSize]="20"
+    [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20, 50]"
     [showFirstLastButtons]="screenSize !== 'small' ">
 </mat-paginator>
@@ -166,7 +168,7 @@
                     Obriši
                 </mat-button-toggle>
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteGroupd(subcategory._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    (click)="deleteGroup(subcategory._id, $event); deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
                     Da, briši
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item"

@@ -1,18 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
-import { PricelistService } from '../../_services/pricelist.service';
+import { PricelistService, PricelistInterface } from '../../_services/pricelist.service';
 import { Title } from '@angular/platform-browser';
 
-interface PricelistModel {
-    _id: string;
-    name: string;
-    description: string;
-    price: string;
-    createdAt: Date;
-}
-
-export const PricelistColumnsUser = [ 'position', 'name', 'description', 'price' ];
 @Component({
     selector: 'px-pricelist',
     templateUrl: './pricelist.component.html',
@@ -29,11 +20,11 @@ export class PricelistComponent implements OnInit {
         title.setTitle('Cenovnik proizvoda i usluga | ElectroVision Kragujevac');
     }
 
-    pricelist: PricelistModel;
-    displayedColumns = PricelistColumnsUser;
+    pricelist: PricelistInterface;
+    pricelistList: Array<PricelistInterface>;
+    displayedColumns = [ 'position', 'name', 'description', 'price' ];
 
     screenSize;
-    pricelistList: Array<PricelistModel>;
     dataSource;
 
     /* INIT */
@@ -48,7 +39,7 @@ export class PricelistComponent implements OnInit {
     /* Get pricelist */
     getPricelists() {
         this.pricelistService.get().subscribe(response => {
-            this.pricelistList = response.object;
+            this.pricelistList = response;
             this.dataSource = new MatTableDataSource(this.pricelistList);
         });
     }

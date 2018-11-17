@@ -159,7 +159,7 @@
 
 <mat-paginator
     #paginator
-    [pageSize] = "20"
+    [pageSize]="10"
     [pageSizeOptions] =  "[5, 10, 20, 50]"
     [showFirstLastButtons] = " screenSize !== 'small' ">
 </mat-paginator>
@@ -246,7 +246,7 @@
                     Obriši
                 </mat-button-toggle>
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteProduct(product._id, $event)" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    (click)="deleteProduct(product._id, $event); deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
                     Da, briši
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item"
