@@ -1,3 +1,5 @@
+@import "src/px-material-theme.scss";
+
 /* Roller */
 .brand-roller {
     text-align: center;
@@ -10,7 +12,7 @@
     white-space: nowrap;
     overflow: hidden;
     height: 200px;
-    @media screen and (max-width: 768px) {
+    @media #{$screen-sm} {
         height: 140px;
     }
     span {
@@ -25,8 +27,12 @@
             vertical-align: middle;
             width: 170px;
             max-height: 160px;
-            @media screen and (max-width: 768px) {
+        }
+        @media #{$screen-sm} {
+            margin: auto 5px;
+            img {
                 max-height: 100px;
+                width: auto;
             }
         }
         &:hover img {

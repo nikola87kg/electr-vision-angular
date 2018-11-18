@@ -10,8 +10,16 @@ $px-material-theme: mat-light-theme($px-primary, $px-accent, $px-warn);
 
 @include angular-material-theme($px-material-theme);
 
+/* Colors */
 $px-material-primary:   #303f9f;
 $px-material-accent:    #d32f2f;
 $px-material-warn:      #E65100;
 $px-material-dark:      #212121;
 $px-material-light:     #E0E0E0;
+
+/* Grid system */
+$screen-xs: "only screen and (max-width: 576px)";
+$screen-sm: "only screen and (max-width: 768px)";
+$screen-md: "only screen and (max-width: 1028px)";
+$screen-lg: "only screen and (max-width: 1299px)";
+$screen-xl: "only screen and (min-width: 1300px)";

@@ -92,7 +92,7 @@ table.full-screen {
 
 .add-button {
     margin-left: 10px !important;
-    @media screen and (max-width:768px) {
+    @media #{$screen-sm} {
         height: 28px !important;
         min-width: 56px !important;
         line-height: 20px !important;
@@ -110,7 +110,7 @@ table.full-screen {
 mat-form-field {
     margin: 0 20px;
     width: 150px;
-    @media screen and (max-width: 768px) {
+    @media #{$screen-sm} {
         margin: 0 5px;
         width: 85px;
         font-size: 14px;
@@ -121,7 +121,7 @@ mat-toolbar {
     height: auto !important;
     padding: 5px 20px  !important;
     min-height: 70px;
-    @media screen and (max-width: 768px) {
+    @media #{$screen-sm} {
         padding: 5px  !important;
     }
 }
@@ -164,10 +164,10 @@ td.mat-column-vip.mat-column-vip {
 
 .mat-column-name {
     width: 400px;
-    @media (max-width:1028px) {
+    @media #{$screen-md} {
         width: 330px;
     }
-    @media (max-width:768px) {
+    @media #{$screen-sm} {
         width: 220px;
     }
 }
@@ -179,10 +179,10 @@ span.name-text {
     padding-left: 10px;
     overflow: hidden;
     width: 300px;
-    @media (max-width:1028px) {
+    @media #{$screen-md} {
         width: 230px;
     }
-    @media (max-width:768px) {
+    @media #{$screen-sm} {
         width: 120px;
     }
 }

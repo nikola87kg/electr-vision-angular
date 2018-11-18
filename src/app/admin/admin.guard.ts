@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate {
     if(auth_token) {
       return true;
     } else {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/pocetna']);
       return false;
     }
   }
