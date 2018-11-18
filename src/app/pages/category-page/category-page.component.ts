@@ -46,7 +46,6 @@ export class CategoryPageComponent implements OnInit {
         this.getCategories();
         this.getProducts();
         this.getGroups();
-        this.title.setTitle('test | Electrovision Kragujevac');
     }
 
     /* Get category */

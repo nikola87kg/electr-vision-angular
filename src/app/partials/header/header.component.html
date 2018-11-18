@@ -20,7 +20,7 @@
                 placeholder="Pretraga proizvoda"
                 matInput
                 [formControl]="searchInput"
-                (keyup.enter)="goToProduct(searchInput.value)"
+                (keyup.enter)="goToProductByName(searchInput.value)"
                 [matAutocomplete]="auto">
             <mat-autocomplete
                 autoActiveFirstOption

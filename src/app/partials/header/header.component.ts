@@ -82,6 +82,11 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/proizvod/' + slug]);
     }
 
+    goToProductByName(name) {
+        const product = this.options.filter( option => option.name === name)[0];
+        this.router.navigate(['/proizvod/' + product.slug]);
+    }
+
     checkWidth() {
         const innerWidth = window.innerWidth;
         if (innerWidth > 1028) {

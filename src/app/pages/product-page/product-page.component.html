@@ -6,7 +6,7 @@
 <px-navigation-menu></px-navigation-menu>
 
 <!-- Main product -->
-<div class="row">
+<div class="row" *ngIf="product">
     <div class="col-lg-1">
     </div>
     <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
@@ -36,7 +36,7 @@
 <!-- Other products -->
 <div class="row">
     <div class="col-sm-12 product-gallery">
-        <h2 *ngIf="productList.length != 0"> Slični proizvodi</h2>
+        <h2 *ngIf="productList && productList.length != 0"> Slični proizvodi</h2>
         <br>
         <div class="product-single"
              *ngFor="let prod of productList; let i = index"

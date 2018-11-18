@@ -16,8 +16,8 @@ export class ContactComponent implements OnInit {
         {key: 'Instagram', value: 'instagram.com/electrovision'},
         {key: 'Youtube', value: 'youtube.com/electrovision'},
         {key: 'Kupujem Prodajem', value: 'kupujemprodajem.com/electrovision'},
-        {key: 'PIB', value: 'XXXXXXXXXXXXXXXX'},
-        {key: 'Matični broj', value: 'XXXXXXXXXXXXXXXX'},
+        // {key: 'PIB', value: 'XXXXXXXXXXXXXXXX'},
+        // {key: 'Matični broj', value: 'XXXXXXXXXXXXXXXX'},
     ];
 
     constructor( public title: Title) {

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'px-root',

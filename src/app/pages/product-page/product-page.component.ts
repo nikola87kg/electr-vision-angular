@@ -28,10 +28,7 @@ export class ProductPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        setTimeout(() => {
-            this.getProduct();
-            this.getProducts();
-        }, 1);
+        this.getProduct();
     }
 
     /* Navigation */
@@ -57,6 +54,7 @@ export class ProductPageComponent implements OnInit {
         this.productService.getBySlug(slug).subscribe(response => {
             this.product = response;
             this.title.setTitle(this.product.name + ' | ElectroVision Kragujevac');
+            this.getProducts();
         });
     }
 
