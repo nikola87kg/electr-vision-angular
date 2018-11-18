@@ -23,9 +23,10 @@ export class PreviewComponent implements OnInit {
     isLogged = false;
     isAuthDialogOpen = false;
     authType: string;
-    confirmPassword: string;
-    user: UserInterface = {email:'', username: '', password: '', token: '', admin: true};
-    dialogTitle = 'Registracija'
+    dialogTitle: string;
+    mismatchError: string;
+    serverError = {username:'', email: '', login: ''}
+    user= {username:'', email: '', password: '', confirm: ''};
 
     constructor(
         private brandService: BrandsService,
@@ -42,7 +43,6 @@ export class PreviewComponent implements OnInit {
         this.getCategories();
         this.getProducts();
         this.getGroups();
-        console.log(this.user)
     }
 
     /* Get products + filter */
@@ -75,55 +75,74 @@ export class PreviewComponent implements OnInit {
 
     /* Auth dialog */
     toggleAuthDialog( type? ){
-        
+        this.dialogTitle = type === 'login' ? 'Logovanje' : 'Registracija';
         this.authType = type;
-        console.log(123, this.authType)
-
         this.isAuthDialogOpen = !this.isAuthDialogOpen;
-        if(!this.isAuthDialogOpen) {
-            this.confirmPassword = '';
-            this.user = {
-                username: '',
-                email: '',
-                token: '',
-                password: '',
-                admin: true
+    }
+
+    onRegister(form) {
+        this.mismatchError = "";
+        this.serverError.email = "";
+        this.serverError.username = "";
+        this.serverError.login = "";
+        if(form) {
+            if(form.password !== form.confirm) {
+                this.mismatchError = "* Lozinke se moraju poklapati";
+            } else {
+                const payload = {
+                    username: form.username,
+                    password: form.password,
+                    email: form.email,
+                }
+                this.authService.registerUser(payload).subscribe( res => {
+                    this.checkAuth();
+                    this.toggleAuthDialog();
+                }, err => {
+                    if(err.error.errors.email) {
+                        this.serverError.email = err.error.errors.email.kind === "unique" && 
+                            "* Ovaj email već postoji u bazi ";
+                    }
+                    if(err.error.errors.username) {
+                        this.serverError.username = err.error.errors.username.kind === "unique" && 
+                            "* Ovo korisničko ime već postoji u bazi ";
+                    }
+                })
             }
         }
     }
 
-    onRegister() {
-        if( this.user.password === this.confirmPassword ) {
-            this.errorMessage = ''
+    onLogin(form) {
+        this.serverError.email = "";
+        this.serverError.username = "";
+        this.serverError.login = "";
+        if(form) {
             const payload = {
-                username: this.user.username,
-                password: this.user.password,
-                email: this.user.email,
+                email: form.email,
+                password: form.password,
             }
-            this.authService.registerUser(payload).subscribe( res => {
-                this.checkAuth();
+            this.authService.loginUser(payload).subscribe( response=> {
+                localStorage.setItem('auth_token', response.token); 
                 this.toggleAuthDialog();
-            })
-        } else {
-            this.errorMessage = 'Lozinke se ne poklapaju'
+                this.checkAuth();
+            }, err => {
+                if(err.error) {
+                    console.log(123, err.error)
+                    switch(err.error.error) {
+                        case "password error": this.serverError.login = "* Pogrešna lozinka";
+                        break;
+                        case "username error": this.serverError.login = "* Ne postoji nalog sa navedenim emailom";
+                        break;
+                        case "admin error": this.serverError.login = "* Korisnik nema ovlašćenja administratora";
+                        break;
+                    }
+                }
+            } )
         }
-    }
-
-    onLogin() {
-        const payload = {
-            email: this.user.email,
-            password: this.user.password,
-        }
-        this.authService.loginUser(payload).subscribe( (response)=> {
-            localStorage.setItem('auth_token', response.token); 
-            this.toggleAuthDialog();
-            this.checkAuth();
-        } )
     }
 
     checkAuth() {
-        const ls = localStorage.getItem('auth_token');
-        if (ls) {
+        const auth_token = localStorage.getItem('auth_token');
+        if (auth_token) {
             this.isLogged = true;
         } else {
             this.isLogged = false;
@@ -133,7 +152,6 @@ export class PreviewComponent implements OnInit {
     onLogout() {
         localStorage.removeItem('auth_token');
         this.checkAuth();
-        this.isLogged = false;
     }
 
 }

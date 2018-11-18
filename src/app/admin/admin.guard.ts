@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        // let answer = '';
-        // const realPassword = '111';
-        // function enterPassword() {
-        //     answer = prompt('Unesite admin lozinku');
-        //     if (answer === realPassword) {
-        //         return true;
-        //     }
-        //     return false;
-        // }
+  
+  constructor(private router: Router) {}
 
-        return true;
+  canActivate(  next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    let auth_token = localStorage.getItem('auth_token');
+    console.log(auth_token)
+    if(auth_token) {
+      return true;
+    } else {
+      this.router.navigate(['/admin']);
+      return false;
+    }
   }
 }

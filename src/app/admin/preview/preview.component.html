@@ -124,8 +124,13 @@
     </div>
 </div>
 
+<!-- AUTH DIALOG -->
 <div class="fixed dialog-wrapper" *ngIf="isAuthDialogOpen" (click)="toggleAuthDialog()">
-    <form class="form-dialog" (click)="$event.stopPropagation()">
+    <form 
+        class="form-dialog" 
+        (click)="$event.stopPropagation()" 
+        #authForm = "ngForm" 
+        >
         <!-- header -->
         <div class="dialog-header">
             <span class="dialog-header-title"> {{dialogTitle}} </span>
@@ -134,43 +139,123 @@
             </button>
         </div>
         <br>
-        <mat-form-field *ngIf="authType === 'register'">
-            <input type="text" placeholder="Username" matInput [(ngModel)]="user.username" name="user">
-        </mat-form-field>
-        <mat-form-field>
-            <input type="email" placeholder="Email" email matInput [(ngModel)]="user.email" name="email">
-        </mat-form-field>
-        <mat-form-field>
-            <input type="password" placeholder="Password" matInput [(ngModel)]="user.password" name="pass">
-        </mat-form-field>
-        <mat-form-field   *ngIf="authType === 'register'">
-            <input type="password" placeholder="Repeat password" matInput [(ngModel)]="confirmPassword"  name="confirm">
-        </mat-form-field>
-        <p class="error-message" *ngIf="errorMessage"> {{errorMessage}} </p>
+        <!-- USERNAME -->
+        <span  *ngIf="authType === 'register'">
+            <mat-form-field >
+                <input 
+                    type="text" 
+                    placeholder="Korisničko ime" 
+                    matInput 
+                    [(ngModel)]="user.username" 
+                    name="username"
+                    #username="ngModel"
+                    minlength="3"
+                    required>
+            </mat-form-field>
+            
+            <p class="error-message" *ngIf="username.errors?.required && submitted"> 
+                * Korisničko ime je obavezno polje
+            </p>
+            <p class="error-message" *ngIf="username.errors?.minlength && submitted"> 
+                * Korisničko ime mora imati minimum 3 karaktera 
+            </p>
+            <p class="error-message" *ngIf="serverError.username"> 
+                 {{serverError.username}}
+            </p>
+        </span>
+            
+        <!-- EMAIL -->
+        <span>
+            <mat-form-field>
+                <input 
+                    type="email" 
+                    placeholder="Email" 
+                    email 
+                    matInput 
+                    [(ngModel)]="user.email" 
+                    name="email"
+                    #email="ngModel"
+                    required>
+            </mat-form-field>
+
+            <p class="error-message" *ngIf="email.errors?.required && submitted"> 
+                * Email je obavezno polje 
+            </p>
+            <p class="error-message" *ngIf="!email.errors?.required && email.invalid && submitted"> 
+                * Email nije validan 
+            </p>
+            <p class="error-message" *ngIf="serverError.email"> 
+                 {{serverError.email}}
+            </p>
+        </span >
+        
+        <!-- PASSWORD -->
+        <span>
+            <mat-form-field>
+                <input 
+                    type="password" 
+                    placeholder="Lozinka" 
+                    matInput 
+                    [(ngModel)]="user.password" 
+                    name="password"
+                    #password="ngModel"
+                    minlength="6"
+                    required>
+            </mat-form-field>
+            <p class="error-message" *ngIf="password.errors?.required && submitted"> 
+                * Lozinka je obavezno polje 
+            </p>
+            <p class="error-message" *ngIf="password.errors?.minlength && submitted"> 
+                * Lozinka mora imati minimum 6 karaktera 
+            </p>
+            <p class="error-message" *ngIf="serverError.login"> 
+                 {{serverError.login}}
+            </p>
+        </span>
+        
+        <!-- REPEAT PASSWORD -->
+        <span   *ngIf="authType === 'register'">
+            <mat-form-field >
+                <input 
+                    type="password" 
+                    placeholder="Ponovi lozinku" 
+                    matInput 
+                    [(ngModel)]="user.confirm"  
+                    name="confirm"
+                    #confirm="ngModel"
+                    validateEqual="password"
+                    (focus)="confirmTyping === true" 
+                    required>
+            </mat-form-field>
+            <p class="error-message" *ngIf="!confirmTyping && mismatchError"> 
+                {{mismatchError}}
+            </p>
+        </span>
+
 
         <span *ngIf="!errorMessage">  <br> <br> </span>
 
-        <!-- DIALOG FOOTER -->
+        <!-- Footer -->
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
 
                 <mat-button-toggle  
                     *ngIf="authType === 'register'"
                     class="save-item wider"
-                    (click)="onRegister()" >
+                    (click)="submitted = true; onRegister( authForm.form.valid ? authForm.value : '')" >
                     Registruj se
                 </mat-button-toggle>
 
                 <mat-button-toggle 
                     *ngIf="authType === 'login'"
                     class="save-item wider"
-                    (click)="onLogin()" >
+                    (click)="submitted = true; onLogin(authForm.form.valid ? authForm.value: '')" >
                     Uloguj se
                 </mat-button-toggle>
 
                 <mat-button-toggle 
                     class="cancel-item" 
-                    (click)="toggleAuthDialog()" >
+                    (click)="submitted = false; authForm.form.reset(); toggleAuthDialog()" >
                     Odustani
                 </mat-button-toggle>
 

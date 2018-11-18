@@ -22,11 +22,17 @@ import { BrandRollerComponent } from './partials/brand-roller/brand-roller.compo
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
 import { ProductsAllComponent } from './pages/products-all/products-all.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { AdminGuard } from './admin/admin.guard';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
-import { MiddleClickDirective } from './_directives/middle-click.directive';
+
+/* Guards */
+import { AdminGuard } from './admin/admin.guard';
+
+/* Interceptors */
 import { AuthInterceptor } from './_services/auth.intereceptor';
+
+/* Directives */
+import { MiddleClickDirective } from './_directives/middle-click.directive';
 
     @NgModule({
     imports: [
