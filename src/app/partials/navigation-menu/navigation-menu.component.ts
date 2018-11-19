@@ -13,7 +13,7 @@ export class NavigationMenuComponent implements OnInit {
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },
-        { id: 2, name: 'Proizvodi', link: '/kategorije', icon: 'layers' },
+        { id: 2, name: 'Proizvodi', link: '/pretraga/kategorije/sve', icon: 'layers' },
         { id: 3, name: 'Kontakt', link: '/kontakt', icon: 'phone' },
         { id: 4, name: 'Cenovnik', link: '/cenovnik', icon: 'assignment' },
         { id: 5, name: 'Galerija', link: '/galerija', icon: 'photo_library' },

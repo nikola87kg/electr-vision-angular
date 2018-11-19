@@ -158,9 +158,9 @@ export class HomepageComponent implements OnInit {
     }
     goToCategory(slug?) {
         if (slug) {
-            this.router.navigate(['/kategorija/' + slug]);
+            this.router.navigate(['/pretraga/potkategorije/' + slug]);
         } else {
-            this.router.navigate(['/kategorije']);
+            this.router.navigate(['/pretraga/kategorije/sve']);
         }
     }
 

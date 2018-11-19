@@ -7,16 +7,16 @@
 
 <!-- Toolbar -->
 <mat-toolbar color="accent"
-    *ngIf="selectedItemName">
+    *ngIf="headline">
     <span class="toolbar-title">
-        {{selectedItemName}}
+        {{headline}}
     </span>
     <span class="toolbar-spacer"></span>
     <button
-        *ngIf="currentLevel > 1"
+        *ngIf="currentLevel !== 'kategorije'"
         class="back-button"
         mat-stroked-button
-        (click)="OnLevelChange(-1);">
+        (click)="goStepBack();">
         <mat-icon>arrow_back_ios</mat-icon>
         {{ backButtontext }}
     </button>
@@ -26,31 +26,31 @@
 <div class="step-buttons" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
     <button
         mat-raised-button
-        [color]=" currentLevel === 1 ? 'primary' : '' "
-        (click)="OnLevelChange(100);">
+        [color]=" currentLevel === 'kategorije' ? 'primary' : '' "
+        (click)="goBackToCategoryLevel();">
         1. Kategorije
     </button>
     <button
         mat-raised-button
-        [disabled]="currentLevel < 2 "
-        (click)="OnLevelChange(-1);"
-        [color]=" currentLevel === 2 ? 'primary' : '' ">
+        [disabled]="currentLevel === 'kategorije'"
+        (click)="goBackToGroupLevel();"
+        [color]=" currentLevel === 'potkategorije' ? 'primary' : '' ">
         2. Potkategorije
     </button>
     <button
         mat-raised-button
-        [disabled]="currentLevel < 3 "
-        [color]=" currentLevel === 3 ? 'primary' : '' ">
+        [disabled]="currentLevel !== 'proizvodi'"
+        [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
         3. Proizvodi
     </button>
 </div>
 
-<!-- Category Dropdown -->
+<!-- Brand Dropdown -->
 <div class="no-content" *ngIf="currentList?.length < 1">
     <h6> Izvinjavamo se. Za izabranu kategoriju trenutno ne postoje proizvodi... </h6>
 </div>
 
-<mat-form-field *ngIf="currentLevel === 2 ">
+<!-- <mat-form-field *ngIf="currentLevel === 2 ">
     <mat-select placeholder="Promeni kategoriju">
         <mat-option  [value]="category._id"
         *ngFor="let category of categoryList"
@@ -58,12 +58,12 @@
             {{ category.name }}
         </mat-option>
     </mat-select>
-</mat-form-field>
+</mat-form-field> -->
 
 <!-- Cards -->
 <div class="cards" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
     <mat-card
-        (click)="OnLevelChange(1, item);"
+        (click)="goForward(item);"
         *ngFor="let item of currentList">
         <!-- Title -->
         <mat-card-title>  {{ item.name }} </mat-card-title>

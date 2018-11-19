@@ -11,7 +11,7 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
-import { ProductsAllComponent } from './pages/products-all/products-all.component';
+import { SearchComponent } from './pages/search/search.component';
 
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
@@ -25,8 +25,8 @@ const routes: Routes = [
     { path: 'brend/:slug', component: BrandPageComponent },
     { path: 'potkategorija/:slug', component: GroupPageComponent },
     { path: 'kategorija/:slug', component: CategoryPageComponent },
-    { path: 'kategorije', component: ProductsAllComponent },
-    { path: 'admin',                loadChildren: './admin/admin.module#AdminModule' },
+    { path: 'pretraga/:level/:slug', component: SearchComponent },
+    { path: 'admin',                loadChildren: './admin/admin.module#AdminModule', canActivate: [AdminGuard] },
     { path: '',                     redirectTo: '/pocetna', pathMatch: 'full' },
     { path: '**',                   redirectTo: '/pocetna', }
 ];

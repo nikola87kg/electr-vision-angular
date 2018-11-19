@@ -20,7 +20,7 @@ import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
-import { ProductsAllComponent } from './pages/products-all/products-all.component';
+import { SearchComponent } from './pages/search/search.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
@@ -55,7 +55,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
         CategoryPageComponent,
         BrandRollerComponent,
         NavigationMenuComponent,
-        ProductsAllComponent,
+        SearchComponent,
         ContactComponent,
         GalleryComponent,
         PricelistComponent,
