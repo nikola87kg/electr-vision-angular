@@ -39,10 +39,10 @@ export class ProductPageComponent implements OnInit {
         this.router.navigate(['/proizvod/' + slug]);
     }
     goToCategory(slug) {
-        this.router.navigate(['/kategorija/' + slug]);
+        this.router.navigate(['/pretraga/potkategorije/' + slug]);
     }
     goToGroup(slug) {
-        this.router.navigate(['/potkategorija/' + slug]);
+        this.router.navigate(['/pretraga/proizvodi/' + slug]);
     }
 
     /* Get brand */

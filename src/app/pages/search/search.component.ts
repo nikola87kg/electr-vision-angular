@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
 
     currentLevel: string;
     currentSlug: string;
+    currentName: string;
 
     currentList: Array<any>;
     categoryList: Array<any>;
@@ -41,7 +42,8 @@ export class SearchComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.currentSlug = params['slug'];
             this.currentLevel = params['level'];
-            console.log('params', params)
+            this.currentName = '';
+            this.getName(this.currentLevel, this.currentSlug);
             switch (this.currentLevel) {
                 case 'kategorije': this.headline = "Pretraga kategorija";
                 break;
@@ -81,28 +83,27 @@ export class SearchComponent implements OnInit {
     }
 
     goBackToCategoryLevel() {
-        this.router.navigate(['/pretraga', 'kategorije', 'sve']);
+        this.currentLevel = 'kategorije'
+        this.currentSlug = 'sve'
+        this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
         this.getCategories();
     }
 
     goBackToGroupLevel() {
-        this.activatedRoute.params.subscribe( params => {
-            const slug = params['slug'];
-            this.router.navigate(['/pretraga', 'potkategorije', slug])
-            })  
+        const slug = this.lastCategory.slug;
+        this.router.navigate(['/pretraga', 'potkategorije', slug])
+        this.getGroups(this.lastCategory._id);
     };
 
     goStepBack() {
         if (this.currentLevel === 'potkategorije') {
             this.currentLevel = 'kategorije'
             this.currentSlug = 'sve'
-            console.log(6, this.currentLevel, this.currentSlug)
             this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
             this.getCategories();
         } else if(this.currentLevel === 'proizvodi') {
             this.currentLevel = 'potkategorije'
             this.currentSlug = this.lastGroup.slug;
-            console.log(5, this.currentLevel, this.currentSlug)
             this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
             this.getGroups(this.lastCategory._id);
         }
@@ -110,7 +111,6 @@ export class SearchComponent implements OnInit {
 
     goForward(item) {
         let level = this.currentLevel;
-        console.log('level', level);
         if (level === 'kategorije') { 
             this.router.navigate(['/pretraga', "potkategorije", item.slug]);
             this.lastCategory = item;
@@ -129,6 +129,7 @@ export class SearchComponent implements OnInit {
 
     /* Get categories*/
     getCategories() {
+        this.currentName = null;
         this.categoryService.get().subscribe(response => {
             this.currentList = response;
             this.categoryList = response;
@@ -186,5 +187,20 @@ export class SearchComponent implements OnInit {
     /* Navigation */
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
+    }
+
+    getName(level, slug) {
+        this.currentName = null;
+        if (level === 'kategorije') {
+            this.currentName = null;
+        } else if(level === 'potkategorije') {
+            this.categoryService.getBySlug(slug).subscribe( category => {
+                this.currentName = category.name
+            })
+        } else if(level === 'proizvodi') {
+            this.groupService.getBySlug(slug).subscribe( group => {
+                this.currentName = group.name
+            })
+        }
     }
 }

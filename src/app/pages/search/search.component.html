@@ -10,6 +10,7 @@
     *ngIf="headline">
     <span class="toolbar-title">
         {{headline}}
+        <span *ngIf="currentName"> - {{ currentName }}</span>
     </span>
     <span class="toolbar-spacer"></span>
     <button
