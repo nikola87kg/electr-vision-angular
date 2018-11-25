@@ -211,26 +211,17 @@ export class SearchComponent implements OnInit {
             this.groupService.get().subscribe(response => {
                 if(brandSlug || this.currentBrand) {
                     let brand = brandSlug || this.currentBrand
-                    console.log(1, this.currentList)
                     this.productService.get().subscribe(res2 => {
-                        console.log(20, res2)
                         let filteredProducts = res2.filter( product => product.brand.slug === brand);
-                        console.log(21, filteredProducts)
                         let groupSlugs = filteredProducts.map( product => product.group.slug);
-                        console.log(22, this.currentList)
-                        console.log(221, groupSlugs)
                         this.currentList = response
                             .filter(group => groupSlugs.includes(group.slug) )
                             .filter(group => group.category._id === categoryId );
-                        console.log(23, this.currentList)
                     })
-                    console.log(2, this.currentList)
                 } else {
-                    console.log(3, this.currentList)
                     this.currentList = response.filter(
                         group => group.category._id === categoryId
                     );
-                    console.log(4, this.currentList)
                 }
             });
         } else {

@@ -8,7 +8,6 @@ export class AdminGuard implements CanLoad {
 
   canLoad(route: Route) {
     let auth_token = localStorage.getItem('auth_token');
-    console.log(auth_token)
     if(auth_token) {
       return true;
     } else {
