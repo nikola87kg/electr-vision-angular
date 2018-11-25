@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Router, CanLoad, Route } from '@angular/router';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class AdminGuard implements CanLoad {
   
   constructor(private router: Router) {}
 
-  canActivate(  next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canLoad(route: Route) {
     let auth_token = localStorage.getItem('auth_token');
     console.log(auth_token)
     if(auth_token) {

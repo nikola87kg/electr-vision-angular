@@ -29,6 +29,9 @@ export class BrandRollerComponent implements OnInit {
 
     /* Navigation */
     goToBrand(slug) {
-        this.router.navigate(['/brend/' + slug]);
+        this.router.navigate(
+            ['/pretraga/kategorije/sve'], 
+            {queryParams: { brand: slug } } 
+        );
     }
 }

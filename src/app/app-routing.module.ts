@@ -26,9 +26,20 @@ const routes: Routes = [
     { path: 'potkategorija/:slug', component: GroupPageComponent },
     { path: 'kategorija/:slug', component: CategoryPageComponent },
     { path: 'pretraga/:level/:slug', component: SearchComponent },
-    { path: 'admin',                loadChildren: './admin/admin.module#AdminModule', canActivate: [AdminGuard] },
-    { path: '',                     redirectTo: '/pocetna', pathMatch: 'full' },
-    { path: '**',                   redirectTo: '/pocetna', }
+    { 
+        path: 'admin',                
+        loadChildren: './admin/admin.module#AdminModule', 
+        canLoad: [AdminGuard] 
+    },
+    { 
+        path: '',                    
+        redirectTo: '/pocetna', 
+        pathMatch: 'full' 
+    },
+    { 
+        path: '**',                   
+        redirectTo: '/pocetna' 
+    }
 ];
 
 @NgModule({

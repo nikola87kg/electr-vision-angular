@@ -1,6 +1,6 @@
 <!-- background -->
-<div class="product-background">
-</div>
+<!-- <div class="product-background">
+</div> -->
 
 <!-- Navigation Menu -->
 <px-navigation-menu></px-navigation-menu>
@@ -44,22 +44,25 @@
         [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
         3. Proizvodi
     </button>
+    <mat-form-field>
+        <mat-select placeholder="Izaberi brend" [(ngModel)]="currentBrand">
+            <mat-option  [value]="" style="background: lightblue"
+                (click)="filterByBrand()">
+                Svi brendovi
+            </mat-option>
+            <mat-option  [value]="brand.slug"
+            *ngFor="let brand of brandList"
+            (click)="filterByBrand(brand.slug)">
+                {{ brand.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 
 <!-- Brand Dropdown -->
 <div class="no-content" *ngIf="currentList?.length < 1">
-    <h6> Izvinjavamo se. Za izabranu kategoriju trenutno ne postoje proizvodi... </h6>
+    <h6> Izvinjavamo se. Nema proizvoda u ovoj kategoriji... </h6>
 </div>
-
-<!-- <mat-form-field *ngIf="currentLevel === 2 ">
-    <mat-select placeholder="Promeni kategoriju">
-        <mat-option  [value]="category._id"
-        *ngFor="let category of categoryList"
-        (click)="OnLevelChange(0, category)">
-            {{ category.name }}
-        </mat-option>
-    </mat-select>
-</mat-form-field> -->
 
 <!-- Cards -->
 <div class="cards" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">

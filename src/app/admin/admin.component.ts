@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    @HostListener('window:resize') onResize(event) {
+    @HostListener('window:resize', ['$event']) onResize(event) {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';

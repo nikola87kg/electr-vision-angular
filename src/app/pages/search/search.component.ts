@@ -5,7 +5,13 @@ import { GroupsService } from '../../_services/groups.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { SharedService } from '../../_services/shared.service';
 import { Title } from '@angular/platform-browser';
-import { ignoreElements } from 'rxjs/operators';
+import { BrandsService } from 'src/app/_services/brands.service';
+
+enum Type {
+    cat = 'kategorije',
+    group = 'potkategorije',
+    prod = 'proizvodi'
+}
 
 @Component({
     selector: 'px-search',
@@ -20,9 +26,11 @@ export class SearchComponent implements OnInit {
     currentLevel: string;
     currentSlug: string;
     currentName: string;
+    currentBrand: string;
 
     currentList: Array<any>;
     categoryList: Array<any>;
+    brandList: Array<any>;
 
     lastCategory: any;
     lastGroup: any;
@@ -33,6 +41,7 @@ export class SearchComponent implements OnInit {
         public productService: ProductsService,
         public groupService: GroupsService,
         public categoryService: CategoriesService,
+        public brandService: BrandsService,
         public sharedService: SharedService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -42,82 +51,122 @@ export class SearchComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.currentSlug = params['slug'];
             this.currentLevel = params['level'];
-            this.currentName = '';
-            this.getName(this.currentLevel, this.currentSlug);
-            switch (this.currentLevel) {
-                case 'kategorije': this.headline = "Pretraga kategorija";
-                break;
-                case 'potkategorije': this.headline = "Pretraga potkategorija";
-                break;
-                case 'proizvodi': this.headline = "Pretraga proizvoda";
-                break;
-            }
         });   
+        this.activatedRoute.queryParams.subscribe(query => {
+            this.currentBrand = query['brand'];
+        })
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
-                console.log('url', e.url);
+                this.checkLevel();
             }
         });     
     }
 
     ngOnInit() {
+        this.checkLevel();
+        this.getBrands();
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
-        this.checkLevel();
     }
 
-    onLoadCompleted() {
-        this.isLoaded = true;
-    }
-
+    /* Set current level, name & slug */
     checkLevel() {
-        if(this.currentLevel === 'kategorije') {
-            this.getCategories();
-        } else if(this.currentLevel === 'potkategorije') {
+        if(this.currentLevel === Type.cat) {
+            this.getCategories(this.currentBrand);
+        } else if(this.currentLevel === Type.group) {
             this.getGroups();
         } else {
-            this.getProducts();
+            this.getProducts(null, this.currentBrand);
         }
+        switch (this.currentLevel) {
+            case Type.cat: this.headline = 'Pretraga kategorija';
+            break;
+            case Type.group: this.headline = 'Pretraga potkategorija';
+            break;
+            case Type.prod: this.headline = 'Pretraga proizvoda';
+            break;
+        }
+        this.getName(this.currentLevel, this.currentSlug);
 
     }
 
+    /* Category button */
     goBackToCategoryLevel() {
-        this.currentLevel = 'kategorije'
+        this.currentLevel = Type.cat
         this.currentSlug = 'sve'
-        this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
-        this.getCategories();
+        this.router.navigate(
+            ['/pretraga', this.currentLevel, this.currentSlug], 
+            { 
+                relativeTo: this.activatedRoute, 
+                queryParams: {brand: this.currentBrand} 
+            }
+        );
+        this.getCategories(this.currentBrand);
     }
 
+    /* Group button */
     goBackToGroupLevel() {
         const slug = this.lastCategory.slug;
-        this.router.navigate(['/pretraga', 'potkategorije', slug])
+        this.router.navigate(
+            ['/pretraga', Type.group, slug], 
+            { 
+                relativeTo: this.activatedRoute, 
+                queryParams: {brand: this.currentBrand} 
+            }
+        );
         this.getGroups(this.lastCategory._id);
     };
 
+    /* Back button */
     goStepBack() {
-        if (this.currentLevel === 'potkategorije') {
-            this.currentLevel = 'kategorije'
+        if (this.currentLevel === Type.group) {
+            this.currentLevel = Type.cat
             this.currentSlug = 'sve'
-            this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
-            this.getCategories();
-        } else if(this.currentLevel === 'proizvodi') {
-            this.currentLevel = 'potkategorije'
+            this.router.navigate(
+                ['/pretraga', this.currentLevel, this.currentSlug], 
+                { 
+                    relativeTo: this.activatedRoute, 
+                    queryParams: {brand: this.currentBrand} 
+                }
+            );
+            this.getCategories(this.currentBrand);
+        } else if(this.currentLevel === Type.prod) {
+            this.currentLevel = Type.group
             this.currentSlug = this.lastGroup.slug;
-            this.router.navigate(['/pretraga', this.currentLevel, this.currentSlug]);
+            this.router.navigate(
+                ['/pretraga', this.currentLevel, this.currentSlug], 
+                { 
+                    relativeTo: this.activatedRoute, 
+                    queryParams: {brand: this.currentBrand} 
+                }
+            );
             this.getGroups(this.lastCategory._id);
         }
     }
 
+    /* On Item Click */
     goForward(item) {
         let level = this.currentLevel;
-        if (level === 'kategorije') { 
-            this.router.navigate(['/pretraga', "potkategorije", item.slug]);
+        if (level === Type.cat) { 
+            this.router.navigate (
+                ['/pretraga', Type.group, item.slug], 
+                { 
+                    relativeTo: this.activatedRoute, 
+                    queryParams: {brand: this.currentBrand} 
+                }
+            );
             this.lastCategory = item;
             this.getGroups(item._id);
             return
-        } else if (level === 'potkategorije') {
-            this.router.navigate(['/pretraga', "proizvodi", item.slug]);
+        } else if (level === Type.group) {
+            this.router.navigate(
+                ['/pretraga', Type.prod, item.slug], 
+                { 
+                    relativeTo: this.activatedRoute, 
+                    queryParams: {brand: this.currentBrand} 
+                }
+            );
             this.getProducts(item._id);
             this.lastGroup = item;
             return
@@ -127,41 +176,75 @@ export class SearchComponent implements OnInit {
         }
     }
 
+    /* Get brands*/
+    getBrands() {
+        this.brandService.get().subscribe(response => {
+            this.brandList = response;
+        });
+        
+    }
+
     /* Get categories*/
-    getCategories() {
+    getCategories(brandSlug?) {
         this.currentName = null;
         this.categoryService.get().subscribe(response => {
-            this.currentList = response;
             this.categoryList = response;
-            this.onLoadCompleted();
+            if(brandSlug) {
+                this.productService.get().subscribe(res2 => {
+                    let filteredProducts = res2.filter( product => product.brand.slug === brandSlug);
+                    let catSlugs = filteredProducts.map( product => product.category.slug);
+                    this.currentList = response.filter( cat => catSlugs.includes(cat.slug) );
+                    
+                })
+            } else {
+                this.currentList = response;
+            }
         });
     }
 
     /* Get groups by Category */
-    getGroups(categoryId?) {
+    getGroups(categoryId?, brandSlug?) {
         let id;
         if(categoryId) {
             id = categoryId;
             this.groupService.get().subscribe(response => {
-                this.currentList = response.filter(
-                    group => group.category._id === categoryId
-                );
+                if(brandSlug) {
+                    this.productService.get().subscribe(res2 => {
+                        let filteredProducts = res2.filter( product => product.brand.slug === brandSlug);
+                        let groupSlugs = filteredProducts.map( product => product.group.slug);
+                        this.currentList = response.filter(group => groupSlugs.includes(group.slug) );
+                        this.currentList = response.filter(group => group.category._id === categoryId );
+                    })
+                } else {
+                    this.currentList = response.filter(
+                        group => group.category._id === categoryId
+                    );
+                }
             });
         } else {
             this.categoryService.getBySlug(this.currentSlug).subscribe(res1 => {
                 id = res1._id
                 this.groupService.get().subscribe(res2 => {
-                    this.currentList = res2.filter(
-                        group => group.category._id === id
-                    );
+                    if(brandSlug) {
+                        this.productService.get().subscribe(res3 => {
+                            let filteredProducts = res3.filter( product => product.brand.slug === brandSlug);
+                            let groupSlugs = filteredProducts.map( product => product.group.slug);
+                            this.currentList = res2.filter(group => groupSlugs.includes(group.slug) );
+                            this.currentList = res2.filter(group => group.category._id === categoryId );
+                        })
+                    } else {
+                        this.currentList = res2.filter(
+                            group => group.category._id === id
+                        );
+                    }
                 });
             })
-            
         }
     }
 
     /* Get products by Group */
-    getProducts(groupId?) {
+
+    getProducts(groupId?, brandSlug?) {
         let id;
         if(groupId) {
             this.productService.get().subscribe(response => {
@@ -176,11 +259,15 @@ export class SearchComponent implements OnInit {
                 id = res1._id
                 this.productService.get().subscribe(res2 => {
                     this.currentList = res2.filter(
-                        product => product.group._id === id
+                        (product) => product.group._id === id 
                     );
+                    if(brandSlug) {
+                        this.currentList = this.currentList.filter(
+                            (product) => product.brand.slug === brandSlug 
+                        );
+                    }
                 });
             })
-            
         }
     }
 
@@ -189,18 +276,35 @@ export class SearchComponent implements OnInit {
         this.router.navigate(['/proizvod/' + slug]);
     }
 
+    /* Get Current Item Name */
     getName(level, slug) {
         this.currentName = null;
-        if (level === 'kategorije') {
+        if (level === Type.cat) {
             this.currentName = null;
-        } else if(level === 'potkategorije') {
+        } else if(level === Type.group) {
             this.categoryService.getBySlug(slug).subscribe( category => {
                 this.currentName = category.name
             })
-        } else if(level === 'proizvodi') {
+        } else if(level === Type.prod) {
             this.groupService.getBySlug(slug).subscribe( group => {
                 this.currentName = group.name
             })
         }
     }
+
+    /* Filter by brand */
+    filterByBrand(brandSlug?) {
+        this.router.navigate([], { 
+            relativeTo: this.activatedRoute, 
+            queryParams: {brand: brandSlug} 
+        });
+        if(this.currentLevel === Type.cat) {
+            this.getCategories(brandSlug);
+        } else if(this.currentLevel === Type.group) {
+            this.getGroups(null, brandSlug);
+        } else if(this.currentLevel === Type.prod) {
+            this.getProducts(null, brandSlug);
+        }
+    }
+
 }

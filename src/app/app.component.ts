@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'px-root',
@@ -16,13 +16,16 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.router.events
             .subscribe( evt => {
-            const pathArray = window.location.pathname.split('/');
-            const firstPath = pathArray[1];
-            if (firstPath === 'admin') {
-                this.isAdminPanel = true;
-            } else {
-                this.isAdminPanel = false;
-            }
-        });
+                if (evt instanceof NavigationEnd) {
+                    document.body.scrollTop = 0;
+                }
+                const pathArray = window.location.pathname.split('/');
+                const firstPath = pathArray[1];
+                if (firstPath === 'admin') {
+                    this.isAdminPanel = true;
+                } else {
+                    this.isAdminPanel = false;
+                }
+            });
     }
 }
