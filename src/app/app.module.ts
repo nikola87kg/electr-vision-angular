@@ -14,10 +14,7 @@ import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
-import { BrandPageComponent } from './pages/brand-page/brand-page.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
-import { GroupPageComponent } from './pages/group-page/group-page.component';
-import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
 import { SearchComponent } from './pages/search/search.component';
@@ -49,10 +46,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
         HomepageComponent,
         HeaderComponent,
         FooterComponent,
-        BrandPageComponent,
         ProductPageComponent,
-        GroupPageComponent,
-        CategoryPageComponent,
         BrandRollerComponent,
         NavigationMenuComponent,
         SearchComponent,
