@@ -189,9 +189,10 @@ export class SearchComponent implements OnInit {
         this.currentName = null;
         this.categoryService.get().subscribe(response => {
             this.categoryList = response;
-            if(brandSlug) {
+            if(brandSlug || this.currentBrand) {
+                let brand = brandSlug || this.currentBrand
                 this.productService.get().subscribe(res2 => {
-                    let filteredProducts = res2.filter( product => product.brand.slug === brandSlug);
+                    let filteredProducts = res2.filter( product => product.brand.slug === brand);
                     let catSlugs = filteredProducts.map( product => product.category.slug);
                     this.currentList = response.filter( cat => catSlugs.includes(cat.slug) );
                     
@@ -208,17 +209,28 @@ export class SearchComponent implements OnInit {
         if(categoryId) {
             id = categoryId;
             this.groupService.get().subscribe(response => {
-                if(brandSlug) {
+                if(brandSlug || this.currentBrand) {
+                    let brand = brandSlug || this.currentBrand
+                    console.log(1, this.currentList)
                     this.productService.get().subscribe(res2 => {
-                        let filteredProducts = res2.filter( product => product.brand.slug === brandSlug);
+                        console.log(20, res2)
+                        let filteredProducts = res2.filter( product => product.brand.slug === brand);
+                        console.log(21, filteredProducts)
                         let groupSlugs = filteredProducts.map( product => product.group.slug);
-                        this.currentList = response.filter(group => groupSlugs.includes(group.slug) );
-                        this.currentList = response.filter(group => group.category._id === categoryId );
+                        console.log(22, this.currentList)
+                        console.log(221, groupSlugs)
+                        this.currentList = response
+                            .filter(group => groupSlugs.includes(group.slug) )
+                            .filter(group => group.category._id === categoryId );
+                        console.log(23, this.currentList)
                     })
+                    console.log(2, this.currentList)
                 } else {
+                    console.log(3, this.currentList)
                     this.currentList = response.filter(
                         group => group.category._id === categoryId
                     );
+                    console.log(4, this.currentList)
                 }
             });
         } else {
@@ -262,8 +274,9 @@ export class SearchComponent implements OnInit {
                         (product) => product.group._id === id 
                     );
                     if(brandSlug) {
+                        let brand = brandSlug || this.currentBrand;
                         this.currentList = this.currentList.filter(
-                            (product) => product.brand.slug === brandSlug 
+                            (product) => product.brand.slug === brand 
                         );
                     }
                 });

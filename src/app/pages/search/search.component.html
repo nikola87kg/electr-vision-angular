@@ -44,7 +44,7 @@
         [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
         3. Proizvodi
     </button>
-    <mat-form-field>
+    <mat-form-field class="brand-list-wrapper">
         <mat-select placeholder="Izaberi brend" [(ngModel)]="currentBrand">
             <mat-option  [value]="" style="background: lightblue"
                 (click)="filterByBrand()">
