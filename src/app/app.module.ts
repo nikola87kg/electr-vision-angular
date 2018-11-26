@@ -16,6 +16,7 @@ import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
+import { SidemenuComponent } from './partials/sidemenu/sidemenu.component';
 import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -53,6 +54,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
         ContactComponent,
         GalleryComponent,
         PricelistComponent,
+        SidemenuComponent,
         MiddleClickDirective
     ],
     providers: [

@@ -42,8 +42,6 @@
     <!-- Navigation Menu -->
     <px-navigation-menu></px-navigation-menu>
 
-
-
     <!-- Main area -->
     <div class="main-section row" >
 
@@ -85,18 +83,8 @@
         </div>
 
         <!-- Side Menu -->
-        <div class="col-sm-12 col-md-4 col-lg-3 sidebar">
-            <!-- categories -->
-            <ul class="list">
-                <li class="headline" (click)="goToCategory()">Kategorije</li>
-                <li class="category"
-                    *ngFor="let cat of categoryList; let i = index"
-                    (click)="goToCategory(cat.slug)">
-                    <span [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
-                        {{cat.name}}
-                    </span>
-                </li>
-            </ul>
+        <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
+            <px-sidemenu></px-sidemenu>
         </div>
 
     </div>

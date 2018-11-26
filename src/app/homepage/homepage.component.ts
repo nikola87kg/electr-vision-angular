@@ -40,7 +40,6 @@ import { Title } from '@angular/platform-browser';
 export class HomepageComponent implements OnInit {
     productList = [];
     brandList = [];
-    categoryList = [];
     navItemsVisible = false;
     screenSize;
     currentSlider = 1;
@@ -66,7 +65,6 @@ export class HomepageComponent implements OnInit {
 
     constructor(
         private brandService: BrandsService,
-        private categoryService: CategoriesService,
         private productService: ProductsService,
         public sharedService: SharedService,
         public title: Title,
@@ -76,7 +74,6 @@ export class HomepageComponent implements OnInit {
 
     ngOnInit() {
         this.getBrands();
-        this.getCategories();
         this.getProducts();
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
@@ -138,29 +135,17 @@ export class HomepageComponent implements OnInit {
         });
     }
 
-    /* Get category */
-    getCategories() {
-        this.categoryService.get().subscribe(response => {
-            this.categoryList = response;
-        });
-    }
 
     /* Navigation */
     goToBrand(slug) {
         this.router.navigate(['/brend/' + slug]);
     }
+
     goToProduct(slug, newTab?) {
         if (newTab) {
              window.open('/proizvod/' + slug);
         } else {
             this.router.navigate(['/proizvod/' + slug]);
-        }
-    }
-    goToCategory(slug?) {
-        if (slug) {
-            this.router.navigate(['/pretraga/potkategorije/' + slug]);
-        } else {
-            this.router.navigate(['/pretraga/kategorije/sve']);
         }
     }
 

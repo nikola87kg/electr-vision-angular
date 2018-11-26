@@ -33,19 +33,20 @@
 <hr>
 <br>
 
-<!-- Other products -->
+<!-- Similar products -->
 <div class="row">
     <div class="col-sm-12 product-gallery">
-        <h2 *ngIf="productList && productList.length != 0"> Slični proizvodi</h2>
-        <br>
-        <div class="product-single"
-             *ngFor="let prod of productList; let i = index"
-             (click)="goToProduct(prod.slug)">
-            <div class="col-sm-12">
-                <h5> {{prod.name}} </h5>
-            </div>
-            <div class="col-sm-12 image">
-                <img *ngIf="prod.image" src="{{prod.image}}">
+        <h2 *ngIf="productList && productList.length != 0"> Slični proizvodi </h2>
+        <div class="similar-product-wrapper">
+            <div class="product-single"
+                    *ngFor="let prod of productList; let i = index"
+                    (click)="goToProduct(prod.slug)">
+                <div class="col-sm-12">
+                    <h5> {{prod.name}} </h5>
+                </div>
+                <div class="col-sm-12 image-wrapper">
+                    <img *ngIf="prod.image" src="{{prod.image}}">
+                </div>
             </div>
         </div>
     </div>

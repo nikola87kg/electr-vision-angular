@@ -65,6 +65,12 @@ select {
 
 /***** COMMON CLASSES ****/
 
+.sidemenu {
+    padding-left: 50px;
+    background: $px-material-dark;
+    color: white;
+}
+
 .text-centered,
 .text-centered a  {
     text-align: center !important;
@@ -76,6 +82,10 @@ select {
 
 .ml5 {
     margin-left: 5px;
+}
+
+.pr0 {
+    padding-right: 0;
 }
 
 .inline-element {

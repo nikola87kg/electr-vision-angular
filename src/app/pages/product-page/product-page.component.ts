@@ -33,7 +33,9 @@ export class ProductPageComponent implements OnInit {
 
     /* Navigation */
     goToBrand(slug) {
-        this.router.navigate(['/brend/' + slug]);
+        this.router.navigate(['/pretraga/kategorije/sve'], {
+            queryParams: { brand: slug } 
+        });
     }
     goToProduct(slug) {
         this.router.navigate(['/proizvod/' + slug]);
@@ -61,13 +63,13 @@ export class ProductPageComponent implements OnInit {
     /* Get products + filter */
     getProducts() {
         this.productService.get().subscribe(response => {
-            const categoryFilter = this.product.category.name;
+            const groupId = this.product.group._id;
             this.productList = response.filter(
-                p => p.name !== this.product.name
+                p => p._id !== this.product._id
             );
-            if (categoryFilter) {
+            if (groupId) {
                 this.productList = this.productList.filter(
-                    p => p.category.name === categoryFilter
+                    p => p.group._id === groupId
                 );
             }
         });

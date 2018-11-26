@@ -5,81 +5,90 @@
 <!-- Navigation Menu -->
 <px-navigation-menu></px-navigation-menu>
 
-<!-- Toolbar -->
-<mat-toolbar color="accent"
-    *ngIf="headline">
-    <span class="toolbar-title">
-        {{headline}}
-        <span *ngIf="currentName"> - {{ currentName }}</span>
-    </span>
-    <span class="toolbar-spacer"></span>
-    <button
-        *ngIf="currentLevel !== 'kategorije'"
-        class="back-button"
-        mat-stroked-button
-        (click)="goStepBack();">
-        <mat-icon>arrow_back_ios</mat-icon>
-        {{ backButtontext }}
-    </button>
-</mat-toolbar>
 
-<!-- Stepper -->
-<div class="step-buttons" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
-    <button
-        mat-raised-button
-        [color]=" currentLevel === 'kategorije' ? 'primary' : '' "
-        (click)="goBackToCategoryLevel();">
-        1. Kategorije
-    </button>
-    <button
-        mat-raised-button
-        [disabled]="currentLevel === 'kategorije'"
-        (click)="goBackToGroupLevel();"
-        [color]=" currentLevel === 'potkategorije' ? 'primary' : '' ">
-        2. Potkategorije
-    </button>
-    <button
-        mat-raised-button
-        [disabled]="currentLevel !== 'proizvodi'"
-        [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
-        3. Proizvodi
-    </button>
-    <mat-form-field class="brand-list-wrapper">
-        <mat-select placeholder="Izaberi brend" [(ngModel)]="currentBrand">
-            <mat-option  [value]="" style="background: lightblue"
-                (click)="filterByBrand()">
-                Svi brendovi
-            </mat-option>
-            <mat-option  [value]="brand.slug"
-            *ngFor="let brand of brandList"
-            (click)="filterByBrand(brand.slug)">
-                {{ brand.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
-
-<!-- Brand Dropdown -->
-<div class="no-content" *ngIf="currentList?.length < 1">
-    <h6> Izvinjavamo se. Nema proizvoda u ovoj kategoriji... </h6>
-</div>
-
-<!-- Cards -->
-<div class="cards" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
-    <mat-card
-        (click)="goForward(item);"
-        *ngFor="let item of currentList">
-        <!-- Title -->
-        <mat-card-title>  {{ item.name }} </mat-card-title>
-        <!-- Image -->
-        <div class="image-wrapper">
-            <img mat-card-image [src]="item.image">
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-9 pr0">
+        <!-- Toolbar -->
+        <mat-toolbar color="accent"
+            *ngIf="headline">
+            <span class="toolbar-title">
+                {{headline}}
+                <span *ngIf="currentName"> - {{ currentName }}</span>
+            </span>
+            <span class="toolbar-spacer"></span>
+            <button
+                *ngIf="currentLevel !== 'kategorije'"
+                class="back-button"
+                mat-stroked-button
+                (click)="goStepBack();">
+                <mat-icon>arrow_back_ios</mat-icon>
+                {{ backButtontext }}
+            </button>
+        </mat-toolbar>
+        <!-- Stepper -->
+        <div class="step-buttons" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
+            <button
+                mat-raised-button
+                [color]=" currentLevel === 'kategorije' ? 'primary' : '' "
+                (click)="goBackToCategoryLevel();">
+                1. Kategorije
+            </button>
+            <button
+                mat-raised-button
+                [disabled]="currentLevel === 'kategorije'"
+                (click)="goBackToGroupLevel();"
+                [color]=" currentLevel === 'potkategorije' ? 'primary' : '' ">
+                2. Potkategorije
+            </button>
+            <button
+                mat-raised-button
+                [disabled]="currentLevel !== 'proizvodi'"
+                [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
+                3. Proizvodi
+            </button>
+            <mat-form-field class="brand-list-wrapper">
+                <mat-select placeholder="Izaberi brend" [(ngModel)]="currentBrand">
+                    <mat-option  [value]="" style="background: lightblue"
+                        (click)="filterByBrand()">
+                        Svi brendovi
+                    </mat-option>
+                    <mat-option  [value]="brand.slug"
+                    *ngFor="let brand of brandList"
+                    (click)="filterByBrand(brand.slug)">
+                        {{ brand.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <br>
-        <!-- Button -->
-        <mat-card-actions>
-            <button mat-raised-button color="accent">Izaberi</button>
-        </mat-card-actions>
-    </mat-card>
+    
+        <!-- Brand Dropdown -->
+        <div class="no-content" *ngIf="currentList?.length < 1">
+            <h6> Izvinjavamo se. Nema proizvoda u ovoj kategoriji... </h6>
+        </div>
+    
+        <!-- Cards -->
+        <div class="cards" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
+            <mat-card
+                (click)="goForward(item);"
+                *ngFor="let item of currentList">
+                <!-- Title -->
+                <mat-card-title>  {{ item.name }} </mat-card-title>
+                <!-- Image -->
+                <div class="image-wrapper">
+                    <img mat-card-image [src]="item.image">
+                </div>
+                <br>
+                <!-- Button -->
+                <mat-card-actions>
+                    <button mat-raised-button color="accent">Izaberi</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    
+    <!-- Side Menu -->
+    <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
+        <px-sidemenu></px-sidemenu>
+    </div>
 </div>
 

@@ -40,12 +40,34 @@ form.searchbox {
         font-size: 20px;
         line-height: 28px;
         width: 300px;
-        @media screen and (max-width: 900px) {
+        @media #{$screen-md} {
             font-size: 16px;
             line-height: 20px;
             margin-top: 12px;
             width: 140px;
         }
+    }
+}
+
+.contact-wrapper {
+    float: right;
+    font-size: 14px;
+    margin-top: 7px;
+    margin-left: 30px;
+    color: #2b2b2b;
+    padding: 3px 15px;
+    border-left: 2px solid $px-material-accent;
+    span {
+        color: $px-material-accent;
+    }
+    @media #{$screen-lg} {
+        margin-right: 20px;
+    }
+    @media #{$screen-md} {
+        margin-right: 10px;
+    }
+    @media #{$screen-sm} {
+        display: none;
     }
 }
 
