@@ -135,10 +135,20 @@ export class HomepageComponent implements OnInit {
         });
     }
 
-
     /* Navigation */
+    goToCategory(slug) {
+        this.router.navigate( ['/pretraga/potkategorije/' + slug] );
+    }
+
+    goToGroup(slug) {
+        this.router.navigate( ['/pretraga/proizvodi/' + slug] );
+    }
+
     goToBrand(slug) {
-        this.router.navigate(['/brend/' + slug]);
+        this.router.navigate(
+            ['/pretraga/kategorije/sve'], 
+            {queryParams: { brand: slug } } 
+        );
     }
 
     goToProduct(slug, newTab?) {

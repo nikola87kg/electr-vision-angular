@@ -6,4 +6,22 @@ footer {
   font-size: 14px;
   background: $px-material-dark;
   color: white;
+  box-shadow: inset 0 0 5px #616161;
+}
+
+
+.delimeter {
+  display: inline-block;
+  margin: 0 10px;
+  color: gray;
+}
+
+.copyright {
+  margin-top: 10px;
+}
+
+.social-icons {
+  img {
+    height: 15px;
+  }
 }

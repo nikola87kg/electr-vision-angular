@@ -70,9 +70,9 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <h5> {{prod.name}} </h5>
-                                    <h6> Proizvođač: {{prod.brand.name}} </h6>
-                                    <h6> Potkategorija: {{prod.group.name}} </h6>
-                                    <h6> Kategorija: {{prod.category.name}} </h6>
+                                    <h6 (click)="goToCategory(prod.category.slug)"> {{prod.category.name}} </h6>
+                                    <h6 (click)="goToGroup(prod.group.slug)"> {{prod.group.name}} </h6>
+                                    <h6 (click)="goToBrand(prod.brand.slug)"> {{prod.brand.name}} </h6>
                                 </div>
                             </div>
                         </div>

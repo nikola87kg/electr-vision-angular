@@ -84,6 +84,10 @@ select {
     margin-left: 5px;
 }
 
+.sidemenu-height {
+    min-height: calc(100vh - 137px);
+}
+
 .pr0 {
     padding-right: 0;
 }
@@ -144,8 +148,9 @@ select {
 
 .mat-card.mat-card.mat-card {
     display: inline-block;
-    width: 350px;
+    width: 300px;
     height: 300px;
+    overflow: hidden;
     margin: 15px;
     text-align: center;
     cursor: pointer;
@@ -170,8 +175,8 @@ mat-card .image-wrapper {
     align-items: center;
     justify-content: center;
     .mat-card-image {
-        max-width: 200px;
-        max-height: 130px;
+        width: auto;
+        height: 130px;
     }
 }
 

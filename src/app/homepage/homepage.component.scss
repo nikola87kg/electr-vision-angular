@@ -123,11 +123,10 @@
         }
         img {
             margin-top: 10px;
-            max-width: 250px;
-            max-height: 150px;
+            width: auto;
+            height: 140px;
         }
         h5 {
-            font-weight: bold;
             border-bottom: 2px solid  $px-material-primary;
             color: $px-material-primary;
             margin-top: 20px;
@@ -138,7 +137,15 @@
             overflow: hidden;
         }
         h6 {
-            font-size: 13px;
+            font-size: 15px;
+            display: inline-block;
+            margin: 0 10px 10px 0;
+            padding: 7px 12px;
+            background: rgb(233, 233, 233);
+            border-radius: 5px;
+            &:hover {
+                background: rgb(207, 226, 255);
+            }
         }
         p {
             font-size: 13px;
