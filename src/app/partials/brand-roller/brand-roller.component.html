@@ -1,12 +1,18 @@
 <!-- Roller -->
 <div class="brand-roller">
-    <span *ngFor="let brand of brandList; let i = index" class="left-right">
-        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    <span *ngIf="placeholders.p0">
+        <img src="{{placeholders.p0.image}}" [alt]="placeholders.p0.image" (click)="goToBrand(placeholders.p0.slug)">
     </span>
-    <span *ngFor="let brand of brandList; let i = index" class="left-right">
-        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    <span *ngIf="placeholders.p1">
+        <img src="{{placeholders.p1.image}}" [alt]="placeholders.p1.image" (click)="goToBrand(placeholders.p1.slug)">
     </span>
-    <span *ngFor="let brand of brandList; let i = index" class="left-right">
-        <img src="{{brand.image}}" [alt]="brand.image" (click)="goToBrand(brand.slug)">
+    <span *ngIf="placeholders.p2">
+        <img src="{{placeholders.p2.image}}" [alt]="placeholders.p2.image" (click)="goToBrand(placeholders.p2.slug)">
+    </span>
+    <span *ngIf="placeholders.p3">
+        <img src="{{placeholders.p3.image}}" [alt]="placeholders.p3.image" (click)="goToBrand(placeholders.p3.slug)">
+    </span>
+    <span *ngIf="placeholders.p4">
+        <img src="{{placeholders.p4.image}}" [alt]="placeholders.p4.image" (click)="goToBrand(placeholders.p4.slug)">
     </span>
 </div>

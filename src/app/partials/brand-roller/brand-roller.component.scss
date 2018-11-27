@@ -6,9 +6,8 @@
     padding: 10px 20px;
     box-shadow: 1px 12px 8px -7px lightgrey;
     background:  white;
-    width: 300vw;
+    width: 100%;
     position: relative;
-    left: -100%;
     white-space: nowrap;
     overflow: hidden;
     height: 200px;
@@ -18,7 +17,7 @@
     span {
         display: inline-block;
         vertical-align: middle;
-        margin: auto 20px;
+        margin: auto 10px;
         padding: 10px 20px;
         cursor: pointer;
         overflow: hidden;

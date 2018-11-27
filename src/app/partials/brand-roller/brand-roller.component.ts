@@ -10,6 +10,13 @@ import { Router } from '@angular/router';
 export class BrandRollerComponent implements OnInit {
 
     brandList = [];
+    placeholders = {
+        p0: '',
+        p1: '',
+        p2: '',
+        p3: '',
+        p4: '',
+    }
 
     constructor(
         private brandService: BrandsService,
@@ -22,8 +29,20 @@ export class BrandRollerComponent implements OnInit {
 
     /* Get brand */
     getBrands() {
+        let currentPage = 0;
         this.brandService.get().subscribe(response => {
             this.brandList = response.filter(brand => brand.vip);
+            this.brandList.forEach( (brand, index) => {
+                    this.placeholders['p' + index] = brand;
+            });
+            setInterval(() => {
+                this.brandList.forEach( (brand, index) => {
+                    if(index < this.brandList.length) {
+                        this.placeholders['p' + (index + currentPage)] = brand;
+                    }
+                    currentPage ++;
+                })
+            }, 1000)
         });
     }
 
