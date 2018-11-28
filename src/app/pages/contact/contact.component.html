@@ -13,6 +13,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
+
 <!-- Info -->
 <div class="row">
     <!-- Data -->
@@ -24,6 +25,23 @@
                 <td> {{item.value }} </td>
             </tr>
         </table>
+        <br>
+        <div class="share-buttons">
+            <h6>Deli na: </h6>
+            <share-button 
+                button="facebook" 
+                [showText]="true"
+                [text]="'Facebook'"
+                [icon]="fbIcon">
+            </share-button>
+            
+            <share-button 
+                button="twitter" 
+                [showText]="true"
+                [text]="'Twitter'"
+                [icon]="fbIcon">
+            </share-button>
+        </div>
     </div>
     <!-- Map -->
     <div class="col-md-6 google-map">

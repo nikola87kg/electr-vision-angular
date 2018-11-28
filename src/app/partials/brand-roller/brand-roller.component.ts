@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandsService } from '../../_services/brands.service';
 import { Router } from '@angular/router';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { reduce } from 'rxjs/operators';
+
+interface BrandPlaceholder {
+    image: string;
+    slug: string;
+};
 
 @Component({
     selector: 'px-brand-roller',
     templateUrl: './brand-roller.component.html',
-    styleUrls: ['./brand-roller.component.scss']
+    styleUrls: ['./brand-roller.component.scss'],
 })
+
 export class BrandRollerComponent implements OnInit {
 
-    brandList = [];
-    placeholders = {
-        p0: '',
-        p1: '',
-        p2: '',
-        p3: '',
-        p4: '',
-    }
+    brandList = []; 
+    placeholders:BrandPlaceholder[] = [];
+    myState = 'state1';
 
     constructor(
         private brandService: BrandsService,
@@ -29,19 +32,28 @@ export class BrandRollerComponent implements OnInit {
 
     /* Get brand */
     getBrands() {
-        let currentPage = 0;
         this.brandService.get().subscribe(response => {
-            this.brandList = response.filter(brand => brand.vip);
+            this.brandList = response
+                .filter(brand => brand.vip)
+            /* fill placeholders */
             this.brandList.forEach( (brand, index) => {
-                    this.placeholders['p' + index] = brand;
+                    this.placeholders[index] = brand;
             });
+            /* change placeholder after one second */
             setInterval(() => {
-                this.brandList.forEach( (brand, index) => {
-                    if(index < this.brandList.length) {
-                        this.placeholders['p' + (index + currentPage)] = brand;
+
+                let oldplaceholder;
+                this.placeholders.forEach( (placeholder, index) => {
+                    if( index < this.brandList.length - 1 ) {
+                        if( index === 0 ) {
+                            oldplaceholder = this.placeholders[0]
+                        } 
+                        this.placeholders[ index ] = this.placeholders[ index + 1 ];
+                    } else  {
+                        this.placeholders[ index ] = oldplaceholder;
                     }
-                    currentPage ++;
-                })
+                });
+
             }, 1000)
         });
     }

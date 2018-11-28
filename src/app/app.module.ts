@@ -9,6 +9,8 @@ import { NgModule } from '@angular/core';
 import { AppMaterialModule } from './app.material.module';
 import { AppRoutingModule } from './app-routing.module';
 
+import { ShareButtonModule } from '@ngx-share/button';
+
 /* App components */
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -22,6 +24,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
+
 
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
@@ -39,6 +42,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        ShareButtonModule.forRoot(),
         AppMaterialModule,
         AppRoutingModule
     ],

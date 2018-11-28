@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GalleryService } from '../../_services/gallery.service';
 import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/_services/seo.service';
 
 @Component({
     selector: 'px-gallery',
@@ -17,11 +18,22 @@ export class GalleryComponent implements OnInit {
     filteredArray = [];
     galleryList = [];
 
-    constructor( public title: Title, private galleryService: GalleryService) {
-        title.setTitle('Galerija slika | ElectroVision Kragujevac');
-    }
+    constructor(
+        private galleryService: GalleryService,
+        private seo: SeoService
+    ) {}
 
     ngOnInit() {
+
+        /* SEO */
+        this.seo.generateTags( {
+            title: 'Galerija',
+            description: 'Galerija proizvoda i usluga',
+            image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
+            slug: 'galerija'
+        })
+
+        /* Gallery GET */
         this.galleryService.get().subscribe( (response) => {
             this.imagesArray = response;
             this.imagesArray.forEach( (element) => {

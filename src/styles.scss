@@ -3,6 +3,7 @@
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
 @import "px-material-theme.scss";
+@import '~@ngx-share/button/themes/default/default-theme';
 
 /**** BASIC ELEMENTS ****/
 
@@ -191,4 +192,14 @@ mat-form-field {
     width: 200px;
 }
 
-
+/* Share buttons */
+.share-buttons {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgb(228, 228, 228);
+    background: rgb(236, 236, 236);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 20px;
+    display: inline-block;
+}

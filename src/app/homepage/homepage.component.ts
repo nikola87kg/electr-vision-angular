@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 
 /* Services */
 import { BrandsService } from '../_services/brands.service';
-import { CategoriesService } from '../_services/categories.service';
 import { ProductsService } from '../_services/products.service';
 import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { Title } from '@angular/platform-browser';
+import { SeoService } from '../_services/seo.service';
 
 @Component({
     selector: 'px-homepage',
@@ -67,14 +67,25 @@ export class HomepageComponent implements OnInit {
         private brandService: BrandsService,
         private productService: ProductsService,
         public sharedService: SharedService,
-        public title: Title,
-        private router: Router) { 
-            title.setTitle('ElectroVision Kragujevac');
-        }
+        private router: Router,
+        private seo: SeoService
+    ) {}
 
     ngOnInit() {
+
+        /* SEO */
+        this.seo.generateTags( {
+            title: 'Dobro došli',
+            description: 'Početna stranica',
+            image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
+            slug: 'pocetna'
+        })
+
+        /* Get Data */
         this.getBrands();
         this.getProducts();
+
+        /* Screen Service */
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
@@ -83,6 +94,8 @@ export class HomepageComponent implements OnInit {
         } else {
             this.maxItems = 4;
         }
+
+        /* Slider */
         setInterval( () => {
             this.rollSlides();
         }, 5000 );
@@ -90,7 +103,6 @@ export class HomepageComponent implements OnInit {
             this.firstSlideOn = false;
         }, 2200 );
     }
-
 
     @HostListener('window:resize', ['$event']) onResize(event) {
         const innerWidth = event.target.innerWidth;

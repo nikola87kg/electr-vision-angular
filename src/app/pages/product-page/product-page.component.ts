@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ProductsService, ProductInterface } from '../../_services/products.service';
 import { Title } from '@angular/platform-browser';
+import { faFacebookSquare,  } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
+import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
+import { SeoService } from 'src/app/_services/seo.service';
 
 @Component({
     selector: 'px-product-page',
@@ -12,17 +15,18 @@ export class ProductPageComponent implements OnInit {
 
     product: ProductInterface;
     productList: Array<ProductInterface> ;
+    twIcon = faTwitterSquare;
+    fbIcon = faFacebookSquare;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private productService: ProductsService,
         private router: Router,
-        private title: Title
+        private seo: SeoService
     ) {
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.getProduct();
-                this.getProducts();
             }
         });
     }
@@ -55,7 +59,15 @@ export class ProductPageComponent implements OnInit {
         });
         this.productService.getBySlug(slug).subscribe(response => {
             this.product = response;
-            this.title.setTitle(this.product.name + ' | ElectroVision Kragujevac');
+            
+            /* SEO */
+            this.seo.generateTags( {
+                title: this.product.name,
+                description: this.product.description,
+                image:  this.product.image,
+                slug: 'proizvod/' + this.product.slug
+            })
+
             this.getProducts();
         });
     }

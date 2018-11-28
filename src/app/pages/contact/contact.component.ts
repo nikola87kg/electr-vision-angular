@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/_services/seo.service';
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 
 @Component({
     selector: 'px-contact',
@@ -7,6 +8,8 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
+
+    fbIcon = faFacebookSquare;
 
     info = [
         {key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac'},
@@ -20,10 +23,18 @@ export class ContactComponent implements OnInit {
         // {key: 'Matični broj', value: 'XXXXXXXXXXXXXXXX'},
     ];
 
-    constructor( public title: Title) {
-        title.setTitle('Kontakt informacije | ElectroVision Kragujevac');
+    constructor( private seo: SeoService ) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        
+        /* SEO */
+        this.seo.generateTags( {
+            title: 'Kontakt informacije',
+            description: 'Contact Description',
+            image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
+            slug: 'kontakt'
+        })
+    }
 
 }
