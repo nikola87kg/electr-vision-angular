@@ -181,7 +181,7 @@
                 <mat-button-toggle class="cancel-item" (click)="closeImageDialog()">
                     Odustani
                 </mat-button-toggle>
-                <mat-button-toggle class="save-item" (click)="postImage()">
+                <mat-button-toggle class="save-item"  *ngIf="imageFile" (click)="postImage()">
                     Sačuvaj
                 </mat-button-toggle>
             </mat-button-toggle-group>
