@@ -64,8 +64,11 @@ export class BrandsComponent implements OnInit {
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje brenda';
             this.brand = Object.assign({}, singleBrand);
-            if (index) {
-                this.currentIndex = index;
+            if (index !== undefined) {
+                const pageSize = this.paginator.pageSize;
+                const pageIndex = this.paginator.pageIndex;
+                const realIndex = pageSize * pageIndex + index;
+                this.currentIndex = realIndex;
             }
         }
         if (!editing) {
@@ -84,10 +87,15 @@ export class BrandsComponent implements OnInit {
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        const pageSize = this.paginator.pageSize;
+        const pageIndex = this.paginator.pageIndex;
+        const realIndex = pageSize * pageIndex + index;
+        this.imageFile = null;
+        this.imagePreview = null;
         this.isImageDialogOpen = true;
-        this.imageID = this.brandList[index]._id;
-        this.existingImage = this.brandList[index].image;
-        this.imageindex = index;
+        this.imageID = this.brandList[realIndex]._id;
+        this.existingImage = this.brandList[realIndex].image;
+        this.imageindex = realIndex;
         this.dialogTitle = 'Dodavanje slike';
     }
 

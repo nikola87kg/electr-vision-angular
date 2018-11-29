@@ -67,8 +67,11 @@ export class CategoriesComponent implements OnInit {
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje kategorije';
             this.category = Object.assign({}, singleCategory);
-            if (index) {
-                this.currentIndex = index;
+            if (index !== undefined) {
+                const pageSize = this.paginator.pageSize;
+                const pageIndex = this.paginator.pageIndex;
+                const realIndex = pageSize * pageIndex + index;
+                this.currentIndex = realIndex;
             }
         }
         if (!editing) {
@@ -87,10 +90,15 @@ export class CategoriesComponent implements OnInit {
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        const pageSize = this.paginator.pageSize;
+        const pageIndex = this.paginator.pageIndex;
+        const realIndex = pageSize * pageIndex + index;
+        this.imageFile = null;
+        this.imagePreview = null;
         this.isImageDialogOpen = true;
-        this.imageID = this.categoryList[index]._id;
-        this.existingImage = this.categoryList[index].image;
-        this.imageindex = index;
+        this.imageID = this.categoryList[realIndex]._id;
+        this.existingImage = this.categoryList[realIndex].image;
+        this.imageindex = realIndex;
         this.dialogTitle = 'Dodavanje slike';
     }
 
@@ -186,10 +194,10 @@ export class CategoriesComponent implements OnInit {
         formData.append('image', this.imageFile, filename);
 
         const thisCategory = this.categoryList[this.imageindex];
-        const groupId = thisCategory._id;
+        const catId = thisCategory._id;
         thisCategory.image = filename;
 
-        this.categoryService.put(groupId, thisCategory).subscribe(
+        this.categoryService.put(catId, thisCategory).subscribe(
             (response) => {
                 this.categoryService.postImage(this.imageID, formData).subscribe(
                     (response2) => {

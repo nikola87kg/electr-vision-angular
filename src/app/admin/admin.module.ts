@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 /* App modules */
 import { AdminRoutingModule } from './admin-routing.module';
@@ -18,7 +18,6 @@ import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
-import { AuthInterceptor } from '../_services/auth.intereceptor';
 
 @NgModule({
   imports: [

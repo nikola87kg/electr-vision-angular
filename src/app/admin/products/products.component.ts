@@ -86,8 +86,11 @@ export class ProductsComponent implements OnInit {
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje proizvoda';
             this.product = Object.assign({}, singleProduct);
-            if (index) {
-                this.currentIndex = index;
+            if (index !== undefined) {
+                const pageSize = this.paginator.pageSize;
+                const pageIndex = this.paginator.pageIndex;
+                const realIndex = pageSize * pageIndex + index;
+                this.currentIndex = realIndex;
             }
         }
         if (!editing) {
@@ -106,12 +109,15 @@ export class ProductsComponent implements OnInit {
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        const pageSize = this.paginator.pageSize;
+        const pageIndex = this.paginator.pageIndex;
+        const realIndex = pageSize * pageIndex + index;
         this.imageFile = null;
         this.imagePreview = null;
-        this.imageID = this.productList[index]._id;
-        this.existingImage = this.productList[index].image;
-        this.imageindex = index;
         this.isImageDialogOpen = true;
+        this.imageID = this.productList[realIndex]._id;
+        this.existingImage = this.productList[realIndex].image;
+        this.imageindex = realIndex;
         this.dialogTitle = 'Dodavanje slike';
     }
 

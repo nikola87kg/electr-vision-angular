@@ -75,8 +75,11 @@ export class GroupsComponent implements OnInit {
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje potkategorije';
             this.subcategory = Object.assign({}, singleGroup);
-            if (index) {
-                this.currentIndex = index;
+            if (index !== undefined) {
+                const pageSize = this.paginator.pageSize;
+                const pageIndex = this.paginator.pageIndex;
+                const realIndex = pageSize * pageIndex + index;
+                this.currentIndex = realIndex;
             }
         }
         if (!editing) {
@@ -95,10 +98,15 @@ export class GroupsComponent implements OnInit {
 
     openImageDialog(event, index) {
         event.stopPropagation();
+        const pageSize = this.paginator.pageSize;
+        const pageIndex = this.paginator.pageIndex;
+        const realIndex = pageSize * pageIndex + index;
+        this.imageFile = null;
+        this.imagePreview = null;
         this.isImageDialogOpen = true;
-        this.imageID = this.groupList[index]._id;
-        this.existingImage = this.groupList[index].image;
-        this.imageindex = index;
+        this.imageID = this.groupList[realIndex]._id;
+        this.existingImage = this.groupList[realIndex].image;
+        this.imageindex = realIndex;
         this.dialogTitle = 'Dodavanje slike';
     }
 
