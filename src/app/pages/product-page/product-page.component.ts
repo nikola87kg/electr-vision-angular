@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
 import { ProductsService, ProductInterface } from '../../_services/products.service';
-import { Title } from '@angular/platform-browser';
-import { faFacebookSquare,  } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
+import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
 import { SeoService } from 'src/app/_services/seo.service';
 
@@ -17,6 +16,11 @@ export class ProductPageComponent implements OnInit {
     productList: Array<ProductInterface> ;
     twIcon = faTwitterSquare;
     fbIcon = faFacebookSquare;
+    title: string;
+    description: string;
+    image: string;
+    slug: string;
+    url: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -60,12 +64,18 @@ export class ProductPageComponent implements OnInit {
         this.productService.getBySlug(slug).subscribe(response => {
             this.product = response;
             
+            this.title = this.product.name;
+            this.description = this.product.description;
+            this.image = this.product.image;
+            this.slug = 'proizvod/' + this.product.slug;
+            this.url = 'http://electrovision.rs/' + this.slug;
+            console.log(this.url)
             /* SEO */
             this.seo.generateTags( {
-                title: this.product.name,
-                description: this.product.description,
-                image:  this.product.image,
-                slug: 'proizvod/' + this.product.slug
+                title: this.title,
+                description: this.description,
+                image:  this.image,
+                slug: this.slug
             })
 
             this.getProducts();

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SeoService } from 'src/app/_services/seo.service';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
+import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
+
 
 @Component({
     selector: 'px-contact',
@@ -10,6 +12,7 @@ import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookS
 export class ContactComponent implements OnInit {
 
     fbIcon = faFacebookSquare;
+    twIcon = faTwitterSquare;
     title: 'Kontakt informacije';
     description: 'Contact Description';
     image: 'http://electrovision.rs/assets/logo/ElectroVision.svg';
