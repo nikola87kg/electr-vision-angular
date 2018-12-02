@@ -13,7 +13,6 @@
             *ngIf="headline">
             <span class="toolbar-title">
                 {{headline}}
-                <span *ngIf="currentName"> - {{ currentName }}</span>
             </span>
             <span class="toolbar-spacer"></span>
             <button
@@ -31,20 +30,25 @@
                 mat-raised-button
                 [color]=" currentLevel === 'kategorije' ? 'primary' : '' "
                 (click)="goBackToCategoryLevel();">
-                1. Kategorije
+                1. Sve kategorije
             </button>
             <button
                 mat-raised-button
                 [disabled]="currentLevel === 'kategorije'"
                 (click)="goBackToGroupLevel();"
                 [color]=" currentLevel === 'potkategorije' ? 'primary' : '' ">
-                2. Potkategorije
+                2. 
+                <span *ngIf="currentLevel === 'potkategorije'">{{ currentName }}</span> 
+                <span *ngIf="currentLevel === 'kategorije'">Potkategorije</span>
+                <span *ngIf="currentLevel === 'proizvodi'">{{ lastCategory.name }} </span>
             </button>
             <button
                 mat-raised-button
                 [disabled]="currentLevel !== 'proizvodi'"
                 [color]=" currentLevel === 'proizvodi' ? 'primary' : '' ">
-                3. Proizvodi
+                3. 
+                <span *ngIf="currentLevel === 'proizvodi'">{{ currentName }} </span>
+                <span *ngIf="currentLevel !== 'proizvodi'">Proizvodi</span>
             </button>
             <mat-form-field class="brand-list-wrapper">
                 <mat-select placeholder="Izaberi brend" [(ngModel)]="currentBrand">

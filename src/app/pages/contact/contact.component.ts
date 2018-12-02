@@ -10,6 +10,11 @@ import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookS
 export class ContactComponent implements OnInit {
 
     fbIcon = faFacebookSquare;
+    title: 'Kontakt informacije';
+    description: 'Contact Description';
+    image: 'http://electrovision.rs/assets/logo/ElectroVision.svg';
+    slug: 'kontakt';
+    url: 'http://electrovision.rs/kontakt';
 
     info = [
         {key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac'},
@@ -30,10 +35,10 @@ export class ContactComponent implements OnInit {
         
         /* SEO */
         this.seo.generateTags( {
-            title: 'Kontakt informacije',
-            description: 'Contact Description',
-            image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
-            slug: 'kontakt'
+            title: this.title,
+            description: this.description,
+            image: this.image,
+            slug: this.slug
         })
     }
 

@@ -167,6 +167,7 @@ select {
     font-size: 20px;
     font-weight: 400;
     height: 60px;
+    overflow: hidden;
 }
 
 mat-card .image-wrapper {
@@ -202,4 +203,7 @@ mat-form-field {
     margin-top: 10px;
     margin-left: 20px;
     display: inline-block;
+    @media #{$screen-md} {
+        display: none;        
+    }
 }

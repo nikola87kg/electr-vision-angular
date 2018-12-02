@@ -15,7 +15,7 @@
     <div class="product-info col-sm-12 col-md-6 col-lg-7">
         <!-- Share -->
         <div class="share-buttons" style="float: right;">
-            <h6>Deli na: </h6>
+            <h6>Podeli na: </h6>
             <share-button 
                 button="facebook" 
                 [showText]="true"
@@ -53,9 +53,9 @@
 <br>
 
 <!-- Similar products -->
-<div class="row">
+<div class="row"  *ngIf="productList && productList.length != 0">
     <div class="col-sm-12 product-gallery">
-        <h2 *ngIf="productList && productList.length != 0"> Slični proizvodi </h2>
+        <h2> Slični proizvodi </h2>
         <div class="similar-product-wrapper">
             <div class="product-single"
                     *ngFor="let prod of productList; let i = index"
