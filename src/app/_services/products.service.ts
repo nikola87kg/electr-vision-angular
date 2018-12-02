@@ -10,6 +10,8 @@ export interface ProductInterface {
     _id: string;
     name: string;
     slug: string;
+    catalog: string;
+    counter: number;
     description: string;
     image: string;
     category:  { _id: string, name: string, slug: string };

@@ -51,8 +51,19 @@
             <span (click)="goToBrand(product.brand.slug)"> {{product.brand.name}} </span>
         </h5>
 
+        <!-- catalog number -->
+        <h6 class="catalog" *ngIf="product?.catalog">
+            Kataloški broj: 
+            <span> {{product.catalog}}</span> 
+        </h6>
+
         <!-- description -->
-        <h4 class="description"> {{product.description}} </h4>
+        <h4 class="description" *ngIf="product?.description"> {{product.description}} </h4>
+
+        <!-- counter -->
+        <h6 class="counter" *ngIf="product?.counter"> 
+            Broj poseta: {{product.counter}}
+        </h6>
         
     </div>
 </div>

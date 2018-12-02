@@ -36,7 +36,6 @@ export class ProductPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getProduct();
     }
 
     /* Navigation */

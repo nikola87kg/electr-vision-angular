@@ -16,6 +16,14 @@
         font-size: 30px;
         color: $px-material-accent;
     }
+    h6.catalog {
+        padding: 10px;
+        margin-bottom: 5px;
+        font-size: 15px;
+        span {
+            color: $px-material-accent;
+        }
+    }
     h5.breadcrumb {
         padding: 10px;
         background: transparent;
@@ -52,6 +60,12 @@
         max-height: 36vh;
         background: #f7f7f7;
 
+    }
+    h6.counter {
+        font-size: 12px;
+        color: black;
+        padding-left: 20px;
+        padding-top: 20px;
     }
 }
 

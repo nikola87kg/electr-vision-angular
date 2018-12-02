@@ -37,6 +37,8 @@ export class ProductsComponent implements OnInit {
         'position',
         'image',
         'name',
+        'catalog',
+        'counter',
         'vip',
         'category',
         'group',
@@ -131,6 +133,8 @@ export class ProductsComponent implements OnInit {
         this.product = {
             _id: '',
             name: '',
+            catalog: '',
+            counter: null,
             vip: false,
             slug: '',
             description: '',
