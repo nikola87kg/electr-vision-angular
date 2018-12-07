@@ -3,11 +3,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 /* Services */
-import { BrandsService } from '../_services/brands.service';
 import { ProductsService } from '../_services/products.service';
 import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
-import { Title } from '@angular/platform-browser';
 import { SeoService } from '../_services/seo.service';
 
 @Component({
@@ -64,14 +62,13 @@ export class HomepageComponent implements OnInit {
     ];
 
     constructor(
-        private brandService: BrandsService,
-        private productService: ProductsService,
         public sharedService: SharedService,
         private router: Router,
         private seo: SeoService
     ) {}
 
     ngOnInit() {
+        this.getProducts();
 
         /* SEO */
         this.seo.generateTags( {
@@ -81,19 +78,14 @@ export class HomepageComponent implements OnInit {
             slug: 'pocetna'
         })
 
-        /* Get Data */
-        this.getBrands();
-        this.getProducts();
-
         /* Screen Service */
+
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
-        if(this.screenSize === "large") {
-            this.maxItems = 3;
-        } else {
-            this.maxItems = 4;
-        }
+
+        if(this.screenSize === "large") { this.maxItems = 3; 
+        } else { this.maxItems = 4; }
 
         /* Slider */
         setInterval( () => {
@@ -135,15 +127,14 @@ export class HomepageComponent implements OnInit {
 
     /* Get products + filter */
     getProducts() {
-        this.productService.get().subscribe(response => {
-            this.productList = response.filter(item => item.vip);
-        });
-    }
-
-    /* Get brand */
-    getBrands() {
-        this.brandService.get().subscribe(response => {
-            this.brandList = response;
+            this.sharedService.productList.subscribe( result => {
+            if(result) {
+                this.productList = result.filter(item => item.vip);
+            } else {
+                setTimeout( ()=> {
+                    this.getProducts()
+                }, 1)
+            }
         });
     }
 

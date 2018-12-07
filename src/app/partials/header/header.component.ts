@@ -17,10 +17,8 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
     constructor(
-        private productService: ProductsService,
         private router: Router,
-        public sharedService: SharedService,
-        private authService: AuthService
+        public sharedService: SharedService
     ) {}
 
     showResult = false;
@@ -44,15 +42,9 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getAllProducts();
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
-        this.getAllProducts();
-        setTimeout(() => {
-            this.filteredOptions = this.searchInput.valueChanges.pipe(
-                startWith(''),
-                map( value => this._filter(value) )
-            );
-        }, 500);
     }
 
     private _filter(value: string): string[] {
@@ -63,8 +55,20 @@ export class HeaderComponent implements OnInit {
     }
 
     getAllProducts() {
-        this.productService.get().subscribe( (result) => {
-            this.options = result
+        this.sharedService.productList.subscribe( result => {
+            if(result) {
+                this.options = result;
+                setTimeout(() => {
+                    this.filteredOptions = this.searchInput.valueChanges.pipe(
+                        startWith(''),
+                        map( value => this._filter(value) )
+                    );
+                }, 200);
+            } else {
+                setTimeout( ()=> {
+                    this.getAllProducts();
+                }, 1);
+            }
         });
     }
 

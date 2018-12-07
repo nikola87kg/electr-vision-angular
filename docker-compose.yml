@@ -1,0 +1,10 @@
+version: '2'
+
+services: 
+  angular-nikola:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+

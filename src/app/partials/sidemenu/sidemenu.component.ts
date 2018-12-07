@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from 'src/app/_services/categories.service';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/_services/shared.service';
 
 @Component({
     selector: 'px-sidemenu',
@@ -14,7 +15,7 @@ export class SidemenuComponent implements OnInit {
 
     /* Lifecycle Hooks */
     constructor(
-        private categoryService: CategoriesService,
+        public sharedService: SharedService,
         private router: Router
     ) {}
 
@@ -22,13 +23,20 @@ export class SidemenuComponent implements OnInit {
         this.getCategories();
     }
 
-    /* Methods */
+    /* GET Categories */
     getCategories() {
-        this.categoryService.get().subscribe(response => {
-            this.categoryList = response;
+        this.sharedService.categoryList.subscribe(response => {
+            if(response) {
+                this.categoryList = response;
+            } else {
+                setTimeout( ()=> {
+                    this.getCategories();
+                }, 1)
+            }
         });
     }
 
+    /* Navigate to Search Page */
     goToCategory(slug?) {
         if (slug) {
             this.router.navigate(['/pretraga/potkategorije/' + slug]);

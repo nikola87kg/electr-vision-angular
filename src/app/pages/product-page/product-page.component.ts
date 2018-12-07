@@ -4,6 +4,7 @@ import { ProductsService, ProductInterface } from '../../_services/products.serv
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
 import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
 import { SeoService } from 'src/app/_services/seo.service';
+import { SharedService } from 'src/app/_services/shared.service';
 
 @Component({
     selector: 'px-product-page',
@@ -26,7 +27,8 @@ export class ProductPageComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private productService: ProductsService,
         private router: Router,
-        private seo: SeoService
+        private seo: SeoService,
+        public sharedService: SharedService
     ) {
         this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
@@ -68,7 +70,6 @@ export class ProductPageComponent implements OnInit {
             this.image = this.product.image;
             this.slug = 'proizvod/' + this.product.slug;
             this.url = 'http://electrovision.rs/' + this.slug;
-            console.log(this.url)
             /* SEO */
             this.seo.generateTags( {
                 title: this.title,
@@ -83,15 +84,21 @@ export class ProductPageComponent implements OnInit {
 
     /* Get products + filter */
     getProducts() {
-        this.productService.get().subscribe(response => {
-            const groupId = this.product.group._id;
-            this.productList = response.filter(
-                p => p._id !== this.product._id
-            );
-            if (groupId) {
-                this.productList = this.productList.filter(
-                    p => p.group._id === groupId
+        this.sharedService.productList.subscribe(result => {
+            if(result) {
+                const groupId = this.product.group._id;
+                this.productList = result.filter(
+                    p => p._id !== this.product._id
                 );
+                if (groupId) {
+                    this.productList = this.productList.filter(
+                        p => p.group._id === groupId
+                    );
+                }
+            } else {
+                setTimeout( ()=> {
+                    this.getProducts()
+                }, 1)
             }
         });
     }

@@ -38,9 +38,9 @@
                 (click)="goBackToGroupLevel();"
                 [color]=" currentLevel === 'potkategorije' ? 'primary' : '' ">
                 2. 
-                <span *ngIf="currentLevel === 'potkategorije'">{{ currentName }}</span> 
+                <span *ngIf="currentName && currentLevel === 'potkategorije'">{{ currentName }}</span> 
                 <span *ngIf="currentLevel === 'kategorije'">Potkategorije</span>
-                <span *ngIf="currentLevel === 'proizvodi'">{{ lastCategory.name }} </span>
+                <span *ngIf="lastCategory && currentLevel === 'proizvodi'">{{ lastCategory.name }} </span>
             </button>
             <button
                 mat-raised-button
