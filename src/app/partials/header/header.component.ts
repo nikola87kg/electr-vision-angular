@@ -46,8 +46,8 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
-        this.getAllProducts();
         setTimeout(() => {
+            this.getAllProducts();
             this.filteredOptions = this.searchInput.valueChanges.pipe(
                 startWith(''),
                 map( value => this._filter(value) )

@@ -82,7 +82,6 @@ export class HomepageComponent implements OnInit {
         })
 
         /* Get Data */
-        this.getBrands();
         this.getProducts();
 
         /* Screen Service */
@@ -137,13 +136,6 @@ export class HomepageComponent implements OnInit {
     getProducts() {
         this.productService.get().subscribe(response => {
             this.productList = response.filter(item => item.vip);
-        });
-    }
-
-    /* Get brand */
-    getBrands() {
-        this.brandService.get().subscribe(response => {
-            this.brandList = response;
         });
     }
 
