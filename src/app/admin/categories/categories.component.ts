@@ -168,11 +168,17 @@ export class CategoriesComponent implements OnInit {
 
     /* Get category */
     getCategories() {
-        this.categoryService.get().subscribe(response => {
-            this.categoryList = response;
-            this.dataSource = new MatTableDataSource(this.categoryList);
-            this.dataSource.sort = this.sort;
-            this.dataSource.paginator = this.paginator;
+        this.sharedService.categoryList.subscribe(response => {
+            if(response) {
+                this.categoryList = response;
+                this.dataSource = new MatTableDataSource(this.categoryList);
+                this.dataSource.sort = this.sort;
+                this.dataSource.paginator = this.paginator;
+            } else {
+                setTimeout( ()=> {
+                    this.getCategories();
+                }, 1)
+            }
         });
     }
 

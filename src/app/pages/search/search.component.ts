@@ -187,11 +187,11 @@ export class SearchComponent implements OnInit {
     /* Get categories*/
     getCategories(brandSlug?) {
         this.currentName = null;
-        this.categoryService.get().subscribe(response => {
+        this.sharedService.categoryList.subscribe(response => {
             this.categoryList = response;
             if(brandSlug || this.currentBrand) {
                 let brand = brandSlug || this.currentBrand
-                this.productService.get().subscribe(res2 => {
+                this.sharedService.productList.subscribe(res2 => {
                     let filteredProducts = res2.filter( product => product.brand.slug === brand);
                     let catSlugs = filteredProducts.map( product => product.category.slug);
                     this.currentList = response.filter( cat => catSlugs.includes(cat.slug) );
@@ -211,7 +211,7 @@ export class SearchComponent implements OnInit {
             this.groupService.get().subscribe(response => {
                 if(brandSlug || this.currentBrand) {
                     let brand = brandSlug || this.currentBrand
-                    this.productService.get().subscribe(res2 => {
+                    this.sharedService.productList.subscribe(res2 => {
                         let filteredProducts = res2.filter( product => product.brand.slug === brand);
                         let groupSlugs = filteredProducts.map( product => product.group.slug);
                         this.currentList = response
@@ -229,7 +229,7 @@ export class SearchComponent implements OnInit {
                 id = res1._id
                 this.groupService.get().subscribe(res2 => {
                     if(brandSlug) {
-                        this.productService.get().subscribe(res3 => {
+                        this.sharedService.productList.subscribe(res3 => {
                             let filteredProducts = res3.filter( product => product.brand.slug === brandSlug);
                             let groupSlugs = filteredProducts.map( product => product.group.slug);
                             this.currentList = res2.filter(group => groupSlugs.includes(group.slug) );
@@ -250,7 +250,7 @@ export class SearchComponent implements OnInit {
     getProducts(groupId?, brandSlug?) {
         let id;
         if(groupId) {
-            this.productService.get().subscribe(response => {
+            this.sharedService.productList.subscribe(response => {
                 this.currentList = response.filter(
                     product => product.group._id === groupId
                 );
@@ -260,7 +260,7 @@ export class SearchComponent implements OnInit {
                 this.lastGroup = res1;
                 this.lastCategory = res1.category;
                 id = res1._id
-                this.productService.get().subscribe(res2 => {
+                this.sharedService.productList.subscribe(res2 => {
                     this.currentList = res2.filter(
                         (product) => product.group._id === id 
                     );

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { ProductsService } from './_services/products.service';
+import { SharedService } from './_services/shared.service';
+import { CategoriesService } from './_services/categories.service';
 
 @Component({
     selector: 'px-root',
@@ -8,12 +11,22 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private router: Router, ) {
-    }
+    constructor(
+        private router: Router, 
+        private productService: ProductsService,
+        public categoryService: CategoriesService,
+        public sharedService: SharedService
+    ) {}
 
     isAdminPanel = false;
 
     ngOnInit() {
+        this.getAllProducts();
+        this.getAllCategories();
+        this.handleRouting();
+    }
+    
+    handleRouting() {
         this.router.events
             .subscribe( evt => {
                 if (evt instanceof NavigationEnd) {
@@ -27,5 +40,18 @@ export class AppComponent implements OnInit {
                     this.isAdminPanel = false;
                 }
             });
+    }
+
+    getAllProducts() {
+        this.productService.get().subscribe( (response) => {
+            this.sharedService.productList.next(response);
+        });
+    }
+    
+    getAllCategories() {
+        console.log('app Component')
+        this.categoryService.get().subscribe( (response) => {
+            this.sharedService.categoryList.next(response);
+        });
     }
 }
