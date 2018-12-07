@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandsService } from '../../_services/brands.service';
 import { Router } from '@angular/router';
-import { trigger, transition, style, animate, state } from '@angular/animations';
-import { reduce } from 'rxjs/operators';
 
 interface BrandPlaceholder {
     image: string;
@@ -54,7 +52,7 @@ export class BrandRollerComponent implements OnInit {
                     }
                 });
 
-            }, 1000)
+            }, 2000)
         });
     }
 

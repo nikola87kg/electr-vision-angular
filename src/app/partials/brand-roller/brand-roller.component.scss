@@ -14,18 +14,32 @@
     @media #{$screen-sm} {
         height: 140px;
     }
-    span {
+    .brand-placeholder {
         display: inline-block;
         vertical-align: middle;
-        margin: auto 10px;
-        padding: 10px 20px;
+        padding: 10px;
+        margin: 10px;
+        vertical-align: top;
+        text-align: center;
         cursor: pointer;
         overflow: hidden;
+        width: 19%;
+        @media #{$screen-lg} {
+            width: 24%;
+        }
+        @media #{$screen-md} {
+            width: 30%;
+        }
+        @media #{$screen-sm} {
+            width: 33%;
+        }
+        @media #{$screen-xs} {
+            width: 50%;
+        }
         img {
             display: inline-block;
             vertical-align: middle;
-            width: 170px;
-            max-height: 160px;
+            width: 70%;
         }
         @media #{$screen-sm} {
             margin: auto 5px;
