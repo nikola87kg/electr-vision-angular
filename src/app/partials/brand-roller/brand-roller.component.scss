@@ -3,7 +3,7 @@
 /* Roller */
 .brand-roller {
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px auto;
     box-shadow: 1px 12px 8px -7px lightgrey;
     background:  white;
     width: 100%;
@@ -18,17 +18,17 @@
         display: inline-block;
         vertical-align: middle;
         padding: 10px;
-        margin: 10px;
+        margin: 10px 0;
         vertical-align: top;
         text-align: center;
         cursor: pointer;
         overflow: hidden;
-        width: 19%;
+        width: 20%;
         @media #{$screen-lg} {
-            width: 24%;
+            width: 25%;
         }
         @media #{$screen-md} {
-            width: 30%;
+            width: 33%;
         }
         @media #{$screen-sm} {
             width: 33%;

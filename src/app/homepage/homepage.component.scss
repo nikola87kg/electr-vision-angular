@@ -54,6 +54,9 @@
         margin-left: auto;
         text-align: center;
         text-shadow: 1px 1px gray;
+        @media #{$screen-sm} {
+            bottom: 70px;
+        }
     }
     p {
         color: rgb(255, 246, 246);
@@ -66,6 +69,7 @@
         margin-left: auto;
         text-align: center;
         text-shadow: 1px 1px gray;
+        vertical-align: top;
     }
 }
 
@@ -90,6 +94,9 @@
         letter-spacing: 1px;
         text-align: left;
         border-top: 2px solid $px-material-accent;
+        @media #{$screen-xs} {
+            font-size: 16px;
+        }
     }
     .up-down {
         animation: updown 1s linear infinite, blinker 1s linear infinite;
@@ -97,7 +104,8 @@
 }
 
 .top-product-box {
-    > div {
+    .wrapper-product {
+        margin-bottom: 10px;
         border: 1px solid lightgray;
         cursor: pointer;
         &:hover {
@@ -107,60 +115,49 @@
             }
         }
     }
-    > div > div {
-        text-align: left;
-        &.image {
-            text-align: center;
-            overflow: hidden;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            &:hover img {
-                transform: scale(1.03) ;
-                transition: 0.3s ease-out;
-            }
-        }
+    .product-image-wrapper {
+        display: flex;
+        height: 150px;
+        padding: 10px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
         img {
             margin-top: 10px;
             width: auto;
-            height: 140px;
+            max-height: 90%;
         }
-        h5 {
-            border-bottom: 2px solid  $px-material-primary;
-            color: $px-material-primary;
-            margin-top: 20px;
-            font-size: 15px;
-            padding-bottom: 5px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
+    }
+    .product-name {
+        border-bottom: 2px solid  $px-material-primary;
+        color: $px-material-primary;
+        margin-top: 20px;
+        font-size: 15px;
+        padding-bottom: 5px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .product-info-wrapper h6 {
+        font-size: 15px;
+        margin: 0 0 5px 0;
+        padding: 7px 12px;
+        border-radius: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &:nth-of-type(1) {
+            background: rgb(235, 211, 211);
+            &:hover { background:rgb(235, 180, 180); }
         }
-        h6 {
-            font-size: 15px;
-            margin: 0 0 5px 0;
-            padding: 7px 12px;
-            border-radius: 5px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            &:nth-of-type(1) {
-                background: rgb(235, 211, 211);
-                &:hover { background:rgb(235, 180, 180); }
-            }
-            &:nth-of-type(2) {
-                background: rgb(211, 224, 235);
-                &:hover { background: rgb(182, 209, 231);}
-            }
-            &:nth-of-type(3) {
-                background: rgb(233, 233, 233);
-                &:hover { background: rgb(202, 202, 202); }
-            }
+        &:nth-of-type(2) {
+            background: rgb(211, 224, 235);
+            &:hover { background: rgb(182, 209, 231);}
         }
-        p {
-            font-size: 13px;
-            font-style: italic;
-            color: gray;
+        &:nth-of-type(3) {
+            background: rgb(233, 233, 233);
+            &:hover { background: rgb(202, 202, 202); }
         }
     }
 }

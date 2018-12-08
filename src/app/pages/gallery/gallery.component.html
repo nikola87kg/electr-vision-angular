@@ -31,28 +31,29 @@
 
 
         <!-- Modal -->
-        <div class="gallery-modal" *ngIf="isGalleryModalOpen" (click)="OnCloseGallery()">
-            <!-- Previous -->
-            <div class="left">
-                <mat-icon
-                    class="arrow"
-                    (click)="onPreviousImage($event)"
-                    *ngIf="filteredArray.length > 1">
-                        chevron_left
-                    </mat-icon>
-            </div>
+        <div 
+            class="gallery-modal" 
+            *ngIf="isGalleryModalOpen" 
+            (click)="OnCloseGallery()">
             <!-- Image -->
             <div class="selected-image">
                 <img [src]="selectedImagePath">
             </div>
+            <!-- Previous -->
+            <div class="left"  
+            (click)="onPreviousImage($event)"
+            *ngIf="filteredArray.length > 1">
+                <span> 
+                    < 
+                </span>
+            </div>
             <!-- Next -->
-            <div class="right">
-                <mat-icon
-                    class="arrow"
-                    (click)="onNextImage($event)"
-                    *ngIf="filteredArray.length > 1">
-                        chevron_right
-                    </mat-icon>
+            <div class="right"  
+            (click)="onNextImage($event)"
+            *ngIf="filteredArray.length > 1">
+                <span> 
+                    > 
+                </span>
             </div>
         </div>
     </div>

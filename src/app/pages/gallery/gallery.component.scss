@@ -42,45 +42,68 @@ div.gallery-modal {
     left: 0;
     bottom: 0;
     right: 0;
+    z-index: 9990;
+    background: black;
     display: flex;
-    flex-wrap: wrap;
-    z-index: 9999;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.9);
     padding: 50px;
     margin: 0;
-    > div {
-        text-align: center;
+    text-align: center;
+    .selected-image {
         font-size: 30px;
-        text-align: center;
-        color: black;
         &.selected-image {
-            width: 80%;
             img {
                 max-width: 90%;
             }
         }
-        &.left {
-            width: 10%;
-            text-align: right;
+    }
+    .left {
+        background: rgba(124, 158, 172, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        width: 50vw;
+        z-index: 9999;
+        cursor: pointer;
+        left: 0;
+        bottom: 0;
+        height: 75px;
+        @media #{$screen-sm} {
+            height: 50px;
         }
-        &.right {
-            width: 10%;
-            text-align: left;
+        &:hover {
+            background: rgba(124, 158, 172, 0.8);
+        }
+    }
+    .right {
+        background: rgba(201, 183, 183, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        width: 50vw;
+        position: fixed;
+        z-index: 9999;
+        right: 0;
+        bottom: 0;
+        height: 75px;
+        @media #{$screen-sm} {
+            height: 50px;
+        }
+        &:hover {
+            background: rgba(201, 183, 183, 0.8);
+        }
+    }
+    span {
+        font-size: 40px;
+        user-select: none;
+        color: white;
+        &:hover {
+            color: rgb(209, 207, 207);
         }
     }
 }
 
-mat-icon.arrow {
-    font-size: 60px;
-    cursor: pointer;
-    user-select: none;
-    color: white;
-    &:hover {
-        transform: scale(1.05);
-        transition: transform 0.3s ease-in-out;
-        color: rgb(228, 228, 228);
-    }
-}
 
