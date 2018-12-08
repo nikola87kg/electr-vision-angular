@@ -14,6 +14,12 @@ footer {
   display: inline-block;
   margin: 0 10px;
   color: gray;
+  @media #{$screen-sm} {
+    display: none;
+    &.delimeter-small {
+      display: inline-block;
+    }
+  }
 }
 
 .copyright {
@@ -23,5 +29,13 @@ footer {
 .social-icons {
   img {
     height: 15px;
+  }
+}
+
+.small-screen-break {
+  display: none;
+  @media #{$screen-sm} {
+      display: block;
+      height: 7px;
   }
 }
