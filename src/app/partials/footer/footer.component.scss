@@ -13,7 +13,7 @@ footer {
 .delimeter {
   display: inline-block;
   margin: 0 10px;
-  color: gray;
+  color: rgb(246, 246, 246);
   @media #{$screen-sm} {
     display: none;
     &.delimeter-small {

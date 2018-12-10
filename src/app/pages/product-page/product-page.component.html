@@ -10,7 +10,7 @@
     <div class="col-lg-1">
     </div>
     <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
-        <img src="{{product.image}}" (click)="zoomImage(product.image)">
+        <img [src]="product.image" [alt]="product.image" (click)="zoomImage(product.image)">
     </div>
     <div class="product-info col-sm-12 col-md-6 col-lg-7">
         <!-- Share -->
@@ -85,7 +85,7 @@
                     <h5> {{prod.name}} </h5>
                 </div>
                 <div class="col-sm-12 image-wrapper">
-                    <img *ngIf="prod.image" src="{{prod.image}}">
+                    <img *ngIf="prod.image" src="[prod.image]" alt="[prod.image]">
                 </div>
             </div>
         </div>

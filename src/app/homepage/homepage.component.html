@@ -6,16 +6,16 @@
         <!-- Social icons -->
         <div class="header-icons">
             <a class="facebook" href="https://www.facebook.com/mihajlo.jeremic" target="_blank">
-                <img src="assets\icons\facebook.png" title="ElectroVision na Facebooku">
+                <img src="assets\icons\facebook.png" alt="fb" title="ElectroVision na Facebooku">
             </a>
             <a class="instagram"  href="https://www.instagram.com/mihajlo_jeremic/" target="_blank">
-                <img src="assets\icons\instagram.png" title="ElectroVision na Instragramu">
+                <img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
             </a>
             <a class="youtube"  href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
-                <img src="assets\icons\youtube.png" title="ElectroVision na Youtube">
+                <img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
             </a>
             <a class="kp"  href="https://www.kupujemprodajem.com/" target="_blank">
-                <img src="assets\icons\kp.png" title="ElectroVision na KupujemProdajem">
+                <img src="assets\icons\kp.png" alt="kp" title="ElectroVision na KupujemProdajem">
             </a>
         </div>
 
@@ -65,8 +65,8 @@
                             (pxMiddleClick)="goToProduct(prod.slug, true)" >
                             <div class="wrapper-product">
                                 <div class="col-sm-12 product-image-wrapper">
-                                    <img *ngIf="prod.image" src="{{prod.image}}">
-                                    <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg">
+                                    <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.image">
+                                    <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg" alt="default image">
                                 </div>
                                 <div class="col-sm-12 product-info-wrapper">
                                     <h5 class="product-name"> {{prod.name}} </h5>

@@ -52,7 +52,7 @@ export class BrandRollerComponent implements OnInit {
                     }
                 });
 
-            }, 2000)
+            }, 200000)
         });
     }
 
