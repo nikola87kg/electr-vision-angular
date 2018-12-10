@@ -22,6 +22,8 @@ export class ProductPageComponent implements OnInit {
     image: string;
     slug: string;
     url: string;
+    isFullPage: boolean;
+    fullPageImage: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -36,6 +38,12 @@ export class ProductPageComponent implements OnInit {
             }
         });
     }
+
+    zoomImage(image) {
+        this.isFullPage = !this.isFullPage;
+        this.fullPageImage = image;
+    }
+
 
     ngOnInit() {
     }

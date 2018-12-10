@@ -10,7 +10,7 @@
     <div class="col-lg-1">
     </div>
     <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
-        <img src="{{product.image}}">
+        <img src="{{product.image}}" (click)="zoomImage(product.image)">
     </div>
     <div class="product-info col-sm-12 col-md-6 col-lg-7">
         <!-- Share -->
@@ -90,4 +90,9 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- Full Page Image -->
+<div class="full-page-image" *ngIf="isFullPage" (click)="zoomImage()">
+    <img [src]="fullPageImage" [alt]="fullPageImage">
 </div>

@@ -36,10 +36,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
     crossorigin="anonymous"></script>
 
+    <style>
+      .wrapper {
+        text-align: center;
+        padding-top: 5%;
+      }
+      img {
+        height: 200px;
+        margin: 20px auto;
+      }
+      .loading-text {
+        display: block;
+        font-size: 30px;
+        margin: 20px auto;
+      }
+      .main-text {
+        color: rgb(187, 10, 10);
+      }
+    </style> 
 </head>
 
 <body>
-  <px-root></px-root>
+  <px-root>
+    <div class="wrapper">
+        <div class="loading-text">
+            Dobro došli na <span class="main-text">ElectroVision.rs</span>
+        </div>
+        <img src="/assets/logo/EV.png" alt="electrovision_logo">
+        <div class="loading-text">
+            Ažurira se lista proizvoda. <br>
+            Molimo sačekajte par sekundi...
+        </div>
+    </div>
+  </px-root>
 </body>
 
 </html>
