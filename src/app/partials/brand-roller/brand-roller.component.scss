@@ -23,21 +23,26 @@
         text-align: center;
         cursor: pointer;
         overflow: hidden;
-        width: 20%;
+        max-width: 20%;
+        min-width: 20%;
         height: 100%;
         align-items: center;
     
         @media #{$screen-lg} {
             max-width: 25%;
+            min-width: 25%;
         }
         @media #{$screen-md} {
             max-width: 33%;
+            min-width: 33%;
         }
         @media #{$screen-sm} {
             max-width: 33%;
+            min-width: 33%;
         }
         @media #{$screen-xs} {
             max-width: 50%;
+            min-width: 50%;
         }
         img {
             display: inline-block;

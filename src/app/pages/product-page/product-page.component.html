@@ -62,7 +62,7 @@
 
         <!-- counter -->
         <h6 class="counter" *ngIf="product?.counter"> 
-            Broj poseta: {{product.counter}}
+            <!-- Broj poseta: {{product.counter}} -->
         </h6>
         
     </div>
@@ -85,7 +85,7 @@
                     <h5> {{prod.name}} </h5>
                 </div>
                 <div class="col-sm-12 image-wrapper">
-                    <img *ngIf="prod.image" src="[prod.image]" alt="[prod.image]">
+                    <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.image">
                 </div>
             </div>
         </div>

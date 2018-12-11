@@ -1,22 +1,26 @@
 @import "src/px-material-theme.scss";
 
+/* Image */
 .product-image {
     width: 300px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     @media #{$screen-sm} {
-        width: 90vw;
-        margin: 10px 5vw
+        width: 100%;
     }
     img {
         max-width: 100%;
-        max-height: 70vh;
+        max-height: 30vh;
         height: auto;
-        border: 2px solid #fafafa;
+        width: auto;
+        border: 2px solid #e6e6e6;
         padding: 5px;
         margin-left: 20px;
         margin-top: 20px;
+        @media #{$screen-sm} {
+            margin: 10px auto;
+        }
         &:hover {
             transform: scale(1.05);
             background: white;
@@ -25,6 +29,7 @@
     }
 }
 
+/* Product info  */
 .product-info {
     color: gray;
     padding: 10px 20px;
@@ -98,8 +103,6 @@
     }
 }
 
-
-
 /* Gallery */
 .product-gallery {
     text-align: left;
@@ -129,9 +132,9 @@
         cursor: pointer;
         color: gray;
         display: inline-block;
-        width: 180px;
+        width: 250px;
         h5 {
-            max-width: 180px;
+            max-width: 250px;
             font-size: 16px;
             overflow: hidden;
             margin: 0 -10px;
@@ -144,6 +147,13 @@
         }
         &:hover h5 {
             color: black;
+        }
+        @media #{$screen-md} {
+            width: 180px;
+            h5 {
+                max-width: 180px;
+                font-size: 14px;
+            }  
         }
         @media #{$screen-sm} {
             width: 130px;
@@ -162,11 +172,22 @@
         min-height: 130px;
     }
     img {
-        max-width: 125px;
+        height: auto;
+        width: auto;
+        max-height: 200px;
+        overflow: hidden;
         vertical-align: middle;
+        max-width: 240px;
+        @media #{$screen-md} {
+            width: 180px;
+        }
+        @media #{$screen-sm} {
+            width: 130px;
+        }
     }
 }
 
+/* Full Page Image */
 .full-page-image {
     background: rgba(255, 255, 255, 0.98);
     position: fixed;

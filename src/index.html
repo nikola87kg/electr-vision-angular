@@ -37,19 +37,25 @@
     crossorigin="anonymous"></script>
 
     <style>
-      .wrapper {
+      .splash-screen {
         text-align: center;
         padding-top: 5%;
       }
-      img {
-        height: 200px;
+      img.splash-img {
+        width: 160px;
+        max-width: 80vw;
         margin: 20px auto;
       }
       .loading-text {
         display: block;
-        font-size: 30px;
+        font-size: 20px;
         margin: 20px auto;
       }
+      /* @media screen and (max-width: 700px) {
+        .loading-text {
+          display: none;
+        }
+      } */
       .main-text {
         color: rgb(187, 10, 10);
       }
@@ -58,14 +64,13 @@
 
 <body>
   <px-root>
-    <div class="wrapper">
+    <div class="splash-screen">
         <div class="loading-text">
             Dobro došli na <span class="main-text">ElectroVision.rs</span>
         </div>
-        <img src="/assets/logo/EV.png" alt="electrovision_logo">
+        <img class="splash-img" src="/assets/logo/EV.png" alt="electrovision_logo">
         <div class="loading-text">
-            Ažurira se lista proizvoda. <br>
-            Molimo sačekajte par sekundi...
+            Ažurira se lista proizvoda...
         </div>
     </div>
   </px-root>
