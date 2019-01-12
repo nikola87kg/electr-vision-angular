@@ -34,6 +34,8 @@ import { AuthInterceptor } from './_services/auth.intereceptor';
 
 /* Directives */
 import { MiddleClickDirective } from './_directives/middle-click.directive';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ServiceComponent } from './pages/service/service.component';
 
     @NgModule({
     imports: [
@@ -59,7 +61,9 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
         GalleryComponent,
         PricelistComponent,
         SidemenuComponent,
-        MiddleClickDirective
+        MiddleClickDirective,
+        AboutUsComponent,
+        ServiceComponent
     ],
     providers: [
         AdminGuard,

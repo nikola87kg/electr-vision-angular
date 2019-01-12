@@ -9,6 +9,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { SearchComponent } from './pages/search/search.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { ServiceComponent } from './pages/service/service.component';
 
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
@@ -18,6 +20,8 @@ const routes: Routes = [
     { path: 'kontakt', component: ContactComponent },
     { path: 'galerija', component: GalleryComponent },
     { path: 'cenovnik', component: PricelistComponent },
+    { path: 'o-nama', component: AboutUsComponent },
+    { path: 'servis', component: ServiceComponent },
     { path: 'proizvod/:slug', component: ProductPageComponent },
     { path: 'pretraga/:level/:slug', component: SearchComponent },
     { 

@@ -24,11 +24,11 @@ export class NavigationMenuComponent implements OnInit {
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },
         { id: 2, name: 'Proizvodi', link: '/pretraga/kategorije/sve', icon: 'layers' },
-        { id: 3, name: 'Kontakt', link: '/kontakt', icon: 'phone' },
-        { id: 4, name: 'Cenovnik', link: '/cenovnik', icon: 'assignment' },
-        { id: 5, name: 'Galerija', link: '/galerija', icon: 'photo_library' },
-        // { id: 5, name: 'Servis', link: '/servis', icon: 'build' },
-        // { id: 7, name: 'O nama', link: '/o-nama', icon: 'assignment_ind' }
+        { id: 3, name: 'Cenovnik', link: '/cenovnik', icon: 'assignment' },
+        { id: 4, name: 'Galerija', link: '/galerija', icon: 'photo_library' },
+        { id: 5, name: 'O nama', link: '/o-nama', icon: 'assignment_ind' },
+        { id: 6, name: 'Kontakt', link: '/kontakt', icon: 'phone' },
+        { id: 7, name: 'Servis', link: '/servis', icon: 'build' },
     ];
 
     @HostListener('window:resize', ['$event']) onResize(event) {

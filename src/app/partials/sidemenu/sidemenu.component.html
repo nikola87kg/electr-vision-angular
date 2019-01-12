@@ -5,8 +5,14 @@
     <li class="category"
         *ngFor="let cat of categoryList; let i = index"
         (click)="goToCategory(cat.slug)">
-        <span [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
-            {{cat.name}}
+        <span class="row-item" 
+            [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
+            <div class="icon-wrapper">
+                <img [src]="cat.image" [alt]="cat.name"> 
+            </div> 
+            <div class="text-wrapper">
+                    {{cat.name}}
+            </div> 
         </span>
     </li>
 </ul>

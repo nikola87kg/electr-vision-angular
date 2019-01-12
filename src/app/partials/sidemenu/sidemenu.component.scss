@@ -30,6 +30,9 @@ ul.list {
             color: white;
             padding: 7px 5px;
             border-bottom: 1px solid lightgray;
+            .row-item {
+                vertical-align: top;
+            }
             &:hover {
                 color: $category-color;
                 border-bottom: 1px solid $category-color;
@@ -39,4 +42,22 @@ ul.list {
             }
         }
     }
+}
+
+.icon-wrapper {
+    width: 30px;
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+    height: 30px;
+    img {
+        height: 15px;
+    }
+}
+
+.text-wrapper {
+    display: table-cell;
+    padding-left: 10px;
+    vertical-align: middle;
+    height: 30px;
 }
