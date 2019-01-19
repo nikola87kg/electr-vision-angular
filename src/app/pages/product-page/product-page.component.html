@@ -56,6 +56,10 @@
             Kataloški broj: 
             <span> {{product.catalog}}</span> 
         </h6>
+        <h6 class="price" *ngIf="product?.price">
+            Cena: 
+            <span> {{product.price}}</span> 
+        </h6>
 
         <!-- description -->
         <h4 class="description" *ngIf="product?.description"> {{product.description}} </h4>

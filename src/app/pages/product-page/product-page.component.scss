@@ -34,7 +34,8 @@
     color: gray;
     padding: 10px 20px;
     @media #{$screen-sm} {
-        text-align: center;
+        text-align: left;
+        margin-left: 5px;
     }
 
     .product-name {
@@ -46,10 +47,20 @@
 
     .catalog {
         padding: 10px;
-        margin-bottom: 5px;
+        margin-bottom: 0;
         font-size: 15px;
         span {
             color: $px-material-accent;
+        }
+    }
+
+    .price {
+        padding: 0 10px 10px 10px;
+        margin-bottom: 5px;
+        font-size: 15px;
+        span {
+            color: $px-material-primary;
+            font-size: 17px;
         }
     }
 
@@ -91,7 +102,7 @@
         background: #f7f7f7;
         @media #{$screen-sm} {
             width: 90vw;
-            margin: 5px 3vw;
+            margin: 5px 1vw;
         }
     }
 

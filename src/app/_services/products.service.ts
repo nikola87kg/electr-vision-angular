@@ -13,6 +13,7 @@ export interface ProductInterface {
     catalog: string;
     counter: number;
     description: string;
+    price: string;
     image: string;
     category:  { _id: string, name: string, slug: string };
     group:  { _id: string, name: string, slug: string  };

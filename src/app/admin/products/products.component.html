@@ -98,6 +98,12 @@
             </td>
         </ng-container>
 
+        <!-- Price Column Setup -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Cena </th>
+            <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
+        </ng-container>
+
         <!-- Catalog Column Setup -->
         <ng-container matColumnDef="catalog">
             <th mat-header-cell *matHeaderCellDef> Kataloški broj </th>
@@ -193,6 +199,13 @@
         <mat-form-field>
             <input
                 matInput [(ngModel)]="product.name" placeholder="Naziv proizvoda" name="name" type="text"
+                autocomplete="off" required>
+        </mat-form-field>
+
+        <!-- Price -->
+        <mat-form-field>
+            <input
+                matInput [(ngModel)]="product.price" placeholder="Cena" name="price" type="text"
                 autocomplete="off" required>
         </mat-form-field>
 
