@@ -2,9 +2,10 @@
 
 /* Image */
 .product-image {
-    width: 300px;
+    padding: 0 25px;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     @media #{$screen-sm} {
         width: 100%;
@@ -16,13 +17,12 @@
         width: auto;
         border: 2px solid #e6e6e6;
         padding: 5px;
-        margin-left: 20px;
         margin-top: 20px;
+        cursor: pointer;
         @media #{$screen-sm} {
             margin: 10px auto;
         }
         &:hover {
-            transform: scale(1.05);
             background: white;
             transition: 0.2s linear;
         }
@@ -196,6 +196,16 @@
             width: 130px;
         }
     }
+}
+
+.product-price {    
+    background: #af2d2d;
+    color: white;
+    margin-top: 20px;
+    padding: 5px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 20px 1px gray;
 }
 
 /* Full Page Image */
