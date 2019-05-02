@@ -36,6 +36,11 @@ ul.list {
             &:hover {
                 color: $category-color;
                 border-bottom: 1px solid $category-color;
+                .icon-wrapper {
+                    img {  
+                        filter: unset;
+                    }
+                }
             }
             .small-text-category {
                 font-size: 14px;
@@ -45,13 +50,15 @@ ul.list {
 }
 
 .icon-wrapper {
-    width: 30px;
+    width: 35px;
     display: table-cell;
     vertical-align: middle;
     overflow: hidden;
-    height: 30px;
+    height: 35px;
     img {
-        height: 15px;
+        max-height: 35px;    
+        max-width: 35px;    
+        filter: contrast(1%);
     }
 }
 

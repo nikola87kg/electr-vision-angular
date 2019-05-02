@@ -3,7 +3,6 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 /* Services */
-import { ProductsService } from '../_services/products.service';
 import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { SeoService } from '../_services/seo.service';
@@ -14,22 +13,22 @@ import { SeoService } from '../_services/seo.service';
     styleUrls: ['./homepage.component.scss'],
     animations: [
         trigger(
-            'enterAnimation', [
+            'allBanners', [
                 transition(':enter', [
                     style({transform: 'translateX(100%)'}),
-                    animate('2s 2s', style({transform: 'translateX(0)'}))
+                    animate('1s 3s', style({transform: 'translateX(0)'}))
                 ]),
                 transition(':leave', [
                     style({transform: 'translateX(0)'}),
-                    animate('2s 2s', style({transform: 'translateX(-100%)'}))
+                    animate('1s 3s', style({transform: 'translateX(-100%)'}))
                 ])
             ],
         ),
         trigger(
-            'leaveAnimation', [
+            'firstBanner', [
                 transition(':leave', [
                     style({transform: 'translateX(0)'}),
-                    animate('2s 0s', style({transform: 'translateX(-100%)'}))
+                    animate('1s 1s', style({transform: 'translateX(-100%)'}))
                 ])
             ],
         ),
@@ -45,18 +44,18 @@ export class HomepageComponent implements OnInit {
     maxItems = 4;
     banners = [
         {
-            title: 'Ugradnja kamera',
-            content: 'Nudimo kamere vrhunskog kvaliteta.',
+            title: 'Kontrola pristupa',
+            content: 'Bez muke i ključa sve na šifru i otisak prsta',
             imageUrl: './assets/baner/baner1.jpg'
         },
         {
-            title: 'Ugradnja alarma',
-            content: 'Ugrađujemo moderne alarme.',
+            title: 'Motori za kapije i rampe',
+            content: 'Najsavremeniji motori sa italijanskom tehnologijom',
             imageUrl: './assets/baner/baner2.jpg'
         },
         {
             title: 'Video nadzor',
-            content: 'Najbolji video nadzor u gradu!',
+            content: 'Sigurnost na prvom mestu brend br. 1 u svetu - HikVision',
             imageUrl: './assets/baner/baner3.jpg'
         }
     ];

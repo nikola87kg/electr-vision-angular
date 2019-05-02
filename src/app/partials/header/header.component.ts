@@ -1,12 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ProductsService } from '../../_services/products.service';
 import { SharedService } from '../../_services/shared.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { AuthService } from 'src/app/_services/auth.service';
 
 declare var $: any;
 
@@ -26,7 +24,7 @@ export class HeaderComponent implements OnInit {
     searchInput = new FormControl();
     options = [];
     products = [];
-    filteredOptions: Observable<any[]>;
+    filteredOptions$: Observable<any[]>;
     screenSize = null;
 
     @HostListener('window:resize', ['$event']) onResize(event) {
@@ -50,7 +48,7 @@ export class HeaderComponent implements OnInit {
     private _filter(value: string): string[] {
         const lcValue = value.toLowerCase();
         return this.options.filter(
-            option => option.name.toLowerCase().indexOf(lcValue) === 0
+            option => option.name.toLowerCase().indexOf(lcValue) !== -1
         );
     }
 
@@ -58,16 +56,10 @@ export class HeaderComponent implements OnInit {
         this.sharedService.productList.subscribe( result => {
             if(result) {
                 this.options = result;
-                setTimeout(() => {
-                    this.filteredOptions = this.searchInput.valueChanges.pipe(
-                        startWith(''),
-                        map( value => this._filter(value) )
-                    );
-                }, 200);
-            } else {
-                setTimeout( ()=> {
-                    this.getAllProducts();
-                }, 1);
+                this.filteredOptions$ = this.searchInput.valueChanges.pipe(
+                    startWith(''),
+                    map( value => this._filter(value) )
+                );
             }
         });
     }

@@ -8,7 +8,7 @@
     <a class="logo" routerLink="/">
         <img 
             *ngIf=" screenSize !== 'small'" 
-            src="./assets/logo/ElectroVision.svg" 
+            src="./assets/logo/electrovision_kg.png" 
             alt="ElectroVision logo">
         <img 
             *ngIf=" screenSize === 'small'"
@@ -38,7 +38,7 @@
                 autoActiveFirstOption
                 #auto="matAutocomplete">
                 <mat-option
-                    *ngFor="let option of filteredOptions | async"
+                    *ngFor="let option of filteredOptions$ | async"
                     (click)="goToProduct(option.slug)"
                     [value]="option.name">
                     {{option.name}}

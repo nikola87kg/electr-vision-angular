@@ -13,10 +13,6 @@ export class ContactComponent implements OnInit {
 
     fbIcon = faFacebookSquare;
     twIcon = faTwitterSquare;
-    title: 'Kontakt informacije';
-    description: 'Contact Description';
-    image: 'http://electrovision.rs/assets/logo/ElectroVision.svg';
-    slug: 'kontakt';
     url: 'http://electrovision.rs/kontakt';
 
     info = [
@@ -38,10 +34,10 @@ export class ContactComponent implements OnInit {
         
         /* SEO */
         this.seo.generateTags( {
-            title: this.title,
-            description: this.description,
-            image: this.image,
-            slug: this.slug
+            title: 'Kontakt',
+            description: 'Kontakt informacije',
+            image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
+            slug: 'kontakt'
         })
     }
 

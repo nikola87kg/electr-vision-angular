@@ -160,12 +160,13 @@ select {
 
 .mat-card .mat-card-title.mat-card-title {
     background: #f8f8f8;
+    color: #d32f2f;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: -10px;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: bold;
     height: 60px;
     overflow: hidden;
 }
@@ -177,8 +178,9 @@ mat-card .image-wrapper {
     align-items: center;
     justify-content: center;
     .mat-card-image {
-        width: auto;
-        height: 130px;
+        width: 280px;
+        height: 125px;
+        object-fit: contain;
     }
 }
 
@@ -207,3 +209,13 @@ mat-form-field {
         display: none;        
     }
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+::-webkit-scrollbar-thumb {
+background: #d32f2f;
+}
+  

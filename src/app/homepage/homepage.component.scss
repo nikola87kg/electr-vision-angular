@@ -125,8 +125,9 @@
         overflow: hidden;
         img {
             margin-top: 10px;
-            width: auto;
-            max-height: 90%;
+            height: 140px;
+            width: 200px;
+            object-fit: contain;
         }
     }
     .product-name {
@@ -158,6 +159,10 @@
         &:nth-of-type(3) {
             background: rgb(233, 233, 233);
             &:hover { background: rgb(202, 202, 202); }
+        }
+        &:nth-of-type(4) {
+            background: rgb(211, 235, 219);
+            &:hover { background: rgb(182, 231, 186);}
         }
     }
 }

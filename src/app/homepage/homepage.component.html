@@ -11,6 +11,9 @@
             <a class="instagram"  href="https://www.instagram.com/mihajlo_jeremic/" target="_blank">
                 <img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
             </a>
+            <a class="gmail"  href="mailto:mihajlo1994kg@gmail.com" target="_blank">
+                <img src="assets\icons\gmail.png" alt="mail" title="Pošalji mejl">
+            </a>
             <a class="youtube"  href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
                 <img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
             </a>
@@ -22,14 +25,14 @@
         <!-- Carousel -->
         <div class="px-carousel" >
             <ng-container> <!-- first banner -->
-                    <div class="banner"  [@leaveAnimation] *ngIf="firstSlideOn"
+                    <div class="banner"  [@firstBanner] *ngIf="firstSlideOn"
                     style="position: absolute; background:url(./assets/baner/baner3.jpg) no-repeat center center/cover" >
                         <h3>{{banners[0].title}}</h3>
                         <p>{{banners[0].content}}</p>
                     </div>
             </ng-container> <!-- Rolling banners -->
             <ng-container *ngFor="let banner of banners; let i = index">
-                    <div class="banner" [@enterAnimation] style="position: absolute;"
+                    <div class="banner" [@allBanners] style="position: absolute;"
                         *ngIf="currentSlider === i"
                         [style.backgroundImage]="'url('+ banner.imageUrl +')'">
                         <h3>{{banner.title}}</h3>
@@ -73,6 +76,7 @@
                                     <h6 (click)="goToCategory(prod.category.slug)"> {{prod.category.name}} </h6>
                                     <h6 (click)="goToGroup(prod.group.slug)"> {{prod.group.name}} </h6>
                                     <h6 (click)="goToBrand(prod.brand.slug)"> {{prod.brand.name}} </h6>
+                                    <h6 (click)="goToProduct(prod.slug)"> {{prod.price || 'nema cene'}} </h6>
                                 </div>
                             </div>
                         </div>
