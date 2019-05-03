@@ -178,8 +178,9 @@ mat-card .image-wrapper {
     align-items: center;
     justify-content: center;
     .mat-card-image {
-        width: 280px;
-        height: 125px;
+        margin-top: 10px;
+        height: 150px;
+        width: 250px;
         object-fit: contain;
     }
 }

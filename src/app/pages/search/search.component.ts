@@ -32,6 +32,11 @@ export class SearchComponent implements OnInit {
     categoryList: Array<any>;
     brandList: Array<any>;
 
+    firstItemOnPage = 0;
+    itemsPerPage = 2;
+    pages: Array<number> = [];
+    pageArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
     lastCategory: any;
     lastGroup: any;
     
@@ -192,7 +197,7 @@ export class SearchComponent implements OnInit {
             if(brandSlug || this.currentBrand) {
                 let brand = brandSlug || this.currentBrand
                 this.sharedService.productList.subscribe(res2 => {
-                    let filteredProducts = res2.filter( product => product.brand.slug === brand);
+                    let filteredProducts = res2 && res2.filter( product => product.brand.slug === brand);
                     let catSlugs = filteredProducts.map( product => product.category.slug);
                     this.currentList = response.filter( cat => catSlugs.includes(cat.slug) );
                     
@@ -254,6 +259,8 @@ export class SearchComponent implements OnInit {
                 this.currentList = response.filter(
                     product => product.group._id === groupId
                 );
+                const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+                this.pages = this.pageArray.slice(0, pageLength)
             });
         } else {
             this.groupService.getBySlug(this.currentSlug).subscribe(res1 => {
@@ -264,11 +271,15 @@ export class SearchComponent implements OnInit {
                     this.currentList = res2.filter(
                         (product) => product.group._id === id 
                     );
+                    const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+                    this.pages = this.pageArray.slice(0, pageLength)
                     if(brandSlug) {
                         let brand = brandSlug || this.currentBrand;
                         this.currentList = this.currentList.filter(
                             (product) => product.brand.slug === brand 
                         );
+                        const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+                        this.pages = this.pageArray.slice(0, pageLength)
                     }
                 });
             })
@@ -309,6 +320,10 @@ export class SearchComponent implements OnInit {
         } else if(this.currentLevel === Type.prod) {
             this.getProducts(null, brandSlug);
         }
+    }
+
+    setPage(index) {
+        this.firstItemOnPage = index * this.itemsPerPage
     }
 
 }
