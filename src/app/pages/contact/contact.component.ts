@@ -14,6 +14,10 @@ export class ContactComponent implements OnInit {
     fbIcon = faFacebookSquare;
     twIcon = faTwitterSquare;
     url: 'http://electrovision.rs/kontakt';
+    title = 'Kontakt';
+    description = 'Kontakt informacije';
+    image = 'http://electrovision.rs/assets/logo/ElectroVision.svg';
+    slug = 'kontakt';
 
     info = [
         {key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac'},

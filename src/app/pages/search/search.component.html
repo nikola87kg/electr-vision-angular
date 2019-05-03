@@ -79,7 +79,7 @@
         </div>
 
         <!-- Paginator -->
-        <div class="page-paginator">
+        <div class="page-paginator" *ngIf=" currentLevel === 'proizvodi' ">
 
             <span class="page-picker">
                 Proizvoda po stranici:
@@ -91,7 +91,7 @@
                 </select>
             </span>
             
-            <span class="page-numerator" *ngIf="currentLevel === 'proizvodi' && pages.length > 1">
+            <span class="page-numerator" *ngIf="pages.length > 1">
                 Izaberi stranu:
                 <button mat-icon-button *ngFor="let page of pages" (click)="setPage(page)">
                     {{page + 1}}
