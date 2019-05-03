@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
     brandList: Array<any>;
 
     firstItemOnPage = 0;
-    itemsPerPage = 2;
+    itemsPerPage = 3;
     pages: Array<number> = [];
     pageArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -260,7 +260,7 @@ export class SearchComponent implements OnInit {
                     product => product.group._id === groupId
                 );
                 const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
-                this.pages = this.pageArray.slice(0, pageLength)
+                this.pages = this.pageArray.slice(0, pageLength);
             });
         } else {
             this.groupService.getBySlug(this.currentSlug).subscribe(res1 => {
@@ -279,7 +279,7 @@ export class SearchComponent implements OnInit {
                             (product) => product.brand.slug === brand 
                         );
                         const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
-                        this.pages = this.pageArray.slice(0, pageLength)
+                        this.pages = this.pageArray.slice(0, pageLength);
                     }
                 });
             })
@@ -324,6 +324,11 @@ export class SearchComponent implements OnInit {
 
     setPage(index) {
         this.firstItemOnPage = index * this.itemsPerPage
+    }
+    
+    subscribeToPageChanges(number) {
+        const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+        this.pages = this.pageArray.slice(0, pageLength);
     }
 
 }

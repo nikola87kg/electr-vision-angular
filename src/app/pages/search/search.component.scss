@@ -81,4 +81,11 @@
         border: 1px solid lightgray;
         margin-left: 5px;
     }
+    .page-picker {
+        display: inline-block;
+        margin-right: 15px;
+        select {
+            width: 70px;
+        }
+    }
 }

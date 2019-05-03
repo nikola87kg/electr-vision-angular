@@ -1,13 +1,10 @@
-<!-- background -->
-<!-- <div class="product-background">
-</div> -->
-
 <!-- Navigation Menu -->
 <px-navigation-menu></px-navigation-menu>
 
-
+<!-- Sidemenu -->
 <div class="row sidemenu-height">
     <div class="col-sm-12 col-md-8 col-lg-9 pr0">
+
         <!-- Toolbar -->
         <mat-toolbar color="accent" *ngIf="headline">
             <span class="toolbar-title">
@@ -20,6 +17,7 @@
                 {{ backButtontext }}
             </button>
         </mat-toolbar>
+
         <!-- Stepper -->
         <div class="step-buttons" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
             <button mat-raised-button [color]=" currentLevel === 'kategorije' ? 'primary' : '' "
@@ -81,21 +79,26 @@
         </div>
 
         <!-- Paginator -->
-        <div class="page-paginator" *ngIf="currentLevel === 'proizvodi' && pages.length > 1">
-            Izaberi stranu:
-            <button mat-icon-button *ngFor="let page of pages" (click)="setPage(page)">
-                {{page + 1}}
-            </button>
-        </div>
-        <div class="page-paginator" *ngIf="currentLevel === 'proizvodi' && pages.length > 1">
-            Proizvoda po stranici:
-            <select [(ngModel)]="itemsPerPage">
-                    <option value="2">2</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-            </select>
+        <div class="page-paginator">
+
+            <span class="page-picker">
+                Proizvoda po stranici:
+                <select [(ngModel)]="itemsPerPage" (ngModelChange)="subscribeToPageChanges($event)">
+                        <option value="3">3</option>
+                        <option value="9">9</option>
+                        <option value="24">24</option>
+                        <option value="50">50</option>
+                </select>
+            </span>
+            
+            <span class="page-numerator" *ngIf="currentLevel === 'proizvodi' && pages.length > 1">
+                Izaberi stranu:
+                <button mat-icon-button *ngFor="let page of pages" (click)="setPage(page)">
+                    {{page + 1}}
+                </button>
+            </span>
+
+
         </div>
     </div>
 
