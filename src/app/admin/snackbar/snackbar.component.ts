@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_SNACK_BAR_DATA } from "@angular/material";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "px-snackbar-component",
@@ -7,7 +8,10 @@ import { MAT_SNACK_BAR_DATA } from "@angular/material";
   styleUrls: ["./snackbar.component.scss"]
 })
 export class SnackbarComponent implements OnInit {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {}
+  constructor(
+    private router: Router,
+    @Inject(MAT_SNACK_BAR_DATA) public data: any
+  ) {}
 
   actionWord = "";
   typeWord = "";
@@ -15,6 +19,10 @@ export class SnackbarComponent implements OnInit {
   ngOnInit() {
     this.switchActions();
     this.switchTypes();
+  }
+
+  goToCart() {
+    this.router.navigateByUrl('korpa');
   }
 
   switchActions() {

@@ -36,6 +36,7 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServiceComponent } from './pages/service/service.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { SnackbarComponent } from './admin/snackbar/snackbar.component';
 
     @NgModule({
     imports: [
@@ -64,7 +65,11 @@ import { CartComponent } from './pages/cart/cart.component';
         SidemenuComponent,
         MiddleClickDirective,
         AboutUsComponent,
-        ServiceComponent
+        ServiceComponent,
+        SnackbarComponent,
+    ],
+    entryComponents: [
+      SnackbarComponent
     ],
     providers: [
         AdminGuard,

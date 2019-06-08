@@ -16,7 +16,6 @@ import { BrandsComponent } from './brands/brands.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
-import { SnackbarComponent } from './snackbar/snackbar.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
 
 @NgModule({
@@ -36,10 +35,6 @@ import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
     GalleryAdminComponent,
     PricelistAdminComponent,
     PreviewComponent,
-    SnackbarComponent
-  ],
-  entryComponents: [
-    SnackbarComponent
   ]
 })
 export class AdminModule { }

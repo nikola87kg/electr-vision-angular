@@ -5,6 +5,8 @@ import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookS
 import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
 import { SeoService } from 'src/app/_services/seo.service';
 import { SharedService } from 'src/app/_services/shared.service';
+import { MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from 'src/app/admin/snackbar/snackbar.component';
 
 @Component({
   selector: 'px-product-page',
@@ -30,6 +32,7 @@ export class ProductPageComponent implements OnInit {
     private productService: ProductsService,
     private router: Router,
     private seo: SeoService,
+    public snackBar: MatSnackBar,
     public sharedService: SharedService
   ) {
     this.router.events.subscribe((e: any) => {
@@ -116,8 +119,19 @@ export class ProductPageComponent implements OnInit {
     let cartArray = JSON.parse(cartString) || [];
     if (id && cartArray && !cartArray.includes(id)) {
       cartArray.push(id);
-      localStorage.setItem('cart', JSON.stringify(cartArray))
+      localStorage.setItem('cart', JSON.stringify(cartArray));
+      this.openSnackBar({action: 'cart',type: 'new'});
+    } else {
+      this.openSnackBar({action: 'cart',type: 'exist'});
     }
   }
+  
+    /* Snackbar */
+    openSnackBar(object) {
+      this.snackBar.openFromComponent(SnackbarComponent, {
+        duration: 3000,
+        data: object,
+      });
+    }
 
 }

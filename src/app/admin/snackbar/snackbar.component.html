@@ -1,3 +1,27 @@
-<div [ngClass]="data.action"> 
-    {{ typeWord }} je uspešno {{ actionWord }}!
+<div [ngClass]="data.action">
+
+    <ng-container *ngIf="data.action !== 'cart'">
+        {{ typeWord }} je uspešno {{ actionWord }}!
+    </ng-container>
+
+    <ng-container *ngIf="data.action === 'cart'">
+
+        <ng-container *ngIf="data.type === 'new'">
+            Proizvod je uspešno dodat u korpu!
+        </ng-container>
+
+        <ng-container *ngIf="data.type === 'exist'">
+            Proizvod već postoji u korpi!
+        </ng-container>
+
+        <button 
+            class="cart"
+            (click)="goToCart()"
+            mat-stroked-button
+            color="warn">
+            <mat-icon>shopping_cart</mat-icon>
+            Idi na korpu
+        </button>
+
+    </ng-container>
 </div>
