@@ -18,6 +18,7 @@ export class NavigationMenuComponent implements OnInit {
     isLogged: boolean;
     submitted: boolean;
     authType: string;
+    isMenuIconVisible: boolean;
     isAuthDialogOpen = false;
     user = {username:'', email: '', password: '', confirm: ''};
 
@@ -29,10 +30,12 @@ export class NavigationMenuComponent implements OnInit {
         { id: 5, name: 'O nama', link: '/o-nama', icon: 'assignment_ind' },
         { id: 6, name: 'Kontakt', link: '/kontakt', icon: 'phone' },
         { id: 7, name: 'Servis', link: '/servis', icon: 'build' },
+        { id: 8, name: 'Korpa', link: '/korpa', icon: 'shopping_cart' },
     ];
 
     @HostListener('window:resize', ['$event']) onResize(event) {
         this.actualWidth = event.target.innerWidth;
+        this.isMenuIconVisible = this.actualWidth < this.navItems.length * 120 + 20 + 110;
     }
 
     constructor(
@@ -44,6 +47,7 @@ export class NavigationMenuComponent implements OnInit {
 
     ngOnInit() {
         this.checkAuth();
+        this.isMenuIconVisible = this.actualWidth < this.navItems.length * 120 + 20 + 110;
     }
 
     /* Toggle Lists */

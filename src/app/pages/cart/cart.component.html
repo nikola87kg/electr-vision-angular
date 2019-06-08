@@ -1,0 +1,64 @@
+<!-- Navigation -->
+<px-navigation-menu></px-navigation-menu>
+
+<div class="row sidemenu-height">
+
+  <div class="col-sm-12 col-md-8 col-lg-9 pr0">
+
+    <!-- Tolbar -->
+    <mat-toolbar color="accent">
+      <mat-toolbar-row>
+        <span class="toolbar-title">
+          Moja korpa
+        </span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <!-- Cart -->
+    <div class="cart-wrapper">
+      <div class="product-row" *ngFor="let product of productList">
+        <mat-icon
+          (click)="removeFromCart(product._id)" 
+          title="Izbaci iz korpe">
+          close
+        </mat-icon>
+        <img 
+          *ngIf="product.image"
+          [src]="product.image"
+          [alt]="product.name" />
+          <div class="product-info">
+            <h3>{{product.name}}</h3>
+            <p>{{product.price || 'nema cene'}}</p>
+          </div>
+      </div>
+    </div>
+
+    <!-- Order -->
+    <button 
+      class="order-button"
+      *ngIf="productList.length > 0"
+      (click)="sendOrder()"
+      mat-raised-button
+      color="primary">Pošalji narudžbinu
+    </button>
+    <button 
+      class="clear-button"
+      *ngIf="productList.length > 0"
+      (click)="clearCart()"
+      mat-raised-button
+      color="warn">Isprazni korpu
+    </button>
+
+    <!-- Empty cart -->
+    <div class="empty-cart-message" *ngIf="productList.length === 0">
+      Trenutno nemate proizvode u korpi
+    </div>
+
+  </div>
+
+  <!-- Side Menu -->
+  <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
+    <px-sidemenu></px-sidemenu>
+  </div>
+
+</div>

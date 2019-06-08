@@ -14,6 +14,7 @@ import { ServiceComponent } from './pages/service/service.component';
 
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
+import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
     { path: 'pocetna', component: HomepageComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'galerija', component: GalleryComponent },
     { path: 'cenovnik', component: PricelistComponent },
     { path: 'o-nama', component: AboutUsComponent },
+    { path: 'korpa', component: CartComponent },
     { path: 'servis', component: ServiceComponent },
     { path: 'proizvod/:slug', component: ProductPageComponent },
     { path: 'pretraga/:level/:slug', component: SearchComponent },

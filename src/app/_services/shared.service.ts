@@ -6,10 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 
 export class SharedService {
-    constructor() {}
 
     screenSize = new BehaviorSubject('small');
-
     productList = new BehaviorSubject(null);
     brandList =  new BehaviorSubject(null);
     categoryList = new BehaviorSubject(null);

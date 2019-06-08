@@ -24,8 +24,17 @@ export class AppComponent implements OnInit {
         this.getAllProducts();
         this.getAllCategories();
         this.handleRouting();
+        this.setCart();
     }
     
+    setCart() {
+        let cart = localStorage.getItem('cart');
+        let cartArray = JSON.parse(cart);
+        if (!Array.isArray(cartArray)) {
+            localStorage.setItem('cart', '[]')
+        } 
+    }
+
     handleRouting() {
         this.router.events
             .subscribe( evt => {
@@ -49,7 +58,6 @@ export class AppComponent implements OnInit {
     }
     
     getAllCategories() {
-        console.log('app Component')
         this.categoryService.get().subscribe( (response) => {
             this.sharedService.categoryList.next(response);
         });

@@ -19,7 +19,7 @@
     <button 
         mat-button
         class="nav-button login"
-        *ngIf="!isLogged && actualWidth > 810" 
+        *ngIf="!isLogged && !isMenuIconVisible" 
         (click)="toggleAuthDialog('login', true)">
         <mat-icon >supervisor_account</mat-icon>
         Login
@@ -28,7 +28,7 @@
     <button 
         mat-button
         class="nav-button login"
-        *ngIf="isLogged && actualWidth > 810" 
+        *ngIf="isLogged && !isMenuIconVisible" 
         (click)="logoutUser()">
         <mat-icon>exit_to_app</mat-icon>
         Logout
@@ -39,7 +39,7 @@
         mat-icon-button
         [matMenuTriggerFor]="menu"
         class="menu"
-        *ngIf="actualWidth <= (navItems.length * 130 + 45 + 115)"
+        *ngIf="isMenuIconVisible"
         style="color: white; float: right; margin-right: 7px;">
         <mat-icon>menu</mat-icon>
     </button>
@@ -59,13 +59,13 @@
         <!-- Login & Logout -->
         <button 
             mat-menu-item
-            *ngIf="!isLogged && actualWidth < 811" 
+            *ngIf="!isLogged && isMenuIconVisible" 
             (click)="toggleAuthDialog('login', true)">
             <mat-icon >supervisor_account</mat-icon>Login
         </button>
         <button 
             mat-menu-item
-            *ngIf="isLogged && actualWidth < 811" 
+            *ngIf="isLogged && isMenuIconVisible" 
             (click)="logoutUser()">
             <mat-icon>exit_to_app</mat-icon>Logout
         </button>

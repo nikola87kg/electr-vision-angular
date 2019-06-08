@@ -25,7 +25,6 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 
-
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
 
@@ -36,6 +35,7 @@ import { AuthInterceptor } from './_services/auth.intereceptor';
 import { MiddleClickDirective } from './_directives/middle-click.directive';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { CartComponent } from './pages/cart/cart.component';
 
     @NgModule({
     imports: [
@@ -60,6 +60,7 @@ import { ServiceComponent } from './pages/service/service.component';
         ContactComponent,
         GalleryComponent,
         PricelistComponent,
+        CartComponent,
         SidemenuComponent,
         MiddleClickDirective,
         AboutUsComponent,

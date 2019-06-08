@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
     info = [
         {key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac'},
         {key: 'Telefon', value: '064 306 95 92'},
-        {key: 'Email', value: 'electro.vision@gmail.com'},
+        {key: 'Email', value: 'electrovisionkg@gmail.com'},
         {key: 'Facebook', value: 'facebook.com/electrovision'},
         {key: 'Instagram', value: 'instagram.com/electrovision'},
         {key: 'Youtube', value: 'youtube.com/electrovision'},

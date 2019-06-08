@@ -6,21 +6,36 @@
 <px-navigation-menu></px-navigation-menu>
 
 <!-- Main product -->
-<div class="row" *ngIf="product">
-    <div class="col-lg-1">
+<div class="row"
+     *ngIf="product">
+  <div class="col-lg-1">
+  </div>
+  <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
+    <img [src]="product.image"
+         [alt]="product.image"
+         (click)="zoomImage(product.image)">
+    <div class="product-price">
+      <ng-container *ngIf="product?.price">
+        Cena: {{product.price}}
+      </ng-container>
+      <ng-container *ngIf="!product?.price">
+        Nema cene
+      </ng-container>
     </div>
-    <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
-        <img 
-            [src]="product.image" 
-            [alt]="product.image" 
-            (click)="zoomImage(product.image)">
-        <div class="product-price" *ngIf="product?.price">
-            Cena: {{product.price}}
-        </div>
-    </div>
-    <div class="product-info col-sm-12 col-md-6 col-lg-7">
-        <!-- Share -->
-        <div class="share-buttons" style="float: right;">
+    <button 
+      mat-raised-button
+      color="primary"
+      (click)="addToCart(product._id)"
+      class="basket-button">
+      <mat-icon>shopping_cart</mat-icon>
+      Dodaj u korpu
+    </button>
+  </div>
+  <div class="product-info col-sm-12 col-md-6 col-lg-7">
+
+    <!-- Share -->
+
+    <!-- <div class="share-buttons" style="float: right;">
             <h6>Podeli na: </h6>
             <share-button 
                 button="facebook" 
@@ -45,33 +60,43 @@
                 [text]="'Twitter'"
                 [icon]="twIcon">
             </share-button>
-        </div>
-        <!-- Product name -->
-        <h1 class="product-name">{{product.name}} </h1>
-        <!-- breadcrumb -->
-        <h5 class="breadcrumb">
-            <span (click)="goToCategory(product.category.slug)"> {{product.category.name | lowercase}} </span>
-            <i class="fa fa-chevron-right" ></i>
-            <span (click)="goToGroup(product.group.slug)"> {{product.group.name | lowercase}} </span>
-            <i class="fa fa-chevron-right" ></i>
-            <span (click)="goToBrand(product.brand.slug)"> {{product.brand.name}} </span>
-        </h5>
+        </div> -->
 
-        <!-- catalog number -->
-        <h6 class="catalog" *ngIf="product?.catalog">
-            Kataloški broj: 
-            <span> {{product.catalog}}</span> 
-        </h6>
+    <!-- Product name -->
+    <h1 class="product-name">{{product.name}} </h1>
+    <!-- breadcrumb -->
+    <h5 class="breadcrumb">
+      <span (click)="goToCategory(product.category.slug)">
+        {{product.category.name | lowercase}}
+      </span>
+      <i class="fa fa-chevron-right"></i>
+      <span (click)="goToGroup(product.group.slug)">
+        {{product.group.name | lowercase}}
+      </span>
+      <i class="fa fa-chevron-right"></i>
+      <span (click)="goToBrand(product.brand.slug)">
+        {{product.brand.name}} </span>
+    </h5>
 
-        <!-- description -->
-        <h4 class="description" *ngIf="product?.description"> {{product.description}} </h4>
+    <!-- catalog number -->
+    <h6 class="catalog"
+        *ngIf="product?.catalog">
+      Kataloški broj:
+      <span> {{product.catalog}}</span>
+    </h6>
 
-        <!-- counter -->
-        <h6 class="counter" *ngIf="product?.counter"> 
-            <!-- Broj poseta: {{product.counter}} -->
-        </h6>
-        
-    </div>
+    <!-- description -->
+    <h4 class="description"
+        *ngIf="product?.description">
+      {{product.description}} </h4>
+
+    <!-- counter -->
+    <h6 class="counter"
+        *ngIf="product?.counter">
+      <!-- Broj poseta: {{product.counter}} -->
+    </h6>
+
+  </div>
 </div>
 <br>
 
@@ -80,25 +105,34 @@
 <br>
 
 <!-- Similar products -->
-<div class="row"  *ngIf="productList && productList.length != 0">
-    <div class="col-sm-12 product-gallery">
-        <h2> Slični proizvodi </h2>
-        <div class="similar-product-wrapper">
-            <div class="product-single"
-                    *ngFor="let prod of productList; let i = index"
-                    (click)="goToProduct(prod.slug)">
-                <div class="col-sm-12">
-                    <h5> {{prod.name}} </h5>
-                </div>
-                <div class="col-sm-12 image-wrapper">
-                    <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.image">
-                </div>
-            </div>
+<div class="row"
+     *ngIf="productList && productList.length != 0">
+  <div class="col-sm-12 product-gallery">
+    <h2> Slični proizvodi </h2>
+    <div class="similar-product-wrapper">
+      <div class="product-single"
+           *ngFor="let prod of productList; let i = index"
+           (click)="goToProduct(prod.slug)">
+        <div class="col-sm-12">
+          <h5> {{prod.name}} </h5>
         </div>
+        <div class="col-sm-12 image-wrapper">
+          <img *ngIf="prod.image"
+               [src]="prod.image"
+               [alt]="prod.image">
+        </div>
+        <div class="col-sm-12 price-box">
+          <h6> {{prod.price  || 'nema cene'}} </h6>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Full Page Image -->
-<div class="full-page-image" *ngIf="isFullPage" (click)="zoomImage()">
-    <img [src]="fullPageImage" [alt]="fullPageImage">
+<div class="full-page-image"
+     *ngIf="isFullPage"
+     (click)="zoomImage()">
+  <img [src]="fullPageImage"
+       [alt]="fullPageImage">
 </div>

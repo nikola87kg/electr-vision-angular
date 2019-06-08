@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
     brandList: Array<any>;
 
     firstItemOnPage = 0;
-    itemsPerPage = 3;
+    itemsPerPage = 96;
     pages: Array<number> = [];
     pageArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -83,6 +83,7 @@ export class SearchComponent implements OnInit {
             this.getGroups();
         } else {
             this.getProducts(null, this.currentBrand);
+            this.itemsPerPage =6;
         }
         switch (this.currentLevel) {
             case Type.cat: this.headline = 'Pretraga kategorija';
@@ -98,6 +99,7 @@ export class SearchComponent implements OnInit {
 
     /* Category button */
     goBackToCategoryLevel() {
+        this.itemsPerPage = 96;
         this.currentLevel = Type.cat
         this.currentSlug = 'sve'
         this.router.navigate(
@@ -112,6 +114,7 @@ export class SearchComponent implements OnInit {
 
     /* Group button */
     goBackToGroupLevel() {
+        this.itemsPerPage = 96;
         const slug = this.lastCategory.slug;
         this.router.navigate(
             ['/pretraga', Type.group, slug], 
@@ -165,6 +168,7 @@ export class SearchComponent implements OnInit {
             this.getGroups(item._id);
             return
         } else if (level === Type.group) {
+            this.itemsPerPage =6;
             this.router.navigate(
                 ['/pretraga', Type.prod, item.slug], 
                 { 
@@ -175,7 +179,7 @@ export class SearchComponent implements OnInit {
             this.getProducts(item._id);
             this.lastGroup = item;
             return
-        } else {
+        } else {;
             this.goToProduct(item.slug);
             return
         }
@@ -268,7 +272,7 @@ export class SearchComponent implements OnInit {
                 this.lastCategory = res1.category;
                 id = res1._id
                 this.sharedService.productList.subscribe(res2 => {
-                    this.currentList = res2.filter(
+                    this.currentList = res2 && res2.filter(
                         (product) => product.group._id === id 
                     );
                     const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
