@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/_services/products.service';
+import { MatDialog } from '@angular/material';
+import { OrderDialogComponent } from 'src/app/partials/order-dialog/order-dialog.component';
 
 @Component({
   selector: 'cart',
@@ -10,7 +12,10 @@ export class CartComponent implements OnInit {
 
   productList = [];
 
-  constructor(private productService: ProductsService) { }
+  constructor(
+    public dialog: MatDialog,
+    private productService: ProductsService
+  ) { }
 
   ngOnInit() {
     this.getProducts();
@@ -42,7 +47,16 @@ export class CartComponent implements OnInit {
   }
 
   sendOrder() {
-    // ToDo
+    const list = this.productList;
+    const dialogRef = this.dialog.open(OrderDialogComponent, {
+      width: '300px',
+      data: {list}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.clearCart();
+      }
+    });
   }
 
   clearCart() {

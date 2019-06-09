@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';

@@ -7,7 +7,7 @@ import { BrandsService, BrandInterface } from '../../_services/brands.service';
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../../../node_modules/@angular/material';
 import { SharedService } from '../../_services/shared.service';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 
 /* 3rd party */
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';

@@ -11,6 +11,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
+import { OrdersAdminComponent } from './orders/orders-admin.component';
 
 const routes: Routes = [
   { path: '',  component: AdminComponent, children: [
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'galerija',  component: GalleryAdminComponent },
     { path: 'cenovnik',  component: PricelistAdminComponent},
     { path: 'kategorije',  component: CategoriesComponent },
+    { path: 'narudzbine',  component: OrdersAdminComponent },
     { path: 'brendovi',  component: BrandsComponent },
     { path: 'grupe',  component: GroupsComponent},
     { path: '',  redirectTo: 'pregled', pathMatch: 'full' }

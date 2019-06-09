@@ -6,7 +6,7 @@ import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSqu
 import { SeoService } from 'src/app/_services/seo.service';
 import { SharedService } from 'src/app/_services/shared.service';
 import { MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from 'src/app/admin/snackbar/snackbar.component';
+import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
 
 @Component({
   selector: 'px-product-page',

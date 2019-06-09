@@ -7,7 +7,7 @@ import { PricelistService, PricelistInterface } from '../../_services/pricelist.
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 
 /* Decorator */
 @Component({

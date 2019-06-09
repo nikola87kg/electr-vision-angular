@@ -17,6 +17,7 @@ import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
+import { OrdersAdminComponent } from './orders/orders-admin.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
     GroupsComponent,
     GalleryAdminComponent,
     PricelistAdminComponent,
+    OrdersAdminComponent,
     PreviewComponent,
   ]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { SharedService } from '../../_services/shared.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'px-navigation-menu',
@@ -48,6 +49,8 @@ export class NavigationMenuComponent implements OnInit {
     ngOnInit() {
         this.checkAuth();
         this.isMenuIconVisible = this.actualWidth < this.navItems.length * 120 + 20 + 110;
+        this.user.email = environment.loginData.email;
+        this.user.password = environment.loginData.password;
     }
 
     /* Toggle Lists */

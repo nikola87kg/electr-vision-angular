@@ -1,0 +1,42 @@
+<h5>
+  Kontakt informacije
+</h5>
+
+<form [formGroup]="orderForm">
+
+    <mat-form-field>
+      <input 
+        formControlName="name"
+        matInput
+        placeholder="Ime i prezime"
+        required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+      formControlName="phone"
+        matInput
+        placeholder="Kontakt telefon">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+      formControlName="email"
+        matInput
+        placeholder="Email">
+    </mat-form-field>
+
+    <p 
+      class="error-message"
+      *ngIf="errorMessage">
+      *{{errorMessage}}
+    </p>
+
+    <button 
+      mat-raised-button
+      color="primary"
+      (click)="onSendOrder()">
+      Pošalji narudžbinu
+    </button>
+
+</form>

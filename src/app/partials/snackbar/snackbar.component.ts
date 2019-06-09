@@ -11,7 +11,7 @@ export class SnackbarComponent implements OnInit {
   constructor(
     private router: Router,
     @Inject(MAT_SNACK_BAR_DATA) public data: any
-  ) {}
+  ) { }
 
   actionWord = "";
   typeWord = "";
@@ -69,6 +69,9 @@ export class SnackbarComponent implements OnInit {
         break;
       case "gallery":
         this.typeWord = "Slika galerije";
+        break;
+      case "order":
+        this.typeWord = "Narudžbina";
         break;
       case "pricelist":
         this.typeWord = "Stavka cenovnika";

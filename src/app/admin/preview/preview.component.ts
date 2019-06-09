@@ -5,8 +5,7 @@ import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
-import { AuthService, UserInterface } from '../../_services/auth.service';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
+import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
 
 

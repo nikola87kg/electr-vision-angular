@@ -162,15 +162,15 @@ td.mat-column-vip.mat-column-vip {
     padding-left: 30px
 }
 
-.mat-column-name {
-    width: 400px;
-    @media #{$screen-md} {
-        width: 330px;
-    }
-    @media #{$screen-sm} {
-        width: 220px;
-    }
-}
+// .mat-column-name {
+//     width: 400px;
+//     @media #{$screen-md} {
+//         width: 330px;
+//     }
+//     @media #{$screen-sm} {
+//         width: 220px;
+//     }
+// }
 
 span.name-text {
     text-overflow: ellipsis;
@@ -198,4 +198,22 @@ span.name-text {
 
 .mat-column-name:hover .edit-on-hover {
     display: inline;
+}
+
+.remove-icon {
+    color: rgb(253, 139, 139);
+    &:hover {
+        color: red;
+        transform: scale(1.35);
+    } 
+}
+
+.single-order {
+    margin: 10px;
+    img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        margin-right: 10px;
+    }
 }

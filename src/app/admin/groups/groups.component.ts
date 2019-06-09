@@ -7,7 +7,7 @@ import { CategoriesService, CategoryInterface } from '../../_services/categories
 
 /* Material */
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 import { SharedService } from '../../_services/shared.service';
 
 /* 3rd party */
