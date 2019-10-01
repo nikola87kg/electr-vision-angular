@@ -70,6 +70,10 @@
         <br>
         <!-- Button -->
         <mat-card-actions>
+          <button *ngIf="currentLevel === 'proizvodi'" mat-raised-button color="primary" class="cart-button" 
+          (click)="addToCart($event, item._id)">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
           <button *ngIf="item.price" mat-raised-button color="warn">
             {{item.price}}
           </button>

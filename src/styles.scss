@@ -67,9 +67,12 @@ select {
 /***** COMMON CLASSES ****/
 
 .sidemenu {
-    padding-left: 50px;
+    padding-left: 2%;
     background: $px-material-dark;
     color: white;
+    @media #{$screen-md} {
+        padding-left: 50px;  
+    }
 }
 
 .text-centered,
@@ -165,7 +168,7 @@ select {
     align-items: center;
     justify-content: center;
     margin-top: -10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     height: 60px;
     overflow: hidden;
@@ -188,6 +191,14 @@ mat-card .image-wrapper {
 .mat-card .mat-card-actions.mat-card-actions {
     float: right;
     margin-top: -20px;
+    .cart-button {
+        min-width: 50px;
+        margin: 0 4px;
+        mat-icon {
+            font-size: 16px;
+            vertical-align: text-top;
+        }
+    }
 }
 
 mat-form-field {

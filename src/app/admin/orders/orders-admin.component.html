@@ -36,6 +36,12 @@
             <td mat-cell *matCellDef="let item"> {{ item.email }} </td>
         </ng-container>
 
+        <!-- Question Column Setup -->
+        <ng-container matColumnDef="question">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Pitanje korisnika </th>
+            <td mat-cell *matCellDef="let item"> {{ item.question || '--' }} </td>
+        </ng-container>
+
         <!-- Cart Column Setup -->
         <ng-container matColumnDef="cart">
             <th mat-header-cell *matHeaderCellDef  mat-sort-header> Korpa </th>

@@ -25,7 +25,7 @@ export class OrdersAdminComponent implements OnInit {
     ) {}
 
     orderList: Array<OrderInterface> = [];;
-    displayedColumns = [ 'position', 'name', 'phone', 'email', 'cart',  'delete' ];;
+    displayedColumns = [ 'position', 'name', 'phone', 'email', 'question', 'cart',  'delete' ];;
 
     screenSize;
     currentIndex: number;

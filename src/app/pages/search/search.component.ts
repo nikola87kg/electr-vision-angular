@@ -6,6 +6,8 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { SharedService } from '../../_services/shared.service';
 import { Title } from '@angular/platform-browser';
 import { BrandsService } from 'src/app/_services/brands.service';
+import { MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
 
 enum Type {
     cat = 'kategorije',
@@ -46,6 +48,7 @@ export class SearchComponent implements OnInit {
         public productService: ProductsService,
         public groupService: GroupsService,
         public categoryService: CategoriesService,
+        public snackBar: MatSnackBar,
         public brandService: BrandsService,
         public sharedService: SharedService,
         private router: Router,
@@ -334,5 +337,27 @@ export class SearchComponent implements OnInit {
         const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
         this.pages = this.pageArray.slice(0, pageLength);
     }
+    
+
+  addToCart(event, id) {
+      event.stopPropagation();
+    let cartString = localStorage.getItem('cart');
+    let cartArray = JSON.parse(cartString) || [];
+    if (id && cartArray && !cartArray.includes(id)) {
+      cartArray.push(id);
+      localStorage.setItem('cart', JSON.stringify(cartArray));
+      this.openSnackBar({action: 'cart',type: 'new'});
+    } else {
+      this.openSnackBar({action: 'cart',type: 'exist'});
+    }
+  }
+  
+  /* Snackbar */
+  openSnackBar(object) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 3000,
+      data: object,
+    });
+  }
 
 }

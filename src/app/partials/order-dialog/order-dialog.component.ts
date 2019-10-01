@@ -15,6 +15,7 @@ export class OrderDialogComponent implements OnInit {
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
+    question: new FormControl(''),
     orderList: new FormControl(null)
   })
 
@@ -48,7 +49,9 @@ export class OrderDialogComponent implements OnInit {
       (_) => this.dialogRef.close(true),
       (_) => {
         this.errorMessage = 'Greška na serveru.'
-        setTimeout(() => {this.errorMessage = '';}, 3000);
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 3000);
     });
   }
 
