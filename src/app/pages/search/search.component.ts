@@ -113,6 +113,7 @@ export class SearchComponent implements OnInit {
             }
         );
         this.getCategories(this.currentBrand);
+        this.setPage(0);
     }
 
     /* Group button */
@@ -127,6 +128,7 @@ export class SearchComponent implements OnInit {
             }
         );
         this.getGroups(this.lastCategory._id);
+        this.setPage(0);
     };
 
     /* Back button */

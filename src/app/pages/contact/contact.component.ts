@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit {
         {key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac'},
         {key: 'Telefon', value: '064 306 95 92'},
         {key: 'Email', value: 'electrovisionkg@gmail.com'},
-        {key: 'Facebook', value: 'facebook.com/electrovision'},
+        {key: 'Facebook', value: 'facebook.com/elektronika.jeremic'},
         {key: 'Instagram', value: 'instagram.com/electrovision'},
         {key: 'Youtube', value: 'youtube.com/electrovision'},
         {key: 'Kupujem Prodajem', value: 'kupujemprodajem.com/electrovision'},

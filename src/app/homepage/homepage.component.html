@@ -3,24 +3,6 @@
     <!-- Slider Banner -->
     <mat-grid-list cols="1" class="slider">
 
-        <!-- Social icons -->
-        <div class="header-icons">
-            <a class="facebook" href="https://www.facebook.com/mihajlo.jeremic" target="_blank">
-                <img src="assets\icons\facebook.png" alt="fb" title="ElectroVision na Facebooku">
-            </a>
-            <a class="instagram"  href="https://www.instagram.com/mihajlo_jeremic/" target="_blank">
-                <img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
-            </a>
-            <a class="gmail"  href="mailto:mihajlo1994kg@gmail.com" target="_blank">
-                <img src="assets\icons\gmail.png" alt="mail" title="Pošalji mejl">
-            </a>
-            <a class="youtube"  href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
-                <img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
-            </a>
-            <!-- <a class="kp"  href="https://www.kupujemprodajem.com/" target="_blank">
-                <img src="assets\icons\kp.png" alt="kp" title="ElectroVision na KupujemProdajem">
-            </a> -->
-        </div>
 
         <!-- Carousel -->
         <div class="px-carousel" >
@@ -76,7 +58,10 @@
                                     <h6 (click)="goToCategory(prod.category.slug)"> {{prod.category.name}} </h6>
                                     <h6 (click)="goToGroup(prod.group.slug)"> {{prod.group.name}} </h6>
                                     <h6 (click)="goToBrand(prod.brand.slug)"> {{prod.brand.name}} </h6>
-                                    <h6 (click)="goToProduct(prod.slug)"> {{prod.price || 'Cena nije dostupna'}} </h6>
+                                    <h6 (click)="addToCart(prod._id, $event)"> 
+                                        Dodaj u korpu 
+                                        <span *ngIf="prod.price"> ({{prod.price}}) </span>
+                                    </h6>
                                 </div>
                             </div>
                         </div>

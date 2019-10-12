@@ -5,7 +5,7 @@
 <header class="header">
 
     <!-- 1. LOGO  -->
-    <a class="logo" routerLink="/">
+    <a class="logo" routerLink="/kontakt">
         <img 
             *ngIf=" screenSize !== 'small'" 
             src="./assets/logo/electrovision_kg.png" 
@@ -25,27 +25,45 @@
     </div>
     
     <!-- 2. SEARCH -->
-    <form class="searchbox">
-        <mat-form-field>
-            <input
-                type="text"
-                placeholder="Pretraga proizvoda"
-                matInput
-                [formControl]="searchInput"
-                (keyup.enter)="goToProductByName(searchInput.value)"
-                [matAutocomplete]="auto">
-            <mat-autocomplete
-                autoActiveFirstOption
-                #auto="matAutocomplete">
-                <mat-option
-                    *ngFor="let option of filteredOptions$ | async"
-                    (click)="goToProduct(option.slug)"
-                    [value]="option.name">
-                    {{option.name}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </form>
+    <div class="search-and-links">
+        <form class="searchbox">
+            <mat-form-field>
+                <input
+                    type="text"
+                    placeholder="Pretraga proizvoda"
+                    matInput
+                    [formControl]="searchInput"
+                    (keyup.enter)="goToProductByName(searchInput.value)"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete
+                    autoActiveFirstOption
+                    #auto="matAutocomplete">
+                    <mat-option
+                        *ngFor="let option of filteredOptions$ | async"
+                        (click)="goToProduct(option.slug)"
+                        [value]="option.name">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+                
+            <!-- Social icons -->
+            <div class="header-icons">
+                <a class="facebook" href="https://facebook.com/elektronika.jeremic" target="_blank">
+                    <img src="assets\icons\facebook.png" alt="fb" title="ElectroVision na Facebooku">
+                </a>
+                <a class="instagram"  href="https://www.instagram.com/elektronika_jeremic/" target="_blank">
+                    <img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
+                </a>
+                <a class="gmail"  href="mailto:mihajlo1994kg@gmail.com" target="_blank">
+                    <img src="assets\icons\gmail.png" alt="mail" title="Pošalji mejl">
+                </a>
+                <a class="youtube"  href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
+                    <img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
+                </a>
+            </div> 
+        </form>
+    </div>
 
 
 </header>

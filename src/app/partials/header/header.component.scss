@@ -34,6 +34,31 @@ a.logo {
     }
 }
 
+div.search-and-links {
+    position: relative;
+}
+
+div.header-icons {
+    position: absolute;
+    z-index: 10;
+    bottom: -5px;
+    text-align: left;
+    color: #757575;
+    cursor: pointer;
+    width: 100%;
+    a {
+        padding: 0 10px;
+        img {
+            width: auto;
+            height: 15px;
+            &:hover {
+                transform: scale(1.1);
+                transition: 0.1s ease-out;
+            }
+        }
+    }
+}
+
 form.searchbox {
     float: right;
     position: relative;

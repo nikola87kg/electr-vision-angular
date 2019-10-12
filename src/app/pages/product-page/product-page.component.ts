@@ -93,7 +93,6 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  /* Get products + filter */
   getProducts() {
     this.sharedService.productList.subscribe(result => {
       if (result) {
@@ -113,7 +112,7 @@ export class ProductPageComponent implements OnInit {
       }
     });
   }
-
+  
   addToCart(id) {
     let cartString = localStorage.getItem('cart');
     let cartArray = JSON.parse(cartString) || [];

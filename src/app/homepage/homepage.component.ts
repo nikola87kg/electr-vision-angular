@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { SharedService } from '../_services/shared.service';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { SeoService } from '../_services/seo.service';
+import { MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
 
 @Component({
     selector: 'px-homepage',
@@ -63,7 +65,8 @@ export class HomepageComponent implements OnInit {
     constructor(
         public sharedService: SharedService,
         private router: Router,
-        private seo: SeoService
+        private seo: SeoService,
+        public snackBar: MatSnackBar,
     ) {}
 
     ngOnInit() {
@@ -160,5 +163,26 @@ export class HomepageComponent implements OnInit {
             this.router.navigate(['/proizvod/' + slug]);
         }
     }
+
+    addToCart(id, e) {
+        e.stopPropagation();
+        let cartString = localStorage.getItem('cart');
+        let cartArray = JSON.parse(cartString) || [];
+        if (id && cartArray && !cartArray.includes(id)) {
+          cartArray.push(id);
+          localStorage.setItem('cart', JSON.stringify(cartArray));
+          this.openSnackBar({action: 'cart',type: 'new'});
+        } else {
+          this.openSnackBar({action: 'cart',type: 'exist'});
+        }
+      }
+
+      /* Snackbar */
+      openSnackBar(object) {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+          duration: 3000,
+          data: object,
+        });
+      }
 
 }

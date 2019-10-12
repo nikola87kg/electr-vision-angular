@@ -85,6 +85,12 @@
       <span> {{product.catalog}}</span>
     </h6>
 
+    <!-- catalog number -->
+    <h6 class="catalog"
+        *ngIf="product?.brand && product?.brand.image">
+      <img [src]="product.brand.image" height="40" />
+    </h6>
+
     <!-- description -->
     <h4 class="description"
         *ngIf="product?.description">
