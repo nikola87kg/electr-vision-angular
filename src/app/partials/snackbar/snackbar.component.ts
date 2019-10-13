@@ -76,6 +76,9 @@ export class SnackbarComponent implements OnInit {
       case "pricelist":
         this.typeWord = "Stavka cenovnika";
         break;
+      case "slide":
+        this.typeWord = "Slajd";
+        break;
       default:
         this.typeWord = "Podatak";
     }

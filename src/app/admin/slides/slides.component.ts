@@ -1,33 +1,33 @@
+import { SlidesService, SlideInterface } from './../../_services/slides.service';
 /* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
-import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
 import { SharedService } from '../../_services/shared.service';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 
 /* 3rd party */
-import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+import * as slugify from 'speakingurl/speakingurl.min';
 
 @Component({
-    selector: 'px-categories',
-    templateUrl: './categories.component.html'
+    selector: 'px-slides',
+    templateUrl: './slides.component.html'
 })
-export class CategoriesComponent implements OnInit {
+export class SlidesComponent implements OnInit {
 
     /* Constructor */
     constructor(
-        private categoryService: CategoriesService,
+        private slideService: SlidesService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) { }
 
-    category: CategoryInterface;
-    displayedColumns = ['position', 'image', 'name', 'slug', 'created'];;
+    slide: SlideInterface;
+    displayedColumns = ['position', 'image', 'title', 'subtitle', 'created'];
 
     screenSize: string;
-    categoryList: Array<CategoryInterface>;
+    slideList: Array<SlideInterface>;
     currentIndex: number;
     dataSource;
 
@@ -50,7 +50,7 @@ export class CategoriesComponent implements OnInit {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
-        this.getCategories();
+        this.getSlides();
     }
 
     fixSlug(text: string) {
@@ -61,12 +61,12 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleCategory?, index?) {
+    openDialog(editing, singleSlide?, index?) {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
             this.dialogTitle = 'Ažuriranje kategorije';
-            this.category = Object.assign({}, singleCategory);
+            this.slide = Object.assign({}, singleSlide);
             if (index !== undefined) {
                 const pageSize = this.paginator.pageSize;
                 const pageIndex = this.paginator.pageIndex;
@@ -96,8 +96,8 @@ export class CategoriesComponent implements OnInit {
         this.imageFile = null;
         this.imagePreview = null;
         this.isImageDialogOpen = true;
-        this.imageID = this.categoryList[realIndex]._id;
-        this.existingImage = this.categoryList[realIndex].image;
+        this.imageID = this.slideList[realIndex]._id;
+        this.existingImage = this.slideList[realIndex].image;
         this.imageindex = realIndex;
         this.dialogTitle = 'Dodavanje slike';
     }
@@ -109,76 +109,69 @@ export class CategoriesComponent implements OnInit {
     }
 
     clearForm() {
-        this.category = {
+        this.slide = {
             _id: '',
-            name: '',
-            slug: '',
-            description: '',
+            title: '',
+            subtitle: '',
             image: '',
             createdAt: null
         };
     }
-    /* Add new category */
-    postCategory(category, event) {
-        const fixedSlug = this.fixSlug(category.slug);
-        category.slug = fixedSlug;
-        this.categoryService.post(category).subscribe(
+    /* Add new slide */
+    postSlide(slide, event) {
+        const fixedSlug = this.fixSlug(slide.slug);
+        slide.slug = fixedSlug;
+        this.slideService.post(slide).subscribe(
             (response) => {
                 this.closeDialog(event);
-                this.getCategories();
+                this.getSlides();
                 this.openSnackBar({
                     action: 'create2',
-                    type: 'category'
+                    type: 'slide'
                 });
             });
     }
 
-    /* Update category */
-    putCategory(category, event) {
-        const fixedSlug = this.fixSlug(category.slug);
-        category.slug = fixedSlug;
-        this.categoryService.put(category._id, category).subscribe(
+    /* Update slide */
+    putSlide(slide, event) {
+        const fixedSlug = this.fixSlug(slide.slug);
+        slide.slug = fixedSlug;
+        this.slideService.put(slide._id, slide).subscribe(
             (response) => {
                 this.closeDialog(event);
-                this.getCategories();
+                this.getSlides();
                 this.openSnackBar({
                     action: 'update2',
-                    type: 'category'
+                    type: 'slide'
                 });
             }
         );
     }
 
-    /* Delete category */
-    deleteCategory(id, event) {
-        this.categoryService.delete(id).subscribe(
+    /* Delete slide */
+    deleteSlide(id, event) {
+        this.slideService.delete(id).subscribe(
             (response) => {
-                this.categoryList.splice(this.currentIndex, 1);
-                this.dataSource = new MatTableDataSource(this.categoryList);
+                this.slideList.splice(this.currentIndex, 1);
+                this.dataSource = new MatTableDataSource(this.slideList);
                 this.dataSource.sort = this.sort;
                 this.dataSource.paginator = this.paginator;
                 this.closeDialog(event);
                 this.openSnackBar({
                     action: 'delete2',
-                    type: 'category'
+                    type: 'slide'
                 });
             }
         );
     }
 
-    /* Get category */
-    getCategories() {
-        this.sharedService.categoryList.subscribe(response => {
-            if (response) {
-                this.categoryList = response;
-                this.dataSource = new MatTableDataSource(this.categoryList);
-                this.dataSource.sort = this.sort;
-                this.dataSource.paginator = this.paginator;
-            } else {
-                setTimeout(() => {
-                    this.getCategories();
-                }, 1)
-            }
+    /* Get Sldies */
+    getSlides() {
+        this.slideService.get().subscribe(response => {
+            this.slideList = response;
+            this.dataSource = new MatTableDataSource(this.slideList);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
         });
     }
 
@@ -199,16 +192,16 @@ export class CategoriesComponent implements OnInit {
         const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
 
-        const thisCategory = this.categoryList[this.imageindex];
+        const thisCategory = this.slideList[this.imageindex];
         const catId = thisCategory._id;
         thisCategory.image = filename;
 
-        this.categoryService.put(catId, thisCategory).subscribe(
+        this.slideService.put(catId, thisCategory).subscribe(
             (response) => {
-                this.categoryService.postImage(this.imageID, formData).subscribe(
+                this.slideService.postImage(this.imageID, formData).subscribe(
                     (response2) => {
                         this.closeImageDialog();
-                        this.getCategories();
+                        this.getSlides();
                         this.openSnackBar({
                             action: 'update2',
                             type: 'image'

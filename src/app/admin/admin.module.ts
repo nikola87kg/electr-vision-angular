@@ -18,6 +18,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
 import { OrdersAdminComponent } from './orders/orders-admin.component';
+import { SlidesComponent } from './slides/slides.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { OrdersAdminComponent } from './orders/orders-admin.component';
   ],
   declarations: [
     AdminComponent,
+    SlidesComponent,
     ProductsComponent,
     CategoriesComponent,
     BrandsComponent,

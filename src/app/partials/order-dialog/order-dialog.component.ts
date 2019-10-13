@@ -14,7 +14,8 @@ export class OrderDialogComponent implements OnInit {
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
+    email: new FormControl(''),
+    address: new FormControl(''),
     question: new FormControl(''),
     orderList: new FormControl(null)
   })

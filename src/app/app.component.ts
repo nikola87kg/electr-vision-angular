@@ -12,11 +12,11 @@ import { CategoriesService } from './_services/categories.service';
 export class AppComponent implements OnInit {
 
     constructor(
-        private router: Router, 
+        private router: Router,
         private productService: ProductsService,
         public categoryService: CategoriesService,
         public sharedService: SharedService
-    ) {}
+    ) { }
 
     isAdminPanel = false;
 
@@ -26,18 +26,18 @@ export class AppComponent implements OnInit {
         this.handleRouting();
         this.setCart();
     }
-    
+
     setCart() {
         let cart = localStorage.getItem('cart');
         let cartArray = JSON.parse(cart);
         if (!Array.isArray(cartArray)) {
             localStorage.setItem('cart', '[]')
-        } 
+        }
     }
 
     handleRouting() {
         this.router.events
-            .subscribe( evt => {
+            .subscribe(evt => {
                 if (evt instanceof NavigationEnd) {
                     document.body.scrollTop = 0;
                 }
@@ -52,13 +52,13 @@ export class AppComponent implements OnInit {
     }
 
     getAllProducts() {
-        this.productService.get().subscribe( (response) => {
+        this.productService.get().subscribe((response) => {
             this.sharedService.productList.next(response);
         });
     }
-    
+
     getAllCategories() {
-        this.categoryService.get().subscribe( (response) => {
+        this.categoryService.get().subscribe((response) => {
             this.sharedService.categoryList.next(response);
         });
     }

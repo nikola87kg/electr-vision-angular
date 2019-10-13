@@ -1,18 +1,20 @@
 <!-- Sidemenu Component -->
 
 <ul class="list">
-    <li class="headline" (click)="goToCategory()">Kategorije</li>
+    <li class="headline"
+        (click)="goToCategory()">Kategorije</li>
     <li class="category"
         *ngFor="let cat of categoryList; let i = index"
         (click)="goToCategory(cat.slug)">
-        <span class="row-item" 
-            [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
+        <span class="row-item"
+              [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
             <div class="icon-wrapper">
-                <img [src]="cat.image" [alt]="cat.name"> 
-            </div> 
+                <img [src]="cat.image"
+                     [alt]="cat.name">
+            </div>
             <div class="text-wrapper">
-                    {{cat.name}}
-            </div> 
+                {{cat.name}}
+            </div>
         </span>
     </li>
 </ul>

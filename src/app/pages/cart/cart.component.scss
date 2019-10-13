@@ -4,6 +4,22 @@
   padding: 10px 20px;
 }
 
+.amount-dropdown {
+  max-width: 50px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+p.single-price {
+  display: inline-block;
+}
+
+p.full-price {
+  display: inline-block;
+  font-weight: bold;
+}
+
+
 .product-row {
   margin: 10px 0;
   position: relative;
@@ -14,6 +30,10 @@
   &:hover {
     background-color: whitesmoke;
   }
+}
+
+.product-image {
+  text-align: left;
 }
 
 .product-info {
@@ -33,19 +53,6 @@
     }
   }
 
-  p {
-    font-size: 18px;
-    color: $px-material-primary;
-    font-weight: bold;
-    margin: 5px;
-    max-width: calc(100vw - 400px);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    @media #{$screen-sm} {
-      max-width: calc(100vw - 100px);
-    }
-  }
 }
 
 img {

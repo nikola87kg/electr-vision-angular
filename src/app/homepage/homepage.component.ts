@@ -8,6 +8,7 @@ import { trigger, transition, animate, style } from '@angular/animations';
 import { SeoService } from '../_services/seo.service';
 import { MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
+import { SlidesService } from '../_services/slides.service';
 
 @Component({
     selector: 'px-homepage',
@@ -16,23 +17,23 @@ import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
     animations: [
         trigger(
             'allBanners', [
-                transition(':enter', [
-                    style({transform: 'translateX(100%)'}),
-                    animate('1s 3s', style({transform: 'translateX(0)'}))
-                ]),
-                transition(':leave', [
-                    style({transform: 'translateX(0)'}),
-                    animate('1s 3s', style({transform: 'translateX(-100%)'}))
-                ])
-            ],
+            transition(':enter', [
+                style({ transform: 'translateX(100%)' }),
+                animate('1s 3s', style({ transform: 'translateX(0)' }))
+            ]),
+            transition(':leave', [
+                style({ transform: 'translateX(0)' }),
+                animate('1s 3s', style({ transform: 'translateX(-100%)' }))
+            ])
+        ],
         ),
         trigger(
             'firstBanner', [
-                transition(':leave', [
-                    style({transform: 'translateX(0)'}),
-                    animate('1s 1s', style({transform: 'translateX(-100%)'}))
-                ])
-            ],
+            transition(':leave', [
+                style({ transform: 'translateX(0)' }),
+                animate('1s 1s', style({ transform: 'translateX(-100%)' }))
+            ])
+        ],
         ),
     ],
 })
@@ -44,36 +45,39 @@ export class HomepageComponent implements OnInit {
     currentSlider = 1;
     firstSlideOn = true;
     maxItems = 4;
+    showSlides = false;
     banners = [
         {
             title: 'Kontrola pristupa',
-            content: 'Bez muke i ključa sve na šifru i otisak prsta',
-            imageUrl: './assets/baner/baner1.jpg'
+            subtitle: 'Bez muke i ključa sve na šifru i otisak prsta',
+            image: './assets/baner/baner1.jpg'
         },
         {
             title: 'Motori za kapije i rampe',
-            content: 'Najsavremeniji motori sa italijanskom tehnologijom',
-            imageUrl: './assets/baner/baner2.jpg'
+            subtitle: 'Najsavremeniji motori sa italijanskom tehnologijom',
+            image: './assets/baner/baner2.jpg'
         },
         {
             title: 'Video nadzor',
-            content: 'Sigurnost na prvom mestu brend br. 1 u svetu - HikVision',
-            imageUrl: './assets/baner/baner3.jpg'
+            subtitle: 'Sigurnost na prvom mestu brend br. 1 u svetu - HikVision',
+            image: './assets/baner/baner3.jpg'
         }
     ];
 
     constructor(
         public sharedService: SharedService,
+        public slideService: SlidesService,
         private router: Router,
         private seo: SeoService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     ngOnInit() {
+        this.getSlides();
         this.getProducts();
 
         /* SEO */
-        this.seo.generateTags( {
+        this.seo.generateTags({
             title: 'Dobro došli',
             description: 'Početna stranica',
             image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
@@ -86,16 +90,17 @@ export class HomepageComponent implements OnInit {
             (result => this.screenSize = result)
         );
 
-        if(this.screenSize === "large") { this.maxItems = 3; 
+        if (this.screenSize === "large") {
+            this.maxItems = 3;
         } else { this.maxItems = 4; }
 
         /* Slider */
-        setInterval( () => {
+        setInterval(() => {
             this.rollSlides();
-        }, 5000 );
-        setTimeout( () => {
+        }, 5000);
+        setTimeout(() => {
             this.firstSlideOn = false;
-        }, 2200 );
+        }, 2200);
     }
 
     @HostListener('window:resize', ['$event']) onResize(event) {
@@ -107,14 +112,14 @@ export class HomepageComponent implements OnInit {
         } else {
             this.screenSize = 'small';
         }
-        if(this.screenSize === "large") {
+        if (this.screenSize === "large") {
             this.maxItems = 3;
         } else {
             this.maxItems = 4;
         }
         this.sharedService.screenSize.next(this.screenSize);
     }
-    
+
     /* Carousel */
     rollSlides() {
         const sliderIndex = this.currentSlider;
@@ -129,36 +134,45 @@ export class HomepageComponent implements OnInit {
 
     /* Get products + filter */
     getProducts() {
-            this.sharedService.productList.subscribe( result => {
-            if(result) {
+        this.sharedService.productList.subscribe(result => {
+            if (result) {
                 this.productList = result.filter(item => item.vip);
             } else {
-                setTimeout( ()=> {
+                setTimeout(() => {
                     this.getProducts()
                 }, 1)
             }
         });
     }
 
+    getSlides() {
+        this.slideService.get().subscribe(result => {
+            if (result && result.length > 1) {
+                this.showSlides = true;
+                this.banners = result;
+            }
+        });
+    }
+
     /* Navigation */
     goToCategory(slug) {
-        this.router.navigate( ['/pretraga/potkategorije/' + slug] );
+        this.router.navigate(['/pretraga/potkategorije/' + slug]);
     }
 
     goToGroup(slug) {
-        this.router.navigate( ['/pretraga/proizvodi/' + slug] );
+        this.router.navigate(['/pretraga/proizvodi/' + slug]);
     }
 
     goToBrand(slug) {
         this.router.navigate(
-            ['/pretraga/kategorije/sve'], 
-            {queryParams: { brand: slug } } 
+            ['/pretraga/kategorije/sve'],
+            { queryParams: { brand: slug } }
         );
     }
 
     goToProduct(slug, newTab?) {
         if (newTab) {
-             window.open('/proizvod/' + slug);
+            window.open('/proizvod/' + slug);
         } else {
             this.router.navigate(['/proizvod/' + slug]);
         }
@@ -169,20 +183,20 @@ export class HomepageComponent implements OnInit {
         let cartString = localStorage.getItem('cart');
         let cartArray = JSON.parse(cartString) || [];
         if (id && cartArray && !cartArray.includes(id)) {
-          cartArray.push(id);
-          localStorage.setItem('cart', JSON.stringify(cartArray));
-          this.openSnackBar({action: 'cart',type: 'new'});
+            cartArray.push(id);
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            this.openSnackBar({ action: 'cart', type: 'new' });
         } else {
-          this.openSnackBar({action: 'cart',type: 'exist'});
+            this.openSnackBar({ action: 'cart', type: 'exist' });
         }
-      }
+    }
 
-      /* Snackbar */
-      openSnackBar(object) {
+    /* Snackbar */
+    openSnackBar(object) {
         this.snackBar.openFromComponent(SnackbarComponent, {
-          duration: 3000,
-          data: object,
+            duration: 3000,
+            data: object,
         });
-      }
+    }
 
 }

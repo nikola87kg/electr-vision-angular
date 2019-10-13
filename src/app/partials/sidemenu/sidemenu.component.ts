@@ -17,7 +17,7 @@ export class SidemenuComponent implements OnInit {
     constructor(
         public sharedService: SharedService,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.getCategories();
@@ -26,10 +26,10 @@ export class SidemenuComponent implements OnInit {
     /* GET Categories */
     getCategories() {
         this.sharedService.categoryList.subscribe(response => {
-            if(response) {
+            if (response) {
                 this.categoryList = response;
             } else {
-                setTimeout( ()=> {
+                setTimeout(() => {
                     this.getCategories();
                 }, 1)
             }

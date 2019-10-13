@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
 
     lastCategory: any;
     lastGroup: any;
-    
+
     backButtontext: string = 'Nazad';
 
     constructor(
@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit {
         this.activatedRoute.params.subscribe(params => {
             this.currentSlug = params['slug'];
             this.currentLevel = params['level'];
-        });   
+        });
         this.activatedRoute.queryParams.subscribe(query => {
             this.currentBrand = query['brand'];
         })
@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
             if (e instanceof NavigationEnd) {
                 this.checkLevel();
             }
-        });     
+        });
     }
 
     ngOnInit() {
@@ -80,21 +80,21 @@ export class SearchComponent implements OnInit {
 
     /* Set current level, name & slug */
     checkLevel() {
-        if(this.currentLevel === Type.cat) {
+        if (this.currentLevel === Type.cat) {
             this.getCategories(this.currentBrand);
-        } else if(this.currentLevel === Type.group) {
+        } else if (this.currentLevel === Type.group) {
             this.getGroups();
         } else {
             this.getProducts(null, this.currentBrand);
-            this.itemsPerPage =6;
+            this.itemsPerPage = 6;
         }
         switch (this.currentLevel) {
             case Type.cat: this.headline = 'Pretraga kategorija';
-            break;
+                break;
             case Type.group: this.headline = 'Pretraga potkategorija';
-            break;
+                break;
             case Type.prod: this.headline = 'Pretraga proizvoda';
-            break;
+                break;
         }
         this.getName(this.currentLevel, this.currentSlug);
 
@@ -106,10 +106,10 @@ export class SearchComponent implements OnInit {
         this.currentLevel = Type.cat
         this.currentSlug = 'sve'
         this.router.navigate(
-            ['/pretraga', this.currentLevel, this.currentSlug], 
-            { 
-                relativeTo: this.activatedRoute, 
-                queryParams: {brand: this.currentBrand} 
+            ['/pretraga', this.currentLevel, this.currentSlug],
+            {
+                relativeTo: this.activatedRoute,
+                queryParams: { brand: this.currentBrand }
             }
         );
         this.getCategories(this.currentBrand);
@@ -121,10 +121,10 @@ export class SearchComponent implements OnInit {
         this.itemsPerPage = 96;
         const slug = this.lastCategory.slug;
         this.router.navigate(
-            ['/pretraga', Type.group, slug], 
-            { 
-                relativeTo: this.activatedRoute, 
-                queryParams: {brand: this.currentBrand} 
+            ['/pretraga', Type.group, slug],
+            {
+                relativeTo: this.activatedRoute,
+                queryParams: { brand: this.currentBrand }
             }
         );
         this.getGroups(this.lastCategory._id);
@@ -137,21 +137,21 @@ export class SearchComponent implements OnInit {
             this.currentLevel = Type.cat
             this.currentSlug = 'sve'
             this.router.navigate(
-                ['/pretraga', this.currentLevel, this.currentSlug], 
-                { 
-                    relativeTo: this.activatedRoute, 
-                    queryParams: {brand: this.currentBrand} 
+                ['/pretraga', this.currentLevel, this.currentSlug],
+                {
+                    relativeTo: this.activatedRoute,
+                    queryParams: { brand: this.currentBrand }
                 }
             );
             this.getCategories(this.currentBrand);
-        } else if(this.currentLevel === Type.prod) {
+        } else if (this.currentLevel === Type.prod) {
             this.currentLevel = Type.group
             this.currentSlug = this.lastGroup.slug;
             this.router.navigate(
-                ['/pretraga', this.currentLevel, this.currentSlug], 
-                { 
-                    relativeTo: this.activatedRoute, 
-                    queryParams: {brand: this.currentBrand} 
+                ['/pretraga', this.currentLevel, this.currentSlug],
+                {
+                    relativeTo: this.activatedRoute,
+                    queryParams: { brand: this.currentBrand }
                 }
             );
             this.getGroups(this.lastCategory._id);
@@ -161,30 +161,31 @@ export class SearchComponent implements OnInit {
     /* On Item Click */
     goForward(item) {
         let level = this.currentLevel;
-        if (level === Type.cat) { 
-            this.router.navigate (
-                ['/pretraga', Type.group, item.slug], 
-                { 
-                    relativeTo: this.activatedRoute, 
-                    queryParams: {brand: this.currentBrand} 
+        if (level === Type.cat) {
+            this.router.navigate(
+                ['/pretraga', Type.group, item.slug],
+                {
+                    relativeTo: this.activatedRoute,
+                    queryParams: { brand: this.currentBrand }
                 }
             );
             this.lastCategory = item;
             this.getGroups(item._id);
             return
         } else if (level === Type.group) {
-            this.itemsPerPage =6;
+            this.itemsPerPage = 6;
             this.router.navigate(
-                ['/pretraga', Type.prod, item.slug], 
-                { 
-                    relativeTo: this.activatedRoute, 
-                    queryParams: {brand: this.currentBrand} 
+                ['/pretraga', Type.prod, item.slug],
+                {
+                    relativeTo: this.activatedRoute,
+                    queryParams: { brand: this.currentBrand }
                 }
             );
             this.getProducts(item._id);
             this.lastGroup = item;
             return
-        } else {;
+        } else {
+            ;
             this.goToProduct(item.slug);
             return
         }
@@ -195,7 +196,7 @@ export class SearchComponent implements OnInit {
         this.brandService.get().subscribe(response => {
             this.brandList = response;
         });
-        
+
     }
 
     /* Get categories*/
@@ -203,13 +204,13 @@ export class SearchComponent implements OnInit {
         this.currentName = null;
         this.sharedService.categoryList.subscribe(response => {
             this.categoryList = response;
-            if(brandSlug || this.currentBrand) {
+            if (brandSlug || this.currentBrand) {
                 let brand = brandSlug || this.currentBrand
                 this.sharedService.productList.subscribe(res2 => {
-                    let filteredProducts = res2 && res2.filter( product => product.brand.slug === brand);
-                    let catSlugs = filteredProducts.map( product => product.category.slug);
-                    this.currentList = response.filter( cat => catSlugs.includes(cat.slug) );
-                    
+                    let filteredProducts = res2 && res2.filter(product => product.brand.slug === brand);
+                    let catSlugs = filteredProducts.map(product => product.category.slug);
+                    this.currentList = response.filter(cat => catSlugs.includes(cat.slug));
+
                 })
             } else {
                 this.currentList = response;
@@ -220,17 +221,17 @@ export class SearchComponent implements OnInit {
     /* Get groups by Category */
     getGroups(categoryId?, brandSlug?) {
         let id;
-        if(categoryId) {
+        if (categoryId) {
             id = categoryId;
             this.groupService.get().subscribe(response => {
-                if(brandSlug || this.currentBrand) {
+                if (brandSlug || this.currentBrand) {
                     let brand = brandSlug || this.currentBrand
                     this.sharedService.productList.subscribe(res2 => {
-                        let filteredProducts = res2.filter( product => product.brand.slug === brand);
-                        let groupSlugs = filteredProducts.map( product => product.group.slug);
+                        let filteredProducts = res2.filter(product => product.brand.slug === brand);
+                        let groupSlugs = filteredProducts.map(product => product.group.slug);
                         this.currentList = response
-                            .filter(group => groupSlugs.includes(group.slug) )
-                            .filter(group => group.category._id === categoryId );
+                            .filter(group => groupSlugs.includes(group.slug))
+                            .filter(group => group.category._id === categoryId);
                     })
                 } else {
                     this.currentList = response.filter(
@@ -242,12 +243,12 @@ export class SearchComponent implements OnInit {
             this.categoryService.getBySlug(this.currentSlug).subscribe(res1 => {
                 id = res1._id
                 this.groupService.get().subscribe(res2 => {
-                    if(brandSlug) {
+                    if (brandSlug) {
                         this.sharedService.productList.subscribe(res3 => {
-                            let filteredProducts = res3.filter( product => product.brand.slug === brandSlug);
-                            let groupSlugs = filteredProducts.map( product => product.group.slug);
-                            this.currentList = res2.filter(group => groupSlugs.includes(group.slug) );
-                            this.currentList = res2.filter(group => group.category._id === categoryId );
+                            let filteredProducts = res3.filter(product => product.brand.slug === brandSlug);
+                            let groupSlugs = filteredProducts.map(product => product.group.slug);
+                            this.currentList = res2.filter(group => groupSlugs.includes(group.slug));
+                            this.currentList = res2.filter(group => group.category._id === categoryId);
                         })
                     } else {
                         this.currentList = res2.filter(
@@ -263,7 +264,7 @@ export class SearchComponent implements OnInit {
 
     getProducts(groupId?, brandSlug?) {
         let id;
-        if(groupId) {
+        if (groupId) {
             this.sharedService.productList.subscribe(response => {
                 this.currentList = response.filter(
                     product => product.group._id === groupId
@@ -278,14 +279,14 @@ export class SearchComponent implements OnInit {
                 id = res1._id
                 this.sharedService.productList.subscribe(res2 => {
                     this.currentList = res2 && res2.filter(
-                        (product) => product.group._id === id 
+                        (product) => product.group._id === id
                     );
                     const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
                     this.pages = this.pageArray.slice(0, pageLength)
-                    if(brandSlug) {
+                    if (brandSlug) {
                         let brand = brandSlug || this.currentBrand;
                         this.currentList = this.currentList.filter(
-                            (product) => product.brand.slug === brand 
+                            (product) => product.brand.slug === brand
                         );
                         const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
                         this.pages = this.pageArray.slice(0, pageLength);
@@ -305,12 +306,12 @@ export class SearchComponent implements OnInit {
         this.currentName = null;
         if (level === Type.cat) {
             this.currentName = null;
-        } else if(level === Type.group) {
-            this.categoryService.getBySlug(slug).subscribe( category => {
+        } else if (level === Type.group) {
+            this.categoryService.getBySlug(slug).subscribe(category => {
                 this.currentName = category.name
             })
-        } else if(level === Type.prod) {
-            this.groupService.getBySlug(slug).subscribe( group => {
+        } else if (level === Type.prod) {
+            this.groupService.getBySlug(slug).subscribe(group => {
                 this.currentName = group.name
             })
         }
@@ -318,15 +319,15 @@ export class SearchComponent implements OnInit {
 
     /* Filter by brand */
     filterByBrand(brandSlug?) {
-        this.router.navigate([], { 
-            relativeTo: this.activatedRoute, 
-            queryParams: {brand: brandSlug} 
+        this.router.navigate([], {
+            relativeTo: this.activatedRoute,
+            queryParams: { brand: brandSlug }
         });
-        if(this.currentLevel === Type.cat) {
+        if (this.currentLevel === Type.cat) {
             this.getCategories(brandSlug);
-        } else if(this.currentLevel === Type.group) {
+        } else if (this.currentLevel === Type.group) {
             this.getGroups(null, brandSlug);
-        } else if(this.currentLevel === Type.prod) {
+        } else if (this.currentLevel === Type.prod) {
             this.getProducts(null, brandSlug);
         }
     }
@@ -334,32 +335,32 @@ export class SearchComponent implements OnInit {
     setPage(index) {
         this.firstItemOnPage = index * this.itemsPerPage
     }
-    
+
     subscribeToPageChanges(number) {
         const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
         this.pages = this.pageArray.slice(0, pageLength);
     }
-    
 
-  addToCart(event, id) {
-      event.stopPropagation();
-    let cartString = localStorage.getItem('cart');
-    let cartArray = JSON.parse(cartString) || [];
-    if (id && cartArray && !cartArray.includes(id)) {
-      cartArray.push(id);
-      localStorage.setItem('cart', JSON.stringify(cartArray));
-      this.openSnackBar({action: 'cart',type: 'new'});
-    } else {
-      this.openSnackBar({action: 'cart',type: 'exist'});
+
+    addToCart(event, id) {
+        event.stopPropagation();
+        let cartString = localStorage.getItem('cart');
+        let cartArray = JSON.parse(cartString) || [];
+        if (id && cartArray && !cartArray.includes(id)) {
+            cartArray.push(id);
+            localStorage.setItem('cart', JSON.stringify(cartArray));
+            this.openSnackBar({ action: 'cart', type: 'new' });
+        } else {
+            this.openSnackBar({ action: 'cart', type: 'exist' });
+        }
     }
-  }
-  
-  /* Snackbar */
-  openSnackBar(object) {
-    this.snackBar.openFromComponent(SnackbarComponent, {
-      duration: 3000,
-      data: object,
-    });
-  }
+
+    /* Snackbar */
+    openSnackBar(object) {
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 3000,
+            data: object,
+        });
+    }
 
 }

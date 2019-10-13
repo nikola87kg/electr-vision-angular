@@ -22,10 +22,10 @@ export class OrdersAdminComponent implements OnInit {
         private orderService: OrderService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     orderList: Array<OrderInterface> = [];;
-    displayedColumns = [ 'position', 'name', 'phone', 'email', 'question', 'cart',  'delete' ];;
+    displayedColumns = ['position', 'name', 'phone', 'email', 'address', 'question', 'cart', 'delete'];;
 
     screenSize;
     currentIndex: number;
@@ -74,9 +74,9 @@ export class OrdersAdminComponent implements OnInit {
 
     /* Snackbar */
     openSnackBar(object) {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: object,
+        });
     }
 }
