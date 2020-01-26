@@ -17,12 +17,12 @@ export interface BrandInterface {
 }
 
 /* BRAND SERVICE */
-@Injectable( { providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 
 export class BrandsService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
     /* GET brands */
     get() {
@@ -50,6 +50,6 @@ export class BrandsService {
     }
     /* POST Brand Image */
     postImage(id, file) {
-        return this.http.post<{image: string}>(this.baseUrl + '/brands/images/' + id, file);
+        return this.http.post<{ image: string }>(this.baseUrl + '/brands/images/' + id, file);
     }
 }

@@ -14,13 +14,13 @@ export interface UserInterface {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     token = '';
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
     getToken() {
-        return localStorage.getItem('auth_token'); 
+        return localStorage.getItem('auth_token');
     }
 
     /* Register New User */

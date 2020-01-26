@@ -16,17 +16,17 @@ export interface GalleryInterface {
 }
 
 /* GALLERY SERVOCE */
-@Injectable( { providedIn: 'root' } )
+@Injectable({ providedIn: 'root' })
 
 export class GalleryService {
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     /* GET Gallery */
     get() {
-      return this.http.get<GalleryInterface[]>(this.baseUrl + '/gallery');
+        return this.http.get<GalleryInterface[]>(this.baseUrl + '/gallery');
     }
 
     /* POST Gallery */
@@ -46,6 +46,6 @@ export class GalleryService {
 
     /* POST Gallery Image */
     postImage(id, file) {
-        return this.http.post<{image: string}>(this.baseUrl + '/gallery/images/' + id, file);
+        return this.http.post<{ image: string }>(this.baseUrl + '/gallery/images/' + id, file);
     }
 }

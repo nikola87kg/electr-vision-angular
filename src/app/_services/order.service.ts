@@ -11,13 +11,13 @@ export interface OrderInterface {
     createdAt: Date;
 }
 
-@Injectable( { providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 
 export class OrderService {
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     /* GET Orders */
     get() {

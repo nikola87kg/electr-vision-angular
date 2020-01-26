@@ -20,7 +20,7 @@ export interface SlideInterface {
 export class SlidesService {
     constructor(private http: HttpClient) { }
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
     /* GET slides */
     get() {

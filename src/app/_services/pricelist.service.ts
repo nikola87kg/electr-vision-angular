@@ -13,17 +13,17 @@ export interface PricelistInterface {
     price: string;
     createdAt: Date;
 }
-@Injectable( { providedIn: 'root' } )
+@Injectable({ providedIn: 'root' })
 
 export class PricelistService {
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     /* GET Pricelist */
     get() {
-      return this.http.get<PricelistInterface[]>(this.baseUrl + '/pricelist');
+        return this.http.get<PricelistInterface[]>(this.baseUrl + '/pricelist');
     }
 
     /* POST Pricelist */

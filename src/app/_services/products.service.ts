@@ -15,25 +15,25 @@ export interface ProductInterface {
     description: string;
     price: string;
     image: string;
-    category:  { _id: string, name: string, slug: string };
-    group:  { _id: string, name: string, slug: string  };
-    brand:  { _id: string, name: string, slug: string };
+    category: { _id: string, name: string, slug: string };
+    group: { _id: string, name: string, slug: string };
+    brand: { _id: string, name: string, slug: string };
     vip: boolean;
     createdAt: Date;
 }
 
 /* PRODUCT SERVICE */
-@Injectable( { providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 
 export class ProductsService {
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     /* GET Products */
     get() {
-      return this.http.get<ProductInterface[]>(this.baseUrl + '/products');
+        return this.http.get<ProductInterface[]>(this.baseUrl + '/products');
     }
 
     getBySlug(slug) {
@@ -58,6 +58,6 @@ export class ProductsService {
 
     /* POST Product Image */
     postImage(id, file) {
-        return this.http.post<{image: string}>(this.baseUrl + '/products/images/' + id, file);
+        return this.http.post<{ image: string }>(this.baseUrl + '/products/images/' + id, file);
     }
 }

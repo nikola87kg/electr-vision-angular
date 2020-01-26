@@ -96,14 +96,16 @@ export class ProductPageComponent implements OnInit {
   getProducts() {
     this.sharedService.productList.subscribe(result => {
       if (result) {
-        const groupId = this.product.group._id;
-        this.productList = result.filter(
-          p => p._id !== this.product._id
-        );
-        if (groupId) {
-          this.productList = this.productList.filter(
-            p => p.group._id === groupId
+        if (this.product.group != null) {
+          const groupId = this.product.group._id;
+          this.productList = result.filter(
+            p => p._id !== this.product._id
           );
+          if (groupId) {
+            this.productList = this.productList.filter(
+              p => p.group._id === groupId
+            );
+          }
         }
       } else {
         setTimeout(() => {
@@ -112,25 +114,25 @@ export class ProductPageComponent implements OnInit {
       }
     });
   }
-  
+
   addToCart(id) {
     let cartString = localStorage.getItem('cart');
     let cartArray = JSON.parse(cartString) || [];
     if (id && cartArray && !cartArray.includes(id)) {
       cartArray.push(id);
       localStorage.setItem('cart', JSON.stringify(cartArray));
-      this.openSnackBar({action: 'cart',type: 'new'});
+      this.openSnackBar({ action: 'cart', type: 'new' });
     } else {
-      this.openSnackBar({action: 'cart',type: 'exist'});
+      this.openSnackBar({ action: 'cart', type: 'exist' });
     }
   }
-  
-    /* Snackbar */
-    openSnackBar(object) {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 3000,
-        data: object,
-      });
-    }
+
+  /* Snackbar */
+  openSnackBar(object) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 3000,
+      data: object,
+    });
+  }
 
 }

@@ -1,7 +1,7 @@
 /* Core modules */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
@@ -39,45 +39,45 @@ import { CartComponent } from './pages/cart/cart.component';
 import { SnackbarComponent } from './partials/snackbar/snackbar.component';
 import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
 
-    @NgModule({
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        ShareButtonModule.forRoot(),
-        AppMaterialModule,
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent,
-        HomepageComponent,
-        HeaderComponent,
-        FooterComponent,
-        ProductPageComponent,
-        BrandRollerComponent,
-        NavigationMenuComponent,
-        SearchComponent,
-        ContactComponent,
-        GalleryComponent,
-        PricelistComponent,
-        CartComponent,
-        SidemenuComponent,
-        MiddleClickDirective,
-        AboutUsComponent,
-        ServiceComponent,
-        SnackbarComponent,
-        OrderDialogComponent,
-    ],
-    entryComponents: [
-      SnackbarComponent, 
-      OrderDialogComponent
-    ],
-    providers: [
-        AdminGuard,
-      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-    ],
-    bootstrap: [AppComponent]
-    })
-    export class AppModule { }
+@NgModule({
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ShareButtonModule.forRoot(),
+    AppMaterialModule,
+    AppRoutingModule
+  ],
+  declarations: [
+    AppComponent,
+    HomepageComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProductPageComponent,
+    BrandRollerComponent,
+    NavigationMenuComponent,
+    SearchComponent,
+    ContactComponent,
+    GalleryComponent,
+    PricelistComponent,
+    CartComponent,
+    SidemenuComponent,
+    MiddleClickDirective,
+    AboutUsComponent,
+    ServiceComponent,
+    SnackbarComponent,
+    OrderDialogComponent,
+  ],
+  entryComponents: [
+    SnackbarComponent,
+    OrderDialogComponent
+  ],
+  providers: [
+    AdminGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

@@ -12,17 +12,17 @@ export interface GroupInterface {
     slug: string;
     description: string;
     image: string;
-    category:  { _id: string, name: string, slug: string };
+    category: { _id: string, name: string, slug: string };
     createdAt: Date;
 }
 
 /* GROUP SERVICE */
-@Injectable( { providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 
 export class GroupsService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
     /* GET groups */
     get() {
@@ -51,6 +51,6 @@ export class GroupsService {
 
     /* POST Group Image */
     postImage(id, file) {
-        return this.http.post<{image: string}>(this.baseUrl + '/groups/images/' + id, file);
+        return this.http.post<{ image: string }>(this.baseUrl + '/groups/images/' + id, file);
     }
 }

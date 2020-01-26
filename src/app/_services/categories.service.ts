@@ -16,12 +16,12 @@ export interface CategoryInterface {
 }
 
 /* CATEGORY SERVICE */
-@Injectable( { providedIn: 'root' })
+@Injectable({ providedIn: 'root' })
 
 export class CategoriesService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    baseUrl = environment.baseUrl;
+    baseUrl = environment.apiUrl;
 
     /* GET categories */
     get() {
@@ -29,7 +29,7 @@ export class CategoriesService {
     }
 
     getBySlug(slug) {
-    const URL = this.baseUrl + '/categories/' + slug;
+        const URL = this.baseUrl + '/categories/' + slug;
         return this.http.get<CategoryInterface>(URL);
     }
 
@@ -50,6 +50,6 @@ export class CategoriesService {
 
     /* POST Category Image */
     postImage(id, file) {
-        return this.http.post<{image: string}>(this.baseUrl + '/categories/images/' + id, file);
+        return this.http.post<{ image: string }>(this.baseUrl + '/categories/images/' + id, file);
     }
 }
