@@ -11,14 +11,13 @@
         {{headline}}
       </span>
       <span class="toolbar-spacer"></span>
-      <button *ngIf="!largeView" (click)="setLargeView(true);" mat-stroked-button (click)="goStepBack();">
+      <button *ngIf="!gridView" (click)="setGridView(true);" mat-stroked-button>
         <mat-icon>view_module</mat-icon>
       </button>
-      <button *ngIf="largeView" mat-stroked-button (click)="setLargeView(false);">
+      <button *ngIf="gridView" mat-stroked-button (click)="setGridView(false);">
         <mat-icon>list</mat-icon>
       </button>
-      <button *ngIf="currentLevel !== 'kategorije'" class="back-button" mat-stroked-button
-        (click)="setLargeView(false);">
+      <button *ngIf="currentLevel !== 'kategorije'" class="back-button" mat-stroked-button (click)="goStepBack();">
         <mat-icon>arrow_back_ios</mat-icon>
         {{ backButtontext }}
       </button>
@@ -63,7 +62,7 @@
     </div>
 
     <!-- Cards -->
-    <div class="cards" *ngIf="largeView" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
+    <div class="cards" *ngIf="gridView" [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
       <mat-card (click)="goForward(item);"
         *ngFor="let item of currentList | slice: firstItemOnPage : (firstItemOnPage + itemsPerPage) ">
         <!-- Title -->
@@ -77,10 +76,8 @@
         <mat-card-actions>
           <button *ngIf="currentLevel === 'proizvodi'" mat-raised-button color="primary" class="cart-button"
             (click)="addToCart($event, item._id)">
-            <mat-icon>shopping_cart</mat-icon>
-          </button>
-          <button *ngIf="item.price" mat-raised-button color="warn">
-            {{item.price}}
+            <mat-icon>shopping_cart</mat-icon> <span>
+              {{item.price}}</span>
           </button>
           <button mat-raised-button color="accent">
             Detaljnije
@@ -90,7 +87,7 @@
     </div>
 
     <!-- Lista -->
-    <div class="product-list-view" *ngIf="!largeView">
+    <div class="product-list-view" *ngIf="!gridView">
       <div (click)="goForward(item);" class="product-list-item"
         *ngFor="let item of currentList | slice: firstItemOnPage : (firstItemOnPage + itemsPerPage) ">
         <!-- Image -->

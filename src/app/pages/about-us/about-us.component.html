@@ -40,34 +40,35 @@
 				Reference:
 				<ul>
 					<li>
-						<mat-icon>check</mat-icon> Itali Yu Car
+						Itali Yu Car
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Interprint
+						Interprint
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Joker
+						Joker
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> s.t.r. Popović
+						s.t.r. Popović
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> s.t.r. Gruja
+						s.t.r. Gruja
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Auto Servis Orlović
+						Auto Servis Orlović
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Tempo d.o.o.
+						Tempo d.o.o.
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Matiko
+						Matiko
 					</li>
 					<li>
-						<mat-icon>check</mat-icon> Auto Lider
+						Auto Lider
 					</li>
 				</ul>
 			</div>
+			<hr>
 			<div class="list center" *ngIf="brands$  | async as brands">
 				<br>
 				<img *ngFor="let brand of brands" [src]="brand.image" [alt]="brand.name">

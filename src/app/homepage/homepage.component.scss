@@ -5,45 +5,33 @@
 }
 
 .px-carousel {
-	height: 20vw;
+	height: 26vw;
 	position: relative;
-	@media #{$screen-md} {
-		height: 30vw;
-	}
 	.banner {
 		width: 100vw;
-		height: 20vw;
+		height: 26vw;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center center;
-		@media #{$screen-md} {
-			height: 30vw;
-		}
 	}
 	h3 {
 		color: rgb(235, 235, 235);
 		font-size: 32px;
 		position: absolute;
-		top: calc(20vw - 120px);
+		top: calc(26vw - 120px);
 		width: 100vw;
 		text-align: center;
 		text-shadow: 1px 1px gray;
-		@media #{$screen-md} {
-			top: calc(30vw - 70px);
-		}
 	}
 	p {
 		color: rgb(255, 246, 246);
 		font-size: 20px;
 		position: absolute;
-		top: calc(20vw - 70px);
+		top: calc(26vw - 70px);
 		width: 100vw;
 		text-align: center;
 		text-shadow: 1px 1px gray;
 		vertical-align: top;
-		@media #{$screen-md} {
-			top: calc(30vw - 30px);
-		}
 	}
 }
 

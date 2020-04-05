@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit {
 
     lastCategory: any;
     lastGroup: any;
-    largeView: Boolean = false;
+    gridView: Boolean = false;
 
     backButtontext: string = 'Nazad';
 
@@ -56,6 +56,8 @@ export class SearchComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         public title: Title
     ) {
+        this.gridView = localStorage.getItem('itemView') == 'grid' ? true : false;
+        localStorage.setItem('itemView', this.gridView ? 'grid' : 'list');
         title.setTitle('Proizvodi | ElectroVision Kragujevac');
         this.activatedRoute.params.subscribe(params => {
             this.currentSlug = params['slug'];
@@ -364,8 +366,9 @@ export class SearchComponent implements OnInit {
         });
     }
 
-    setLargeView(isLarge: Boolean) {
-        this.largeView = isLarge;
+    setGridView(isGrid: Boolean) {
+        this.gridView = isGrid;
+        localStorage.setItem('itemView', isGrid ? 'grid' : 'list');
     }
 
 }
