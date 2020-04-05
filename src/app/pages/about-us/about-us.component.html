@@ -11,23 +11,67 @@
 		</mat-toolbar>
 		<div class="about-us-text">
 			<p>
-				<strong>ElectroVision</strong> je firma u procesu osnivanja,
-				vizija je da što povoljnije dobijete najkvalitetniju robu na
-				tržištu.
+				<strong>ElectroVision</strong> je oglašivač na principu sajta kupujemprodajem.
+				Bavimo se internet prodajom i uslužne instalacije proizvoda po vašoj
+				želji, takođe radimo instalaciju i servisiranje ako vi sami nabavite
+				opremu. Instalaciju vršimo na teritoriji grada Kragujevca i u okvirima
+				Šumadijskog regiona. Usko smo vezani za proizvode iz elektro
+				oblasti i elektronskih uređaja. Kod nas možete naći sve renomirane
+				brendove i proizvode u oblasti tehničke zaštite.
 			</p>
 			<p>
 				Tim ljudi koji radu u sklopu ElectroVision-a je sa
-				<ins>višegodišnjim iskustvom</ins> u oblasti elektronike i
+				<ins>sa iskustvom od preko 30 godina</ins> u oblasti elektronike i
 				elektronskih uređaja.
 			</p>
 			<p>
 				Roba koju prodajemo i ugrađujemo je kao nova (nekorišćena) na
-				koju dajemo <ins>garanciju</ins> uz naš potpis i garantni list.
+				koju dajemo  <ins>garanciju</ins> uz naš potpis i garantni list.
+			</p>
+			<p>
+				Robu isporučujemo brzom poštom u dogovoru sa kupcem . Rok
+				isporuke je od 1 do 3 radna radna.
 			</p>
 			<p>
 				Naša najveća reklama je višegodišnja saradnja sa svim ljudima sa
 				kojima smo imali poslovni kontakt.
 			</p>
+			<div class="list">
+				Reference:
+				<ul>
+					<li>
+						<mat-icon>check</mat-icon> Itali Yu Car
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Interprint
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Joker
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> s.t.r. Popović
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> s.t.r. Gruja
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Auto Servis Orlović
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Tempo d.o.o.
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Matiko
+					</li>
+					<li>
+						<mat-icon>check</mat-icon> Auto Lider
+					</li>
+				</ul>
+			</div>
+			<div class="list center" *ngIf="brands$  | async as brands">
+				<br>
+				<img *ngFor="let brand of brands" [src]="brand.image" [alt]="brand.name">
+			</div>
 		</div>
 	</div>
 

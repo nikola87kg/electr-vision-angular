@@ -41,6 +41,7 @@ export class SearchComponent implements OnInit {
 
     lastCategory: any;
     lastGroup: any;
+    largeView: Boolean = false;
 
     backButtontext: string = 'Nazad';
 
@@ -361,6 +362,10 @@ export class SearchComponent implements OnInit {
             duration: 3000,
             data: object,
         });
+    }
+
+    setLargeView(isLarge: Boolean) {
+        this.largeView = isLarge;
     }
 
 }

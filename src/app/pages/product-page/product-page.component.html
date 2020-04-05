@@ -22,11 +22,10 @@
         Nema cene
       </ng-container>
     </div>
-    <button 
-      mat-raised-button
-      color="primary"
-      (click)="addToCart(product._id)"
-      class="basket-button">
+    <button mat-raised-button
+            color="primary"
+            (click)="addToCart(product._id)"
+            class="basket-button">
       <mat-icon>shopping_cart</mat-icon>
       Dodaj u korpu
     </button>
@@ -71,7 +70,7 @@
       </span>
       <i class="fa fa-chevron-right"></i>
       <span (click)="goToGroup(product.group.slug)">
-        {{product.group.name | lowercase}}
+        {{product.group?.name | lowercase}}
       </span>
       <i class="fa fa-chevron-right"></i>
       <span (click)="goToBrand(product.brand.slug)">
@@ -88,7 +87,8 @@
     <!-- catalog number -->
     <h6 class="catalog"
         *ngIf="product?.brand && product?.brand.image">
-      <img [src]="product.brand.image" height="40" />
+      <img [src]="product.brand.image"
+           height="40" />
     </h6>
 
     <!-- description -->

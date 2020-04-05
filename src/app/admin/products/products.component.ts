@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 /* Services */
 import { ProductsService, ProductInterface } from '../../_services/products.service';
-import { GroupsService,GroupInterface } from '../../_services/groups.service';
+import { GroupsService, GroupInterface } from '../../_services/groups.service';
 import { BrandsService, BrandInterface } from '../../_services/brands.service';
 import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 
@@ -21,6 +21,10 @@ import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.j
 })
 
 export class ProductsComponent implements OnInit {
+
+    @ViewChild('categoryFilter') categoryFilter;
+    @ViewChild('groupFilter') groupFilter;
+    @ViewChild('brandFilter') brandFilter;
 
     /* Constructor */
     constructor(
@@ -49,7 +53,7 @@ export class ProductsComponent implements OnInit {
 
     screenSize;
     currentIndex: number;
-    productList: Array<ProductInterface> ;
+    productList: Array<ProductInterface>;
     dataSource;
 
     brandList: Array<BrandInterface>;
@@ -106,7 +110,7 @@ export class ProductsComponent implements OnInit {
 
     closeDialog(event) {
         event.stopPropagation();
-    this.isAddDialogOpen = false;
+        this.isAddDialogOpen = false;
         this.clearForm();
     }
 
@@ -162,7 +166,7 @@ export class ProductsComponent implements OnInit {
         this.productService.post(product).subscribe(
             (response) => {
                 this.closeDialog(event);
-                this.getProducts();
+                this.getProducts(this.categoryFilter.value, this.groupFilter.value, this.brandFilter.value);
                 this.openSnackBar({
                     action: 'create',
                     type: 'product'
@@ -178,7 +182,7 @@ export class ProductsComponent implements OnInit {
         this.productService.put(product._id, product).subscribe(
             (response) => {
                 this.closeDialog(event);
-                this.getProducts();
+                this.getProducts(this.categoryFilter.value, this.groupFilter.value, this.brandFilter.value);
                 this.openSnackBar({
                     action: 'update',
                     type: 'product'
@@ -276,7 +280,7 @@ export class ProductsComponent implements OnInit {
 
     postImage() {
         const formData = new FormData();
-        const filename = this.imageFile.name ;
+        const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
 
         const thisProduct = this.productList[this.imageindex];
@@ -288,7 +292,7 @@ export class ProductsComponent implements OnInit {
                 this.productService.postImage(this.imageID, formData).subscribe(
                     (response2) => {
                         this.closeImageDialog();
-                        this.getProducts();
+                        this.getProducts(this.categoryFilter.value, this.groupFilter.value, this.brandFilter.value);
                         this.openSnackBar({
                             action: 'update2',
                             type: 'image'
@@ -300,10 +304,10 @@ export class ProductsComponent implements OnInit {
 
     /* Snackbar */
     openSnackBar(object) {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: object,
+        });
     }
 }
 

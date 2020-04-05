@@ -13,39 +13,41 @@ export class OrderDialogComponent implements OnInit {
   errorMessage = '';
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
+    phone: new FormControl(''),
     email: new FormControl(''),
     address: new FormControl(''),
     question: new FormControl(''),
-    orderList: new FormControl(null)
+    orderList: new FormControl([])
   })
 
   constructor(
     public dialogRef: MatDialogRef<OrderDialogComponent>,
     private orderService: OrderService,
-    @Inject(MAT_DIALOG_DATA) public data) {}
+    @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit() {
-    const orderMapped = this.data.list.map( item => {
-      delete item.brand;
-      delete item.category;
-      delete item.counter;
-      delete item.createdAt;
-      delete item.description;
-      delete item.group;
-      delete item.vip;
-      delete item.updatedAt;
-      delete item.slug;
-      return item
-    })
-    this.orderForm.get('orderList').patchValue(orderMapped);
+    if (this.data) {
+      const orderMapped = this.data.list.map(item => {
+        delete item.brand;
+        delete item.category;
+        delete item.counter;
+        delete item.createdAt;
+        delete item.description;
+        delete item.group;
+        delete item.vip;
+        delete item.updatedAt;
+        delete item.slug;
+        return item
+      })
+      this.orderForm.get('orderList').patchValue(orderMapped);
+    }
   }
-  
+
   onSendOrder() {
     if (!this.orderForm.valid) {
       return;
     }
-    
+
     this.orderService.post(this.orderForm.value).subscribe(
       (_) => this.dialogRef.close(true),
       (_) => {
@@ -53,7 +55,7 @@ export class OrderDialogComponent implements OnInit {
         setTimeout(() => {
           this.errorMessage = '';
         }, 3000);
-    });
+      });
   }
 
 }

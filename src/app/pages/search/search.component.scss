@@ -11,7 +11,6 @@
     padding: 0;
 }
 
-
 .step-buttons {
     margin: 20px;
     button {
@@ -34,9 +33,9 @@
         margin: 0;
         background: rgba(0, 0, 0, 0.5);
         position: absolute;
-        left:0;
-        right:0;
-        bottom:0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         z-index: 10;
         text-align: center;
         color: white;
@@ -54,13 +53,13 @@
 
 .brand-list-wrapper {
     margin-top: 0;
-    @media screen and (max-width:640px) {
+    @media screen and (max-width: 640px) {
         margin-top: 20px;
     }
 }
 
 .step-buttons button {
-    @media screen and (max-width:440px) {
+    @media screen and (max-width: 440px) {
         margin: 10px auto;
         display: block;
         width: 200px;
@@ -71,7 +70,6 @@
     @media screen and (max-width: 500px) {
         padding: 0 5px;
         font-size: 16px;
-    
     }
 }
 
@@ -91,5 +89,44 @@
 }
 
 .active-page {
-    background-color: whitesmoke ;
+    background-color: whitesmoke;
+}
+
+.product-list-view {
+    padding: 20px;
+    .product-list-item {
+        padding: 10px;
+        margin: 20px;
+        display: block;
+        border: 2px solid lightgray;
+        border-radius: 6px;
+        cursor: pointer;
+        &:hover {
+            border: 2px solid $px-material-accent;
+        }
+    }
+    .image-wrapper {
+        vertical-align: middle;
+        height: 120px;
+        display: inline-block;
+        img {
+            height: 110px;
+            width: 200px;
+            object-fit: contain;
+            object-position: center;
+        }
+    }
+    .product-text {
+        vertical-align: top;
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .product-title {
+        vertical-align: top;
+        display: inline-block;
+    }
+    .item-price {
+        display: inline-block;
+        padding-left: 5px;
+    }
 }

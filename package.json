@@ -22,6 +22,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
     "@fortawesome/free-brands-svg-icons": "^5.5.0",
     "@fortawesome/free-solid-svg-icons": "^5.5.0",
+    "@ngu/carousel": "^1.5.5",
     "@ngx-share/button": "^7.0.0",
     "@ngx-share/core": "^7.0.0",
     "bootstrap": "^4.1.3",

@@ -49,7 +49,6 @@ export class CartComponent implements OnInit {
 
   sendOrder() {
     const list = this.productList;
-    console.log(list)
     const dialogRef = this.dialog.open(OrderDialogComponent, {
       width: '300px',
       data: { list }

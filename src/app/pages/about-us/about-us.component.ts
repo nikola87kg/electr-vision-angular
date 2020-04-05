@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { BrandsService } from './../../_services/brands.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutUsComponent implements OnInit {
 
-  constructor() { }
+  brands$: Observable<any>;
+  constructor(public brandService: BrandsService) {
+    this.getBrands();
+  }
 
   ngOnInit() {
+  }
+
+  getBrands() {
+    this.brands$ = this.brandService.get();
   }
 
 }

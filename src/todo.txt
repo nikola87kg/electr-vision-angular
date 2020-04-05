@@ -1,0 +1,6 @@
+1. ADMIN - tabele - kategorija se nije videla kada je napravljena
+2. ADMIN - tabele - zabrani brisanje stavki koje imaju podstavke
+
+DEPLOY STEPS
+1. ANGULAR - npm run prod
+2. WIN SCP - transfer files (DIST/electro-vision -> ANGULAR)

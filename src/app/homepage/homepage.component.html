@@ -1,103 +1,70 @@
 <div id="homepage">
 
-    <!-- Slider Banner -->
-    <mat-grid-list cols="1"
-                   class="slider"
-                   *ngIf="showSlides">
-        <!-- Carousel -->
-        <div class="px-carousel">
-            <ng-container>
-                <!-- first banner -->
-                <div class="banner"
-                     [@firstBanner]
-                     *ngIf="firstSlideOn"
-                     style="
-                        position: absolute;
-                        background:url(./assets/baner/baner3.jpg)
-                        no-repeat
-                        center
-                        center/cover"
-                     [style.backgroundImage]="'url('+ banners[0].image +')'">>
-                    <h3>{{banners[0].title}}</h3>
-                    <p>{{banners[0].subtitle}}</p>
-                </div>
-            </ng-container> <!-- Rolling banners -->
-            <ng-container *ngFor="let banner of banners; let i = index">
-                <div class="banner"
-                     [@allBanners]
-                     style="position: absolute;"
-                     *ngIf="currentSlider === i"
-                     [style.backgroundImage]="'url('+ banner.image +')'">
-                    <h3>{{banner.title}}</h3>
-                    <p>{{banner.subtitle}}</p>
-                </div>
-            </ng-container>
-        </div>
-    </mat-grid-list>
+  <ngu-carousel #myCarousel *ngIf="banners.length" class="px-carousel" [inputs]="carouselConfig" [dataSource]="banners">
+    <!-- Images -->
+    <div *nguCarouselDef="let item; let i = index" class="item">
+      <img class="item-image" [src]="item.image" [alt]="item.title">
+      <h3>{{item.title}}</h3>
+      <p>{{item.subtitle}}</p>
+    </div>
+  </ngu-carousel>
 
-    <!-- Navigation Menu -->
-    <px-navigation-menu></px-navigation-menu>
+  <!-- Navigation Menu -->
+  <px-navigation-menu></px-navigation-menu>
 
-    <!-- Main area -->
-    <div class="main-section row">
+  <!-- Main area -->
+  <div class="main-section row">
 
-        <!-- Top products -->
-        <div class="col-sm-12 col-md-8 col-lg-9 content">
-            <!-- Brand roller -->
-            <px-brand-roller></px-brand-roller>
-            <div class="top-product-wrapper">
-                <!-- headline -->
-                <h4 class="breaking-news">
-                    <i class="fa fa-map-marker up-down mr5 ml5"></i>
-                    Preporučujemo
-                </h4>
-                <!-- list -->
-                <div class="row">
-                    <ng-container
-                                  *ngFor="let prod of productList | slice:0:maxItems; let i = index ">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 top-product-box"
-                             *ngIf="prod.vip"
-                             (click)="goToProduct(prod.slug)"
-                             (pxMiddleClick)="goToProduct(prod.slug, true)">
-                            <div class="wrapper-product">
-                                <div class="col-sm-12 product-image-wrapper">
-                                    <img *ngIf="prod.image"
-                                         [src]="prod.image"
-                                         [alt]="prod.image">
-                                    <img *ngIf="!prod.image"
-                                         src=".\assets\default_images\default-product.jpg"
-                                         alt="default image">
-                                </div>
-                                <div class="col-sm-12 product-info-wrapper">
-                                    <h5 class="product-name"> {{prod.name}}
-                                    </h5>
-                                    <h6
-                                        (click)="goToCategory(prod.category.slug)">
-                                        {{prod.category.name}} </h6>
-                                    <h6 (click)="goToGroup(prod.group.slug)">
-                                        {{prod.group.name}} </h6>
-                                    <h6 (click)="goToBrand(prod.brand.slug)">
-                                        {{prod.brand.name}} </h6>
-                                    <h6 (click)="addToCart(prod._id, $event)">
-                                        Dodaj u korpu
-                                        <span *ngIf="prod.price">
-                                            ({{prod.price}}) </span>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
+    <!-- Top products -->
+    <div class="col-sm-12 col-md-8 col-lg-9 content">
+      <!-- Brand roller -->
+      <px-brand-roller></px-brand-roller>
+      <div class="top-product-wrapper">
+        <!-- headline -->
+        <h4 class="breaking-news" *ngIf="vipProductsVisible.length">
+          <i class="fa fa-map-marker up-down mr5 ml5"></i>
+          Preporučujemo
+        </h4>
+        <!-- list -->
+        <div class="row">
+          <ng-container *ngFor="let prod of vipProductsVisible; let i = index ">
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 top-product-box" (click)="goToProduct(prod.slug)"
+              (pxMiddleClick)="goToProduct(prod.slug, true)">
+              <div class="wrapper-product">
+                <div class="col-sm-12 product-image-wrapper">
+                  <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.image">
+                  <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg" alt="default image">
                 </div>
+                <div class="col-sm-12 product-info-wrapper">
+                  <h5 class="product-name"> {{prod.name}}
+                  </h5>
+                  <h6 class="image" (click)="goToBrand(prod.brand.slug)">
+                    <img [src]="prod.brand?.image" [alt]="prod.brand?.name"> </h6>
+                  <h6 class="text" (click)="goToCategory(prod.category.slug)">
+                    {{prod.category?.name}} </h6>
+                  <h6 class="text" (click)="goToGroup(prod.group.slug)">
+                    {{prod.group?.name}} </h6>
+                  <h6 class="text cart" (click)="addToCart(prod._id, $event)">
+                    <span *ngIf="prod.price"> {{prod.price}} </span>
+                    <br>
+                    <mat-icon> shopping_cart </mat-icon>
+                  </h6>
+                </div>
+              </div>
             </div>
-
+          </ng-container>
         </div>
-
-        <!-- Side Menu -->
-        <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
-            <px-sidemenu></px-sidemenu>
-        </div>
+      </div>
 
     </div>
+
+    <!-- Side Menu -->
+    <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
+      <px-sidemenu></px-sidemenu>
+    </div>
+
+  </div>
 
 
 </div>

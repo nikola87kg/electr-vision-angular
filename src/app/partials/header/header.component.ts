@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     constructor(
         private router: Router,
         public sharedService: SharedService
-    ) {}
+    ) { }
 
     showResult = false;
 
@@ -40,25 +40,26 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllProducts();
+        this.getAllProductsAndFilter();
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    private _filter(value: string): string[] {
-        const lcValue = value.toLowerCase();
+    private filterSearchResult(searchInputValue: string) {
         return this.options.filter(
-            option => option.name.toLowerCase().indexOf(lcValue) !== -1
+            option => (`${option.name} ${option.catalog}`)
+                .toLowerCase()
+                .indexOf(searchInputValue.toLowerCase()) !== -1
         );
     }
 
-    getAllProducts() {
-        this.sharedService.productList.subscribe( result => {
-            if(result) {
+    getAllProductsAndFilter() {
+        this.sharedService.productList.subscribe(result => {
+            if (result) {
                 this.options = result;
                 this.filteredOptions$ = this.searchInput.valueChanges.pipe(
                     startWith(''),
-                    map( value => this._filter(value) )
+                    map(value => this.filterSearchResult(value))
                 );
             }
         });
@@ -70,7 +71,7 @@ export class HeaderComponent implements OnInit {
     }
 
     goToProductByName(name) {
-        const product = this.options.filter( option => option.name === name)[0];
+        const product = this.options.filter(option => option.name === name)[0];
         this.router.navigate(['/proizvod/' + product.slug]);
     }
 

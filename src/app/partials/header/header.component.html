@@ -4,78 +4,68 @@
 <!-- HEADER -->
 <header class="header">
 
-    <!-- 1. LOGO  -->
-    <a class="logo"
-       routerLink="/kontakt">
-        <img *ngIf=" screenSize !== 'small'"
-             src="./assets/logo/electrovision_kg.png"
-             alt="ElectroVision logo">
-        <img *ngIf=" screenSize === 'small'"
-             src="./assets/logo/EV.svg"
-             alt="ElectroVision logo short">
-    </a>
+	<!-- 1. LOGO  -->
+	<a class="logo" routerLink="/">
+		<img *ngIf=" screenSize !== 'small'" src="./assets/logo/electrovision_kg.png" alt="ElectroVision logo">
+		<img *ngIf=" screenSize === 'small'" src="./assets/logo/EV.svg" alt="ElectroVision logo short">
+	</a>
 
 
-    <!-- 3. Contact info -->
-    <div class="contact-wrapper">
-        <div> Radno vreme: <span>8 - 20h</span> </div>
-        <div> electrovisionkg@gmail.com </div>
-        <div> <span>064 306 95 92</span> </div>
-    </div>
+	<!-- 3. Contact info -->
+	<div class="contact-wrapper">
+		<div> Radno vreme: <span>8 - 20h</span> </div>
+		<div>
+			<a href="https://mail.google.com/mail/?view=cm&fs=1&to=mihajlo1994kg@gmail.co&su=Electrovision - upit"
+				target="_blank">
+				<span style="color: black">electrovisionkg@gmail.com</span>
+			</a> </div>
+		<div>
+			<a class="call" href="tel:+381643069592">
+				<span>064 306 95 92</span>
+			</a>
+		</div>
 
-    <!-- 2. SEARCH -->
-    <div class="search-and-links">
-        <form class="searchbox">
-            <mat-form-field>
-                <input type="text"
-                       placeholder="Pretraga proizvoda"
-                       matInput
-                       [formControl]="searchInput"
-                       (keyup.enter)="goToProductByName(searchInput.value)"
-                       [matAutocomplete]="auto">
-                <mat-autocomplete autoActiveFirstOption
-                                  #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptions$ | async"
-                                (click)="goToProduct(option.slug)"
-                                [value]="option.name">
-                        {{option.name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+		<!-- Social icons -->
+		<div class="header-icons">
+			<a class="facebook" href="https://facebook.com/elektronika.jeremic" target="_blank">
+				<img src="assets\icons\facebook.png" alt="fb" title="ElectroVision na Facebooku">
+			</a>
+			<a class="instagram" href="https://www.instagram.com/elektronika_jeremic/" target="_blank">
+				<img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
+			</a>
+			<a class="gmail"
+				href="https://mail.google.com/mail/?view=cm&fs=1&to=mihajlo1994kg@gmail.co&su=Electrovision - upit"
+				target="_blank">
+				<img src="assets\icons\gmail.png" alt="mail" title="Pošalji mejl">
+			</a>
+			<a class="youtube" href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
+				<img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
+			</a>
+		</div>
+	</div>
 
-            <!-- Social icons -->
-            <div class="header-icons">
-                <a class="facebook"
-                   href="https://facebook.com/elektronika.jeremic"
-                   target="_blank">
-                    <img src="assets\icons\facebook.png"
-                         alt="fb"
-                         title="ElectroVision na Facebooku">
-                </a>
-                <a class="instagram"
-                   href="https://www.instagram.com/elektronika_jeremic/"
-                   target="_blank">
-                    <img src="assets\icons\instagram.png"
-                         alt="in"
-                         title="ElectroVision na Instragramu">
-                </a>
-                <a class="gmail"
-                   href="mailto:mihajlo1994kg@gmail.com"
-                   target="_blank">
-                    <img src="assets\icons\gmail.png"
-                         alt="mail"
-                         title="Pošalji mejl">
-                </a>
-                <a class="youtube"
-                   href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw"
-                   target="_blank">
-                    <img src="assets\icons\youtube.png"
-                         alt="yt"
-                         title="ElectroVision na Youtube">
-                </a>
-            </div>
-        </form>
-    </div>
+	<!-- 2. SEARCH -->
+	<div class="search-and-links">
+		<form class="searchbox">
+			<mat-form-field appearance="outline" color="accent">
+				<mat-label>
+					<mat-icon>
+						search
+					</mat-icon> Pretraga proizvoda
+				</mat-label>
+				<input type="text" placeholder="" matInput [formControl]="searchInput"
+					(keyup.enter)="goToProductByName(searchInput.value)" [matAutocomplete]="auto">
+				<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+					<mat-option *ngFor="let option of filteredOptions$ | async" (click)="goToProduct(option.slug)"
+						[value]="option.name">
+						{{option.name}}
+						<span style="color: rgb(255, 156, 156)">- {{option.catalog}}</span>
+					</mat-option>
+				</mat-autocomplete>
+			</mat-form-field>
+
+		</form>
+	</div>
 
 
 </header>

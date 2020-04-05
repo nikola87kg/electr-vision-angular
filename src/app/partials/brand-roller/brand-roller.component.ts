@@ -15,14 +15,14 @@ interface BrandPlaceholder {
 
 export class BrandRollerComponent implements OnInit {
 
-    brandList = []; 
-    placeholders:BrandPlaceholder[] = [];
+    brandList = [];
+    placeholders: BrandPlaceholder[] = [];
     myState = 'state1';
 
     constructor(
         private brandService: BrandsService,
         private router: Router
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.getBrands();
@@ -34,21 +34,21 @@ export class BrandRollerComponent implements OnInit {
             this.brandList = response
                 .filter(brand => brand.vip)
             /* fill placeholders */
-            this.brandList.forEach( (brand, index) => {
-                    this.placeholders[index] = brand;
+            this.brandList.forEach((brand, index) => {
+                this.placeholders[index] = brand;
             });
-            /* change placeholder after one second */
+            /* change placeholder after timeout */
             setInterval(() => {
 
                 let oldplaceholder;
-                this.placeholders.forEach( (placeholder, index) => {
-                    if( index < this.brandList.length - 1 ) {
-                        if( index === 0 ) {
+                this.placeholders.forEach((placeholder, index) => {
+                    if (index < this.brandList.length - 1) {
+                        if (index === 0) {
                             oldplaceholder = this.placeholders[0]
-                        } 
-                        this.placeholders[ index ] = this.placeholders[ index + 1 ];
-                    } else  {
-                        this.placeholders[ index ] = oldplaceholder;
+                        }
+                        this.placeholders[index] = this.placeholders[index + 1];
+                    } else {
+                        this.placeholders[index] = oldplaceholder;
                     }
                 });
 
@@ -59,8 +59,8 @@ export class BrandRollerComponent implements OnInit {
     /* Navigation */
     goToBrand(slug) {
         this.router.navigate(
-            ['/pretraga/kategorije/sve'], 
-            {queryParams: { brand: slug } } 
+            ['/pretraga/kategorije/sve'],
+            { queryParams: { brand: slug } }
         );
     }
 }

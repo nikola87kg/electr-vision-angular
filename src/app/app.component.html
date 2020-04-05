@@ -3,3 +3,7 @@
   <router-outlet></router-outlet>
 </div>
 <px-footer *ngIf="!isAdminPanel"></px-footer>
+<div *ngIf="!isAdminPanel" class="message-icon" (click)="sendMessage()" matTooltip="Pošaljite poruku"
+  matTooltipClass="example-tooltip-red">
+  <mat-icon> message</mat-icon>
+</div>

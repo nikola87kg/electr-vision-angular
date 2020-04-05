@@ -1,57 +1,35 @@
 <h5>
-  Kontakt informacije
+  {{data ? 'Kontakt informacije': 'Slanje poruke'}}
 </h5>
 
 <form [formGroup]="orderForm">
 
-    <mat-form-field>
-      <input 
-        formControlName="name"
-        matInput
-        placeholder="Ime i prezime"
-        required>
-    </mat-form-field>
+  <mat-form-field appearance="outline" color="primary">
+    <input formControlName="name" matInput placeholder="Ime i prezime" required>
+  </mat-form-field>
 
-    <mat-form-field>
-      <input
-        formControlName="phone"
-        matInput
-        placeholder="Kontakt telefon"
-        required>
-    </mat-form-field>
+  <mat-form-field appearance="outline" color="primary">
+    <input formControlName="phone" matInput placeholder="Kontakt telefon" required>
+  </mat-form-field>
 
-    <mat-form-field>
-      <input
-        formControlName="email"
-        matInput
-        placeholder="Email (opciono)">
-    </mat-form-field>
+  <mat-form-field appearance="outline" color="primary" *ngIf="data">
+    <input formControlName="email" matInput placeholder="Email">
+  </mat-form-field>
 
-    <mat-form-field>
-      <input
-        formControlName="address"
-        matInput
-        placeholder="Adresa (opciono)">
-    </mat-form-field>
+  <mat-form-field appearance="outline" color="primary" *ngIf="data">
+    <input formControlName="address" matInput placeholder="Adresa">
+  </mat-form-field>
 
-    <mat-form-field>
-      <input
-        formControlName="question"
-        matInput
-        placeholder="Postavite pitanje (opciono)">
-    </mat-form-field>
+  <mat-form-field appearance="outline" color="primary">
+    <textarea formControlName="question" matInput placeholder="Postavite pitanje" rows="5"></textarea>
+  </mat-form-field>
 
-    <p 
-      class="error-message"
-      *ngIf="errorMessage">
-      *{{errorMessage}}
-    </p>
+  <p class="error-message" *ngIf="errorMessage">
+    *{{errorMessage}}
+  </p>
 
-    <button 
-      mat-raised-button
-      color="primary"
-      (click)="onSendOrder()">
-      Pošalji narudžbinu
-    </button>
+  <button mat-raised-button color="primary" (click)="onSendOrder()">
+    {{data ? 'Pošalji narudžbinu': 'Pošalji pitanje'}}
+  </button>
 
 </form>

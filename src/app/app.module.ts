@@ -38,7 +38,8 @@ import { ServiceComponent } from './pages/service/service.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { SnackbarComponent } from './partials/snackbar/snackbar.component';
 import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
-
+import { NguCarouselModule } from '@ngu/carousel';
+import 'hammerjs';
 @NgModule({
   imports: [
     BrowserModule,
@@ -48,7 +49,8 @@ import { OrderDialogComponent } from './partials/order-dialog/order-dialog.compo
     HttpClientModule,
     ShareButtonModule.forRoot(),
     AppMaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NguCarouselModule,
   ],
   declarations: [
     AppComponent,

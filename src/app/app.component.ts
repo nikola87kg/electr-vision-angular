@@ -1,3 +1,5 @@
+import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ProductsService } from './_services/products.service';
@@ -13,6 +15,7 @@ export class AppComponent implements OnInit {
 
     constructor(
         private router: Router,
+        public dialog: MatDialog,
         private productService: ProductsService,
         public categoryService: CategoriesService,
         public sharedService: SharedService
@@ -60,6 +63,12 @@ export class AppComponent implements OnInit {
     getAllCategories() {
         this.categoryService.get().subscribe((response) => {
             this.sharedService.categoryList.next(response);
+        });
+    }
+
+    sendMessage() {
+        this.dialog.open(OrderDialogComponent, {
+            width: '500px',
         });
     }
 }

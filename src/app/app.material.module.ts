@@ -7,6 +7,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 const materialModules = [
     MatTableModule,
@@ -24,7 +26,8 @@ const materialModules = [
     MatOptionModule,
     MatToolbarModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
 ];
 
 @NgModule({

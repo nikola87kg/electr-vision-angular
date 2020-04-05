@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core';
 /* Angular */
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { SeoService } from '../_services/seo.service';
 import { MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
 import { SlidesService } from '../_services/slides.service';
+import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
 
 @Component({
     selector: 'px-homepage',
@@ -38,31 +40,27 @@ import { SlidesService } from '../_services/slides.service';
     ],
 })
 export class HomepageComponent implements OnInit {
-    productList = [];
+    vipProducts = [];
+    vipProductsVisible = [];
     brandList = [];
     navItemsVisible = false;
     screenSize;
     currentSlider = 1;
     firstSlideOn = true;
-    maxItems = 4;
+    maxItems = 3;
+    currentRoll = 0;
     showSlides = false;
-    banners = [
-        {
-            title: 'Kontrola pristupa',
-            subtitle: 'Bez muke i ključa sve na šifru i otisak prsta',
-            image: './assets/baner/baner1.jpg'
-        },
-        {
-            title: 'Motori za kapije i rampe',
-            subtitle: 'Najsavremeniji motori sa italijanskom tehnologijom',
-            image: './assets/baner/baner2.jpg'
-        },
-        {
-            title: 'Video nadzor',
-            subtitle: 'Sigurnost na prvom mestu brend br. 1 u svetu - HikVision',
-            image: './assets/baner/baner3.jpg'
-        }
-    ];
+    banners = [];
+    @ViewChild('myCarousel') myCarousel: NguCarousel<any>;
+    carouselConfig: NguCarouselConfig = {
+        grid: { xs: 1, sm: 1, md: 1, lg: 1, all: 0 },
+        load: 3,
+        interval: { timing: 4000, initialDelay: 0 },
+        loop: true,
+        touch: true,
+        speed: 2000,
+    };
+
 
     constructor(
         public sharedService: SharedService,
@@ -93,14 +91,6 @@ export class HomepageComponent implements OnInit {
         if (this.screenSize === "large") {
             this.maxItems = 3;
         } else { this.maxItems = 4; }
-
-        /* Slider */
-        setInterval(() => {
-            this.rollSlides();
-        }, 5000);
-        setTimeout(() => {
-            this.firstSlideOn = false;
-        }, 2200);
     }
 
     @HostListener('window:resize', ['$event']) onResize(event) {
@@ -120,27 +110,25 @@ export class HomepageComponent implements OnInit {
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    /* Carousel */
-    rollSlides() {
-        const sliderIndex = this.currentSlider;
-        const bannersLength = this.banners.length;
-        if (sliderIndex < bannersLength - 1) {
-            this.currentSlider++;
-        } else {
-            this.currentSlider = 0;
-        }
-    }
-
 
     /* Get products + filter */
     getProducts() {
-        this.sharedService.productList.subscribe(result => {
-            if (result) {
-                this.productList = result.filter(item => item.vip);
-            } else {
-                setTimeout(() => {
-                    this.getProducts()
-                }, 1)
+        this.sharedService.productList.subscribe(productsResponse => {
+            if (productsResponse) {
+                this.vipProducts = productsResponse.filter(item => item.vip);
+                this.vipProductsVisible = this.vipProducts.slice(0, this.maxItems);
+
+                /* change placeholder after timeout */
+                setInterval(() => {
+                    if (this.currentRoll === 1 && this.maxItems === 4) {
+                        this.currentRoll = 0;
+                    } else if (this.currentRoll === 2) {
+                        this.currentRoll = 0;
+                    } else {
+                        this.currentRoll++;
+                    }
+                    this.vipProductsVisible = this.vipProducts.slice((this.currentRoll * this.maxItems), (this.currentRoll * this.maxItems + this.maxItems));
+                }, 5000);
             }
         });
     }
