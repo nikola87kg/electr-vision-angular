@@ -1,3 +1,4 @@
+import { PriceGroupInterface } from './../../_services/pricelist.service';
 /* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -26,7 +27,8 @@ export class PricelistAdminComponent implements OnInit {
 
     pricelist: PricelistInterface;
     pricelistList: Array<PricelistInterface>;
-    displayedColumns = [ 'position', 'name', 'description', 'price' ];;
+    displayedColumns = [ 'position', 'name', 'priceGroup', 'price' ];
+    priceGroups: PriceGroupInterface[] = [];
 
     screenSize;
     currentIndex: number;
@@ -44,6 +46,7 @@ export class PricelistAdminComponent implements OnInit {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
+        this.fillPriceGroups();
         this.getPricelists();
     }
 
@@ -76,10 +79,19 @@ export class PricelistAdminComponent implements OnInit {
         this.pricelist = {
             _id: '',
             name: '',
-            description: '',
+            priceGroup: undefined,
             price: '',
             createdAt: null
         };
+    }
+
+    /* PriceGroups */
+    fillPriceGroups() {
+        this.pricelistService.getPriceGroups().subscribe(
+            (response) => {
+                this.priceGroups = response;
+            }
+        );
     }
 
     /* Add new pricelist */

@@ -29,19 +29,19 @@
             <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
         </ng-container>
 
-        <!-- Description Column Setup -->
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Opis </th>
+        <!-- Group Column Setup -->
+        <ng-container matColumnDef="priceGroup">
+            <th mat-header-cell *matHeaderCellDef> Kategorija </th>
             <td mat-cell *matCellDef="let item">
-                <span style="white-space: pre-wrap;">{{ item.description }} </span>
+                <span style="white-space: pre-wrap;">{{ item.priceGroup.name }} </span>
             </td>
         </ng-container>
 
         <!-- Price Column Setup -->
         <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Cena </th>
-                <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
-            </ng-container>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Cena </th>
+            <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
+        </ng-container>
 
         <!-- Created At Column Steup -->
         <ng-container matColumnDef="created">
@@ -86,11 +86,19 @@
                 autocomplete="off" required>
         </mat-form-field>
 
-        <!-- Description -->
+        <!-- priceGroup -->
         <mat-form-field>
-            <textarea
-                matInput [(ngModel)]="pricelist.description" placeholder="Opis" name="description"
-                type="text" autocomplete="off" required></textarea>
+            <mat-select 
+                [(ngModel)]="pricelist.priceGroup"
+                name="priceGroup"
+                placeholder="Kategorija"
+                required>
+                <mat-option 
+                    *ngFor="let group of priceGroups"
+                    [value]="group">
+                    {{group.name}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
 
         <!-- Price -->

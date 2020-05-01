@@ -1,42 +1,60 @@
 @import "src/px-material-theme.scss";
 
 .full-screen {
-    width: calc(100% - 300px);
-    margin: 20px 150px;
-   @media #{$screen-md} {
-        width: calc(100% - 100px);
-        margin: 20px 50px;
-    }
-    @media #{$screen-sm} {
-        width: calc(100% - 40px);
-        margin: 20px 20px;
-    }
-    @media screen and (max-width: 400px) {
-        width: calc(100% - 20px);
-        margin: 20px 10px;
-    }
+	width: calc(100% - 300px);
+	margin: 20px 150px;
+	@media #{$screen-md} {
+		width: calc(100% - 100px);
+		margin: 20px 50px;
+	}
+	@media #{$screen-sm} {
+		width: calc(100% - 40px);
+		margin: 20px 20px;
+	}
+	@media screen and (max-width: 400px) {
+		width: calc(100% - 20px);
+		margin: 20px 10px;
+	}
 }
 
 .mat-column-price {
-    color: $px-material-accent;
-    text-align: right;
+	color: $px-material-accent;
+	text-align: right;
 }
 
-.mat-cell, .mat-header-cell {
-    font-size: 20px;
-   @media #{$screen-md} {
-        width: calc(100% - 100px);
-        margin: 20px 50px;
-        font-size: 20px;
-    }
-    @media #{$screen-sm} {
-        width: calc(100% - 40px);
-        margin: 20px 20px;
-        font-size: 16px;
-    }
-    @media screen and (max-width: 400px) {
-        width: calc(100% - 20px);
-        margin: 20px 10px;
-        font-size: 14px;
-    }
+.mat-cell,
+.mat-header-cell {
+	font-size: 20px;
+	@media #{$screen-md} {
+		width: calc(100% - 100px);
+		margin: 20px 50px;
+		font-size: 20px;
+	}
+	@media #{$screen-sm} {
+		width: calc(100% - 40px);
+		margin: 20px 20px;
+		font-size: 16px;
+	}
+	@media screen and (max-width: 400px) {
+		width: calc(100% - 20px);
+		margin: 20px 10px;
+		font-size: 14px;
+	}
+}
+
+.table-wrapper th {
+	background: $px-material-accent;
+	color: white;
+}
+.table-wrapper .mat-header-row {
+	border: 1px solid $px-material-accent;
+}
+
+.table-wrapper .mat-row {
+	border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.table-wrapper .mat-cell span {
+	display: inline-block;
+	width: 30px;
 }
