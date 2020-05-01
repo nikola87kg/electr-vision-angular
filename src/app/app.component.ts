@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 
     sendMessage() {
         this.dialog.open(OrderDialogComponent, {
-            width: '500px',
+            width: '600px',
         });
     }
 }

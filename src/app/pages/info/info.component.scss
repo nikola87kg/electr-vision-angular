@@ -1,0 +1,18 @@
+@import "src/px-material-theme.scss";
+
+.info-wrapper {
+  margin: 10px 20px;
+}
+
+h5 {
+  margin-bottom: 20px;
+  color: $px-material-primary;
+}
+
+p.question {
+  color: $px-material-accent;
+}
+
+p.answer {
+  text-align: justify;
+}

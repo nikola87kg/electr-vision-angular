@@ -5,6 +5,8 @@ h5 {
 
 form {
 	text-align: center;
+	max-height: calc(100vh - 100px);
+	overflow-y: scroll;
 }
 
 .error-message {

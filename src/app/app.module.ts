@@ -40,6 +40,7 @@ import { SnackbarComponent } from './partials/snackbar/snackbar.component';
 import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
 import { NguCarouselModule } from '@ngu/carousel';
 import 'hammerjs';
+import { InfoComponent } from './pages/info/info.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -64,6 +65,7 @@ import 'hammerjs';
     ContactComponent,
     GalleryComponent,
     PricelistComponent,
+    InfoComponent,
     CartComponent,
     SidemenuComponent,
     MiddleClickDirective,

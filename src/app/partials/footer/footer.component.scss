@@ -9,7 +9,6 @@ footer {
   box-shadow: inset 0 0 5px #616161;
 }
 
-
 .delimeter {
   display: inline-block;
   margin: 0 10px;
@@ -20,6 +19,13 @@ footer {
       display: inline-block;
     }
   }
+}
+
+.mat-icon.cart {
+  color: #79acdb;
+  vertical-align: top;
+  font-size: 18px;
+  padding-top: 2px;
 }
 
 .copyright {
@@ -35,7 +41,12 @@ footer {
 .small-screen-break {
   display: none;
   @media #{$screen-sm} {
-      display: block;
-      height: 7px;
+    display: block;
+    height: 7px;
   }
+}
+
+a.call img {
+  width: auto;
+  height: 15px;
 }

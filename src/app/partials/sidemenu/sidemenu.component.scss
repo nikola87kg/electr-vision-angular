@@ -10,6 +10,8 @@ div.sidebar-icons {
 	text-align: center;
 	color: #757575;
 	cursor: pointer;
+	overflow: hidden;
+	white-space: nowrap;
 	a {
 		padding: 0 10px;
 		&:first-child {

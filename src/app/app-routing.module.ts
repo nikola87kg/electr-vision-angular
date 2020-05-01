@@ -11,16 +11,18 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { SearchComponent } from './pages/search/search.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { InfoComponent } from './pages/info/info.component';
 
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
-import { CartComponent } from './pages/cart/cart.component';
 
 const routes: Routes = [
     { path: 'pocetna', component: HomepageComponent },
     { path: 'kontakt', component: ContactComponent },
     { path: 'galerija', component: GalleryComponent },
     { path: 'cenovnik', component: PricelistComponent },
+    { path: 'info', component: InfoComponent },
     { path: 'o-nama', component: AboutUsComponent },
     { path: 'korpa', component: CartComponent },
     { path: 'servis', component: ServiceComponent },

@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
   sendOrder() {
     const list = this.productList;
     const dialogRef = this.dialog.open(OrderDialogComponent, {
-      width: '300px',
+      width: '600px',
       data: { list }
     });
     dialogRef.afterClosed().subscribe(result => {
