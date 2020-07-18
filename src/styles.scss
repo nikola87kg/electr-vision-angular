@@ -186,6 +186,9 @@ form.searchbox {
   }
   .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 0.5em 0 20px 0;
+    @media #{$screen-md} {
+      padding: 0 0 20px 0;
+    }
   }
 }
 
