@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { faArrowCircleLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as slugify from 'speakingurl/speakingurl.min';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 import { SharedService } from '../../_services/shared.service';
@@ -20,6 +21,9 @@ export class SlidesComponent implements OnInit {
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) { }
+
+    faTimes = faTimes;
+    faArrowCircleLeft = faArrowCircleLeft;
 
     slide: SlideInterface;
     displayedColumns = ['position', 'image', 'title', 'subtitle', 'created'];

@@ -115,7 +115,7 @@
                 <span class="name-text">
                     {{ item.name }}
                     <span class="edit-on-hover">
-                        <i class="fa fa-arrow-circle-left"></i> izmeni
+                        <fa-icon [icon]="faArrowCircleLeft"></fa-icon> izmeni
                     </span>
                 </span>
             </td>
@@ -248,7 +248,7 @@
             <button type="button"
                     class="cancel-x btn btn-link"
                     (click)="closeDialog($event)">
-                <i class="fa fa-times "></i>
+                <fa-icon [icon]="faTimes"></fa-icon>
             </button>
         </div>
         <br>
@@ -413,7 +413,7 @@
             <button type="button"
                     class="cancel-x btn btn-link"
                     (click)="closeImageDialog()">
-                <i class="fa fa-times "></i>
+                <fa-icon [icon]="faTimes"></fa-icon>
             </button>
         </div>
         <br>

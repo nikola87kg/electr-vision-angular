@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { faArrowCircleLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
@@ -15,6 +16,9 @@ import { SharedService } from '../../_services/shared.service';
     templateUrl: './categories.component.html'
 })
 export class CategoriesComponent implements OnInit {
+
+    faTimes = faTimes;
+    faArrowCircleLeft = faArrowCircleLeft;
 
     /* Constructor */
     constructor(

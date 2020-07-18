@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
 import { SeoService } from 'src/app/_services/seo.service';
 import { SharedService } from 'src/app/_services/shared.service';
@@ -22,6 +23,7 @@ export class ProductPageComponent implements OnInit {
   url: string;
   isFullPage: boolean;
   fullPageImage: string;
+  faChevronRight = faChevronRight;
 
   constructor(
     private activatedRoute: ActivatedRoute,

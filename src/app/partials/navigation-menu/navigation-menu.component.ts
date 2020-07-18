@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/_services/auth.service';
 import { environment } from 'src/environments/environment';
 import { SharedService } from '../../_services/shared.service';
@@ -21,6 +22,8 @@ export class NavigationMenuComponent implements OnInit {
     authType: string;
     isMenuIconVisible: boolean;
     isAuthDialogOpen = false;
+    faTimes = faTimes;
+
     user = {username: '', email: '', password: '', confirm: ''};
 
     navItems = [

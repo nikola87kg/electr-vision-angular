@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 import { PricelistInterface, PricelistService } from '../../_services/pricelist.service';
 import { SharedService } from '../../_services/shared.service';
@@ -22,6 +23,8 @@ export class PricelistAdminComponent implements OnInit {
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
     ) {}
+
+    faTimes = faTimes;
 
     pricelist: PricelistInterface;
     pricelistList: Array<PricelistInterface>;
