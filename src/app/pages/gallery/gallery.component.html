@@ -11,8 +11,9 @@
             </mat-toolbar-row>
         </mat-toolbar>
 
-        <!-- Gallery -->
+        
 
+        <!-- Old Gallery -->
         <div class="galleries" *ngFor="let gallery of galleryList; let gi = index;">
             <h4 class="gallery-title"> {{ gallery }} </h4>
             <div class="gallery-wrapper" >
@@ -30,32 +31,28 @@
         </div>
 
 
-        <!-- Modal -->
+        <!-- Swipper Modal -->
         <div 
-            class="gallery-modal" 
-            *ngIf="isGalleryModalOpen" 
-            (click)="OnCloseGallery()">
-            <!-- Image -->
-            <div class="selected-image">
-                <img [src]="selectedImagePath" alt="image modal">
+          class="gallery-modal" 
+          *ngIf="isGalleryModalOpen" 
+          (keydown.esc)="OnCloseGallery()"
+          (click)="OnCloseGallery()">
+          
+          <div 
+            class="box-container"
+            (click)="$event.stopPropagation()">
+            <div class="content-container">
+              <swiper 
+                class="swiper-container"
+                [config]="config"
+                [(index)]="selectedImageIndex">
+                <div *ngFor="let slide of filteredArray" class="swiper-slide">
+                  <img [src]="slide.imagePath" alt="image modal">
+                </div>
+              </swiper>
             </div>
-            <!-- Previous -->
-            <div class="left"  
-            (click)="onPreviousImage($event)"
-            *ngIf="filteredArray.length > 1">
-                <span> 
-                    < 
-                </span>
-            </div>
-            <!-- Next -->
-            <div class="right"  
-            (click)="onNextImage($event)"
-            *ngIf="filteredArray.length > 1">
-                <span> 
-                    > 
-                </span>
-            </div>
-        </div>
+          </div>
+      </div>
     </div>
     
     <!-- Side Menu -->

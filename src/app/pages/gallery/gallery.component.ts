@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SeoService } from 'src/app/_services/seo.service';
 import { GalleryService } from '../../_services/gallery.service';
 
@@ -9,6 +10,25 @@ import { GalleryService } from '../../_services/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
+  public slides = [
+    'First slide',
+    'Second slide',
+    'Third slide',
+    'Fourth slide',
+    'Fifth slide',
+    'Sixth slide'
+  ];
+
+  config: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 1,
+    keyboard: true,
+    mousewheel: true,
+    navigation: true,
+  };
+
+    /*  */
+
     selectedImagePath: string;
     selectedImageIndex;
     isGalleryModalOpen = false;
@@ -17,10 +37,19 @@ export class GalleryComponent implements OnInit {
     filteredArray = [];
     galleryList = [];
 
+
+    @HostListener('document:keyup', ['$event'])
+    onKeyUp(ev: KeyboardEvent): void {
+        if (ev.key === 'Escape') {
+            this.OnCloseGallery();
+        }
+    }
+
     constructor(
         private galleryService: GalleryService,
-        private seo: SeoService
-    ) {}
+        private seo: SeoService,
+    ) {
+    }
 
     ngOnInit(): void {
 
@@ -62,6 +91,7 @@ export class GalleryComponent implements OnInit {
             }
         });
 
+        this.config.navigation = this.filteredArray.length > 1 ? true : false;
         /* selected image */
         this.selectedImageIndex = newIndex;
         this.selectedImagePath = this.filteredArray[newIndex].imagePath;

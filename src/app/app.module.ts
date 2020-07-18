@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NguCarouselModule } from '@ngu/carousel';
+import { SwiperConfigInterface, SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +36,11 @@ import { MiddleClickDirective } from './_directives/middle-click.directive';
 /* Interceptors */
 import { AuthInterceptor } from './_services/auth.intereceptor';
 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ import { AuthInterceptor } from './_services/auth.intereceptor';
     AppRoutingModule,
     NguCarouselModule,
     FontAwesomeModule,
+    SwiperModule
   ],
   declarations: [
     AppComponent,
@@ -74,7 +81,8 @@ import { AuthInterceptor } from './_services/auth.intereceptor';
   ],
   providers: [
     AdminGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: SWIPER_CONFIG, useValue: DEFAULT_SWIPER_CONFIG}
   ],
   bootstrap: [AppComponent]
 })
