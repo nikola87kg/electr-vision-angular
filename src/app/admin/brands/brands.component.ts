@@ -1,18 +1,13 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { BrandsService, BrandInterface } from '../../_services/brands.service';
-
-/* Material */
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '../../../../node_modules/@angular/material';
-import { SharedService } from '../../_services/shared.service';
-import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
-
-/* 3rd party */
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { BrandInterface, BrandsService } from '../../_services/brands.service';
+import { SharedService } from '../../_services/shared.service';
 
-/* Decorator */
 @Component({
     selector: 'px-brands',
     templateUrl: './brands.component.html'
@@ -46,11 +41,11 @@ export class BrandsComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             result => this.screenSize = result
         );
@@ -58,7 +53,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleBrand?, index?) {
+    openDialog(editing, singleBrand?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -79,13 +74,13 @@ export class BrandsComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    openImageDialog(event, index) {
+    openImageDialog(event, index): void {
         event.stopPropagation();
         const pageSize = this.paginator.pageSize;
         const pageIndex = this.paginator.pageIndex;
@@ -99,13 +94,13 @@ export class BrandsComponent implements OnInit {
         this.dialogTitle = 'Dodavanje slike';
     }
 
-    closeImageDialog() {
+    closeImageDialog(): void {
         this.isImageDialogOpen = false;
         this.existingImage = null;
         this.imagePreview = null;
     }
 
-    clearForm() {
+    clearForm(): void {
         this.brand = {
             _id: '',
             name: '',
@@ -117,7 +112,7 @@ export class BrandsComponent implements OnInit {
         };
     }
 
-    fixSlug(text: string) {
+    fixSlug(text: string): void {
         const options = { maintainCase: false, separator: '-' };
         const mySlug = slugify.createSlug(options);
         const slug = mySlug(text);
@@ -125,7 +120,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Add new brand */
-    postBrand(brand, event) {
+    postBrand(brand, event): void {
         const fixedSlug = this.fixSlug(brand.slug);
         brand.slug = fixedSlug;
         this.brandService.post(brand).subscribe(
@@ -138,7 +133,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Update brand */
-    putBrand(brand, event) {
+    putBrand(brand, event): void {
         const fixedSlug = this.fixSlug(brand.slug);
         brand.slug = fixedSlug;
         this.brandService.put(brand._id, brand).subscribe(
@@ -154,7 +149,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Delete Brand */
-    deleteBrand(id, event) {
+    deleteBrand(id, event): void {
         this.brandService.delete(id).subscribe(
             (data) => {
                 this.brandList.splice(this.currentIndex, 1);
@@ -171,7 +166,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Get brand */
-    getBrands() {
+    getBrands(): void {
         this.brandService.get().subscribe(response => {
             this.brandList = response;
             this.dataSource = new MatTableDataSource(response);
@@ -182,7 +177,7 @@ export class BrandsComponent implements OnInit {
 
     /* Image upload */
 
-    onImagePicked(event: Event) {
+    onImagePicked(event: Event): void {
         const file = (event.target as HTMLInputElement).files[0];
         this.imageFile = file;
         const reader = new FileReader();
@@ -192,7 +187,7 @@ export class BrandsComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    postImage() {
+    postImage(): void {
         const formData = new FormData();
         const filename = this.imageFile.name ;
         formData.append('image', this.imageFile, filename);
@@ -217,7 +212,7 @@ export class BrandsComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
       this.snackBar.openFromComponent(SnackbarComponent, {
         duration: 2000,
         data: object,

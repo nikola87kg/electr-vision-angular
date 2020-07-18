@@ -1,46 +1,40 @@
 /* Core modules */
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
-/* App modules */
-import { AppMaterialModule } from './app.material.module';
-import { AppRoutingModule } from './app-routing.module';
-
-import { ShareButtonModule } from '@ngx-share/button';
-
-/* App components */
-import { AppComponent } from './app.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { HeaderComponent } from './partials/header/header.component';
-import { FooterComponent } from './partials/footer/footer.component';
-import { ProductPageComponent } from './pages/product-page/product-page.component';
-import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
-import { SidemenuComponent } from './partials/sidemenu/sidemenu.component';
-import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
-import { SearchComponent } from './pages/search/search.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { GalleryComponent } from './pages/gallery/gallery.component';
-import { PricelistComponent } from './pages/pricelist/pricelist.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NguCarouselModule } from '@ngu/carousel';
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
-
+import { AppRoutingModule } from './app-routing.module';
+/* App components */
+import { AppComponent } from './app.component';
+/* App modules */
+import { AppMaterialModule } from './app.material.module';
+import { HomepageComponent } from './homepage/homepage.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { InfoComponent } from './pages/info/info.component';
+import { PricelistComponent } from './pages/pricelist/pricelist.component';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { SearchComponent } from './pages/search/search.component';
+import { ServiceComponent } from './pages/service/service.component';
+import { BrandRollerComponent } from './partials/brand-roller/brand-roller.component';
+import { FooterComponent } from './partials/footer/footer.component';
+import { HeaderComponent } from './partials/header/header.component';
+import { NavigationMenuComponent } from './partials/navigation-menu/navigation-menu.component';
+import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
+import { SidemenuComponent } from './partials/sidemenu/sidemenu.component';
+import { SnackbarComponent } from './partials/snackbar/snackbar.component';
+/* Directives */
+import { MiddleClickDirective } from './_directives/middle-click.directive';
 /* Interceptors */
 import { AuthInterceptor } from './_services/auth.intereceptor';
 
-/* Directives */
-import { MiddleClickDirective } from './_directives/middle-click.directive';
-import { AboutUsComponent } from './pages/about-us/about-us.component';
-import { ServiceComponent } from './pages/service/service.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { SnackbarComponent } from './partials/snackbar/snackbar.component';
-import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
-import { NguCarouselModule } from '@ngu/carousel';
-import 'hammerjs';
-import { InfoComponent } from './pages/info/info.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -48,10 +42,10 @@ import { InfoComponent } from './pages/info/info.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ShareButtonModule.forRoot(),
     AppMaterialModule,
     AppRoutingModule,
     NguCarouselModule,
+    FontAwesomeModule,
   ],
   declarations: [
     AppComponent,

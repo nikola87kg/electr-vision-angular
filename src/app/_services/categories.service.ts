@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 /* Angular */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
+
 
 /* Interface */
 export interface CategoryInterface {
@@ -24,32 +25,32 @@ export class CategoriesService {
     baseUrl = environment.apiUrl;
 
     /* GET categories */
-    get() {
+    get(): Observable<any> {
         return this.http.get<CategoryInterface[]>(this.baseUrl + '/categories');
     }
 
-    getBySlug(slug) {
+    getBySlug(slug): Observable<any> {
         const URL = this.baseUrl + '/categories/' + slug;
         return this.http.get<CategoryInterface>(URL);
     }
 
     /* POST categories */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<CategoryInterface>(this.baseUrl + '/categories', payload);
     }
 
     /* PUT categories */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<CategoryInterface>(this.baseUrl + '/categories/' + id, payload);
     }
 
     /* DELETE categories */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<CategoryInterface>(this.baseUrl + '/categories/' + id);
     }
 
     /* POST Category Image */
-    postImage(id, file) {
+    postImage(id, file): Observable<any> {
         return this.http.post<{ image: string }>(this.baseUrl + '/categories/images/' + id, file);
     }
 }

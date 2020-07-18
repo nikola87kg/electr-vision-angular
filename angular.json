@@ -3,53 +3,54 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "electro-vision": {
+    "electrovision-angular": {
+      "projectType": "application",
       "root": "",
       "sourceRoot": "src",
-      "projectType": "application",
       "prefix": "px",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
-          "spec": false
+          "style": "scss",
+          "skipTests": true
         },
         "@schematics/angular:class": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "spec": false
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
         },
         "@schematics/angular:module": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:service": {
-          "spec": false
+          "skipTests": true
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/electro-vision",
+            "outputPath": "dist/electrovision-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [{
-                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-              },
-              "src/px-material-theme.scss",
-              "src/styles.scss"
+            "styles": [
+              "src/styles.scss",
             ],
             "scripts": [
               "node_modules/speakingurl/speakingurl.min.js"
@@ -57,37 +58,50 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [{
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "electro-vision:build"
+            "browserTarget": "electrovision-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "electro-vision:build:production"
+              "browserTarget": "electrovision-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "electro-vision:build"
+            "browserTarget": "electrovision-angular:build"
           }
         },
         "test": {
@@ -95,34 +109,48 @@
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": [{
-                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
-              },
-              "styles.scss"
-            ],
-            "scripts": [],
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
               "src/assets"
-            ]
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "electrovision-angular:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "electrovision-angular:serve:production"
+            }
+          }
         }
       }
     }
   },
-  "defaultProject": "electro-vision"
+  "defaultProject": "electrovision-angular",
+  "cli": {
+    "analytics": "4d3c1b6b-5234-4f69-a2ce-a7e29d35f83f"
+  }
 }

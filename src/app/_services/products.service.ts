@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 /* Angular */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
+
 
 /* Interface */
 export interface ProductInterface {
@@ -32,32 +33,32 @@ export class ProductsService {
     constructor(private http: HttpClient) { }
 
     /* GET Products */
-    get() {
+    get(): Observable<any> {
         return this.http.get<ProductInterface[]>(this.baseUrl + '/products');
     }
 
-    getBySlug(slug) {
+    getBySlug(slug): Observable<any> {
         const URL = this.baseUrl + '/products/' + slug;
         return this.http.get<ProductInterface>(URL);
     }
 
     /* POST Products */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<ProductInterface>(this.baseUrl + '/products', payload);
     }
 
     /* PUT Products */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<ProductInterface>(this.baseUrl + '/products/' + id, payload);
     }
 
     /* DELETE Products */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<ProductInterface>(this.baseUrl + '/products/' + id);
     }
 
     /* POST Product Image */
-    postImage(id, file) {
+    postImage(id, file): Observable<any> {
         return this.http.post<{ image: string }>(this.baseUrl + '/products/images/' + id, file);
     }
 }

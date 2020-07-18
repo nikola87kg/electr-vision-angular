@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 /* Services */
 import { BrandsService } from '../../_services/brands.service';
 import { CategoriesService } from '../../_services/categories.service';
-import { ProductsService } from '../../_services/products.service';
 import { GroupsService } from '../../_services/groups.service';
-import { AuthService } from '../../_services/auth.service';
-import { Router } from '@angular/router';
+import { ProductsService } from '../../_services/products.service';
+
 
 
 @Component({
@@ -33,12 +32,10 @@ export class PreviewComponent implements OnInit {
         private categoryService: CategoriesService,
         private productService: ProductsService,
         private groupService: GroupsService,
-        private authService: AuthService,
         public router: Router
-        
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getBrands();
         this.getCategories();
         this.getProducts();
@@ -46,7 +43,7 @@ export class PreviewComponent implements OnInit {
     }
 
     /* Get products + filter */
-    getProducts() {
+    getProducts(): void {
         this.productService.get().subscribe(response => {
             this.productCount = response.length;
             this.productList = response.slice(0, 5);
@@ -54,7 +51,7 @@ export class PreviewComponent implements OnInit {
     }
 
     /* Get brand */
-    getBrands() {
+    getBrands(): void {
         this.brandService.get().subscribe(response => {
             this.brandCount = response.length;
             this.brandList = response.slice(0, 5);
@@ -62,7 +59,7 @@ export class PreviewComponent implements OnInit {
     }
 
     /* Get categories */
-    getCategories() {
+    getCategories(): void {
         this.categoryService.get().subscribe(response => {
             this.categoryCount = response.length;
             this.categoryList = response.slice(0, 5);
@@ -70,16 +67,16 @@ export class PreviewComponent implements OnInit {
     }
 
     /* Get groups */
-    getGroups() {
+    getGroups(): void {
         this.groupService.get().subscribe(response => {
             this.groupCount = response.length;
             this.groupList = response.slice(0, 5);
         });
     }
 
-    onLogout() {
+    onLogout(): void {
         localStorage.removeItem('auth_token');
-        this.router.navigate(['/pocetna'])
+        this.router.navigate(['/pocetna']);
     }
 
 }

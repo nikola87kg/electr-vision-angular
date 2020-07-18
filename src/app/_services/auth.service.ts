@@ -1,6 +1,7 @@
 /* Angular */
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface UserInterface {
@@ -19,18 +20,18 @@ export class AuthService {
     token = '';
     baseUrl = environment.apiUrl;
 
-    getToken() {
+    getToken(): string {
         return localStorage.getItem('auth_token');
     }
 
     /* Register New User */
-    registerUser(payload) {
+    registerUser(payload): Observable<any> {
         return this.http.post(this.baseUrl + '/auth/register', payload);
     }
 
     /* Login Existing User */
-    loginUser(payload) {
-        return this.http.post<UserInterface>(this.baseUrl + '/auth/login', payload)
+    loginUser(payload): Observable<any> {
+        return this.http.post<UserInterface>(this.baseUrl + '/auth/login', payload);
     }
 
 }

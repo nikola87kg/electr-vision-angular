@@ -3,163 +3,170 @@
 
 /* Navigation */
 nav {
-    position: fixed;
-    background: $px-material-primary;
-    height: 110vh;
-    left: 0;
-    top: 0;
-    z-index: 100;
+  position: fixed;
+  background: $px-material-primary;
+  height: 110vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  margin: 0;
+  padding: 10px 0;
+  border: 2px solid $px-material-primary;
+  .admin-menu {
+    color: white;
+    margin: 10px 0;
+    padding: 0 10px;
+    transition: width 0.1s ease-in-out;
+    fa-icon {
+      cursor: pointer;
+      display: inline-block;
+      text-align: right;
+      width: 30px;
+      padding-right: 10px;
+      &:hover {
+        color: darkgray;
+      }
+    }
+  }
+  a {
+    display: block;
     margin: 0;
-    padding: 10px 0;
-    border: 2px solid $px-material-primary;
-    .admin-menu {
-        color: white;
-        margin: 10px 0;
-        padding: 0 10px;
-        transition: width 0.1s ease-in-out;
-        i {
-            cursor: pointer;
-            display: inline-block;
-            text-align: right;
-            width: 30px;
-            padding-right: 10px;
-            &:hover {
-                color: darkgray;
-            }
-        }
+    padding: 10px;
+    text-align: left;
+    border-radius: 0;
+    text-decoration: none;
+    outline: none;
+    &:focus {
+      outline: none;
     }
-    a {
-        display: block;
-        margin: 0;
-        padding: 10px;
-        text-align: left;
-        border-radius: 0;
-        text-decoration: none;
-        outline: none;
-        &:focus {
-            outline: none;
-        }
-        &:hover {
-            color: rgb(165, 165, 165);
-            text-decoration: none;
-        }
-        &.active {
-            outline: none;
-            background: white;
-            color: $px-material-primary;
-            font-weight: bold;
-            &:hover {
-                background: rgb(165, 165, 165);
-                color: $px-material-primary;
-            }
-        }
-        i {
-            display: inline-block;
-            width: 30px;
-        }
+    &:hover {
+      color: rgb(165, 165, 165);
+      text-decoration: none;
     }
-    .home-link {
-        position: fixed;
-        bottom: 20px;
+    &.active {
+      outline: none;
+      background: white;
+      color: $px-material-primary;
+      font-weight: bold;
+      &:hover {
+        background: rgb(165, 165, 165);
+        color: $px-material-primary;
+      }
     }
+    fa-icon {
+      display: inline-block;
+      width: 30px;
+    }
+  }
+  .home-link {
+    position: fixed;
+    bottom: 20px;
+  }
 }
 
 /* Transition */
 .route-wrapper {
-    transition: margin 0.1s ease-in-out;
+  transition: margin 0.1s ease-in-out;
 }
 
 /* Table */
 
 .table-wrapper {
-    overflow: auto;
-    margin: 15px;
+  overflow: auto;
+  margin: 15px;
 }
 
 table.full-screen {
-    width: calc(100% - 50px);
-    min-width: 800px;
-    tr {
-        cursor: pointer;
-        &:nth-child(even) { background: rgb(250, 250, 250); }
-        &:hover { background: rgb(245, 245, 245); }
-        img { height: 20px; }
+  width: calc(100% - 50px);
+  min-width: 800px;
+  tr {
+    cursor: pointer;
+    &:nth-child(even) {
+      background: rgb(250, 250, 250);
     }
-    th, td {
-        padding: 5px 10px;
+    &:hover {
+      background: rgb(245, 245, 245);
     }
+    img {
+      height: 20px;
+    }
+  }
+  th,
+  td {
+    padding: 5px 10px;
+  }
 }
 
 .add-button {
-    margin-left: 10px !important;
-    @media #{$screen-sm} {
-        height: 28px !important;
-        min-width: 56px !important;
-        line-height: 20px !important;
-        .button-title {
-            display: none;
-        }
+  margin-left: 10px !important;
+  @media #{$screen-sm} {
+    height: 28px !important;
+    min-width: 56px !important;
+    line-height: 20px !important;
+    .button-title {
+      display: none;
     }
+  }
 }
 
 .select-filter {
-    font-size: 14px;
-    float: right;
+  font-size: 14px;
+  float: right;
 }
 
 mat-form-field {
-    margin: 0 20px;
-    width: 150px;
-    @media #{$screen-sm} {
-        margin: 0 5px;
-        width: 85px;
-        font-size: 14px;
-    }
+  margin: 0 20px;
+  width: 150px;
+  @media #{$screen-sm} {
+    margin: 0 5px;
+    width: 85px;
+    font-size: 14px;
+  }
 }
 
 mat-toolbar {
-    height: auto !important;
-    padding: 5px 20px  !important;
-    min-height: 70px;
-    @media #{$screen-sm} {
-        padding: 5px  !important;
-    }
+  height: auto !important;
+  padding: 5px 20px !important;
+  min-height: 70px;
+  @media #{$screen-sm} {
+    padding: 5px !important;
+  }
 }
 
 mat-button-toggle {
-    border-right: 1px solid #e7e7e7 !important;
+  border-right: 1px solid #e7e7e7 !important;
 }
 
 mat-paginator {
-    padding-right: 5%;
+  padding-right: 5%;
 }
 
 .mat-column-position {
-    width: 100px;
+  width: 100px;
 }
 
 .mat-column-image {
-    width: 100px;
+  width: 100px;
 }
 
 .mat-column-created {
-    width: 150px;
+  width: 150px;
 }
 
 .mat-column-category {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 .mat-column-group {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 .mat-column-brand {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 td.mat-column-vip.mat-column-vip {
-    padding-left: 30px
+  padding-left: 30px;
 }
 
 // .mat-column-name {
@@ -173,47 +180,47 @@ td.mat-column-vip.mat-column-vip {
 // }
 
 span.name-text {
-    text-overflow: ellipsis;
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 10px;
-    overflow: hidden;
-    width: 300px;
-    @media #{$screen-md} {
-        width: 230px;
-    }
-    @media #{$screen-sm} {
-        width: 120px;
-    }
+  text-overflow: ellipsis;
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 10px;
+  overflow: hidden;
+  width: 300px;
+  @media #{$screen-md} {
+    width: 230px;
+  }
+  @media #{$screen-sm} {
+    width: 120px;
+  }
 }
 
 .edit-on-hover {
-    color: $px-material-primary;
-    display: none;
-    i {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
+  color: $px-material-primary;
+  display: none;
+  i {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
 
 .mat-column-name:hover .edit-on-hover {
-    display: inline;
+  display: inline;
 }
 
 .remove-icon {
-    color: rgb(253, 139, 139);
-    &:hover {
-        color: red;
-        transform: scale(1.35);
-    } 
+  color: rgb(253, 139, 139);
+  &:hover {
+    color: red;
+    transform: scale(1.35);
+  }
 }
 
 .single-order {
-    margin: 10px;
-    img {
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
-        margin-right: 10px;
-    }
+  margin: 10px;
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
 }

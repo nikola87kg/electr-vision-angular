@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderService } from 'src/app/_services/order.service';
 
 @Component({
@@ -18,14 +18,14 @@ export class OrderDialogComponent implements OnInit {
     address: new FormControl(''),
     question: new FormControl(''),
     orderList: new FormControl([])
-  })
+  });
 
   constructor(
     public dialogRef: MatDialogRef<OrderDialogComponent>,
     private orderService: OrderService,
     @Inject(MAT_DIALOG_DATA) public data) { }
 
-  ngOnInit() {
+  ngOnInit(): any {
     if (this.data) {
       const orderMapped = this.data.list.map(item => {
         delete item.brand;
@@ -37,13 +37,13 @@ export class OrderDialogComponent implements OnInit {
         delete item.vip;
         delete item.updatedAt;
         delete item.slug;
-        return item
-      })
+        return item;
+      });
       this.orderForm.get('orderList').patchValue(orderMapped);
     }
   }
 
-  onSendOrder() {
+  onSendOrder(): void {
     if (!this.orderForm.valid) {
       return;
     }
@@ -51,7 +51,7 @@ export class OrderDialogComponent implements OnInit {
     this.orderService.post(this.orderForm.value).subscribe(
       (_) => this.dialogRef.close(true),
       (_) => {
-        this.errorMessage = 'Greška na serveru.'
+        this.errorMessage = 'Greška na serveru.';
         setTimeout(() => {
           this.errorMessage = '';
         }, 3000);

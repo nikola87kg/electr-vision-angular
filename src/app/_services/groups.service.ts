@@ -1,9 +1,10 @@
 /* Angular */
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
+
 
 /* Interface */
 export interface GroupInterface {
@@ -25,32 +26,32 @@ export class GroupsService {
     baseUrl = environment.apiUrl;
 
     /* GET groups */
-    get() {
+    get(): Observable<any> {
         return this.http.get<GroupInterface[]>(this.baseUrl + '/groups');
     }
 
-    getBySlug(slug) {
+    getBySlug(slug): Observable<any> {
         const URL = this.baseUrl + '/groups/' + slug;
         return this.http.get<GroupInterface>(URL);
     }
 
     /* POST groups */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<GroupInterface>(this.baseUrl + '/groups', payload);
     }
 
     /* PUT groups */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<GroupInterface>(this.baseUrl + '/groups/' + id, payload);
     }
 
     /* DELETE groups */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<GroupInterface>(this.baseUrl + '/groups/' + id);
     }
 
     /* POST Group Image */
-    postImage(id, file) {
+    postImage(id, file): Observable<any> {
         return this.http.post<{ image: string }>(this.baseUrl + '/groups/images/' + id, file);
     }
 }

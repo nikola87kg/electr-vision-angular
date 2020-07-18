@@ -1,6 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BrandsService } from './../../_services/brands.service';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'px-about-us',
@@ -14,10 +14,10 @@ export class AboutUsComponent implements OnInit {
     this.getBrands();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  getBrands() {
+  getBrands(): void {
     this.brands$ = this.brandService.get();
   }
 

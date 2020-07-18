@@ -1,14 +1,14 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SharedService } from '../../_services/shared.service';
-import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
-
-/* 3rd party */
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
+import { SharedService } from '../../_services/shared.service';
+
+
 
 @Component({
     selector: 'px-categories',
@@ -24,7 +24,7 @@ export class CategoriesComponent implements OnInit {
     ) { }
 
     category: CategoryInterface;
-    displayedColumns = ['position', 'image', 'name', 'slug', 'created'];;
+    displayedColumns = ['position', 'image', 'name', 'slug', 'created'];
 
     screenSize: string;
     categoryList: Array<CategoryInterface>;
@@ -42,18 +42,18 @@ export class CategoriesComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
         this.getCategories();
     }
 
-    fixSlug(text: string) {
+    fixSlug(text: string): void {
         const options = { maintainCase: false, separator: '-' };
         const mySlug = slugify.createSlug(options);
         const slug = mySlug(text);
@@ -61,7 +61,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleCategory?, index?) {
+    openDialog(editing, singleCategory?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -82,13 +82,13 @@ export class CategoriesComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    openImageDialog(event, index) {
+    openImageDialog(event, index): void {
         event.stopPropagation();
         const pageSize = this.paginator.pageSize;
         const pageIndex = this.paginator.pageIndex;
@@ -102,13 +102,13 @@ export class CategoriesComponent implements OnInit {
         this.dialogTitle = 'Dodavanje slike';
     }
 
-    closeImageDialog() {
+    closeImageDialog(): void {
         this.isImageDialogOpen = false;
         this.existingImage = null;
         this.imagePreview = null;
     }
 
-    clearForm() {
+    clearForm(): void {
         this.category = {
             _id: '',
             name: '',
@@ -119,7 +119,7 @@ export class CategoriesComponent implements OnInit {
         };
     }
     /* Add new category */
-    postCategory(category, event) {
+    postCategory(category, event): void {
         const fixedSlug = this.fixSlug(category.slug);
         category.slug = fixedSlug;
         this.categoryService.post(category).subscribe(
@@ -134,7 +134,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Update category */
-    putCategory(category, event) {
+    putCategory(category, event): void {
         const fixedSlug = this.fixSlug(category.slug);
         category.slug = fixedSlug;
         this.categoryService.put(category._id, category).subscribe(
@@ -150,7 +150,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Delete category */
-    deleteCategory(id, event) {
+    deleteCategory(id, event): void {
         this.categoryService.delete(id).subscribe(
             (response) => {
                 this.categoryList.splice(this.currentIndex, 1);
@@ -167,7 +167,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Get category */
-    getCategories() {
+    getCategories(): void {
         this.sharedService.categoryList.subscribe(response => {
             if (response) {
                 this.categoryList = response;
@@ -177,14 +177,14 @@ export class CategoriesComponent implements OnInit {
             } else {
                 setTimeout(() => {
                     this.getCategories();
-                }, 1)
+                }, 1);
             }
         });
     }
 
     /* Image upload */
 
-    onImagePicked(event: Event) {
+    onImagePicked(event: Event): void {
         const file = (event.target as HTMLInputElement).files[0];
         this.imageFile = file;
         const reader = new FileReader();
@@ -194,7 +194,7 @@ export class CategoriesComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    postImage() {
+    postImage(): void {
         const formData = new FormData();
         const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
@@ -219,7 +219,7 @@ export class CategoriesComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
             duration: 2000,
             data: object,

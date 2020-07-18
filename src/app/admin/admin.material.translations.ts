@@ -1,4 +1,6 @@
-import {MatPaginatorIntl} from '@angular/material';
+import { Injectable } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+@Injectable()
 export class MatPaginatorIntlSerb extends MatPaginatorIntl {
   itemsPerPageLabel = 'Rezultata po stranici';
   nextPageLabel     = 'Sledeća stranica';
@@ -6,7 +8,7 @@ export class MatPaginatorIntlSerb extends MatPaginatorIntl {
   firstPageLabel     = 'Prva stranica';
   lastPageLabel = 'Poslednja stranica';
 
-  getRangeLabel = function (page, pageSize, length) {
+  getRangeLabel = (page, pageSize, length): string => {
     if (length === 0 || pageSize === 0) {
       return '0 od ' + length;
     }
@@ -16,6 +18,6 @@ export class MatPaginatorIntlSerb extends MatPaginatorIntl {
       Math.min(startIndex + pageSize, length) :
       startIndex + pageSize;
     return startIndex + 1 + ' - ' + endIndex + ' od ' + length;
-  };
+  }
 
 }

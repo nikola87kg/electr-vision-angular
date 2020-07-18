@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router, NavigationEnd } from '@angular/router';
-import { ProductsService, ProductInterface } from '../../_services/products.service';
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
 import { SeoService } from 'src/app/_services/seo.service';
 import { SharedService } from 'src/app/_services/shared.service';
-import { MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
+import { ProductInterface, ProductsService } from '../../_services/products.service';
 
 @Component({
   selector: 'px-product-page',
@@ -17,8 +15,6 @@ export class ProductPageComponent implements OnInit {
 
   product: ProductInterface;
   productList: Array<ProductInterface>;
-  twIcon = faTwitterSquare;
-  fbIcon = faFacebookSquare;
   title: string;
   description: string;
   image: string;
@@ -42,36 +38,36 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  zoomImage(image) {
+  zoomImage(image): void {
     this.isFullPage = !this.isFullPage;
     this.fullPageImage = image;
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   /* Navigation */
-  goToBrand(slug) {
+  goToBrand(slug): void {
     this.router.navigate(['/pretraga/kategorije/sve'], {
       queryParams: { brand: slug }
     });
   }
-  goToProduct(slug) {
+  goToProduct(slug): void {
     this.router.navigate(['/proizvod/' + slug]);
   }
-  goToCategory(slug) {
+  goToCategory(slug): void {
     this.router.navigate(['/pretraga/potkategorije/' + slug]);
   }
-  goToGroup(slug) {
+  goToGroup(slug): void {
     this.router.navigate(['/pretraga/proizvodi/' + slug]);
   }
 
   /* Get brand */
-  getProduct() {
+  getProduct(): void {
     let slug;
     this.activatedRoute.params.subscribe((params: Params) => {
-      slug = params['slug'];
+      slug = params.slug;
     });
     this.productService.getBySlug(slug).subscribe(response => {
       this.product = response;
@@ -87,13 +83,13 @@ export class ProductPageComponent implements OnInit {
         description: this.description,
         image: this.image,
         slug: this.slug
-      })
+      });
 
       this.getProducts();
     });
   }
 
-  getProducts() {
+  getProducts(): void {
     this.sharedService.productList.subscribe(result => {
       if (result) {
         if (this.product.group != null) {
@@ -109,15 +105,15 @@ export class ProductPageComponent implements OnInit {
         }
       } else {
         setTimeout(() => {
-          this.getProducts()
-        }, 1)
+          this.getProducts();
+        }, 1);
       }
     });
   }
 
-  addToCart(id) {
-    let cartString = localStorage.getItem('cart');
-    let cartArray = JSON.parse(cartString) || [];
+  addToCart(id): void {
+    const cartString = localStorage.getItem('cart');
+    const cartArray = JSON.parse(cartString) || [];
     if (id && cartArray && !cartArray.includes(id)) {
       cartArray.push(id);
       localStorage.setItem('cart', JSON.stringify(cartArray));
@@ -128,7 +124,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   /* Snackbar */
-  openSnackBar(object) {
+  openSnackBar(object): void {
     this.snackBar.openFromComponent(SnackbarComponent, {
       duration: 3000,
       data: object,

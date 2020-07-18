@@ -1,16 +1,15 @@
-import { ViewChild } from '@angular/core';
-/* Angular */
-import { Component, OnInit, HostListener } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
+import { SeoService } from '../_services/seo.service';
 /* Services */
 import { SharedService } from '../_services/shared.service';
-import { trigger, transition, animate, style } from '@angular/animations';
-import { SeoService } from '../_services/seo.service';
-import { MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
 import { SlidesService } from '../_services/slides.service';
-import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+
 
 @Component({
     selector: 'px-homepage',
@@ -40,6 +39,7 @@ import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
     ],
 })
 export class HomepageComponent implements OnInit {
+    faMapMarker = faMapMarkerAlt;
     vipProducts = [];
     vipProductsVisible = [];
     brandList = [];
@@ -70,7 +70,7 @@ export class HomepageComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getSlides();
         this.getProducts();
 
@@ -80,7 +80,7 @@ export class HomepageComponent implements OnInit {
             description: 'Početna stranica',
             image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
             slug: 'pocetna'
-        })
+        });
 
         /* Screen Service */
 
@@ -88,12 +88,12 @@ export class HomepageComponent implements OnInit {
             (result => this.screenSize = result)
         );
 
-        if (this.screenSize === "large") {
+        if (this.screenSize === 'large') {
             this.maxItems = 3;
         } else { this.maxItems = 4; }
     }
 
-    @HostListener('window:resize', ['$event']) onResize(event) {
+    @HostListener('window:resize', ['$event']) onResize(event): void {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';
@@ -102,7 +102,7 @@ export class HomepageComponent implements OnInit {
         } else {
             this.screenSize = 'small';
         }
-        if (this.screenSize === "large") {
+        if (this.screenSize === 'large') {
             this.maxItems = 3;
         } else {
             this.maxItems = 4;
@@ -112,7 +112,7 @@ export class HomepageComponent implements OnInit {
 
 
     /* Get products + filter */
-    getProducts() {
+    getProducts(): void {
         this.sharedService.productList.subscribe(productsResponse => {
             if (productsResponse) {
                 this.vipProducts = productsResponse.filter(item => item.vip);
@@ -127,13 +127,14 @@ export class HomepageComponent implements OnInit {
                     } else {
                         this.currentRoll++;
                     }
-                    this.vipProductsVisible = this.vipProducts.slice((this.currentRoll * this.maxItems), (this.currentRoll * this.maxItems + this.maxItems));
+                    this.vipProductsVisible =
+                        this.vipProducts.slice((this.currentRoll * this.maxItems), (this.currentRoll * this.maxItems + this.maxItems));
                 }, 5000);
             }
         });
     }
 
-    getSlides() {
+    getSlides(): void {
         this.slideService.get().subscribe(result => {
             if (result && result.length > 1) {
                 this.showSlides = true;
@@ -143,22 +144,22 @@ export class HomepageComponent implements OnInit {
     }
 
     /* Navigation */
-    goToCategory(slug) {
+    goToCategory(slug): void {
         this.router.navigate(['/pretraga/potkategorije/' + slug]);
     }
 
-    goToGroup(slug) {
+    goToGroup(slug): void {
         this.router.navigate(['/pretraga/proizvodi/' + slug]);
     }
 
-    goToBrand(slug) {
+    goToBrand(slug): void {
         this.router.navigate(
             ['/pretraga/kategorije/sve'],
             { queryParams: { brand: slug } }
         );
     }
 
-    goToProduct(slug, newTab?) {
+    goToProduct(slug, newTab?): void {
         if (newTab) {
             window.open('/proizvod/' + slug);
         } else {
@@ -166,10 +167,10 @@ export class HomepageComponent implements OnInit {
         }
     }
 
-    addToCart(id, e) {
+    addToCart(id, e): void {
         e.stopPropagation();
-        let cartString = localStorage.getItem('cart');
-        let cartArray = JSON.parse(cartString) || [];
+        const cartString = localStorage.getItem('cart');
+        const cartArray = JSON.parse(cartString) || [];
         if (id && cartArray && !cartArray.includes(id)) {
             cartArray.push(id);
             localStorage.setItem('cart', JSON.stringify(cartArray));
@@ -180,7 +181,7 @@ export class HomepageComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
             duration: 3000,
             data: object,

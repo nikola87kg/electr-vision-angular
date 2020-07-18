@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SharedService } from '../../_services/shared.service';
-import { PricelistService, PricelistInterface, PriceGroupInterface } from '../../_services/pricelist.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { switchMap } from 'rxjs/operators';
+import { PriceGroupInterface, PricelistInterface, PricelistService } from '../../_services/pricelist.service';
+import { SharedService } from '../../_services/shared.service';
 
 @Component({
     selector: 'px-pricelist',
@@ -14,9 +14,9 @@ import { switchMap } from 'rxjs/operators';
 export class PricelistComponent implements OnInit {
 
     constructor( public title: Title,
-        public sharedService: SharedService,
-        public snackBar: MatSnackBar,
-        public pricelistService: PricelistService
+                 public sharedService: SharedService,
+                 public snackBar: MatSnackBar,
+                 public pricelistService: PricelistService
     ) {
         title.setTitle('Cenovnik proizvoda i usluga | ElectroVision Kragujevac');
     }
@@ -29,14 +29,14 @@ export class PricelistComponent implements OnInit {
     screenSize;
     dataSource = [];
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
         this.getPriceGroups();
     }
 
-    getPricelists(groups: PriceGroupInterface[]) {
+    getPricelists(groups: PriceGroupInterface[]): void {
         this.pricelistService.get().subscribe(response => {
             this.pricelistList = response;
             for (const key in groups) {
@@ -44,7 +44,7 @@ export class PricelistComponent implements OnInit {
                     const element: PriceGroupInterface = groups[key];
                     this.dataSource.push(
                         new MatTableDataSource(
-                            response.filter( el =>  el.priceGroup._id == element._id)
+                            response.filter( el =>  el.priceGroup._id === element._id)
                         )
                     );
                 }
@@ -52,7 +52,7 @@ export class PricelistComponent implements OnInit {
         });
     }
 
-    getPriceGroups() {
+    getPriceGroups(): void {
         this.pricelistService.getPriceGroups().subscribe(response => {
             this.priceGroups = response;
             this.getPricelists(response);

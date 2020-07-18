@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Directive({ selector: '[pxMiddleClick]' })
 export class MiddleClickDirective  {
@@ -7,7 +7,7 @@ export class MiddleClickDirective  {
   constructor() {}
 
   @HostListener('mouseup', ['$event'])
-  middleclickEvent(event) {
+  middleclickEvent(event): void {
     if (event.which === 2) {
       this.pxMiddleClick.emit(event);
     }

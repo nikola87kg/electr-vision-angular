@@ -22,7 +22,11 @@
       <div class="top-product-wrapper">
         <!-- headline -->
         <h4 class="breaking-news" *ngIf="vipProductsVisible.length">
-          <i class="fa fa-map-marker up-down mr5 ml5"></i>
+          
+         <fa-icon
+         [icon]="faMapMarker"
+         class="up-down mr5 ml5">
+      </fa-icon>
           Preporučujemo
         </h4>
         <!-- list -->

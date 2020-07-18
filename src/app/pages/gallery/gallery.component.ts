@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GalleryService } from '../../_services/gallery.service';
-import { Title } from '@angular/platform-browser';
 import { SeoService } from 'src/app/_services/seo.service';
+import { GalleryService } from '../../_services/gallery.service';
 
 @Component({
     selector: 'px-gallery',
@@ -10,7 +9,7 @@ import { SeoService } from 'src/app/_services/seo.service';
 })
 export class GalleryComponent implements OnInit {
 
-    selectedImagePath: String;
+    selectedImagePath: string;
     selectedImageIndex;
     isGalleryModalOpen = false;
 
@@ -23,7 +22,7 @@ export class GalleryComponent implements OnInit {
         private seo: SeoService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
 
         /* SEO */
         this.seo.generateTags( {
@@ -31,7 +30,7 @@ export class GalleryComponent implements OnInit {
             description: 'Galerija proizvoda i usluga',
             image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
             slug: 'galerija'
-        })
+        });
 
         /* Gallery GET */
         this.galleryService.get().subscribe( (response) => {
@@ -44,7 +43,7 @@ export class GalleryComponent implements OnInit {
         });
     }
 
-    onSelectImage(index, gallery) {
+    onSelectImage(index, gallery): void {
         this.isGalleryModalOpen = true;
 
         /* filteredArray based on specific gallery */
@@ -68,11 +67,11 @@ export class GalleryComponent implements OnInit {
         this.selectedImagePath = this.filteredArray[newIndex].imagePath;
     }
 
-    OnCloseGallery() {
+    OnCloseGallery(): void {
         this.isGalleryModalOpen = false;
     }
 
-    onNextImage(e) {
+    onNextImage(e): void {
         e.stopPropagation();
         if (this.selectedImageIndex === this.filteredArray.length - 1) {
             this.selectedImageIndex = 0;
@@ -82,7 +81,7 @@ export class GalleryComponent implements OnInit {
         this.selectedImagePath = this.filteredArray[this.selectedImageIndex].imagePath;
     }
 
-    onPreviousImage(e) {
+    onPreviousImage(e): void {
         e.stopPropagation();
         if (this.selectedImageIndex === 0) {
             this.selectedImageIndex = this.filteredArray.length - 1;

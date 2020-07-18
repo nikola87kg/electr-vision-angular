@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriesService } from 'src/app/_services/categories.service';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/_services/shared.service';
 
@@ -19,25 +18,25 @@ export class SidemenuComponent implements OnInit {
         private router: Router
     ) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getCategories();
     }
 
     /* GET Categories */
-    getCategories() {
+    getCategories(): void {
         this.sharedService.categoryList.subscribe(response => {
             if (response) {
                 this.categoryList = response;
             } else {
                 setTimeout(() => {
                     this.getCategories();
-                }, 1)
+                }, 1);
             }
         });
     }
 
     /* Navigate to Search Page */
-    goToCategory(slug?) {
+    goToCategory(slug?): void {
         if (slug) {
             this.router.navigate(['/pretraga/potkategorije/' + slug]);
         } else {

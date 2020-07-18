@@ -1,15 +1,12 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { GalleryService, GalleryInterface} from '../../_services/gallery.service';
-
-/* Material */
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SharedService } from '../../_services/shared.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { GalleryInterface, GalleryService } from '../../_services/gallery.service';
+import { SharedService } from '../../_services/shared.service';
 
-/* Decorator */
 @Component({
     selector: 'px-gallery-admin',
     templateUrl: './gallery-admin.component.html'
@@ -43,11 +40,11 @@ export class GalleryAdminComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
@@ -55,7 +52,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleGallery?, index?) {
+    openDialog(editing, singleGallery?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -73,13 +70,13 @@ export class GalleryAdminComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    openImageDialog(event, index) {
+    openImageDialog(event, index): void {
         event.stopPropagation();
         this.isImageDialogOpen = true;
         this.imageID = this.galleryList[index]._id;
@@ -88,13 +85,13 @@ export class GalleryAdminComponent implements OnInit {
         this.dialogTitle = 'Dodavanje slike';
     }
 
-    closeImageDialog() {
+    closeImageDialog(): void {
         this.isImageDialogOpen = false;
         this.existingImage = null;
         this.imagePreview = null;
     }
 
-    clearForm() {
+    clearForm(): void {
         this.gallery = {
             _id: '',
             name: '',
@@ -106,7 +103,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Add new gallery */
-    postGallery(gallery, event) {
+    postGallery(gallery, event): void {
         this.galleryService.post(gallery).subscribe(
             (response) => {
                 this.closeDialog(event);
@@ -120,7 +117,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Update gallery */
-    putGallery(gallery, event) {
+    putGallery(gallery, event): void {
         this.galleryService.put(gallery._id, gallery).subscribe(
             (data) => {
                 this.closeDialog(event);
@@ -134,7 +131,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Delete Gallery */
-    deleteGallery(id, event) {
+    deleteGallery(id, event): void {
         this.galleryService.delete(id).subscribe(
             (data) => {
                 this.galleryList.splice(this.currentIndex, 1);
@@ -151,7 +148,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Get gallery */
-    getGalleries() {
+    getGalleries(): void {
         this.galleryService.get().subscribe(response => {
             this.galleryList = response;
             this.dataSource = new MatTableDataSource(this.galleryList);
@@ -162,7 +159,7 @@ export class GalleryAdminComponent implements OnInit {
 
     /* Image upload */
 
-    onImagePicked(event: Event) {
+    onImagePicked(event: Event): void {
         const file = (event.target as HTMLInputElement).files[0];
         this.imageFile = file;
         const reader = new FileReader();
@@ -172,7 +169,7 @@ export class GalleryAdminComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    postImage() {
+    postImage(): void {
         const formData = new FormData();
         const filename = this.imageFile.name ;
         formData.append('image', this.imageFile, filename);
@@ -197,7 +194,7 @@ export class GalleryAdminComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
       this.snackBar.openFromComponent(SnackbarComponent, {
         duration: 2000,
         data: object,

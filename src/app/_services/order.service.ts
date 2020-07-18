@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface OrderInterface {
@@ -20,17 +21,17 @@ export class OrderService {
     constructor(private http: HttpClient) { }
 
     /* GET Orders */
-    get() {
+    get(): Observable<any> {
         return this.http.get<OrderInterface[]>(this.baseUrl + '/orders');
     }
 
     /* POST Order */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<OrderInterface>(this.baseUrl + '/orders', payload);
     }
 
     /* POST Order */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<OrderInterface>(this.baseUrl + '/orders/' + id);
     }
 }

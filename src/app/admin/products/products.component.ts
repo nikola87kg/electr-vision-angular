@@ -1,19 +1,15 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { ProductsService, ProductInterface } from '../../_services/products.service';
-import { GroupsService, GroupInterface } from '../../_services/groups.service';
-import { BrandsService, BrandInterface } from '../../_services/brands.service';
-import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
-
-/* Material */
-import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
-import { SharedService } from '../../_services/shared.service';
-
-/* 3rd party */
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { BrandInterface, BrandsService } from '../../_services/brands.service';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
+import { GroupInterface, GroupsService } from '../../_services/groups.service';
+import { ProductInterface, ProductsService } from '../../_services/products.service';
+import { SharedService } from '../../_services/shared.service';
 
 @Component({
     selector: 'px-products',
@@ -22,9 +18,9 @@ import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.j
 
 export class ProductsComponent implements OnInit {
 
-    @ViewChild('categoryFilter') categoryFilter;
-    @ViewChild('groupFilter') groupFilter;
-    @ViewChild('brandFilter') brandFilter;
+    @ViewChild('categoryFilter', { static: true }) categoryFilter;
+    @ViewChild('groupFilter', { static: true }) groupFilter;
+    @ViewChild('brandFilter', { static: true }) brandFilter;
 
     /* Constructor */
     constructor(
@@ -49,7 +45,7 @@ export class ProductsComponent implements OnInit {
         'group',
         'brand',
         'created'
-    ];;
+    ];
 
     screenSize;
     currentIndex: number;
@@ -71,11 +67,11 @@ export class ProductsComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
@@ -87,7 +83,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleProduct?, index?) {
+    openDialog(editing, singleProduct?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -108,13 +104,13 @@ export class ProductsComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    openImageDialog(event, index) {
+    openImageDialog(event, index): void {
         event.stopPropagation();
         const pageSize = this.paginator.pageSize;
         const pageIndex = this.paginator.pageIndex;
@@ -128,13 +124,13 @@ export class ProductsComponent implements OnInit {
         this.dialogTitle = 'Dodavanje slike';
     }
 
-    closeImageDialog() {
+    closeImageDialog(): void {
         this.isImageDialogOpen = false;
         this.existingImage = null;
         this.imagePreview = null;
     }
 
-    clearForm() {
+    clearForm(): void {
         this.product = {
             _id: '',
             name: '',
@@ -152,7 +148,7 @@ export class ProductsComponent implements OnInit {
         };
     }
 
-    fixSlug(text: string) {
+    fixSlug(text: string): string {
         const options = { maintainCase: false, separator: '-' };
         const mySlug = slugify.createSlug(options);
         const slug = mySlug(text);
@@ -160,7 +156,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Add new product */
-    postProduct(product, event) {
+    postProduct(product, event): void {
         const fixedSlug = this.fixSlug(product.slug);
         product.slug = fixedSlug;
         this.productService.post(product).subscribe(
@@ -176,7 +172,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Update product */
-    putProduct(product, event) {
+    putProduct(product, event): void {
         const fixedSlug = this.fixSlug(product.slug);
         product.slug = fixedSlug;
         this.productService.put(product._id, product).subscribe(
@@ -192,7 +188,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Delete product */
-    deleteProduct(id, event) {
+    deleteProduct(id, event): void {
         this.productService.delete(id).subscribe(
             (response) => {
                 this.productList.splice(this.currentIndex, 1);
@@ -209,7 +205,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Get products + filter */
-    getProducts(categoryFilter?, groupFilter?, brandFilter?) {
+    getProducts(categoryFilter?, groupFilter?, brandFilter?): void {
         this.productService.get().subscribe(
             (response) => {
                 if (categoryFilter) {
@@ -246,21 +242,21 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Get brands */
-    getBrands() {
+    getBrands(): void {
         this.brandService.get().subscribe(response => {
             this.brandList = response;
         });
     }
 
     /* Get groups */
-    getGroups() {
+    getGroups(): void {
         this.groupService.get().subscribe(response => {
             this.groupList = response;
         });
     }
 
     /* Get categories */
-    getCategories() {
+    getCategories(): void {
         this.categoryService.get().subscribe(response => {
             this.categoryList = response;
         });
@@ -268,7 +264,7 @@ export class ProductsComponent implements OnInit {
 
     /* Image upload */
 
-    onImagePicked(event: Event) {
+    onImagePicked(event: Event): void {
         const file = (event.target as HTMLInputElement).files[0];
         this.imageFile = file;
         const reader = new FileReader();
@@ -278,7 +274,7 @@ export class ProductsComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    postImage() {
+    postImage(): void {
         const formData = new FormData();
         const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
@@ -303,7 +299,7 @@ export class ProductsComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
             duration: 2000,
             data: object,

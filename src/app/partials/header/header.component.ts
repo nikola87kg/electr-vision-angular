@@ -1,10 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { SharedService } from '../../_services/shared.service';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { SharedService } from '../../_services/shared.service';
+
 
 declare var $: any;
 
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     filteredOptions$: Observable<any[]>;
     screenSize = null;
 
-    @HostListener('window:resize', ['$event']) onResize(event) {
+    @HostListener('window:resize', ['$event']) onResize(event): void {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';
@@ -39,13 +39,13 @@ export class HeaderComponent implements OnInit {
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getAllProductsAndFilter();
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    private filterSearchResult(searchInputValue: string) {
+    private filterSearchResult(searchInputValue: string): any[] {
         return this.options.filter(
             option => (`${option.name} ${option.catalog}`)
                 .toLowerCase()
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
         );
     }
 
-    getAllProductsAndFilter() {
+    getAllProductsAndFilter(): void {
         this.sharedService.productList.subscribe(result => {
             if (result) {
                 this.options = result;
@@ -65,17 +65,17 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    goToProduct(slug) {
+    goToProduct(slug): void {
         this.showResult = false;
         this.router.navigate(['/proizvod/' + slug]);
     }
 
-    goToProductByName(name) {
+    goToProductByName(name): void {
         const product = this.options.filter(option => option.name === name)[0];
         this.router.navigate(['/proizvod/' + product.slug]);
     }
 
-    checkWidth() {
+    checkWidth(): void {
         const innerWidth = window.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';

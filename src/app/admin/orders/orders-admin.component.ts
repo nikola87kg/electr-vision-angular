@@ -1,13 +1,11 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { OrderService, OrderInterface } from 'src/app/_services/order.service';
-
-/* Material */
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SharedService } from '../../_services/shared.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { OrderInterface, OrderService } from 'src/app/_services/order.service';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { SharedService } from '../../_services/shared.service';
 
 /* Decorator */
 @Component({
@@ -24,8 +22,8 @@ export class OrdersAdminComponent implements OnInit {
         public snackBar: MatSnackBar,
     ) { }
 
-    orderList: Array<OrderInterface> = [];;
-    displayedColumns = ['position', 'name', 'phone', 'email', 'address', 'question', 'cart', 'delete'];;
+    orderList: Array<OrderInterface> = [];
+    displayedColumns = ['position', 'name', 'phone', 'email', 'address', 'question', 'cart', 'delete'];
 
     screenSize;
     currentIndex: number;
@@ -35,11 +33,11 @@ export class OrdersAdminComponent implements OnInit {
     isDialogEditing: boolean;
     dialogTitle: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
@@ -47,7 +45,7 @@ export class OrdersAdminComponent implements OnInit {
     }
 
     /* Delete Order */
-    deleteOrder(id) {
+    deleteOrder(id): void {
         this.orderService.delete(id).subscribe(
             (data) => {
                 this.orderList.splice(this.currentIndex, 1);
@@ -63,7 +61,7 @@ export class OrdersAdminComponent implements OnInit {
     }
 
     /* Get Orders */
-    getOrders() {
+    getOrders(): void {
         this.orderService.get().subscribe(response => {
             this.orderList = response;
             this.dataSource = new MatTableDataSource(this.orderList);
@@ -73,7 +71,7 @@ export class OrdersAdminComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
             duration: 2000,
             data: object,

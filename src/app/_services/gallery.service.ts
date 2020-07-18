@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 /* Angular */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
+
 
 /* Interface */
 export interface GalleryInterface {
@@ -25,27 +26,27 @@ export class GalleryService {
     constructor(private http: HttpClient) { }
 
     /* GET Gallery */
-    get() {
+    get(): Observable<any> {
         return this.http.get<GalleryInterface[]>(this.baseUrl + '/gallery');
     }
 
     /* POST Gallery */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<GalleryInterface>(this.baseUrl + '/gallery', payload);
     }
 
     /* PUT Gallery */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<GalleryInterface>(this.baseUrl + '/gallery/' + id, payload);
     }
 
     /* DELETE Gallery */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<GalleryInterface>(this.baseUrl + '/gallery/' + id);
     }
 
     /* POST Gallery Image */
-    postImage(id, file) {
+    postImage(id, file): Observable<any> {
         return this.http.post<{ image: string }>(this.baseUrl + '/gallery/images/' + id, file);
     }
 }

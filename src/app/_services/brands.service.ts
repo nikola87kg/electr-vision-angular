@@ -1,9 +1,10 @@
 /* Angular */
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
+
 
 /* Interface */
 export interface BrandInterface {
@@ -25,31 +26,31 @@ export class BrandsService {
     baseUrl = environment.apiUrl;
 
     /* GET brands */
-    get() {
+    get(): Observable<any> {
         return this.http.get<BrandInterface[]>(this.baseUrl + '/brands');
     }
 
-    getBySlug(slug) {
+    getBySlug(slug): Observable<any> {
         const URL = this.baseUrl + '/brands/' + slug;
         return this.http.get<BrandInterface>(URL);
     }
 
     /* POST brands */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<BrandInterface>(this.baseUrl + '/brands', payload);
     }
 
     /* PUT brands */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<BrandInterface>(this.baseUrl + '/brands/' + id, payload);
     }
 
     /* DELETE brands */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<BrandInterface>(this.baseUrl + '/brands/' + id);
     }
     /* POST Brand Image */
-    postImage(id, file) {
+    postImage(id, file): Observable<any> {
         return this.http.post<{ image: string }>(this.baseUrl + '/brands/images/' + id, file);
     }
 }

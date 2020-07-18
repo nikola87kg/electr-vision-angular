@@ -1,24 +1,25 @@
 /* Core modules */
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 /* App modules */
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminMaterialModule } from './admin.material.module';
-
 /* App compontents */
 import { AdminComponent } from './admin.component';
-import { ProductsComponent } from './products/products.component';
-import { CategoriesComponent } from './categories/categories.component';
+import { AdminMaterialModule } from './admin.material.module';
 import { BrandsComponent } from './brands/brands.component';
+import { CategoriesComponent } from './categories/categories.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
+import { OrdersAdminComponent } from './orders/orders-admin.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
-import { OrdersAdminComponent } from './orders/orders-admin.component';
+import { ProductsComponent } from './products/products.component';
 import { SlidesComponent } from './slides/slides.component';
+
+
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { SlidesComponent } from './slides/slides.component';
     FormsModule,
     HttpClientModule,
     AdminRoutingModule,
-    AdminMaterialModule
+    AdminMaterialModule,
+    FontAwesomeModule,
   ],
   declarations: [
     AdminComponent,

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandsService } from '../../_services/brands.service';
 import { Router } from '@angular/router';
+import { BrandsService } from '../../_services/brands.service';
 
 interface BrandPlaceholder {
     image: string;
     slug: string;
-};
+}
 
 @Component({
     selector: 'px-brand-roller',
@@ -24,15 +24,15 @@ export class BrandRollerComponent implements OnInit {
         private router: Router
     ) { }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getBrands();
     }
 
     /* Get brand */
-    getBrands() {
+    getBrands(): void {
         this.brandService.get().subscribe(response => {
             this.brandList = response
-                .filter(brand => brand.vip)
+                .filter(brand => brand.vip);
             /* fill placeholders */
             this.brandList.forEach((brand, index) => {
                 this.placeholders[index] = brand;
@@ -44,7 +44,7 @@ export class BrandRollerComponent implements OnInit {
                 this.placeholders.forEach((placeholder, index) => {
                     if (index < this.brandList.length - 1) {
                         if (index === 0) {
-                            oldplaceholder = this.placeholders[0]
+                            oldplaceholder = this.placeholders[0];
                         }
                         this.placeholders[index] = this.placeholders[index + 1];
                     } else {
@@ -52,12 +52,12 @@ export class BrandRollerComponent implements OnInit {
                     }
                 });
 
-            }, 2000)
+            }, 2000);
         });
     }
 
     /* Navigation */
-    goToBrand(slug) {
+    goToBrand(slug): void {
         this.router.navigate(
             ['/pretraga/kategorije/sve'],
             { queryParams: { brand: slug } }

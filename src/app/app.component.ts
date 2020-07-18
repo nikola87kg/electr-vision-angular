@@ -1,10 +1,10 @@
-import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
-import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { NavigationEnd, Router } from '@angular/router';
+import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
+import { CategoriesService } from './_services/categories.service';
 import { ProductsService } from './_services/products.service';
 import { SharedService } from './_services/shared.service';
-import { CategoriesService } from './_services/categories.service';
 
 @Component({
     selector: 'px-root',
@@ -23,22 +23,22 @@ export class AppComponent implements OnInit {
 
     isAdminPanel = false;
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.getAllProducts();
         this.getAllCategories();
         this.handleRouting();
         this.setCart();
     }
 
-    setCart() {
-        let cart = localStorage.getItem('cart');
-        let cartArray = JSON.parse(cart);
+    setCart(): void {
+        const cart = localStorage.getItem('cart');
+        const cartArray = JSON.parse(cart);
         if (!Array.isArray(cartArray)) {
-            localStorage.setItem('cart', '[]')
+            localStorage.setItem('cart', '[]');
         }
     }
 
-    handleRouting() {
+    handleRouting(): void {
         this.router.events
             .subscribe(evt => {
                 if (evt instanceof NavigationEnd) {
@@ -54,19 +54,19 @@ export class AppComponent implements OnInit {
             });
     }
 
-    getAllProducts() {
+    getAllProducts(): void {
         this.productService.get().subscribe((response) => {
             this.sharedService.productList.next(response);
         });
     }
 
-    getAllCategories() {
+    getAllCategories(): void {
         this.categoryService.get().subscribe((response) => {
             this.sharedService.categoryList.next(response);
         });
     }
 
-    sendMessage() {
+    sendMessage(): void {
         this.dialog.open(OrderDialogComponent, {
             width: '600px',
         });

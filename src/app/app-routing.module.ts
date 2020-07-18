@@ -1,21 +1,21 @@
 /* Core modules */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
+/* Guards */
+import { AdminGuard } from './admin/admin.guard';
+import { HomepageComponent } from './homepage/homepage.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { CartComponent } from './pages/cart/cart.component';
 /* App components */
 import { ContactComponent } from './pages/contact/contact.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
-import { HomepageComponent } from './homepage/homepage.component';
+import { InfoComponent } from './pages/info/info.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { SearchComponent } from './pages/search/search.component';
-import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { ServiceComponent } from './pages/service/service.component';
-import { CartComponent } from './pages/cart/cart.component';
-import { InfoComponent } from './pages/info/info.component';
 
-/* Guards */
-import { AdminGuard } from './admin/admin.guard';
+
 
 const routes: Routes = [
     { path: 'pocetna', component: HomepageComponent },
@@ -28,19 +28,19 @@ const routes: Routes = [
     { path: 'servis', component: ServiceComponent },
     { path: 'proizvod/:slug', component: ProductPageComponent },
     { path: 'pretraga/:level/:slug', component: SearchComponent },
-    { 
-        path: 'admin',                
-        loadChildren: './admin/admin.module#AdminModule', 
-        canLoad: [AdminGuard] 
+    {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        canLoad: [AdminGuard]
     },
-    { 
-        path: '',                    
-        redirectTo: '/pocetna', 
-        pathMatch: 'full' 
+    {
+        path: '',
+        redirectTo: '/pocetna',
+        pathMatch: 'full'
     },
-    { 
-        path: '**',                   
-        redirectTo: '/pocetna' 
+    {
+        path: '**',
+        redirectTo: '/pocetna'
     }
 ];
 

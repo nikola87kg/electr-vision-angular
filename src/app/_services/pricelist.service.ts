@@ -1,11 +1,10 @@
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 /* Angular */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Observable, of } from 'rxjs';
 /* Environment */
 import { environment } from '../../environments/environment';
-import { of } from 'rxjs';
+
 
 /* Interface */
 export interface PricelistInterface {
@@ -30,12 +29,12 @@ export class PricelistService {
     constructor(private http: HttpClient) { }
 
     /* GET Pricelist */
-    get() {
+    get(): Observable<any> {
         return this.http.get<PricelistInterface[]>(this.baseUrl + '/pricelist');
     }
 
     /* GET Pricelist */
-    getPriceGroups() : Observable<PriceGroupInterface[]> {
+    getPriceGroups(): Observable<PriceGroupInterface[]> {
         return of([
             {_id: '1', name: 'Video nadzor', color: 'blue', img: undefined},
             {_id: '2', name: 'Alarm', color: 'red', img: undefined},
@@ -49,17 +48,17 @@ export class PricelistService {
     }
 
     /* POST Pricelist */
-    post(payload) {
+    post(payload): Observable<any> {
         return this.http.post<PricelistInterface>(this.baseUrl + '/pricelist', payload);
     }
 
     /* PUT Pricelist */
-    put(id, payload) {
+    put(id, payload): Observable<any> {
         return this.http.put<PricelistInterface>(this.baseUrl + '/pricelist/' + id, payload);
     }
 
     /* DELETE Pricelist */
-    delete(id) {
+    delete(id): Observable<any> {
         return this.http.delete<PricelistInterface>(this.baseUrl + '/pricelist/' + id);
     }
 

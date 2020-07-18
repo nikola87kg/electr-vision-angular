@@ -1,17 +1,14 @@
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { GroupsService, GroupInterface } from '../../_services/groups.service';
-import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
-
-/* Material */
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
+import { GroupInterface, GroupsService } from '../../_services/groups.service';
 import { SharedService } from '../../_services/shared.service';
 
-/* 3rd party */
-import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
 
 @Component({
     selector: 'px-groups',
@@ -49,19 +46,19 @@ export class GroupsComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
         this.getGroups();
         this.getCategories();
     }
-    
-    fixSlug(text: string) {
+
+    fixSlug(text: string): string {
         const options = { maintainCase: false, separator: '-' };
         const mySlug = slugify.createSlug(options);
         const slug = mySlug(text);
@@ -69,7 +66,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singleGroup?, index?) {
+    openDialog(editing, singleGroup?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -90,13 +87,13 @@ export class GroupsComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    openImageDialog(event, index) {
+    openImageDialog(event, index): void {
         event.stopPropagation();
         const pageSize = this.paginator.pageSize;
         const pageIndex = this.paginator.pageIndex;
@@ -110,13 +107,13 @@ export class GroupsComponent implements OnInit {
         this.dialogTitle = 'Dodavanje slike';
     }
 
-    closeImageDialog() {
+    closeImageDialog(): void {
         this.isImageDialogOpen = false;
         this.existingImage = null;
         this.imagePreview = null;
     }
 
-    clearForm() {
+    clearForm(): void {
         this.subcategory = {
             _id: '',
             name: '',
@@ -129,7 +126,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Add new group */
-    postGroup(group, event) {
+    postGroup(group, event): void {
         const fixedSlug = this.fixSlug(group.slug);
         group.slug = fixedSlug;
         this.groupService.post(group).subscribe(
@@ -145,7 +142,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Update group */
-    putGroup(group, event) {
+    putGroup(group, event): void {
         const fixedSlug = this.fixSlug(group.slug);
         group.slug = fixedSlug;
         this.groupService.put(group._id, group).subscribe(
@@ -161,7 +158,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Delete group */
-    deleteGroup(id, event) {
+    deleteGroup(id, event): void {
         this.groupService.delete(id).subscribe(
             (response) => {
                 this.groupList.splice(this.currentIndex, 1);
@@ -178,7 +175,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Get groups */
-    getGroups(filter?) {
+    getGroups(filter?): void {
         this.groupService.get().subscribe(response => {
             if (filter) {
                 this.groupList = response.filter(
@@ -194,7 +191,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Get categories */
-    getCategories() {
+    getCategories(): void {
         this.categoryService.get().subscribe(response => {
             this.categoryList = response;
         });
@@ -202,7 +199,7 @@ export class GroupsComponent implements OnInit {
 
     /* Image upload */
 
-    onImagePicked(event: Event) {
+    onImagePicked(event: Event): void {
         const file = (event.target as HTMLInputElement).files[0];
         this.imageFile = file;
         const reader = new FileReader();
@@ -212,7 +209,7 @@ export class GroupsComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    postImage() {
+    postImage(): void {
         const formData = new FormData();
         const filename = this.imageFile.name ;
         formData.append('image', this.imageFile, filename);
@@ -237,7 +234,7 @@ export class GroupsComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
           duration: 2000,
           data: object,

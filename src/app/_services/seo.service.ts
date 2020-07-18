@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser'
+import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({ providedIn: 'root' })
 export class SeoService {
     constructor( private meta: Meta, private title: Title ) {}
 
-    generateTags(config) {
+    generateTags(config): void {
         config = {
             title: 'SEO Electrovision Title',
             description: 'SEO Descripion',
             slug: 'seo-slug',
-            image:'https://lh3.googleusercontent.com/proxy/ogwfaF0iwa05OnTNQFyD0rZ384sAN74p5xwJE6qfJmrEFcmgxlXo4zg22lrlaLcaS_hp9pFCu8s8QZ-GgDy37DxWVOHpq2B4IV35vb4wgHBWfJiYqI_AVARVMaguPane4Raedg=w530-h212-p',
+            image: 'https://lh3.googleusercontent.com/proxy/ogwfaF0iwa05OnTNQFyD0rZ384sAN74p5xwJE6qfJmrEFcmgxlXo4zg22lrlaLcaS_hp9pFCu8s8QZ-GgDy37DxWVOHpq2B4IV35vb4wgHBWfJiYqI_AVARVMaguPane4Raedg=w530-h212-p',
             ...config
-        }
+        };
 
-        this.title.setTitle( config.title + ' | ElectroVision Kragujevac'  )
+        this.title.setTitle( config.title + ' | ElectroVision Kragujevac'  );
 
         this.meta.updateTag( { name: 'twitter:card', content: 'summary' } );
         this.meta.updateTag( { name: 'twitter:site', content: 'ElectroVision' } );

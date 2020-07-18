@@ -1,14 +1,12 @@
-import { PriceGroupInterface } from './../../_services/pricelist.service';
-/* Angular */
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-/* Services */
-import { PricelistService, PricelistInterface } from '../../_services/pricelist.service';
-
-/* Material */
-import { MatSort, MatPaginator, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { SharedService } from '../../_services/shared.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
+import { PricelistInterface, PricelistService } from '../../_services/pricelist.service';
+import { SharedService } from '../../_services/shared.service';
+import { PriceGroupInterface } from './../../_services/pricelist.service';
 
 /* Decorator */
 @Component({
@@ -38,11 +36,11 @@ export class PricelistAdminComponent implements OnInit {
     isDialogEditing: boolean;
     dialogTitle: string;
 
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     /* INIT */
-    ngOnInit() {
+    ngOnInit(): void {
         this.sharedService.screenSize.subscribe(
             (result => this.screenSize = result)
         );
@@ -51,7 +49,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Dialog  */
-    openDialog(editing, singlePricelist?, index?) {
+    openDialog(editing, singlePricelist?, index?): void {
         if (editing) {
             this.isAddDialogOpen = true;
             this.isDialogEditing = true;
@@ -69,13 +67,13 @@ export class PricelistAdminComponent implements OnInit {
         }
     }
 
-    closeDialog(event) {
+    closeDialog(event): void {
         event.stopPropagation();
         this.isAddDialogOpen = false;
         this.clearForm();
     }
 
-    clearForm() {
+    clearForm(): void {
         this.pricelist = {
             _id: '',
             name: '',
@@ -86,7 +84,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* PriceGroups */
-    fillPriceGroups() {
+    fillPriceGroups(): void {
         this.pricelistService.getPriceGroups().subscribe(
             (response) => {
                 this.priceGroups = response;
@@ -95,7 +93,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Add new pricelist */
-    postPricelist(pricelist, event) {
+    postPricelist(pricelist, event): void {
         this.pricelistService.post(pricelist).subscribe(
             (response) => {
                 this.closeDialog(event);
@@ -109,7 +107,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Update pricelist */
-    putPricelist(pricelist, event) {
+    putPricelist(pricelist, event): void {
         this.pricelistService.put(pricelist._id, pricelist).subscribe(
             (data) => {
                 this.closeDialog(event);
@@ -123,7 +121,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Delete Pricelist */
-    deletePricelist(id, event) {
+    deletePricelist(id, event): void {
         this.pricelistService.delete(id).subscribe(
             (data) => {
                 this.pricelistList.splice(this.currentIndex, 1);
@@ -140,7 +138,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Get pricelist */
-    getPricelists() {
+    getPricelists(): void {
         this.pricelistService.get().subscribe(response => {
             this.pricelistList = response;
             this.dataSource = new MatTableDataSource(this.pricelistList);
@@ -150,7 +148,7 @@ export class PricelistAdminComponent implements OnInit {
     }
 
     /* Snackbar */
-    openSnackBar(object) {
+    openSnackBar(object): void {
       this.snackBar.openFromComponent(SnackbarComponent, {
         duration: 2000,
         data: object,

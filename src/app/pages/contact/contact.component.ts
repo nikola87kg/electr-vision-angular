@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SeoService } from 'src/app/_services/seo.service';
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons/faFacebookSquare';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSquare';
 
 
 @Component({
@@ -11,8 +9,8 @@ import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons/faTwitterSqu
 })
 export class ContactComponent implements OnInit {
 
-    fbIcon = faFacebookSquare;
-    twIcon = faTwitterSquare;
+    // fbIcon = faFacebookSquare;
+    // twIcon = faTwitterSquare;
     url: 'http://electrovision.rs/kontakt';
     title = 'Kontakt';
     description = 'Kontakt informacije';
@@ -34,15 +32,15 @@ export class ContactComponent implements OnInit {
     constructor( private seo: SeoService ) {
     }
 
-    ngOnInit() {
-        
+    ngOnInit(): void {
+
         /* SEO */
         this.seo.generateTags( {
             title: 'Kontakt',
             description: 'Kontakt informacije',
             image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
             slug: 'kontakt'
-        })
+        });
     }
 
 }

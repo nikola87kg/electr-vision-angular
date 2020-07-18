@@ -1,4 +1,17 @@
-import { Component, ViewEncapsulation, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    faAddressCard,
+    faAngleDoubleLeft,
+    faAngleDoubleRight, faBold,
+    faEuroSign,
+    faFolder,
+    faFolderOpen,
+    faHome,
+    faImage,
+    faPlusCircle,
+    faShoppingCart,
+    faThLarge
+} from '@fortawesome/free-solid-svg-icons';
 import { SharedService } from '../_services/shared.service';
 
 @Component({
@@ -8,18 +21,29 @@ import { SharedService } from '../_services/shared.service';
   encapsulation: ViewEncapsulation.None
 })
 export class AdminComponent implements OnInit {
-
+    faThLarge = faThLarge;
+    faFolder = faFolder;
+    faFolderOpen = faFolderOpen;
+    faBold = faBold;
+    faImage = faImage;
+    faShoppingCart = faShoppingCart;
+    faEuroSign = faEuroSign;
+    faAddressCard = faAddressCard;
+    faHome = faHome;
+    faPlusCircle = faPlusCircle;
+    faAngleDoubleLeft = faAngleDoubleLeft;
+    faAngleDoubleRight = faAngleDoubleRight;
     wideMenu = localStorage.getItem('sidebarOpen') || 'closed';
     screenSize = null;
 
     constructor( public sharedService: SharedService ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.checkWidth();
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    @HostListener('window:resize', ['$event']) onResize(event) {
+    @HostListener('window:resize', ['$event']) onResize(event): void {
         const innerWidth = event.target.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';
@@ -31,7 +55,7 @@ export class AdminComponent implements OnInit {
         this.sharedService.screenSize.next(this.screenSize);
     }
 
-    togleMenu() {
+    togleMenu(): void {
         const sidebar = localStorage.getItem('sidebarOpen');
         if (sidebar === 'open') {
             localStorage.setItem('sidebarOpen', 'closed');
@@ -42,7 +66,7 @@ export class AdminComponent implements OnInit {
         }
     }
 
-    checkWidth() {
+    checkWidth(): void {
         const innerWidth = window.innerWidth;
         if (innerWidth > 1028) {
             this.screenSize = 'large';
