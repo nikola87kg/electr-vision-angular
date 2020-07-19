@@ -6,34 +6,29 @@
 <px-navigation-menu></px-navigation-menu>
 
 <!-- Main product -->
-<div class="row"
-     *ngIf="product">
-  <div class="col-lg-1">
-  </div>
+<div class="row" *ngIf="product">
+
   <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
-    <img [src]="product.image"
+    <!-- Main Image -->
+    <img class="main-image"
+         [src]="product.image"
          [alt]="product.image"
          (click)="zoomImage(product.image)">
-    <div class="product-price">
-      <ng-container *ngIf="product?.price">
-        Cena: {{product.price}}
-      </ng-container>
-      <ng-container *ngIf="!product?.price">
-        Nema cene
-      </ng-container>
-    </div>
-    <button mat-raised-button
-            color="primary"
-            (click)="addToCart(product._id)"
-            class="basket-button">
-      <mat-icon>shopping_cart</mat-icon>
-      Dodaj u korpu
-    </button>
+
   </div>
+  
+
+
   <div class="product-info col-sm-12 col-md-6 col-lg-7">
 
-    <!-- Product name -->
-    <h1 class="product-name">{{product.name}} </h1>
+    <!-- Brand image -->
+    <h6 
+      class="brand-image"
+      *ngIf="product?.brand && product?.brand.image"
+      (click)="goToBrand(product.brand.slug)">
+      <img [src]="product.brand.image" height="40" />
+    </h6>
+
     <!-- breadcrumb -->
     <h5 class="breadcrumb">
       <span (click)="goToCategory(product.category.slug)">
@@ -47,31 +42,36 @@
       <span (click)="goToBrand(product.brand.slug)">
         {{product.brand.name}} </span>
     </h5>
+    <!-- Product name -->
+    <h1 class="product-name">{{product.name}} </h1>
 
     <!-- catalog number -->
-    <h6 class="catalog"
-        *ngIf="product?.catalog">
+    <h6 class="catalog" *ngIf="product?.catalog">
       Kataloški broj:
       <span> {{product.catalog}}</span>
     </h6>
-
-    <!-- catalog number -->
-    <h6 class="catalog"
-        *ngIf="product?.brand && product?.brand.image">
-      <img [src]="product.brand.image"
-           height="40" />
-    </h6>
+    
+    <!-- Price & Cart -->
+    <div class="product-price">
+      <ng-container *ngIf="product?.price">
+        {{product.price}}
+        <button mat-raised-button
+                color="primary"
+                (click)="addToCart(product._id)"
+                class="cart-button">
+          <mat-icon>shopping_cart</mat-icon>
+          Dodaj u korpu
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!product?.price">
+        Nema cene
+      </ng-container>
+    </div>
 
     <!-- description -->
     <h4 class="description"
         *ngIf="product?.description">
       {{product.description}} </h4>
-
-    <!-- counter -->
-    <h6 class="counter"
-        *ngIf="product?.counter">
-      <!-- Broj poseta: {{product.counter}} -->
-    </h6>
 
   </div>
 </div>
@@ -93,7 +93,7 @@
         <div class="col-sm-12">
           <h5> {{prod.name}} </h5>
         </div>
-        <div class="col-sm-12 image-wrapper">
+        <div class="col-sm-12 similar-image-wrapper">
           <img *ngIf="prod.image"
                [src]="prod.image"
                [alt]="prod.image">
