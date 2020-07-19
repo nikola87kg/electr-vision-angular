@@ -54,6 +54,9 @@
             ],
             "scripts": [
               "node_modules/speakingurl/speakingurl.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "hammerjs"
             ]
           },
           "configurations": {
