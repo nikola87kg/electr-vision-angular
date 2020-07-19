@@ -16,48 +16,40 @@
 
     <!-- Cart -->
     <div class="cart-wrapper">
-      <div class="product-row"
-           *ngFor="let product of productList">
-        <mat-icon (click)="removeFromCart(product._id)"
-                  title="Izbaci iz korpe"> close </mat-icon>
 
+      <div class="product-row" *ngFor="let product of productList">
+
+         <!-- Remove -->
+        <button 
+          class="remove-button"
+          mat-button
+          (click)="removeFromCart(product._id)">
+          Ukloni
+        </button>
+
+        <!-- Image -->
         <img class="product-image"
              *ngIf="product.image"
              [src]="product.image"
              [alt]="product.name" />
         <div class="product-info">
-          <h3>{{product.name}}</h3>
-        </div>
-        <div>
 
-          <mat-form-field class="amount-dropdown">
-            <mat-label>Količina</mat-label>
-            <mat-select [(ngModel)]="product.amount">
-              <mat-option value="1">1</mat-option>
-              <mat-option value="2">2</mat-option>
-              <mat-option value="3">3</mat-option>
-              <mat-option value="4">4</mat-option>
-              <mat-option value="5">5</mat-option>
-              <mat-option value="6">6</mat-option>
-              <mat-option value="7">7</mat-option>
-              <mat-option value="8">8</mat-option>
-              <mat-option value="9">9</mat-option>
-              <mat-option value="10">10</mat-option>
-              <mat-option value="20">20</mat-option>
-              <mat-option value="25">25</mat-option>
-              <mat-option value="50">50</mat-option>
-              <mat-option value="100">100</mat-option>
-            </mat-select>
-          </mat-form-field>
-          ×
-          <p class="single-price">{{showSinglePrice(product.price)}}</p>
-          =
-          <p class="full-price">{{calculatePrice(product)}}</p>
+          <!-- Name -->
+          <h3>{{product.name}}</h3>
+          
+           <!-- Price -->
+          <input class="amount-field" type="number" [(ngModel)]="product.amount"/>
+          × <p class="single-price">{{showSinglePrice(product.price)}}</p>
+          = <p class="full-price">{{calculatePrice(product.amount, product.price)}}</p>
+
         </div>
       </div>
     </div>
 
     <!-- Order -->
+    <h3 class="total-price">
+      Ukupno: {{getTotalPrice()}}
+    </h3>
     <button class="order-button"
             *ngIf="productList.length > 0"
             (click)="sendOrder()"

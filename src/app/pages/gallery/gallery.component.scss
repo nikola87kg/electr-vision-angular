@@ -46,6 +46,9 @@ div.gallery-modal {
   align-items: center;
   justify-content: center;
   padding: 50px;
+  @media #{$screen-sm} {
+    padding: 15px;
+  }
   margin: 0;
   text-align: center;
   .selected-image {
@@ -94,12 +97,17 @@ div.gallery-modal {
       background: rgba(201, 183, 183, 0.8);
     }
   }
-  span {
-    font-size: 40px;
+
+  span.close-modal {
+    position: absolute;
     user-select: none;
-    color: white;
+    top: 20px;
+    right: 20px;
+    color: red;
+    font-size: 40px;
+    cursor: pointer;
     &:hover {
-      color: rgb(209, 207, 207);
+      color: rgb(252, 93, 93);
     }
   }
 }
@@ -126,6 +134,10 @@ div.gallery-modal {
   color: #555;
   background-color: #eee;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18), 0 6px 6px rgba(0, 0, 0, 0.25);
+  @media #{$screen-md} {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 .content-container {

@@ -66,17 +66,41 @@ export class CartComponent implements OnInit {
   }
 
 
-  calculatePrice(product): string {
-    const amount = parseInt(product.amount, 2) || 1;
-    const price = parseInt(product.price, 2) || 0;
+  calculatePrice(am, pr): string {
+    const amount = this.rawPriceToNumber(am) || 1;
+    const price = this.rawPriceToNumber(pr) || 0;
     if (price === 0) { return 'nema cene'; }
-    return (amount * price) + ' din';
+    return this.addDotsToPriceNumber(amount * price) + ' dinara';
   }
 
   showSinglePrice(rawPrice): string {
-    const price = parseInt(rawPrice, 2) || 0;
+    const price = this.rawPriceToNumber(rawPrice) || 0;
     if (price === 0) { return 'nema cene'; }
-    return price + ' din';
+    return this.addDotsToPriceNumber(price) + ' dinara';
   }
 
+  rawPriceToNumber(rawPrice: string | number): number {
+    const price = rawPrice
+      .toString()
+      .replace('.', '')
+      .replace(',', '')
+      .split(' ')[0];
+    return parseInt(price, 10) || 0;
+  }
+
+  addDotsToPriceNumber(price: number): string {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  getTotalPrice(): string {
+    let totalPrice = 0;
+    this.productList.forEach( (product) => {
+      let productTotal = (product.amount * this.rawPriceToNumber(product.price));
+      if (Number.isNaN(productTotal)) {
+        productTotal = 0;
+      }
+      totalPrice += productTotal;
+    });
+    return this.addDotsToPriceNumber(totalPrice) + ' dinara';
+  }
 }

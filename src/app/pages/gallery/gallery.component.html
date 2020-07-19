@@ -36,6 +36,10 @@
           *ngIf="isGalleryModalOpen" 
           (keydown.esc)="OnCloseGallery()"
           (click)="OnCloseGallery()">
+
+          <span class="close-modal" (click)="OnCloseGallery()">
+            x
+          </span>
           
           <div 
             class="box-container"

@@ -78,10 +78,11 @@
                      *ngFor="let order of item.orderList">
                     <img [src]="order.image"
                          [alt]="order.name">
-                    <strong>{{order.amount || '1'}} ×</strong> {{order.name}}
-
-                    <span>({{order.price || 'nema cene'}},
-                        {{order.catalog || 'nema kataloški broj'}})</span>
+                    <strong>{{order.amount || '1'}} × {{order.name}}</strong>.
+                    <span>
+                        Cena po komadu: {{order.price || 'nema cene'}}.
+                        Katalog: {{order.catalog || 'nema kataloški broj'}}
+                    </span>
                 </div>
             </td>
         </ng-container>
