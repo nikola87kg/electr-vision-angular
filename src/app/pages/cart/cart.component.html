@@ -38,7 +38,11 @@
           <h3>{{product.name}}</h3>
           
            <!-- Price -->
-          <input class="amount-field" type="number" [(ngModel)]="product.amount"/>
+          <input 
+            class="amount-field"
+            type="number"
+            min="1"
+            [(ngModel)]="product.amount"/>
           × <p class="single-price">{{showSinglePrice(product.price)}}</p>
           = <p class="full-price">{{calculatePrice(product.amount, product.price)}}</p>
 
