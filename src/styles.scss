@@ -154,8 +154,12 @@ select {
   border-color: $px-material-accent;
   border-width: 2px;
 }
-.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
-  .mat-form-field-outline-gap {
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content.mat-button-toggle-label-content {
+  line-height: 36px;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap {
   border-top-color: transparent;
 }
 
