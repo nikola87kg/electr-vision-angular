@@ -4,7 +4,10 @@
     <!-- Page title -->
     <div class="col-sm-12 col-lg-6">
         Lista brendova ({{ brandList?.length || 0 }})
-        <button class="add-button" mat-raised-button color="primary" (click)="openDialog(false)">
+        <button class="add-button"
+            mat-raised-button
+            color="primary"
+            (click)="openDialog(false)">
             <mat-icon>add</mat-icon>
             <span class="button-title">Dodaj brend</span>
         </button>
@@ -13,19 +16,25 @@
 
 <!-- TABLE -->
 <div class="table-wrapper">
-    <table mat-table matSort [dataSource]="dataSource" class="full-screen"  >
+    <table mat-table
+        matSort
+        [dataSource]="dataSource"
+        class="full-screen">
         <!-- Position Column Setup -->
         <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let i = index"> {{ (i + 1) + paginator.pageSize*paginator.pageIndex }} </td>
+            <th mat-header-cell
+                *matHeaderCellDef> </th>
+            <td mat-cell
+                *matCellDef="let i = index"> {{ (i + 1) + paginator.pageSize*paginator.pageIndex }} </td>
         </ng-container>
 
         <!-- Image Column Setup -->
         <ng-container matColumnDef="image">
-            <th mat-header-cell *matHeaderCellDef> Slika </th>
-            <td mat-cell *matCellDef="let item, let i = index">
-                <button
-                    mat-stroked-button
+            <th mat-header-cell
+                *matHeaderCellDef> Slika </th>
+            <td mat-cell
+                *matCellDef="let item, let i = index">
+                <button mat-stroked-button
                     color="accent"
                     class="photo-button"
                     type="button"
@@ -37,12 +46,16 @@
 
         <!-- Name Column Setup -->
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header> Naziv </th>
-            <td mat-cell *matCellDef="let item" (click)="openDialog(true, item, i)">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Naziv </th>
+            <td mat-cell
+                *matCellDef="let item"
+                (click)="openDialog(true, item, i)">
                 <span class="name-text">
                     {{ item.name }}
                     <span class="edit-on-hover">
-                        <fa-icon [icon]="faArrowCircleLeft"></fa-icon> izmeni 
+                        <fa-icon [icon]="faArrowCircleLeft"></fa-icon> izmeni
                     </span>
                 </span>
             </td>
@@ -50,55 +63,73 @@
 
         <!-- Slug Column Setup -->
         <ng-container matColumnDef="slug">
-            <th mat-header-cell *matHeaderCellDef> Hiperlink </th>
-            <td mat-cell *matCellDef="let item"> {{ item.slug }} </td>
+            <th mat-header-cell
+                *matHeaderCellDef> Hiperlink </th>
+            <td mat-cell
+                *matCellDef="let item"> {{ item.slug }} </td>
         </ng-container>
 
         <!-- Description Column Setup -->
         <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Opis </th>
-            <td mat-cell *matCellDef="let item">
+            <th mat-header-cell
+                *matHeaderCellDef> Opis </th>
+            <td mat-cell
+                *matCellDef="let item">
                 <span style="white-space: pre-wrap;">{{ item.description }} </span>
             </td>
         </ng-container>
 
         <!-- VIP Column Setup -->
         <ng-container matColumnDef="vip">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Naslovna </th>
-            <td mat-cell *matCellDef="let item" [style.color]=" item.vip ? 'green' : 'red' ">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Naslovna </th>
+            <td mat-cell
+                *matCellDef="let item"
+                [style.color]=" item.vip ? 'green' : 'red' ">
                 {{ item.vip ? ' ✔' : ' ✖' }}
             </td>
         </ng-container>
 
         <!-- Created At Column Steup -->
         <ng-container matColumnDef="created">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kreiranja </th>
-            <td mat-cell *matCellDef="let item">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header> Datum kreiranja </th>
+            <td mat-cell
+                *matCellDef="let item">
                 <span>{{ item.createdAt | date: 'dd. MM. yyyy' }} </span>
             </td>
         </ng-container>
 
         <!-- rows -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns;"> </tr>
-        <tr mat-row *matRowDef="let row; let i = index;columns: displayedColumns;">  </tr>
+        <tr mat-header-row
+            *matHeaderRowDef="displayedColumns;"> </tr>
+        <tr mat-row
+            *matRowDef="let row; let i = index;columns: displayedColumns;"> </tr>
     </table>
 </div>
 
-<mat-paginator
-    #paginator
+<mat-paginator #paginator
     [pageSize]="10"
-    [pageSizeOptions] =  "[5, 10, 20, 50]"
-    [showFirstLastButtons] = "screenSize !== 'small' ">
+    [pageSizeOptions]="[5, 10, 20, 50]"
+    [showFirstLastButtons]="screenSize !== 'small' ">
 </mat-paginator>
 
 <!-- ADD/EDIT DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="isAddDialogOpen" (click)="isAddDialogOpen = false">
+<div class="fixed dialog-wrapper"
+    *ngIf="isAddDialogOpen"
+    (click)="isAddDialogOpen = false">
 
-    <form class="form-dialog" #brands="ngForm" (click)="$event.stopPropagation()">
+    <form class="form-dialog"
+        #brands="ngForm"
+        (click)="$event.stopPropagation()">
         <!-- DIALOG HEADER -->
         <div class="dialog-header">
             <span class="dialog-header-title"> {{dialogTitle}} </span>
-            <button type="button" class="cancel-x btn btn-link" (click)="closeDialog($event)">
+            <button type="button"
+                class="cancel-x btn btn-link"
+                (click)="closeDialog($event)">
                 <fa-icon [icon]="faTimes"></fa-icon>
             </button>
         </div>
@@ -106,22 +137,29 @@
 
         <!-- Name -->
         <mat-form-field>
-            <input
-                matInput [(ngModel)]="brand.name" placeholder="Naziv brenda" name="name" type="text"
-                autocomplete="off" required>
+            <input matInput
+                [(ngModel)]="brand.name"
+                placeholder="Naziv brenda"
+                name="name"
+                type="text"
+                autocomplete="off"
+                required>
         </mat-form-field>
 
         <!-- Slug -->
         <mat-form-field>
-            <input
-                matInput [(ngModel)]="brand.slug" placeholder="Link ka brendu" name="slug" type="text"
-                autocomplete="off" required>
+            <input matInput
+                [(ngModel)]="brand.slug"
+                placeholder="Link ka brendu"
+                name="slug"
+                type="text"
+                autocomplete="off"
+                required>
         </mat-form-field>
 
         <!-- Description -->
         <mat-form-field>
-            <textarea
-                matInput
+            <textarea matInput
                 [(ngModel)]="brand.description"
                 placeholder="Opis brenda"
                 name="description"
@@ -131,7 +169,9 @@
         </mat-form-field>
 
         <!-- Vip -->
-        <mat-checkbox [(ngModel)]="brand.vip" color="primary" name="vip" >
+        <mat-checkbox [(ngModel)]="brand.vip"
+            color="primary"
+            name="vip">
             Na naslovnoj strani
         </mat-checkbox>
 
@@ -142,27 +182,37 @@
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteButtonActive = true" *ngIf="isDialogEditing && !deleteButtonActive">
+                    (click)="deleteButtonActive = true"
+                    *ngIf="isDialogEditing && !deleteButtonActive">
                     Obriši
                 </mat-button-toggle>
                 <mat-button-toggle class="delete-item"
-                    (click)="deleteBrand(brand._id, $event); deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    (click)="deleteBrand(brand._id, $event); deleteButtonActive = false"
+                    *ngIf="isDialogEditing && deleteButtonActive"
+                    style="width: auto;">
                     Da, briši
                 </mat-button-toggle>
                 <mat-button-toggle class="save-item"
-                    (click)="deleteButtonActive = false" *ngIf="isDialogEditing && deleteButtonActive" style="width: auto;">
+                    (click)="deleteButtonActive = false"
+                    *ngIf="isDialogEditing && deleteButtonActive"
+                    style="width: auto;">
                     Ne briši
                 </mat-button-toggle>
-                <mat-button-toggle class="cancel-item" (click)="closeDialog($event)" *ngIf="!deleteButtonActive">
+                <mat-button-toggle class="cancel-item"
+                    (click)="closeDialog($event)"
+                    *ngIf="!deleteButtonActive">
                     Odustani
                 </mat-button-toggle>
-                <mat-button-toggle class="save-item" [disabled]="!brands.form.valid"
+                <mat-button-toggle class="save-item"
+                    [disabled]="!brands.form.valid"
                     (click)="postBrand(brand, $event)"
                     *ngIf="!isDialogEditing && !deleteButtonActive">
                     Sačuvaj
                 </mat-button-toggle>
-                <mat-button-toggle class="update-item" [disabled]="!brands.form.valid"
-                    (click)="putBrand(brand, $event)" *ngIf="isDialogEditing && !deleteButtonActive">
+                <mat-button-toggle class="update-item"
+                    [disabled]="!brands.form.valid"
+                    (click)="putBrand(brand, $event)"
+                    *ngIf="isDialogEditing && !deleteButtonActive">
                     Ažuriraj
                 </mat-button-toggle>
             </mat-button-toggle-group>
@@ -171,13 +221,19 @@
 </div>
 
 <!-- IMAGE DIALOG -->
-<div class="fixed dialog-wrapper" *ngIf="isImageDialogOpen" (click)="isImageDialogOpen = false">
-    <form class="form-dialog image-dialog" #image="ngForm" (click)="$event.stopPropagation()">
+<div class="fixed dialog-wrapper"
+    *ngIf="isImageDialogOpen"
+    (click)="isImageDialogOpen = false">
+    <form class="form-dialog image-dialog"
+        #image="ngForm"
+        (click)="$event.stopPropagation()">
         <!-- header -->
         <div class="dialog-header">
             <span class="dialog-header-title"> Postavi sliku </span>
             <!-- x -->
-            <button type="button" class="cancel-x btn btn-link" (click)="closeImageDialog()">
+            <button type="button"
+                class="cancel-x btn btn-link"
+                (click)="closeImageDialog()">
                 <fa-icon [icon]="faTimes"></fa-icon>
             </button>
         </div>
@@ -185,14 +241,19 @@
 
         <!-- Image Preview -->
         <div class="image-preview">
-                <img [src]="imagePreview"  [alt]="imagePreview" (click)="filePicker.click()" *ngIf="imagePreview">
-            <img [src]="existingImage" [alt]="existingImage" (click)="filePicker.click()" *ngIf="existingImage && !imagePreview">
+            <img [src]="imagePreview"
+                [alt]="imagePreview"
+                (click)="filePicker.click()"
+                *ngIf="imagePreview">
+            <img [src]="existingImage"
+                [alt]="existingImage"
+                (click)="filePicker.click()"
+                *ngIf="existingImage && !imagePreview">
         </div>
 
         <!-- Image Upload -->
         <div>
-            <button
-                mat-raised-button
+            <button mat-raised-button
                 color="accent"
                 type="button"
                 (click)="filePicker.click()">
@@ -202,8 +263,7 @@
                 </span>
                 <span *ngIf="!imageFile">Izaberi fotografiju</span>
             </button>
-            <input
-                type="file"
+            <input type="file"
                 #filePicker
                 (change)="onImagePicked($event)"
                 style="display: none">
@@ -214,10 +274,13 @@
         <!-- dialog footer -->
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
-                <mat-button-toggle class="cancel-item" (click)="closeImageDialog()">
+                <mat-button-toggle class="cancel-item"
+                    (click)="closeImageDialog()">
                     Odustani
                 </mat-button-toggle>
-                <mat-button-toggle class="save-item" (click)="postImage()" *ngIf="imageFile">
+                <mat-button-toggle class="save-item"
+                    (click)="postImage()"
+                    *ngIf="imageFile">
                     Sačuvaj
                 </mat-button-toggle>
             </mat-button-toggle-group>

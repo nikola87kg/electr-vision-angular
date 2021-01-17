@@ -1,5 +1,3 @@
-
-
 <!-- Navigation -->
 <px-navigation-menu></px-navigation-menu>
 
@@ -12,23 +10,59 @@
 
 
 <!-- Info -->
-<div class="row">
+<div class="row info-table">
     <!-- Data -->
     <div class="col-md-6 contact-table-wrapper">
+        <h4>1. Osnovni podaci</h4>
         <table>
             <tr *ngFor="let item of info; let i = index">
-                <td> {{ i + 1 }} </td>
-                <td> {{item.key }} </td>
+                <td>
+                    <mat-icon [ngClass]="{'instagram': i === 4}">{{item.icon}}</mat-icon>
+                </td>
                 <td> {{item.value }} </td>
             </tr>
         </table>
+        <br>
+        <br>
+        <h4>2. Kontakt forma</h4>
+        <form class="contact-form"
+            [formGroup]="contactForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Ime i prezime</mat-label>
+                <input matInput
+                    formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Telefon</mat-label>
+                <input matInput
+                    formControlName="phone">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput
+                    formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="outline"
+                class="textarea">
+                <mat-label>Poruka</mat-label>
+                <textarea matInput
+                    rows="3"
+                    formControlName="text">
+            </textarea>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button
+                class="send-message"
+                (click)="sendMessage()"
+                color="primary">Pošalji
+            </button>
+        </form>
         <br>
     </div>
     <!-- Map -->
     <div class="col-md-6 google-map">
         <div style="width: 100%">
-            <iframe
-                width="100%"
+            <iframe width="100%"
                 height="600"
                 src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=Jurija%20Gagarina%2C%20Kragujevac&amp;ie=UTF8&amp;t=&amp;z=15&amp;iwloc=B&amp;output=embed"
                 frameborder="0"

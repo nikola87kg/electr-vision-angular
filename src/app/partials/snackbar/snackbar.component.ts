@@ -45,6 +45,9 @@ export class SnackbarComponent implements OnInit {
       case 'delete2':
         this.actionWord = 'izbrisana';
         break;
+      case 'send':
+        this.actionWord = 'poslata';
+        break;
       default:
         this.actionWord = 'obrađen';
     }
@@ -78,6 +81,9 @@ export class SnackbarComponent implements OnInit {
         break;
       case 'slide':
         this.typeWord = 'Slajd';
+        break;
+      case 'message':
+        this.typeWord = 'Poruka';
         break;
       default:
         this.typeWord = 'Podatak';

@@ -2,22 +2,56 @@
 
 /* Info */
 .contact-table-wrapper {
-   padding: 20px;
-   box-sizing: border-box;
-   @media screen and (max-width: 1400px) {
+    padding: 20px;
+    box-sizing: border-box;
+    @media screen and (max-width: 1400px) {
         max-width: calc(100% - 40px);
-   }
+    }
+}
+
+.info-table {
+    padding: 10px;
+}
+
+h4 {
+    font-size: 22px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #b60303;
 }
 
 table {
-    tr {
-        border-bottom: 1px solid rgb(212, 212, 212);
-    }
     td {
-        padding: 15px 50px;
+        vertical-align: middle;
+        padding: 10px 10px;
+        font-size: 18px;
         @media screen and (max-width: 1400px) {
             padding: 10px;
             font-size: 14px;
         }
     }
+    mat-icon {
+        color: #b60303;
+        font-size: 30px;
+    }
+}
+
+.instagram {
+    margin-left: -90px;
+}
+
+.contact-form mat-form-field {
+    @media screen and (max-width: 700px) {
+        min-width: 100%;
+    }
+}
+
+.textarea {
+    width: 620px;
+    max-width: 100%;
+}
+
+.send-message {
+    width: 620px;
+    max-width: 100%;
+    margin-left: 10px;
 }

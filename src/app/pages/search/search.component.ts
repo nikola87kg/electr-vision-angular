@@ -93,11 +93,11 @@ export class SearchComponent implements OnInit {
         }
         switch (this.currentLevel) {
             case Type.cat: this.headline = 'Pretraga kategorija';
-                           break;
+                break;
             case Type.group: this.headline = 'Pretraga potkategorija';
-                             break;
+                break;
             case Type.prod: this.headline = 'Pretraga proizvoda';
-                            break;
+                break;
         }
         this.getName(this.currentLevel, this.currentSlug);
 
