@@ -1,1 +1,37 @@
 TODO:
+
+1. Galerija: 
+DONE
+
+2. Servis: 
+DONE
+
+3. Kontakt: 
+DONEf
+
+4. Proizvodi: 
+- ispred sličice korpe 1, 2, 3 komada
+- cena i detaljnije malo nalevo
+- ispod HIK VISION (sličica)
+- izaberi brend (samo za podsekciju koji postoje)
+- sort po cenama (od najjeftinijeg ka najskupljem i obrnuto)
+- crvena boja umesto plave za kliknute stavke
++ Dodaj u korpu (puna širina)
+ 
+5. Korpa: 
+- isprazni korpu gore desno na crvenom
+- ukupna cena VEĆE I BOLDIRANO
+- pošalji naružbinu da bude ispod cene
+- ispred korpe u meniju broj stavki
+
+6. KOMPLETI: (stavka u meniju)
+- Alarm (komplet 1, komplet 2)
+
+7. CENOVNIK (KATALOG)
+- preuzmi katalog za VideoNadzor, Alarme...
+
+8. SINGLE Proizvod
+- navigacija da ostane gore umesto breadcrumbs
+- sličica malo udesno (levo i desno isti razmak)
+- proširi opis da se desno ravna sa brendom
+- slični proizvodi na scroll levo desno

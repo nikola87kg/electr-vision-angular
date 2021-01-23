@@ -15,10 +15,11 @@
 		margin-left: 30px;
 	}
 	li {
-		padding: 0px 15px;
-		text-align: justify;
+		display: flex;
+		padding: 5px 15px;
+		text-align: start;
 		font-size: 20px;
-		&:before {
+		.tick {
 			content: "✓ ";
 			color: rgb(31, 194, 31);
 			margin-right: 10px;
@@ -38,7 +39,21 @@
 	img {
 		height: 18px;
 		vertical-align: top;
-		margin-top: 6px;
+		margin-top: 3px;
 		margin-left: 5px;
 	}
+}
+
+.column {
+	display: table-cell;
+	@media screen and (max-width: 1300px) {
+		display: table;
+		ul {
+			margin: 0;
+		}
+	}
+}
+
+.call-text {
+	line-height: 24px;
 }

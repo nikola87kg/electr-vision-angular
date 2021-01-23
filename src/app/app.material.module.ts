@@ -13,29 +13,26 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-
-
 const materialModules = [
-    MatTableModule,
-    MatButtonModule,
     MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatMenuModule,
-    MatIconModule,
-    MatOptionModule,
-    MatToolbarModule,
+    MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatInputModule,
+    MatIconModule,
+    MatMenuModule,
+    MatOptionModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatTabsModule,
+    MatTableModule,
     MatToolbarModule,
-    MatDialogModule,
-    MatOptionModule,
-    MatGridListModule,
-    MatToolbarModule
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { SeoService } from 'src/app/_services/seo.service';
 import { GalleryService } from '../../_services/gallery.service';
@@ -10,22 +11,22 @@ import { GalleryService } from '../../_services/gallery.service';
 })
 export class GalleryComponent implements OnInit {
 
-  public slides = [
-    'First slide',
-    'Second slide',
-    'Third slide',
-    'Fourth slide',
-    'Fifth slide',
-    'Sixth slide'
-  ];
+    public slides = [
+        'First slide',
+        'Second slide',
+        'Third slide',
+        'Fourth slide',
+        'Fifth slide',
+        'Sixth slide'
+    ];
 
-  config: SwiperConfigInterface = {
-    direction: 'horizontal',
-    slidesPerView: 1,
-    keyboard: true,
-    mousewheel: true,
-    navigation: true,
-  };
+    config: SwiperConfigInterface = {
+        direction: 'horizontal',
+        slidesPerView: 1,
+        keyboard: true,
+        mousewheel: true,
+        navigation: true,
+    };
 
     /*  */
 
@@ -48,13 +49,14 @@ export class GalleryComponent implements OnInit {
     constructor(
         private galleryService: GalleryService,
         private seo: SeoService,
+        private domSanitizer: DomSanitizer
     ) {
     }
 
     ngOnInit(): void {
 
         /* SEO */
-        this.seo.generateTags( {
+        this.seo.generateTags({
             title: 'Galerija',
             description: 'Galerija proizvoda i usluga',
             image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
@@ -62,10 +64,10 @@ export class GalleryComponent implements OnInit {
         });
 
         /* Gallery GET */
-        this.galleryService.get().subscribe( (response) => {
+        this.galleryService.get().subscribe((response) => {
             this.imagesArray = response;
-            this.imagesArray.forEach( (element) => {
-                if (!this.galleryList.includes(element.gallery) ) {
+            this.imagesArray.forEach((element) => {
+                if (!this.galleryList.includes(element.gallery)) {
                     this.galleryList.push(element.gallery);
                 }
             });
@@ -77,15 +79,15 @@ export class GalleryComponent implements OnInit {
 
         /* filteredArray based on specific gallery */
         this.filteredArray = [];
-        this.imagesArray.forEach( (element) => {
-            if ( element.gallery === this.galleryList[gallery] ) {
+        this.imagesArray.forEach((element) => {
+            if (element.gallery === this.galleryList[gallery]) {
                 this.filteredArray.push(element);
             }
         });
 
         /* mapping index from imagesArray to filteredArray */
         let newIndex;
-        this.filteredArray.forEach( (item, ind) => {
+        this.filteredArray.forEach((item, ind) => {
             if (item._id === this.imagesArray[index]._id) {
                 return newIndex = ind;
             }
@@ -99,6 +101,11 @@ export class GalleryComponent implements OnInit {
 
     OnCloseGallery(): void {
         this.isGalleryModalOpen = false;
+    }
+
+    onGalleryScroll(event): void {
+        console.log('onGalleryScroll: ', event);
+
     }
 
     onNextImage(e): void {

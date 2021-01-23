@@ -3,64 +3,117 @@
 
 
 <div class="row sidemenu-height">
-    <div class="col-sm-12 col-md-8 col-lg-9 pr0">
-        <!-- Tolbar -->
-        <mat-toolbar color="accent">
-            <mat-toolbar-row>
-                <span class="toolbar-title">Galerija slika</span>
-            </mat-toolbar-row>
-        </mat-toolbar>
+  <div class="col-sm-12 col-md-8 col-lg-9 pr0">
 
-        <div class="galleries" *ngFor="let gallery of galleryList; let gi = index;">
-            <h4 class="gallery-title"> {{ gallery }} </h4>
-            <div class="gallery-wrapper" >
-                <ng-container *ngFor="let image of imagesArray; let ii = index" >
-                    <div *ngIf="image.gallery === gallery"
-                        class="image-frame"
-                        (click)="onSelectImage(ii, gi)">
-                        <img
-                            [src]="image.imagePath"
-                            [alt]="image.gallery"
-                            class="gallery-image">
-                    </div>
-                </ng-container>
-            </div>
-            <br>
-            <br>
+    <!-- Tolbar -->
+    <mat-toolbar color="accent">
+      <mat-toolbar-row>
+        <span class="toolbar-title">Galerija</span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-tab-group animationDuration="1ms">
+      <mat-tab label="Foto">
+
+        <br>
+        <!-- Gallery -->
+        <div class="galleries"
+          *ngFor="let gallery of galleryList; let gi = index;">
+          <h4 class="gallery-title"> {{ gallery }} </h4>
+          <div class="horizontal-scroll-wrapper squares">
+            <ng-container *ngFor="let image of imagesArray; let ii = index">
+              <div *ngIf="image.gallery === gallery"
+                class="image-frame"
+                (click)="onSelectImage(ii, gi)">
+                <img [src]="image.imagePath"
+                  [alt]="image.gallery"
+                  class="gallery-image">
+              </div>
+            </ng-container>
+          </div>
+          <br>
+          <br>
         </div>
 
-
         <!-- Swipper Modal -->
-        <div 
-          class="gallery-modal" 
-          *ngIf="isGalleryModalOpen" 
+        <div class="gallery-modal"
+          *ngIf="isGalleryModalOpen"
           (keydown.esc)="OnCloseGallery()"
           (click)="OnCloseGallery()">
 
-          <span class="close-modal" (click)="OnCloseGallery()">
+          <span class="close-modal"
+            (click)="OnCloseGallery()">
             x
           </span>
-          
-          <div 
-            class="box-container"
+
+          <div class="box-container"
             (click)="$event.stopPropagation()">
             <div class="content-container">
-              <swiper 
-                class="swiper-container"
+              <swiper class="swiper-container"
                 [config]="config"
                 [(index)]="selectedImageIndex">
-                <div *ngFor="let slide of filteredArray" class="swiper-slide">
-                  <img [src]="slide.imagePath" alt="image modal">
+                <div *ngFor="let slide of filteredArray"
+                  class="swiper-slide">
+                  <img [src]="slide.imagePath"
+                    alt="image modal">
                 </div>
               </swiper>
             </div>
           </div>
-      </div>
-    </div>
-    
-    <!-- Side Menu -->
-    <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
-        <px-sidemenu></px-sidemenu>
-    </div>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="Video">
+        <div class="youtube-wrapper">
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/9cyl8jmadzA"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/-tUBLI0q09A"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/vVm-fMD1wQo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/d3OQ97SWCjE"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/EmSR5zRaNlA"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+
+          <iframe width="560"
+            height="315"
+            src="https://www.youtube.com/embed/xQYEGNoLD34"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+
+  <!-- Side Menu -->
+  <div class="col-sm-12 col-md-4 col-lg-3 sidemenu">
+    <px-sidemenu></px-sidemenu>
+  </div>
 </div>
-    

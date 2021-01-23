@@ -1,39 +1,6 @@
 @import "src/px-material-theme.scss";
 
-.gallery-title {
-  max-width: 90vw;
-  margin-left: 5vw;
-  margin-top: 20px;
-  color: $px-material-dark;
-  border-bottom: 2px solid $px-material-primary;
-  text-transform: uppercase;
-}
-
-.gallery-wrapper {
-  padding: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow-x: auto;
-  max-width: 90vw;
-  margin-left: 5vw;
-}
-
-.image-frame {
-  padding: 0;
-  height: 100px;
-  margin: 10px;
-}
-
-img.gallery-image {
-  height: 100px;
-  cursor: pointer;
-  &:hover {
-    filter: grayscale(0.5);
-    transition: filter 0.7s ease-in-out;
-  }
-}
-
+/* MODAL */
 div.gallery-modal {
   position: fixed;
   top: 0;
@@ -184,4 +151,81 @@ swiper img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+/* HORIZONTAL */
+.galleries {
+  position: relative;
+  height: 300px;
+  --parentWidth: calc(70vw);
+  @media (max-width: 1000px) {
+    --parentWidth: calc(60vw);
+  }
+  @media (max-width: 770px) {
+    --parentWidth: calc(90vw);
+  }
+  width: var(--parentWidth);
+  margin: 0 20px;
+}
+
+.gallery-title {
+  max-width: 90vw;
+  margin-top: 20px;
+  color: $px-material-accent;
+  border-bottom: 2px solid $px-material-accent;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+img.gallery-image {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  object-position: top;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-button {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+}
+
+.horizontal-scroll-wrapper {
+  position: absolute;
+  display: block;
+  top: 40px;
+  left: 0;
+  width: calc(210px + 1px);
+  max-height: var(--parentWidth);
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: rotate(-90deg) translateY(-210px);
+  transform-origin: right top;
+  padding: 195px 0 0 0;
+}
+
+.horizontal-scroll-wrapper .image-frame {
+  width: 210px;
+  height: 210px;
+  margin: 10px 0;
+  display: block;
+  padding: 5px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transform-origin: right top;
+  transform-origin: right top;
+}
+
+/* Youtube videos */
+.youtube-wrapper {
+  iframe {
+    margin: 20px;
+    max-width: 90vw;
+  }
 }
