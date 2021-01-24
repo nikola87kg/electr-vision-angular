@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
+import { CartService } from './_services/cart.service';
 import { CategoriesService } from './_services/categories.service';
 import { ProductsService } from './_services/products.service';
 import { SharedService } from './_services/shared.service';
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
         private router: Router,
         public dialog: MatDialog,
         private productService: ProductsService,
+        private cartService: CartService,
         public categoryService: CategoriesService,
         public sharedService: SharedService
     ) { }
@@ -55,9 +57,9 @@ export class AppComponent implements OnInit {
     }
 
     getAllProducts(): void {
-        this.productService.getFixed().subscribe((response) => {
-            console.log('getFixed: ', response);
-            this.sharedService.productList$$.next(response);
+        this.productService.getFixed().subscribe((products) => {
+            this.sharedService.productList$$.next(products);
+            this.cartService.getCartProducts(products);
         });
     }
 

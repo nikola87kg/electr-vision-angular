@@ -1,42 +1,50 @@
 <!-- NAVIGATION -->
-<div class="navigation" style="overflow: hidden;  max-width: 100vw">
+<div class="navigation"
+    style="overflow: hidden;  max-width: 100vw">
 
     <!-- Menu items -->
     <ng-container *ngFor="let item of navItems">
-        <button
-            class="nav-button"
+        <button class="nav-button"
             *ngIf="(item.id * 130 + 45) < actualWidth"
             mat-button
             [routerLink]="item.link"
             (pxMiddleClick)="openNewTab(item.link)"
             routerLinkActive="nav-active">
-            <mat-icon >{{item.icon}}</mat-icon>
+            <mat-icon>{{item.icon}}</mat-icon>
             {{item.name}}
         </button>
     </ng-container>
-    
-    <!-- Login & Logout -->
-    <button 
+    <button class="nav-button"
+        *ngIf="(9 * 130 + 45) < actualWidth"
         mat-button
+        routerLink="/korpa"
+        (pxMiddleClick)="openNewTab('/korpa')"
+        routerLinkActive="nav-active">
+        <mat-icon>shopping_cart</mat-icon>
+        <span [matBadge]="cartService.cartCount$$ | async"
+            matBadgeSize="small"
+            matBadgeOverlap="false">Korpa</span>
+    </button>
+
+    <!-- Login & Logout -->
+    <button mat-button
         class="nav-button login"
-        *ngIf="!isLogged && !isMenuIconVisible" 
+        *ngIf="!isLogged && !isMenuIconVisible"
         (click)="toggleAuthDialog('login', true)">
-        <mat-icon >supervisor_account</mat-icon>
+        <mat-icon>supervisor_account</mat-icon>
         Login
     </button>
 
-    <button 
-        mat-button
+    <button mat-button
         class="nav-button login"
-        *ngIf="isLogged && !isMenuIconVisible" 
+        *ngIf="isLogged && !isMenuIconVisible"
         (click)="logoutUser()">
         <mat-icon>exit_to_app</mat-icon>
         Logout
     </button>
 
     <!-- Submenu button -->
-    <button
-        mat-icon-button
+    <button mat-icon-button
         [matMenuTriggerFor]="menu"
         class="menu"
         *ngIf="isMenuIconVisible"
@@ -45,27 +53,32 @@
     </button>
 
     <!-- Submenu items -->
-    <mat-menu #menu="matMenu" class="menu">
+    <mat-menu #menu="matMenu"
+        class="menu">
         <ng-container *ngFor="let item of navItems">
-            <button
-                *ngIf="(item.id * 130 + 45) >= actualWidth"
+            <button *ngIf="(item.id * 130 + 45) >= actualWidth"
                 mat-menu-item
                 [routerLink]="item.link"
-                routerLinkActive="nav-active" >
+                routerLinkActive="nav-active">
                 <mat-icon>{{item.icon}}</mat-icon>
                 <span>{{item.name}}</span>
             </button>
         </ng-container>
-        <!-- Login & Logout -->
-        <button 
+        <button *ngIf="(9 * 130 + 45) >= actualWidth"
             mat-menu-item
-            *ngIf="!isLogged && isMenuIconVisible" 
-            (click)="toggleAuthDialog('login', true)">
-            <mat-icon >supervisor_account</mat-icon>Login
+            routerLink="/korpa"
+            routerLinkActive="nav-active">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Korpa</span>
         </button>
-        <button 
-            mat-menu-item
-            *ngIf="isLogged && isMenuIconVisible" 
+        <!-- Login & Logout -->
+        <button mat-menu-item
+            *ngIf="!isLogged && isMenuIconVisible"
+            (click)="toggleAuthDialog('login', true)">
+            <mat-icon>supervisor_account</mat-icon>Login
+        </button>
+        <button mat-menu-item
+            *ngIf="isLogged && isMenuIconVisible"
             (click)="logoutUser()">
             <mat-icon>exit_to_app</mat-icon>Logout
         </button>
@@ -73,20 +86,17 @@
 </div>
 
 <!-- AUTH DIALOG -->
-<div 
-    class="fixed dialog-wrapper" 
-    *ngIf="isAuthDialogOpen" 
+<div class="fixed dialog-wrapper"
+    *ngIf="isAuthDialogOpen"
     (click)="toggleAuthDialog(); authForm.form.reset();">
-    <form 
-        class="form-dialog" 
-        (click)="$event.stopPropagation()" 
-        #authForm = "ngForm" >
+    <form class="form-dialog"
+        (click)="$event.stopPropagation()"
+        #authForm="ngForm">
         <!-- header -->
         <div class="dialog-header">
             <span class="dialog-header-title"> {{dialogTitle}} </span>
-            <button 
-                type="button" 
-                class="cancel-x btn btn-link" 
+            <button type="button"
+                class="cancel-x btn btn-link"
                 (click)="toggleAuthDialog()">
                 <fa-icon [icon]="faTimes"></fa-icon>
             </button>
@@ -94,83 +104,84 @@
         <br>
 
         <!-- Switch buttons -->
-        <button 
-            mat-raised-button 
-            type="button" 
-            color="warn" 
-            style="float: right" 
-            *ngIf="authType === 'login'" 
+        <button mat-raised-button
+            type="button"
+            color="warn"
+            style="float: right"
+            *ngIf="authType === 'login'"
             (click)="toggleAuthDialog('register', true)">
             Idi na registraciju
         </button>
-        <button 
-            mat-raised-button 
-            type="button" 
-            color="primary" 
-            style="float: right" 
-            *ngIf="authType === 'register'" 
+        <button mat-raised-button
+            type="button"
+            color="primary"
+            style="float: right"
+            *ngIf="authType === 'register'"
             (click)="toggleAuthDialog('login', true)">
             Idi na login
         </button>
 
         <!-- USERNAME -->
-        <span  *ngIf="authType === 'register'">
-            <mat-form-field >
-                <input 
-                    type="text" 
-                    placeholder="Korisničko ime" 
-                    matInput 
-                    [(ngModel)]="user.username" 
+        <span *ngIf="authType === 'register'">
+            <mat-form-field>
+                <input type="text"
+                    placeholder="Korisničko ime"
+                    matInput
+                    [(ngModel)]="user.username"
                     name="username"
                     #username="ngModel"
                     minlength="3"
                     required>
             </mat-form-field>
-            
-            <p class="error-message" *ngIf="username.errors?.required && submitted"> 
+
+            <p class="error-message"
+                *ngIf="username.errors?.required && submitted">
                 * Korisničko ime je obavezno polje
             </p>
-            <p class="error-message" *ngIf="username.errors?.minlength && submitted"> 
-                * Korisničko ime mora imati minimum 3 karaktera 
+            <p class="error-message"
+                *ngIf="username.errors?.minlength && submitted">
+                * Korisničko ime mora imati minimum 3 karaktera
             </p>
-            <p class="error-message" *ngIf="serverError.username"> 
-                    {{serverError.username}}
+            <p class="error-message"
+                *ngIf="serverError.username">
+                {{serverError.username}}
             </p>
         </span>
-            
+
         <!-- EMAIL -->
         <span>
             <mat-form-field>
-                <input 
-                    type="email" 
-                    placeholder="Email" 
-                    email 
-                    matInput 
-                    [(ngModel)]="user.email" 
+                <input type="email"
+                    placeholder="Email"
+                    email
+                    matInput
+                    [(ngModel)]="user.email"
                     name="email"
                     #email="ngModel"
                     required>
             </mat-form-field>
 
-            <p class="error-message" *ngIf="email.errors?.required && submitted"> 
-                * Email je obavezno polje 
+            <p class="error-message"
+                *ngIf="email.errors?.required && submitted">
+                * Email je obavezno polje
             </p>
-            <p class="error-message" *ngIf="!email.errors?.required && email.invalid && submitted"> 
-                * Email nije validan 
+            <p class="error-message"
+                *ngIf="!email.errors?.required && email.invalid && submitted">
+                * Email nije validan
             </p>
-            <p class="error-message" *ngIf="serverError.email"> 
-                    {{serverError.email}}
+            <p class="error-message"
+                *ngIf="serverError.email">
+                {{serverError.email}}
             </p>
-        </span >
-        
+        </span>
+
         <!-- PASSWORD -->
         <span>
             <mat-form-field>
-                <input 
-                    type="password" 
-                    placeholder="Lozinka" 
-                    matInput 
-                    [(ngModel)]="user.password" 
+                <input type="password"
+                    placeholder="Lozinka"
+                    matInput
+                    [(ngModel)]="user.password"
                     (keyup.enter)="authType === 'login' ? 
                             onLogin(authForm.form.valid ? authForm.value: '')  : 'return false' "
                     name="password"
@@ -178,60 +189,60 @@
                     minlength="6"
                     required>
             </mat-form-field>
-            <p class="error-message" *ngIf="password.errors?.required && submitted"> 
-                * Lozinka je obavezno polje 
+            <p class="error-message"
+                *ngIf="password.errors?.required && submitted">
+                * Lozinka je obavezno polje
             </p>
-            <p class="error-message" *ngIf="password.errors?.minlength && submitted"> 
-                * Lozinka mora imati minimum 6 karaktera 
+            <p class="error-message"
+                *ngIf="password.errors?.minlength && submitted">
+                * Lozinka mora imati minimum 6 karaktera
             </p>
-            <p class="error-message" *ngIf="serverError.login"> 
-                    {{serverError.login}}
+            <p class="error-message"
+                *ngIf="serverError.login">
+                {{serverError.login}}
             </p>
         </span>
-        
+
         <!-- REPEAT PASSWORD -->
-        <span   *ngIf="authType === 'register'">
-            <mat-form-field >
-                <input 
-                    type="password" 
-                    placeholder="Ponovi lozinku" 
-                    matInput 
-                    [(ngModel)]="user.confirm"  
+        <span *ngIf="authType === 'register'">
+            <mat-form-field>
+                <input type="password"
+                    placeholder="Ponovi lozinku"
+                    matInput
+                    [(ngModel)]="user.confirm"
                     name="confirm"
                     #confirm="ngModel"
                     validateEqual="password"
-                    (focus)="confirmTyping === true" 
+                    (focus)="confirmTyping === true"
                     required>
             </mat-form-field>
-            <p class="error-message" *ngIf="!confirmTyping && mismatchError"> 
+            <p class="error-message"
+                *ngIf="!confirmTyping && mismatchError">
                 {{mismatchError}}
             </p>
         </span>
 
 
-        <br> 
+        <br>
 
         <!-- Footer -->
         <div class="dialog-footer">
             <mat-button-toggle-group #group="matButtonToggleGroup">
 
-                <mat-button-toggle
-                    *ngIf="authType === 'register'"
+                <mat-button-toggle *ngIf="authType === 'register'"
                     class="save-item wider"
-                    (click)="submitted = true; onRegister( authForm.form.valid ? authForm.value : '')" >
+                    (click)="submitted = true; onRegister( authForm.form.valid ? authForm.value : '')">
                     Registruj se
                 </mat-button-toggle>
 
-                <mat-button-toggle 
-                    *ngIf="authType === 'login'"
+                <mat-button-toggle *ngIf="authType === 'login'"
                     class="save-item wider"
-                    (click)="submitted = true; onLogin(authForm.form.valid ? authForm.value: '')" >
+                    (click)="submitted = true; onLogin(authForm.form.valid ? authForm.value: '')">
                     Uloguj se
                 </mat-button-toggle>
 
-                <mat-button-toggle 
-                    class="cancel-item" 
-                    (click)="submitted = false; authForm.form.reset(); toggleAuthDialog()" >
+                <mat-button-toggle class="cancel-item"
+                    (click)="submitted = false; authForm.form.reset(); toggleAuthDialog()">
                     Odustani
                 </mat-button-toggle>
 

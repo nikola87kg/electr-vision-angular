@@ -25,25 +25,8 @@ export class CartComponent implements OnInit {
 
   getProducts(): void {
     this.sharedService.productList$$.subscribe(productList => {
-      this.filterProducts(productList);
+      this.productList = this.cartService.getCartProducts(productList);
     });
-  }
-
-  filterProducts(productList): void {
-    const cartString = localStorage.getItem('new-cart');
-    const cartArray = JSON.parse(cartString) || [];
-    if (!productList) {
-      return;
-    }
-    this.productList = productList?.filter(product => {
-      const itemIndex = cartArray.findIndex(e => product._id in e);
-      return itemIndex > -1;
-    });
-    this.productList.map(product => {
-      const cartIndex = cartArray.findIndex(e => product._id in e);
-      product.amount = cartArray[cartIndex][product._id] || 1;
-      return product;
-    })
   }
 
   removeFromCart(id): void {

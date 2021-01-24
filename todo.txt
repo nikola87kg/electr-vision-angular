@@ -10,17 +10,11 @@ DONE
 DONE
 
 4. Proizvodi: 
-- ispred sličice korpe 1, 2, 3 komada
-- cena i detaljnije malo nalevo
 - ispod HIK VISION (sličica)
 - crvena boja umesto plave za kliknute stavke
-+ Dodaj u korpu (puna širina)
  
 5. Korpa: 
-- isprazni korpu gore desno na crvenom
-- ukupna cena VEĆE I BOLDIRANO
-- pošalji naružbinu da bude ispod cene
-- ispred korpe u meniju broj stavki
+DONE
 
 6. KOMPLETI: (stavka u meniju)
 - Alarm (komplet 1, komplet 2)

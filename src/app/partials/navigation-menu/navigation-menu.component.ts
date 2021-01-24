@@ -4,6 +4,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/_services/auth.service';
 import { environment } from 'src/environments/environment';
 import { SharedService } from '../../_services/shared.service';
+import { CartService } from './../../_services/cart.service';
 
 @Component({
     selector: 'px-navigation-menu',
@@ -14,7 +15,7 @@ export class NavigationMenuComponent implements OnInit {
     navItemsVisible = false;
     actualWidth = Math.min(window.innerWidth, screen.width);
     dialogTitle: string;
-    serverError = {username: '', email: '', login: ''};
+    serverError = { username: '', email: '', login: '' };
     mismatchError: string;
     errorMessage: string;
     isLogged: boolean;
@@ -24,7 +25,7 @@ export class NavigationMenuComponent implements OnInit {
     isAuthDialogOpen = false;
     faTimes = faTimes;
 
-    user = {username: '', email: '', password: '', confirm: ''};
+    user = { username: '', email: '', password: '', confirm: '' };
 
     navItems = [
         { id: 1, name: 'Početna', link: '/pocetna', icon: 'home' },
@@ -35,7 +36,6 @@ export class NavigationMenuComponent implements OnInit {
         { id: 6, name: 'Info', link: '/info', icon: 'question_answer' },
         { id: 7, name: 'Kontakt', link: '/kontakt', icon: 'phone' },
         { id: 8, name: 'Servis', link: '/servis', icon: 'build' },
-        { id: 9, name: 'Korpa', link: '/korpa', icon: 'shopping_cart' },
     ];
 
     @HostListener('window:resize', ['$event']) onResize(event): void {
@@ -46,8 +46,10 @@ export class NavigationMenuComponent implements OnInit {
     constructor(
         public sharedService: SharedService,
         public authService: AuthService,
+        public cartService: CartService,
         private router: Router
-    ) {}
+    ) {
+    }
 
 
     ngOnInit(): void {
@@ -69,7 +71,7 @@ export class NavigationMenuComponent implements OnInit {
 
     /* Reg & Login */
 
-    toggleAuthDialog( auth?, state? ): void {
+    toggleAuthDialog(auth?, state?): void {
         this.submitted = false;
         this.dialogTitle = auth === 'login' ? 'Logovanje' : 'Registracija';
         this.authType = auth;
@@ -90,7 +92,7 @@ export class NavigationMenuComponent implements OnInit {
                     password: form.password,
                     email: form.email,
                 };
-                this.authService.registerUser(payload).subscribe( res => {
+                this.authService.registerUser(payload).subscribe(res => {
                     this.toggleAuthDialog();
                     this.checkAuth();
                 }, err => {
@@ -117,7 +119,7 @@ export class NavigationMenuComponent implements OnInit {
                 email: form.email,
                 password: form.password,
             };
-            this.authService.loginUser(payload).subscribe( response => {
+            this.authService.loginUser(payload).subscribe(response => {
                 localStorage.setItem('auth_token', response.token);
                 this.toggleAuthDialog();
                 this.checkAuth();
@@ -126,14 +128,14 @@ export class NavigationMenuComponent implements OnInit {
                 if (err.error) {
                     switch (err.error.error) {
                         case 'password error': this.serverError.login = '* Pogrešna lozinka';
-                                               break;
+                            break;
                         case 'username error': this.serverError.login = '* Ne postoji nalog sa navedenim emailom';
-                                               break;
+                            break;
                         case 'admin error': this.serverError.login = '* Korisnik nema ovlašćenja administratora';
-                                            break;
+                            break;
                     }
                 }
-            } );
+            });
         }
     }
 
