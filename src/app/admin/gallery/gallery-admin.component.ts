@@ -22,10 +22,10 @@ export class GalleryAdminComponent implements OnInit {
         private galleryService: GalleryService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     gallery: GalleryInterface;
-    displayedColumns = [ 'position', 'image', 'name', 'description', 'gallery', 'created' ];
+    displayedColumns = ['position', 'image', 'name', 'description', 'gallery', 'created'];
 
     screenSize;
     galleryList: Array<GalleryInterface>;
@@ -48,7 +48,7 @@ export class GalleryAdminComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getGalleries();
@@ -174,7 +174,7 @@ export class GalleryAdminComponent implements OnInit {
 
     postImage(): void {
         const formData = new FormData();
-        const filename = this.imageFile.name ;
+        const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
 
         const thisGallery = this.galleryList[this.imageindex];
@@ -198,9 +198,9 @@ export class GalleryAdminComponent implements OnInit {
 
     /* Snackbar */
     openSnackBar(object): void {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: object,
+        });
     }
 }

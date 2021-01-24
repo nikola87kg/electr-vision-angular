@@ -23,7 +23,7 @@ export class OrdersAdminComponent implements OnInit {
     ) { }
 
     orderList: Array<OrderInterface> = [];
-    displayedColumns = ['position', 'name', 'phone', 'email', 'address', 'question', 'cart', 'delete'];
+    displayedColumns = ['position', 'name', 'phone', 'email', 'address', 'question', 'new-cart', 'delete'];
 
     screenSize;
     currentIndex: number;
@@ -38,7 +38,7 @@ export class OrdersAdminComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getOrders();

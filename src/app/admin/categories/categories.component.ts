@@ -51,7 +51,7 @@ export class CategoriesComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getCategories();
@@ -172,7 +172,7 @@ export class CategoriesComponent implements OnInit {
 
     /* Get category */
     getCategories(): void {
-        this.sharedService.categoryList.subscribe(response => {
+        this.sharedService.categoryList$$.subscribe(response => {
             if (response) {
                 this.categoryList = response;
                 this.dataSource = new MatTableDataSource(this.categoryList);

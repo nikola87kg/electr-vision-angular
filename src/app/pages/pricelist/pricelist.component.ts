@@ -13,10 +13,10 @@ import { SharedService } from '../../_services/shared.service';
 
 export class PricelistComponent implements OnInit {
 
-    constructor( public title: Title,
-                 public sharedService: SharedService,
-                 public snackBar: MatSnackBar,
-                 public pricelistService: PricelistService
+    constructor(public title: Title,
+        public sharedService: SharedService,
+        public snackBar: MatSnackBar,
+        public pricelistService: PricelistService
     ) {
         title.setTitle('Cenovnik proizvoda i usluga | ElectroVision Kragujevac');
     }
@@ -24,13 +24,13 @@ export class PricelistComponent implements OnInit {
     pricelist: PricelistInterface;
     pricelistList: Array<PricelistInterface>;
     priceGroups: Array<PriceGroupInterface> = [];
-    displayedColumns = [ 'name', 'price' ];
+    displayedColumns = ['name', 'price'];
 
     screenSize;
     dataSource = [];
 
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getPriceGroups();
@@ -44,7 +44,7 @@ export class PricelistComponent implements OnInit {
                     const element: PriceGroupInterface = groups[key];
                     this.dataSource.push(
                         new MatTableDataSource(
-                            response.filter( el =>  el.priceGroup._id === element._id)
+                            response.filter(el => el.priceGroup._id === element._id)
                         )
                     );
                 }

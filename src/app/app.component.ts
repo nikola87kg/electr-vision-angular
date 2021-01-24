@@ -31,10 +31,10 @@ export class AppComponent implements OnInit {
     }
 
     setCart(): void {
-        const cart = localStorage.getItem('cart');
+        const cart = localStorage.getItem('new-cart');
         const cartArray = JSON.parse(cart);
         if (!Array.isArray(cartArray)) {
-            localStorage.setItem('cart', '[]');
+            localStorage.setItem('new-cart', '[]');
         }
     }
 
@@ -55,14 +55,15 @@ export class AppComponent implements OnInit {
     }
 
     getAllProducts(): void {
-        this.productService.get().subscribe((response) => {
-            this.sharedService.productList.next(response);
+        this.productService.getFixed().subscribe((response) => {
+            console.log('getFixed: ', response);
+            this.sharedService.productList$$.next(response);
         });
     }
 
     getAllCategories(): void {
         this.categoryService.get().subscribe((response) => {
-            this.sharedService.categoryList.next(response);
+            this.sharedService.categoryList$$.next(response);
         });
     }
 

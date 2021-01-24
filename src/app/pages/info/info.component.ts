@@ -10,8 +10,8 @@ import { SharedService } from '../../_services/shared.service';
 
 export class InfoComponent implements OnInit {
 
-    constructor( public title: Title,
-                 public sharedService: SharedService,
+    constructor(public title: Title,
+        public sharedService: SharedService,
     ) {
         title.setTitle('Informacije | ElectroVision Kragujevac');
     }
@@ -21,7 +21,7 @@ export class InfoComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
     }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDialogComponent } from 'src/app/partials/order-dialog/order-dialog.component';
-import { ProductsService } from 'src/app/_services/products.service';
+import { CartService } from './../../_services/cart.service';
+import { SharedService } from './../../_services/shared.service';
 
 @Component({
   selector: 'px-cart',
@@ -14,7 +15,8 @@ export class CartComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private productService: ProductsService
+    private sharedService: SharedService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -22,27 +24,30 @@ export class CartComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.productService.get().subscribe(response => {
-      this.filterProducts(response);
+    this.sharedService.productList$$.subscribe(productList => {
+      this.filterProducts(productList);
     });
   }
 
-  filterProducts(response): void {
-    const cartString = localStorage.getItem('cart');
+  filterProducts(productList): void {
+    const cartString = localStorage.getItem('new-cart');
     const cartArray = JSON.parse(cartString) || [];
-    this.productList = response
-      .filter(product => cartArray.includes(product._id));
-    this.productList.forEach(product => product.amount = '1');
+    if (!productList) {
+      return;
+    }
+    this.productList = productList?.filter(product => {
+      const itemIndex = cartArray.findIndex(e => product._id in e);
+      return itemIndex > -1;
+    });
+    this.productList.map(product => {
+      const cartIndex = cartArray.findIndex(e => product._id in e);
+      product.amount = cartArray[cartIndex][product._id] || 1;
+      return product;
+    })
   }
 
   removeFromCart(id): void {
-    const cartString = localStorage.getItem('cart');
-    const cartArray: Array<any> = JSON.parse(cartString) || [];
-    if (cartArray.includes(id)) {
-      const ind = cartArray.indexOf(id);
-      cartArray.splice(ind, 1);
-      localStorage.setItem('cart', JSON.stringify(cartArray));
-    }
+    this.cartService.removeFromCart(id);
     this.productList = this.productList
       .filter(product => product._id !== id);
   }
@@ -61,7 +66,7 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    localStorage.clear();
+    this.cartService.clearCart();
     this.productList = [];
   }
 
@@ -94,7 +99,7 @@ export class CartComponent implements OnInit {
 
   getTotalPrice(): string {
     let totalPrice = 0;
-    this.productList.forEach( (product) => {
+    this.productList?.forEach((product) => {
       let productTotal = (product.amount * this.rawPriceToNumber(product.price));
       if (Number.isNaN(productTotal)) {
         productTotal = 0;

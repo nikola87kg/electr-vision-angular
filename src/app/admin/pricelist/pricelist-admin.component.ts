@@ -22,13 +22,13 @@ export class PricelistAdminComponent implements OnInit {
         private pricelistService: PricelistService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     faTimes = faTimes;
 
     pricelist: PricelistInterface;
     pricelistList: Array<PricelistInterface>;
-    displayedColumns = [ 'position', 'name', 'priceGroup', 'price' ];
+    displayedColumns = ['position', 'name', 'priceGroup', 'price'];
     priceGroups: PriceGroupInterface[] = [];
 
     screenSize;
@@ -44,7 +44,7 @@ export class PricelistAdminComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.fillPriceGroups();
@@ -152,9 +152,9 @@ export class PricelistAdminComponent implements OnInit {
 
     /* Snackbar */
     openSnackBar(object): void {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: object,
+        });
     }
 }

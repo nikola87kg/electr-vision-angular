@@ -17,11 +17,11 @@
     <!-- Cart -->
     <div class="cart-wrapper">
 
-      <div class="product-row" *ngFor="let product of productList">
+      <div class="product-row"
+        *ngFor="let product of productList">
 
-         <!-- Remove -->
-        <button 
-          class="remove-button"
+        <!-- Remove -->
+        <button class="remove-button"
           mat-button
           (click)="removeFromCart(product._id)">
           Ukloni
@@ -29,20 +29,19 @@
 
         <!-- Image -->
         <img class="product-image"
-             *ngIf="product.image"
-             [src]="product.image"
-             [alt]="product.name" />
+          *ngIf="product.image"
+          [src]="product.image"
+          [alt]="product.name" />
         <div class="product-info">
 
           <!-- Name -->
           <h3>{{product.name}}</h3>
-          
-           <!-- Price -->
-          <input 
-            class="amount-field"
+
+          <!-- Price -->
+          <input class="amount-field"
             type="number"
             min="1"
-            [(ngModel)]="product.amount"/>
+            [(ngModel)]="product.amount" />
           × <p class="single-price">{{showSinglePrice(product.price)}}</p>
           = <p class="full-price">{{calculatePrice(product.amount, product.price)}}</p>
 
@@ -55,21 +54,21 @@
       Ukupno: {{getTotalPrice()}}
     </h3>
     <button class="order-button"
-            *ngIf="productList.length > 0"
-            (click)="sendOrder()"
-            mat-raised-button
-            color="primary">Pošalji narudžbinu
+      *ngIf="productList?.length"
+      (click)="sendOrder()"
+      mat-raised-button
+      color="primary">Pošalji narudžbinu
     </button>
     <button class="clear-button"
-            *ngIf="productList.length > 0"
-            (click)="clearCart()"
-            mat-raised-button
-            color="warn">Isprazni korpu
+      *ngIf="productList?.length"
+      (click)="clearCart()"
+      mat-raised-button
+      color="warn">Isprazni korpu
     </button>
 
     <!-- Empty cart -->
     <div class="empty-cart-message"
-         *ngIf="productList.length === 0">
+      *ngIf="productList?.length === 0">
       Trenutno nemate proizvode u korpi
     </div>
 

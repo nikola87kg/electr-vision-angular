@@ -6,27 +6,27 @@
 <px-navigation-menu></px-navigation-menu>
 
 <!-- Main product -->
-<div class="row" *ngIf="product">
+<div class="row"
+  *ngIf="product">
 
   <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
     <!-- Main Image -->
     <img class="main-image"
-         [src]="product.image"
-         [alt]="product.image"
-         (click)="zoomImage(product.image)">
+      [src]="product.image"
+      [alt]="product.image"
+      (click)="zoomImage(product.image)">
 
   </div>
-  
 
 
   <div class="product-info col-sm-12 col-md-6 col-lg-7">
 
     <!-- Brand image -->
-    <h6 
-      class="brand-image"
+    <h6 class="brand-image"
       *ngIf="product?.brand && product?.brand.image"
       (click)="goToBrand(product.brand.slug)">
-      <img [src]="product.brand.image" height="40" />
+      <img [src]="product.brand.image"
+        height="40" />
     </h6>
 
     <!-- breadcrumb -->
@@ -46,19 +46,25 @@
     <h1 class="product-name">{{product.name}} </h1>
 
     <!-- catalog number -->
-    <h6 class="catalog" *ngIf="product?.catalog">
+    <h6 class="catalog"
+      *ngIf="product?.catalog">
       Kataloški broj:
       <span> {{product.catalog}}</span>
     </h6>
-    
+
     <!-- Price & Cart -->
     <div class="product-price">
       <ng-container *ngIf="product?.price">
-        {{product.price}}
-        <button mat-raised-button
-                color="primary"
-                (click)="addToCart(product._id)"
-                class="cart-button">
+        <span class="price-text">{{product.price}}</span>
+        <button mat-stroked-button
+          disableRipple
+          class="add-to-cart"
+          (click)="addToCart(product._id, count.value)">
+          <input type="number"
+            class="add-to-cart-input"
+            #count
+            (click)="$event.stopPropagation()"
+            value="1">
           <mat-icon>shopping_cart</mat-icon>
           Dodaj u korpu
         </button>
@@ -70,7 +76,7 @@
 
     <!-- description -->
     <h4 class="description"
-        *ngIf="product?.description">
+      *ngIf="product?.description">
       {{product.description}} </h4>
 
   </div>
@@ -83,23 +89,23 @@
 
 <!-- Similar products -->
 <div class="row"
-     *ngIf="productList && productList.length != 0">
+  *ngIf="productList && productList.length != 0">
   <div class="col-sm-12 product-gallery">
     <h2> Slični proizvodi </h2>
     <div class="similar-product-wrapper">
       <div class="product-single"
-           *ngFor="let prod of productList; let i = index"
-           (click)="goToProduct(prod.slug)">
+        *ngFor="let prod of productList; let i = index"
+        (click)="goToProduct(prod.slug)">
         <div class="col-sm-12">
           <h5> {{prod.name}} </h5>
         </div>
         <div class="col-sm-12 similar-image-wrapper">
           <img *ngIf="prod.image"
-               [src]="prod.image"
-               [alt]="prod.image">
+            [src]="prod.image"
+            [alt]="prod.image">
         </div>
         <div class="col-sm-12 price-box">
-          <h6> {{prod.price  || 'nema cene'}} </h6>
+          <h6> {{prod.price || 'nema cene'}} </h6>
         </div>
       </div>
     </div>
@@ -108,8 +114,8 @@
 
 <!-- Full Page Image -->
 <div class="full-page-image"
-     *ngIf="isFullPage"
-     (click)="zoomImage()">
+  *ngIf="isFullPage"
+  (click)="zoomImage()">
   <img [src]="fullPageImage"
-       [alt]="fullPageImage">
+    [alt]="fullPageImage">
 </div>

@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
-import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
 import { SeoService } from '../_services/seo.service';
 /* Services */
 import { SharedService } from '../_services/shared.service';
 import { SlidesService } from '../_services/slides.service';
+import { CartService } from './../_services/cart.service';
 
 
 @Component({
@@ -65,6 +65,7 @@ export class HomepageComponent implements OnInit {
     constructor(
         public sharedService: SharedService,
         public slideService: SlidesService,
+        private cartService: CartService,
         private router: Router,
         private seo: SeoService,
         public snackBar: MatSnackBar,
@@ -84,7 +85,7 @@ export class HomepageComponent implements OnInit {
 
         /* Screen Service */
 
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
 
@@ -107,13 +108,13 @@ export class HomepageComponent implements OnInit {
         } else {
             this.maxItems = 4;
         }
-        this.sharedService.screenSize.next(this.screenSize);
+        this.sharedService.screenSize$$.next(this.screenSize);
     }
 
 
     /* Get products + filter */
     getProducts(): void {
-        this.sharedService.productList.subscribe(productsResponse => {
+        this.sharedService.productList$$.subscribe(productsResponse => {
             if (productsResponse) {
                 this.vipProducts = productsResponse.filter(item => item.vip);
                 this.vipProductsVisible = this.vipProducts.slice(0, this.maxItems);
@@ -167,25 +168,10 @@ export class HomepageComponent implements OnInit {
         }
     }
 
-    addToCart(id, e): void {
+    addToCart(e, id): void {
+        console.log('id: ', id);
         e.stopPropagation();
-        const cartString = localStorage.getItem('cart');
-        const cartArray = JSON.parse(cartString) || [];
-        if (id && cartArray && !cartArray.includes(id)) {
-            cartArray.push(id);
-            localStorage.setItem('cart', JSON.stringify(cartArray));
-            this.openSnackBar({ action: 'cart', type: 'new' });
-        } else {
-            this.openSnackBar({ action: 'cart', type: 'exist' });
-        }
-    }
-
-    /* Snackbar */
-    openSnackBar(object): void {
-        this.snackBar.openFromComponent(SnackbarComponent, {
-            duration: 3000,
-            data: object,
-        });
+        this.cartService.addToCart(id, 1);
     }
 
 }

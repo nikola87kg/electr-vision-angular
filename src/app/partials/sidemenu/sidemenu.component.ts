@@ -24,7 +24,7 @@ export class SidemenuComponent implements OnInit {
 
     /* GET Categories */
     getCategories(): void {
-        this.sharedService.categoryList.subscribe(response => {
+        this.sharedService.categoryList$$.subscribe(response => {
             if (response) {
                 this.categoryList = response;
             } else {

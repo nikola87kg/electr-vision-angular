@@ -7,14 +7,12 @@ DONE
 DONE
 
 3. Kontakt: 
-DONEf
+DONE
 
 4. Proizvodi: 
 - ispred sličice korpe 1, 2, 3 komada
 - cena i detaljnije malo nalevo
 - ispod HIK VISION (sličica)
-- izaberi brend (samo za podsekciju koji postoje)
-- sort po cenama (od najjeftinijeg ka najskupljem i obrnuto)
 - crvena boja umesto plave za kliknute stavke
 + Dodaj u korpu (puna širina)
  

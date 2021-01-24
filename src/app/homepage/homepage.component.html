@@ -1,9 +1,16 @@
 <div id="homepage">
 
-  <ngu-carousel #myCarousel *ngIf="banners.length" class="px-carousel" [inputs]="carouselConfig" [dataSource]="banners">
+  <ngu-carousel #myCarousel
+    *ngIf="banners.length"
+    class="px-carousel"
+    [inputs]="carouselConfig"
+    [dataSource]="banners">
     <!-- Images -->
-    <div *nguCarouselDef="let item; let i = index" class="item">
-      <img class="item-image" [src]="item.image" [alt]="item.title">
+    <div *nguCarouselDef="let item; let i = index"
+      class="item">
+      <img class="item-image"
+        [src]="item.image"
+        [alt]="item.title">
       <h3>{{item.title}}</h3>
       <p>{{item.subtitle}}</p>
     </div>
@@ -21,35 +28,46 @@
       <px-brand-roller></px-brand-roller>
       <div class="top-product-wrapper">
         <!-- headline -->
-        <h4 class="breaking-news" *ngIf="vipProductsVisible.length">
-          
-         <fa-icon
-         [icon]="faMapMarker"
-         class="up-down mr5 ml5">
-      </fa-icon>
+        <h4 class="breaking-news"
+          *ngIf="vipProductsVisible.length">
+
+          <fa-icon [icon]="faMapMarker"
+            class="up-down mr5 ml5">
+          </fa-icon>
           Preporučujemo
         </h4>
         <!-- list -->
         <div class="row">
           <ng-container *ngFor="let prod of vipProductsVisible; let i = index ">
 
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 top-product-box" (click)="goToProduct(prod.slug)"
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 top-product-box"
+              (click)="goToProduct(prod.slug)"
               (pxMiddleClick)="goToProduct(prod.slug, true)">
               <div class="wrapper-product">
                 <div class="col-sm-12 product-image-wrapper">
-                  <img *ngIf="prod.image" [src]="prod.image" [alt]="prod.image">
-                  <img *ngIf="!prod.image" src=".\assets\default_images\default-product.jpg" alt="default image">
+                  <img *ngIf="prod.image"
+                    [src]="prod.image"
+                    [alt]="prod.image">
+                  <img *ngIf="!prod.image"
+                    src=".\assets\default_images\default-product.jpg"
+                    alt="default image">
                 </div>
                 <div class="col-sm-12 product-info-wrapper">
                   <h5 class="product-name"> {{prod.name}}
                   </h5>
-                  <h6 class="image" (click)="goToBrand(prod.brand.slug)">
-                    <img [src]="prod.brand?.image" [alt]="prod.brand?.name"> </h6>
-                  <h6 class="text" (click)="goToCategory(prod.category.slug)">
+                  <h6 class="image"
+                    (click)="goToBrand(prod.brand.slug)">
+                    <img [src]="prod.brand?.image"
+                      [alt]="prod.brand?.name">
+                  </h6>
+                  <h6 class="text"
+                    (click)="goToCategory(prod.category.slug)">
                     {{prod.category?.name}} </h6>
-                  <h6 class="text" (click)="goToGroup(prod.group.slug)">
+                  <h6 class="text"
+                    (click)="goToGroup(prod.group.slug)">
                     {{prod.group?.name}} </h6>
-                  <h6 class="text cart" (click)="addToCart(prod._id, $event)">
+                  <h6 class="text cart"
+                    (click)="addToCart($event, prod._id)">
                     <span *ngIf="prod.price"> {{prod.price}} </span>
                     <br>
                     <mat-icon> shopping_cart </mat-icon>

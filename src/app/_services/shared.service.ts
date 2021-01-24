@@ -1,4 +1,4 @@
-import { Injectable, HostListener } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,10 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 
 export class SharedService {
 
-    screenSize = new BehaviorSubject('small');
-    productList = new BehaviorSubject(null);
-    brandList = new BehaviorSubject(null);
-    categoryList = new BehaviorSubject(null);
-    groupList = new BehaviorSubject(null);
+    screenSize$$ = new BehaviorSubject('small');
+    productList$$ = new BehaviorSubject(null);
+    brandList$$ = new BehaviorSubject(null);
+    categoryList$$ = new BehaviorSubject(null);
+    groupList$$ = new BehaviorSubject(null);
 
 }

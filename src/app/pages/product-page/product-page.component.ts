@@ -6,6 +6,7 @@ import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component'
 import { SeoService } from 'src/app/_services/seo.service';
 import { SharedService } from 'src/app/_services/shared.service';
 import { ProductInterface, ProductsService } from '../../_services/products.service';
+import { CartService } from './../../_services/cart.service';
 
 @Component({
   selector: 'px-product-page',
@@ -28,6 +29,7 @@ export class ProductPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductsService,
+    private cartService: CartService,
     private router: Router,
     private seo: SeoService,
     public snackBar: MatSnackBar,
@@ -92,7 +94,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.sharedService.productList.subscribe(result => {
+    this.sharedService.productList$$.subscribe(result => {
       if (result) {
         if (this.product.group != null) {
           const groupId = this.product.group._id;
@@ -113,16 +115,8 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  addToCart(id): void {
-    const cartString = localStorage.getItem('cart');
-    const cartArray = JSON.parse(cartString) || [];
-    if (id && cartArray && !cartArray.includes(id)) {
-      cartArray.push(id);
-      localStorage.setItem('cart', JSON.stringify(cartArray));
-      this.openSnackBar({ action: 'cart', type: 'new' });
-    } else {
-      this.openSnackBar({ action: 'cart', type: 'exist' });
-    }
+  addToCart(id, count): void {
+    this.cartService.addToCart(id, count);
   }
 
   /* Snackbar */

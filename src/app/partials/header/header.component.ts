@@ -36,13 +36,13 @@ export class HeaderComponent implements OnInit {
         } else {
             this.screenSize = 'small';
         }
-        this.sharedService.screenSize.next(this.screenSize);
+        this.sharedService.screenSize$$.next(this.screenSize);
     }
 
     ngOnInit(): void {
         this.getAllProductsAndFilter();
         this.checkWidth();
-        this.sharedService.screenSize.next(this.screenSize);
+        this.sharedService.screenSize$$.next(this.screenSize);
     }
 
     private filterSearchResult(searchInputValue: string): any[] {
@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
     }
 
     getAllProductsAndFilter(): void {
-        this.sharedService.productList.subscribe(result => {
+        this.sharedService.productList$$.subscribe(result => {
             if (result) {
                 this.options = result;
                 this.filteredOptions$ = this.searchInput.valueChanges.pipe(
@@ -84,7 +84,7 @@ export class HeaderComponent implements OnInit {
         } else {
             this.screenSize = 'small';
         }
-        this.sharedService.screenSize.next(this.screenSize);
+        this.sharedService.screenSize$$.next(this.screenSize);
     }
 
 }

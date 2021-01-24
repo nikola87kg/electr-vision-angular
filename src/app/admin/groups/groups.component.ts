@@ -27,10 +27,10 @@ export class GroupsComponent implements OnInit {
         private categoryService: CategoriesService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     subcategory: GroupInterface;
-    displayedColumns = [ 'position', 'image', 'name', 'category', 'created' ];
+    displayedColumns = ['position', 'image', 'name', 'category', 'created'];
 
     screenSize;
     groupList: Array<GroupInterface>;
@@ -55,7 +55,7 @@ export class GroupsComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getGroups();
@@ -135,12 +135,12 @@ export class GroupsComponent implements OnInit {
         group.slug = fixedSlug;
         this.groupService.post(group).subscribe(
             (response) => {
-            this.closeDialog(event);
-            this.getGroups();
-            this.openSnackBar({
-                action: 'create2',
-                type: 'group'
-            });
+                this.closeDialog(event);
+                this.getGroups();
+                this.openSnackBar({
+                    action: 'create2',
+                    type: 'group'
+                });
             }
         );
     }
@@ -215,7 +215,7 @@ export class GroupsComponent implements OnInit {
 
     postImage(): void {
         const formData = new FormData();
-        const filename = this.imageFile.name ;
+        const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
 
         const thisGroup = this.groupList[this.imageindex];
@@ -240,8 +240,8 @@ export class GroupsComponent implements OnInit {
     /* Snackbar */
     openSnackBar(object): void {
         this.snackBar.openFromComponent(SnackbarComponent, {
-          duration: 2000,
-          data: object,
+            duration: 2000,
+            data: object,
         });
-      }
+    }
 }

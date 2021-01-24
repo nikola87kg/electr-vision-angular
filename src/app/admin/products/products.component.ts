@@ -76,7 +76,7 @@ export class ProductsComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             (result => this.screenSize = result)
         );
         this.getGroups();
@@ -146,7 +146,7 @@ export class ProductsComponent implements OnInit {
             description: '',
             category: { _id: '', name: '', slug: '' },
             group: { _id: '', name: '', slug: '' },
-            brand: { _id: '', name: '', slug: '' },
+            brand: { _id: '', name: '', slug: '', image: undefined },
             image: '',
             createdAt: null
         };

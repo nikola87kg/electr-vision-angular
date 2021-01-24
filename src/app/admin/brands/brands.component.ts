@@ -24,10 +24,10 @@ export class BrandsComponent implements OnInit {
         private brandService: BrandsService,
         public sharedService: SharedService,
         public snackBar: MatSnackBar,
-    ) {}
+    ) { }
 
     brand: BrandInterface;
-    displayedColumns = [ 'position', 'image', 'name', 'vip', 'slug', 'created' ];
+    displayedColumns = ['position', 'image', 'name', 'vip', 'slug', 'created'];
 
     screenSize;
     brandList: Array<BrandInterface>;
@@ -50,7 +50,7 @@ export class BrandsComponent implements OnInit {
 
     /* INIT */
     ngOnInit(): void {
-        this.sharedService.screenSize.subscribe(
+        this.sharedService.screenSize$$.subscribe(
             result => this.screenSize = result
         );
         this.getBrands();
@@ -131,7 +131,7 @@ export class BrandsComponent implements OnInit {
             (response) => {
                 this.closeDialog(event);
                 this.getBrands();
-                this.openSnackBar( {action: 'create', type: 'brand'} );
+                this.openSnackBar({ action: 'create', type: 'brand' });
             }
         );
     }
@@ -193,7 +193,7 @@ export class BrandsComponent implements OnInit {
 
     postImage(): void {
         const formData = new FormData();
-        const filename = this.imageFile.name ;
+        const filename = this.imageFile.name;
         formData.append('image', this.imageFile, filename);
 
         const thisBrand = this.brandList[this.imageindex];
@@ -217,9 +217,9 @@ export class BrandsComponent implements OnInit {
 
     /* Snackbar */
     openSnackBar(object): void {
-      this.snackBar.openFromComponent(SnackbarComponent, {
-        duration: 2000,
-        data: object,
-      });
+        this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: object,
+        });
     }
 }
