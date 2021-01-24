@@ -68,11 +68,15 @@ img.product-image {
 }
 
 .order-button {
+  float: right;
   margin: 10px 20px 30px;
 }
 
 .clear-button {
-  margin: 10px 0 30px;
+  font-size: 12px;
+  mat-icon {
+    font-size: 20px;
+  }
 }
 
 .empty-cart-message {

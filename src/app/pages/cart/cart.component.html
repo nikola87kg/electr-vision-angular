@@ -8,9 +8,15 @@
     <!-- Tolbar -->
     <mat-toolbar color="accent">
       <mat-toolbar-row>
-        <span class="toolbar-title">
-          Moja korpa
-        </span>
+        <span class="toolbar-title"> Moja korpa</span>
+        <span class="toolbar-spacer"></span>
+        <button class="clear-button"
+          *ngIf="productList?.length"
+          (click)="clearCart()"
+          mat-stroked-button>
+          <mat-icon>delete_forever</mat-icon>
+          Isprazni korpu
+        </button>
       </mat-toolbar-row>
     </mat-toolbar>
 
@@ -58,12 +64,6 @@
       (click)="sendOrder()"
       mat-raised-button
       color="primary">Pošalji narudžbinu
-    </button>
-    <button class="clear-button"
-      *ngIf="productList?.length"
-      (click)="clearCart()"
-      mat-raised-button
-      color="warn">Isprazni korpu
     </button>
 
     <!-- Empty cart -->
