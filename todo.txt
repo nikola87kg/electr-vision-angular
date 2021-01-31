@@ -8,13 +8,12 @@ DONE
 
 3. Kontakt: 
 DONE
-
-4. Proizvodi: 
-- ispod HIK VISION (sličica)
-- crvena boja umesto plave za kliknute stavke
  
-5. Korpa: 
+4. Korpa: 
 DONE
+
+5. Proizvodi: 
+- ispod HIK VISION (sličica)
 
 6. KOMPLETI: (stavka u meniju)
 - Alarm (komplet 1, komplet 2)
@@ -23,7 +22,4 @@ DONE
 - preuzmi katalog za VideoNadzor, Alarme...
 
 8. SINGLE Proizvod
-- navigacija da ostane gore umesto breadcrumbs
-- sličica malo udesno (levo i desno isti razmak)
-- proširi opis da se desno ravna sa brendom
-- slični proizvodi na scroll levo desno
+DONE

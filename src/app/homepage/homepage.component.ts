@@ -169,7 +169,6 @@ export class HomepageComponent implements OnInit {
     }
 
     addToCart(e, id): void {
-        console.log('id: ', id);
         e.stopPropagation();
         this.cartService.addToCart(id, 1);
     }

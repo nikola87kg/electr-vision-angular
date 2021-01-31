@@ -1,112 +1,125 @@
-<!-- background -->
-<!-- <div class="product-background">
-</div> -->
-
 <!-- Navigation -->
 <px-navigation-menu></px-navigation-menu>
 
-<!-- Main product -->
-<div class="row"
-  *ngIf="product">
+<div class="page-wrapper">
 
-  <div class="product-image col-sm-12 col-md-6 col-lg-3 ">
-    <!-- Main Image -->
-    <img class="main-image"
-      [src]="product.image"
-      [alt]="product.image"
-      (click)="zoomImage(product.image)">
+  <h5 class="breadcrumb"
+    *ngIf="product">
+    <button mat-raised-button
+      (click)="goToCategory(product.category.slug)">
+      {{product.category.name}}
+    </button>
+    <button mat-raised-button
+      (click)="goToGroup(product.group.slug)">
+      {{product.group?.name}}
+    </button>
+    <button mat-raised-button
+      color="accent"
+      (click)="goToBrand(product.group.slug, product.brand.slug)">
+      {{product.brand.name}}
+    </button>
+  </h5>
 
-  </div>
+  <!-- Main product -->
+  <div *ngIf="product"
+    class="product-wrapper"
+    [ngClass]="{'flex-column': screenSize !== 'large'}">
 
-
-  <div class="product-info col-sm-12 col-md-6 col-lg-7">
-
-    <!-- Brand image -->
-    <h6 class="brand-image"
-      *ngIf="product?.brand && product?.brand.image"
-      (click)="goToBrand(product.brand.slug)">
-      <img [src]="product.brand.image"
-        height="40" />
-    </h6>
-
-    <!-- breadcrumb -->
-    <h5 class="breadcrumb">
-      <span (click)="goToCategory(product.category.slug)">
-        {{product.category.name | lowercase}}
-      </span>
-      <fa-icon [icon]="faChevronRight"></fa-icon>
-      <span (click)="goToGroup(product.group.slug)">
-        {{product.group?.name | lowercase}}
-      </span>
-      <fa-icon [icon]="faChevronRight"></fa-icon>
-      <span (click)="goToBrand(product.brand.slug)">
-        {{product.brand.name}} </span>
-    </h5>
-    <!-- Product name -->
-    <h1 class="product-name">{{product.name}} </h1>
-
-    <!-- catalog number -->
-    <h6 class="catalog"
-      *ngIf="product?.catalog">
-      Kataloški broj:
-      <span> {{product.catalog}}</span>
-    </h6>
-
-    <!-- Price & Cart -->
-    <div class="product-price">
-      <ng-container *ngIf="product?.price">
-        <span class="price-text">{{product.price}}</span>
-        <button mat-stroked-button
-          disableRipple
-          class="add-to-cart"
-          (click)="addToCart(product._id, count.value)">
-          <input type="number"
-            class="add-to-cart-input"
-            #count
-            (click)="$event.stopPropagation()"
-            value="1">
-          <mat-icon>shopping_cart</mat-icon>
-          Dodaj u korpu
-        </button>
-      </ng-container>
-      <ng-container *ngIf="!product?.price">
-        Nema cene
-      </ng-container>
+    <!-- 1. Image -->
+    <div class="product-image">
+      <img class="main-image"
+        [src]="product.image"
+        [alt]="product.image"
+        (click)="zoomImage(product.image)">
     </div>
 
-    <!-- description -->
-    <h4 class="description"
-      *ngIf="product?.description">
-      {{product.description}} </h4>
+    <!-- 2. Data -->
+    <div class="product-info">
 
+      <!-- 2.1 Main Row -->
+
+      <div [class]="screenSize !== 'small' ? 'flex-row' : 'flex-column'">
+
+        <div class="flex-column">
+          <!-- Product name -->
+          <h1 class="product-name">{{product.name}} </h1>
+
+          <!-- catalog number -->
+          <h6 class="catalog"
+            *ngIf="product?.catalog">
+            Kataloški broj:
+            <span> {{product.catalog}}</span>
+          </h6>
+
+          <!-- Price & Cart -->
+          <div class="product-price">
+            <ng-container *ngIf="product?.price">
+              <span class="price-text">{{product.price}}</span>
+              <button mat-stroked-button
+                disableRipple
+                class="add-to-cart"
+                (click)="addToCart(product._id, count.value)">
+                <input type="number"
+                  class="add-to-cart-input"
+                  #count
+                  (click)="$event.stopPropagation()"
+                  value="1">
+                <mat-icon>shopping_cart</mat-icon>
+                Dodaj u korpu
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!product?.price">
+              Nema cene
+            </ng-container>
+          </div>
+
+        </div>
+        <div class="toolbar-spacer"> </div>
+
+        <!-- Brand image -->
+        <ng-container *ngIf="product?.brand && product?.brand.image && screenSize === 'large'"
+          (click)="goToBrand(product.group.slug, product.brand.slug)">
+          <img class="brand-image"
+            [src]="product.brand.image"
+            height="40" />
+        </ng-container>
+      </div>
+
+      <!-- description -->
+      <h4 class="description"
+        *ngIf="product?.description">
+        {{product.description}} </h4>
+
+    </div>
   </div>
-</div>
-<br>
+  <br>
 
-<!-- Horizontal line -->
-<hr>
-<br>
+  <!-- Horizontal line -->
+  <hr>
+  <br>
 
-<!-- Similar products -->
-<div class="row"
-  *ngIf="productList && productList.length != 0">
-  <div class="col-sm-12 product-gallery">
+  <!-- Similar products -->
+  <div class="product-gallery"
+    *ngIf="productList?.length">
     <h2> Slični proizvodi </h2>
     <div class="similar-product-wrapper">
-      <div class="product-single"
-        *ngFor="let prod of productList; let i = index"
-        (click)="goToProduct(prod.slug)">
-        <div class="col-sm-12">
-          <h5> {{prod.name}} </h5>
+      <div class="horizontal-scroll-wrapper squares">
+        <div class="product-single"
+          *ngFor="let prod of productList; let i = index"
+          (click)="goToProduct(prod.slug)">
+          <div>
+            <h5> {{prod.name}} </h5>
+          </div>
+          <div class="similar-image-wrapper">
+            <img *ngIf="prod.image"
+              [src]="prod.image"
+              [alt]="prod.image">
+          </div>
+          <div class="price-box">
+            <h6> {{prod.price || 'nema cene'}} </h6>
+          </div>
         </div>
-        <div class="col-sm-12 similar-image-wrapper">
-          <img *ngIf="prod.image"
-            [src]="prod.image"
-            [alt]="prod.image">
-        </div>
-        <div class="col-sm-12 price-box">
-          <h6> {{prod.price || 'nema cene'}} </h6>
-        </div>
+
       </div>
     </div>
   </div>

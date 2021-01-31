@@ -103,11 +103,6 @@ export class GalleryComponent implements OnInit {
         this.isGalleryModalOpen = false;
     }
 
-    onGalleryScroll(event): void {
-        console.log('onGalleryScroll: ', event);
-
-    }
-
     onNextImage(e): void {
         e.stopPropagation();
         if (this.selectedImageIndex === this.filteredArray.length - 1) {

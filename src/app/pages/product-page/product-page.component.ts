@@ -24,6 +24,7 @@ export class ProductPageComponent implements OnInit {
   url: string;
   isFullPage: boolean;
   fullPageImage: string;
+  screenSize: string;
   faChevronRight = faChevronRight;
 
   constructor(
@@ -49,12 +50,17 @@ export class ProductPageComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.sharedService.screenSize$$.subscribe(
+      (result => {
+        this.screenSize = result;
+      })
+    );
   }
 
   /* Navigation */
-  goToBrand(slug): void {
-    this.router.navigate(['/pretraga/kategorije/sve'], {
-      queryParams: { brand: slug }
+  goToBrand(product, brand): void {
+    this.router.navigate([`/pretraga/proizvodi/${product}`], {
+      queryParams: { brand }
     });
   }
   goToProduct(slug): void {

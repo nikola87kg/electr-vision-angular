@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
 
   lastCategory: any;
   lastGroup: any;
-  gridView = false;
+  gridView = true;
 
   backButtontext = 'Nazad';
 

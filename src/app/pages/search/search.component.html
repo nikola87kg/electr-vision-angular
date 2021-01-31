@@ -12,12 +12,12 @@
         {{headline}}
       </span>
       <span class="toolbar-spacer"></span>
-      <button *ngIf="!gridView"
+      <button *ngIf="!gridView && screenSize !== 'small'"
         (click)="setGridView(true);"
         mat-stroked-button>
         <mat-icon>view_module</mat-icon>
       </button>
-      <button *ngIf="gridView"
+      <button *ngIf="gridView && screenSize !== 'small'"
         mat-stroked-button
         (click)="setGridView(false);">
         <mat-icon>list</mat-icon>
@@ -35,14 +35,14 @@
     <div class="step-buttons"
       [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
       <button mat-raised-button
-        [color]=" currentLevel === Levels.category ? 'primary' : '' "
+        [color]=" currentLevel === Levels.category ? 'accent' : '' "
         (click)="goBackToCategoryLevel();">
         Kategorije
       </button>
       <button mat-raised-button
         [disabled]="currentLevel === Levels.category"
         (click)="goBackToGroupLevel();"
-        [color]=" currentLevel === Levels.group ? 'primary' : '' ">
+        [color]=" currentLevel === Levels.group ? 'accent' : '' ">
         <span *ngIf="currentName && currentLevel === Levels.group">{{ currentName }}</span>
         <span *ngIf="currentLevel === Levels.category">Potkategorije</span>
         <span *ngIf="lastCategory && currentLevel === Levels.product">{{ lastCategory.name }}
@@ -50,45 +50,50 @@
       </button>
       <button mat-raised-button
         [disabled]="currentLevel !== Levels.product"
-        [color]=" currentLevel === Levels.product ? 'primary' : '' ">
+        [color]=" currentLevel === Levels.product ? 'accent' : '' ">
         <span *ngIf="currentLevel === Levels.product">{{ currentName }} </span>
         <span *ngIf="currentLevel !== Levels.product">Proizvodi</span>
       </button>
-      <!-- Brand Dropdown -->
-      <mat-form-field class="brand-list-wrapper"
-        appearance="outline"
-        *ngIf="currentLevel === Levels.product">
-        <mat-select placeholder="Svi brendovi"
-          [(ngModel)]="currentBrand">
-          <mat-option [value]=""
-            style="background: lightblue"
-            (click)="filterByBrand()">
-            Svi brendovi
-          </mat-option>
-          <mat-option [value]="brand.slug"
-            *ngFor="let brand of filteredBrandList"
-            (click)="filterByBrand(brand.slug)">
-            {{ brand.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
-      <!-- SortBy Dropdown -->
-      <mat-form-field class="brand-list-wrapper"
-        appearance="outline"
-        *ngIf="currentLevel === Levels.product">
-        <mat-select placeholder="Poređaj proizvode"
-          [(ngModel)]="currentBrand">
-          <mat-option [value]="true"
-            (click)="sortProducts(true)">
-            Po najvećoj ceni
-          </mat-option>
-          <mat-option [value]="true"
-            (click)="sortProducts(false)">
-            Po najnižoj ceni
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="spacer"></div>
+
+      <div class="drop-wrapper">
+        <!-- Brand Dropdown -->
+        <mat-form-field class="brand-list-wrapper"
+          appearance="outline"
+          *ngIf="currentLevel === Levels.product">
+          <mat-select placeholder="Svi brendovi"
+            [(ngModel)]="currentBrand">
+            <mat-option [value]=""
+              style="background: lightblue"
+              (click)="filterByBrand()">
+              Svi brendovi
+            </mat-option>
+            <mat-option [value]="brand.slug"
+              *ngFor="let brand of filteredBrandList"
+              (click)="filterByBrand(brand.slug)">
+              {{ brand.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- SortBy Dropdown -->
+        <mat-form-field class="brand-list-wrapper"
+          appearance="outline"
+          *ngIf="currentLevel === Levels.product">
+          <mat-select placeholder="Poređaj proizvode"
+            [(ngModel)]="currentBrand">
+            <mat-option [value]="true"
+              (click)="sortProducts(true)">
+              Po najvećoj ceni
+            </mat-option>
+            <mat-option [value]="true"
+              (click)="sortProducts(false)">
+              Po najnižoj ceni
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <!-- No content -->
@@ -99,9 +104,10 @@
 
     <!-- Cards -->
     <div class="cards"
-      *ngIf="gridView"
+      *ngIf="gridView || screenSize === 'small'"
       [ngStyle]="{ 'text-align': (screenSize === 'small' ? 'center' : 'left') }">
       <mat-card class="search-card"
+        [ngStyle]="{ 'min-height': (currentLevel === Levels.product ? '350px' : '300px') }"
         *ngFor="let item of currentList | slice: firstItemOnPage : (firstItemOnPage + itemsPerPage); index as index ">
         <!-- Title -->
         <mat-card-title (click)="goForward(item);"> {{ item.name }} </mat-card-title>
@@ -135,32 +141,45 @@
       </mat-card>
     </div>
 
-    <!-- Lista -->
+    <!-- List -->
     <div class="product-list-view"
-      *ngIf="!gridView">
-      <div (click)="goForward(item);"
-        class="product-list-item"
+      *ngIf="!gridView && screenSize !== 'small'">
+      <div class="product-list-item"
         *ngFor="let item of currentList | slice: firstItemOnPage : (firstItemOnPage + itemsPerPage) ">
         <!-- Image -->
-        <div class="image-wrapper">
+        <div class="image-wrapper"
+          (click)="goForward(item);">
           <img mat-card-image
             [src]="item.image">
         </div>
         <div class="product-text">
           <!-- Title -->
-          <h4 class="product-title"> {{ item.name }} </h4>
-          <p class="product-description"> {{ item.description }} </p>
+          <h4 class="product-title"
+            (click)="goForward(item);"> {{ item.name }} </h4>
+          <p class="product-description"
+            (click)="goForward(item);"> {{ item.description }} </p>
+          <br>
+
           <!-- Button -->
-          <div>
-            <button *ngIf="currentLevel === Levels.product"
-              mat-raised-button
-              color="primary"
-              class="cart-button"
-              (click)="addToCart($event, item._id)">
-              <mat-icon>shopping_cart</mat-icon> <span class="item-price"
-                *ngIf="item.price">{{item.price}}</span>
+          <ng-container *ngIf="currentLevel === Levels.product">
+            <button class="item-price"
+              mat-flat-button
+              color="primary">
+              <span>{{item.price || 'nema cene'}}</span>
             </button>
-          </div>
+            <button mat-stroked-button
+              disableRipple
+              class="add-to-cart"
+              (click)="addToCart(item._id, count.value)">
+              <input type="number"
+                class="add-to-cart-input"
+                #count
+                (click)="$event.stopPropagation()"
+                value="1">
+              <mat-icon>shopping_cart</mat-icon>
+              Dodaj u korpu
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>
