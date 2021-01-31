@@ -213,9 +213,9 @@ export class SearchComponent implements OnInit {
       if (brandSlug || this.currentBrand) {
         const brand = brandSlug || this.currentBrand;
         this.sharedService.productList$$.subscribe(res2 => {
-          const filteredProducts = res2 && res2.filter(product => product.brand.slug === brand);
+          const filteredProducts = res2?.filter(product => product.brand.slug === brand);
           const catSlugs = filteredProducts.map(product => product.category.slug);
-          this.currentList = response.filter(cat => catSlugs.includes(cat.slug));
+          this.currentList = response?.filter(cat => catSlugs.includes(cat.slug));
 
         });
       } else {
@@ -233,14 +233,16 @@ export class SearchComponent implements OnInit {
         if (brandSlug || this.currentBrand) {
           const brand = brandSlug || this.currentBrand;
           this.sharedService.productList$$.subscribe(res2 => {
-            const filteredProducts = res2.filter(product => product.brand.slug === brand);
+            const filteredProducts = res2?.filter(product => product.brand.slug === brand);
             const groupSlugs = filteredProducts.map(product => product.group.slug);
+            console.log('getGroups: IF ');
             this.currentList = response
               .filter(group => groupSlugs.includes(group.slug))
               .filter(group => group.category._id === categoryId);
           });
         } else {
-          this.currentList = response.filter(
+          console.log('getGroups: else ');
+          this.currentList = response?.filter(
             group => group.category._id === categoryId
           );
         }
@@ -251,13 +253,16 @@ export class SearchComponent implements OnInit {
         this.groupService.get().subscribe(res2 => {
           if (brandSlug) {
             this.sharedService.productList$$.subscribe(res3 => {
-              const filteredProducts = res3.filter(product => product.brand.slug === brandSlug);
+              const filteredProducts = res3?.filter(product => product.brand.slug === brandSlug);
               const groupSlugs = filteredProducts.map(product => product.group.slug);
-              this.currentList = res2.filter(group => groupSlugs.includes(group.slug));
-              this.currentList = res2.filter(group => group.category._id === categoryId);
+              console.log('getGroups: else3 ');
+              this.currentList = res2?.filter(group => groupSlugs.includes(group.slug));
+              this.currentList = res2?.filter(group => group.category._id === categoryId);
             });
           } else {
-            this.currentList = res2.filter(
+
+            console.log('getGroups: else4 ');
+            this.currentList = res2?.filter(
               group => group.category._id === id
             );
           }
@@ -268,7 +273,8 @@ export class SearchComponent implements OnInit {
 
   getProductsByGroup(groupId: string): void {
     this.sharedService.productList$$.subscribe(response => {
-      this.currentList = response.filter(
+      console.log('getProductsByGroup ');
+      this.currentList = response?.filter(
         product => {
           const brand = this.currentBrand;
           return product.group._id === groupId
@@ -283,7 +289,7 @@ export class SearchComponent implements OnInit {
 
   filterBrands(): void {
     const brandSlugs = [];
-    this.currentList.forEach(product => {
+    this.currentList?.forEach(product => {
       if (!brandSlugs.includes(product.brand.slug)) {
         brandSlugs.push(product.brand.slug);
       }
@@ -299,7 +305,7 @@ export class SearchComponent implements OnInit {
       this.lastCategory = res1.category;
       id = res1._id;
       this.sharedService.productList$$.subscribe(res2 => {
-        this.currentList = res2 && res2.filter(
+        this.currentList = res2?.filter(
           (product) => product.group._id === id
         );
         const pageLength = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
@@ -307,7 +313,7 @@ export class SearchComponent implements OnInit {
         this.filterBrands();
         if (brandSlug) {
           const brand = brandSlug || this.currentBrand;
-          this.currentList = this.currentList.filter(
+          this.currentList = this.currentList?.filter(
             (product) => product.brand.slug === brand
           );
           const pageLength2 = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
