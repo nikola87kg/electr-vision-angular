@@ -1,9 +1,9 @@
 @import "src/px-material-theme.scss";
 
 .page-wrapper {
-  width: 1400px;
-  --parentWidth: 1400px;
-  @media (max-width: 1400px) {
+  --parentWidth: 1200px;
+  width: 1200px;
+  @media (max-width: 1200px) {
     --parentWidth: calc(100vw - 120px);
   }
   @media (max-width: 770px) {
@@ -60,6 +60,7 @@
 /* Image */
 .product-image {
   padding: 0 25px;
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
