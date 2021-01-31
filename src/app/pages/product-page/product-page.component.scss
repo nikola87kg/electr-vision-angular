@@ -94,6 +94,7 @@ img.brand-image {
 
 .product-info {
   padding: 10px 20px;
+  text-align: left;
   display: flex;
   flex-grow: 10;
   flex-direction: column;
@@ -237,7 +238,10 @@ img.brand-image {
   top: 40px;
   left: 0;
   width: calc(210px + 1px);
-  max-height: var(--parentWidth);
+  max-height: calc(var(--parentWidth) - 140px);
+  @media (max-width: 1400px) {
+    max-height: var(--parentWidth);
+  }
   margin: -20px 20px 0 20px;
   overflow-y: auto;
   overflow-x: hidden;

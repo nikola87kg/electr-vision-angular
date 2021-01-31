@@ -68,6 +68,9 @@ export class CartComponent implements OnInit {
   }
 
   rawPriceToNumber(rawPrice: string | number): number {
+    if (!rawPrice) {
+      return 0;
+    }
     const price = rawPrice
       .toString()
       .replace('.', '')
