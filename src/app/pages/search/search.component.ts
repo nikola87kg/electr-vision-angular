@@ -92,7 +92,7 @@ export class SearchComponent implements OnInit {
       this.getGroups();
     } else {
       this.getProducts(null, this.currentBrand);
-      this.itemsPerPage = 6;
+      this.itemsPerPage = 12;
     }
     switch (this.currentLevel) {
       case Levels.category: this.headline = 'Pretraga kategorija'; break;
@@ -179,7 +179,7 @@ export class SearchComponent implements OnInit {
       this.getGroups(item._id);
       return;
     } else if (level === Levels.group) {
-      this.itemsPerPage = 6;
+      this.itemsPerPage = 12;
       this.router.navigate(
         ['/pretraga', Levels.product, item.slug],
         {
@@ -276,7 +276,7 @@ export class SearchComponent implements OnInit {
         }
       );
       this.filterBrands();
-      const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+      const pageLength = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
       this.pages = this.pageArray.slice(0, pageLength);
     });
   }
@@ -302,7 +302,7 @@ export class SearchComponent implements OnInit {
         this.currentList = res2 && res2.filter(
           (product) => product.group._id === id
         );
-        const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+        const pageLength = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
         this.pages = this.pageArray.slice(0, pageLength);
         this.filterBrands();
         if (brandSlug) {
@@ -310,7 +310,7 @@ export class SearchComponent implements OnInit {
           this.currentList = this.currentList.filter(
             (product) => product.brand.slug === brand
           );
-          const pageLength2 = Math.ceil(this.currentList.length / this.itemsPerPage);
+          const pageLength2 = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
           this.pages = this.pageArray.slice(0, pageLength2);
         }
       });
@@ -384,7 +384,7 @@ export class SearchComponent implements OnInit {
   }
 
   subscribeToPageChanges(): void {
-    const pageLength = Math.ceil(this.currentList.length / this.itemsPerPage);
+    const pageLength = this.currentList ? Math.ceil(this.currentList.length / this.itemsPerPage) : 0;
     this.pages = this.pageArray.slice(0, pageLength);
   }
 
