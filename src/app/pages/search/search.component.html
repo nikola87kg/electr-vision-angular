@@ -82,7 +82,7 @@
           appearance="outline"
           *ngIf="currentLevel === Levels.product">
           <mat-select placeholder="Poređaj proizvode"
-            [(ngModel)]="currentBrand">
+            [(ngModel)]="currentSort">
             <mat-option [value]="true"
               (click)="sortProducts(true)">
               Po najvećoj ceni

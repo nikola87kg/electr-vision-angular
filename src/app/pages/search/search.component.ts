@@ -235,13 +235,11 @@ export class SearchComponent implements OnInit {
           this.sharedService.productList$$.subscribe(res2 => {
             const filteredProducts = res2?.filter(product => product.brand.slug === brand);
             const groupSlugs = filteredProducts.map(product => product.group.slug);
-            console.log('getGroups: IF ');
             this.currentList = response
               .filter(group => groupSlugs.includes(group.slug))
               .filter(group => group.category._id === categoryId);
           });
         } else {
-          console.log('getGroups: else ');
           this.currentList = response?.filter(
             group => group.category._id === categoryId
           );
@@ -255,13 +253,11 @@ export class SearchComponent implements OnInit {
             this.sharedService.productList$$.subscribe(res3 => {
               const filteredProducts = res3?.filter(product => product.brand.slug === brandSlug);
               const groupSlugs = filteredProducts.map(product => product.group.slug);
-              console.log('getGroups: else3 ');
               this.currentList = res2?.filter(group => groupSlugs.includes(group.slug));
               this.currentList = res2?.filter(group => group.category._id === categoryId);
             });
           } else {
 
-            console.log('getGroups: else4 ');
             this.currentList = res2?.filter(
               group => group.category._id === id
             );
@@ -273,7 +269,6 @@ export class SearchComponent implements OnInit {
 
   getProductsByGroup(groupId: string): void {
     this.sharedService.productList$$.subscribe(response => {
-      console.log('getProductsByGroup ');
       this.currentList = response?.filter(
         product => {
           const brand = this.currentBrand;
@@ -353,7 +348,7 @@ export class SearchComponent implements OnInit {
   }
 
   sortProducts(highest: boolean): void {
-    this.currentList.sort((next, previous) => {
+    this.currentList?.sort((next, previous) => {
       if (next.fixPrice && !previous.fixPrice) {
         return -1;
       }
