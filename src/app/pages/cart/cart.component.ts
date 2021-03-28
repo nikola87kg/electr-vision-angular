@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import jsPDF from 'jspdf';
+import autoTable, { UserOptions } from 'jspdf-autotable';
 import { OrderDialogComponent } from 'src/app/partials/order-dialog/order-dialog.component';
 import { CartService } from './../../_services/cart.service';
 import { SharedService } from './../../_services/shared.service';
@@ -11,6 +13,7 @@ import { SharedService } from './../../_services/shared.service';
 })
 export class CartComponent implements OnInit {
 
+  @ViewChild('cartTable') cartTable: ElementRef;
   productList = [];
   displayedColumns = [
     'image',
@@ -54,6 +57,34 @@ export class CartComponent implements OnInit {
         this.clearCart();
       }
     });
+  }
+
+
+  exportPDF(): void {
+    const list = this.productList;
+    const doc = new jsPDF();
+    const head = [['Proizvod', 'Kolicina', 'Iznos', 'Ukupno']];
+    const body = this.productList.map(product => {
+      const dataArray = [];
+      dataArray.push(product.name);
+      dataArray.push(this.showSinglePrice(product.price));
+      dataArray.push(product.amount);
+      dataArray.push(this.calculatePrice(product.amount, product.price));
+      return dataArray;
+    });
+    const foot = [['', '', 'Ukupno: ', this.getTotalPrice()]];
+    const tableOptions: UserOptions = { head, body, foot };
+    autoTable(doc, tableOptions);
+    const date = new Date();
+    const dateStr =
+      date.getFullYear() + '-' +
+      ('00' + (date.getMonth() + 1)).slice(-2) + '-' +
+      ('00' + date.getDate()).slice(-2) + '-' +
+      ('00' + date.getHours()).slice(-2) + '-' +
+      ('00' + date.getMinutes()).slice(-2) + '-' +
+      ('00' + date.getSeconds()).slice(-2);
+    console.log('dateStr: ', dateStr);
+    doc.save(`electrovision-${dateStr}.pdf`);
   }
 
   clearCart(): void {

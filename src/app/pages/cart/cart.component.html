@@ -21,7 +21,8 @@
     </mat-toolbar>
 
     <!-- Cart -->
-    <div class="cart-wrapper">
+    <div class="cart-wrapper"
+      #cartTable>
 
       <table class="cart-table"
         mat-table
@@ -110,12 +111,22 @@
     <h3 class="total-price">
       Ukupno: {{getTotalPrice()}}
     </h3>
-    <button class="order-button"
-      *ngIf="productList?.length"
-      (click)="sendOrder()"
-      mat-raised-button
-      color="primary">Pošalji narudžbinu
-    </button>
+    <div class="order">
+      <button class="order-button"
+        *ngIf="productList?.length"
+        (click)="sendOrder()"
+        mat-raised-button
+        color="primary">Pošalji narudžbinu
+      </button>
+    </div>
+    <div class="order">
+      <button class="order-button"
+        *ngIf="productList?.length"
+        (click)="exportPDF()"
+        mat-raised-button
+        color="accent">PDF predračun
+      </button>
+    </div>
 
     <!-- Empty cart -->
     <div class="empty-cart-message"
