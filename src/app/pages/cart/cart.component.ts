@@ -12,6 +12,14 @@ import { SharedService } from './../../_services/shared.service';
 export class CartComponent implements OnInit {
 
   productList = [];
+  displayedColumns = [
+    'image',
+    'name',
+    'price',
+    'amount',
+    'totalPrice',
+    'remove',
+  ];
 
   constructor(
     public dialog: MatDialog,
@@ -58,13 +66,13 @@ export class CartComponent implements OnInit {
     const amount = this.rawPriceToNumber(am) || 1;
     const price = this.rawPriceToNumber(pr) || 0;
     if (price === 0) { return 'nema cene'; }
-    return this.addDotsToPriceNumber(amount * price) + ' dinara';
+    return this.addDotsToPriceNumber(amount * price) + ' RSD';
   }
 
   showSinglePrice(rawPrice): string {
     const price = this.rawPriceToNumber(rawPrice) || 0;
     if (price === 0) { return 'nema cene'; }
-    return this.addDotsToPriceNumber(price) + ' dinara';
+    return this.addDotsToPriceNumber(price) + ' RSD';
   }
 
   rawPriceToNumber(rawPrice: string | number): number {
@@ -75,12 +83,23 @@ export class CartComponent implements OnInit {
       .toString()
       .replace('.', '')
       .replace(',', '')
+      .replace(' ', '')
       .split(' ')[0];
     return parseInt(price, 10) || 0;
   }
 
   addDotsToPriceNumber(price: number): string {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  decreaseAmount(amount): number {
+    const amountNumber = +amount;
+    return amountNumber === 1 ? 1 : amountNumber - 1;
+  }
+
+  increaseAmount(amount): number {
+    const amountNumber = +amount;
+    return amountNumber + 1;
   }
 
   getTotalPrice(): string {
@@ -92,6 +111,6 @@ export class CartComponent implements OnInit {
       }
       totalPrice += productTotal;
     });
-    return this.addDotsToPriceNumber(totalPrice) + ' dinara';
+    return this.addDotsToPriceNumber(totalPrice) + ' RSD';
   }
 }
