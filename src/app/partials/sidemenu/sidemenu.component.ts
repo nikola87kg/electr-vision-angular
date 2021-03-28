@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/_services/shared.service';
+import { facebookLink, gmailLink, instagramLink, youtubeLink } from './../../_services/global-config';
 
 @Component({
     selector: 'px-sidemenu',
@@ -8,6 +9,10 @@ import { SharedService } from 'src/app/_services/shared.service';
     styleUrls: ['./sidemenu.component.scss']
 })
 export class SidemenuComponent implements OnInit {
+    gmailLink = gmailLink;
+    youtubeLink = youtubeLink;
+    instagramLink = instagramLink;
+    facebookLink = facebookLink;
 
     /* State */
     categoryList = [];

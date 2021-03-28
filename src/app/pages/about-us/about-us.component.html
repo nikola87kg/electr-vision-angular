@@ -36,11 +36,38 @@
 				Naša najveća reklama je višegodišnja saradnja sa svim ljudima sa
 				kojima smo imali poslovni kontakt.
 			</p>
+
+			<!-- Reference -->
 			<div class="list">
-				<strong>Reference: </strong>
-				<span>{{joinReferences()}}</span>...
+				Reference:
+				<div class="column">
+					<ul>
+						<li *ngFor="let reference of referenceList | slice:0:9">
+							<span class="tick">✓</span>
+							<span class="text">{{reference}}</span>
+						</li>
+					</ul>
+				</div>
+				<div class="column">
+					<ul>
+						<li *ngFor="let reference of referenceList | slice:9:18">
+							<span class="tick">✓</span>
+							<span class="text">{{reference}}</span>
+						</li>
+					</ul>
+				</div>
+				<div class="column">
+					<ul>
+						<li *ngFor="let reference of referenceList | slice:18:27">
+							<span class="tick">✓</span>
+							<span class="text">{{reference}}</span>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<hr>
+
+			<!-- Brands -->
 			<div class="list center"
 				*ngIf="brands$  | async as brands">
 				<br>

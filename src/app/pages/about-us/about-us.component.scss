@@ -20,15 +20,30 @@
 			height: 50px;
 			margin: 10px 20px;
 		}
+		ul {
+			list-style-type: none;
+			margin-left: 30px;
+		}
 		li {
-			padding: 0px 15px;
-			text-align: justify;
-			font-size: 20px;
-			&:before {
-				content: '✓ ';
+			display: flex;
+			padding: 5px 15px;
+			text-align: start;
+			font-size: 16px;
+			.tick {
+				content: "✓ ";
 				color: rgb(31, 194, 31);
 				margin-right: 10px;
 			}
+		}
+	}
+}
+
+.column {
+	display: table-cell;
+	@media screen and (max-width: 1300px) {
+		display: table;
+		ul {
+			margin: 0;
 		}
 	}
 }

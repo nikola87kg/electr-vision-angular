@@ -20,10 +20,11 @@
 	<div class="contact-wrapper">
 		<div> Radno vreme: <span>8 - 20h</span> </div>
 		<div>
-			<a href="https://mail.google.com/mail/?view=cm&fs=1&to=mihajlo1994kg@gmail.co&su=Electrovision - upit"
+			<a [href]="gmailLink"
 				target="_blank">
 				<span style="color: black">electrovisionkg@gmail.com</span>
-			</a> </div>
+			</a>
+		</div>
 		<div>
 			<!-- <a class="call" href="tel:+381643069592">
 				<span>064 306 95 92</span>
@@ -37,29 +38,28 @@
 		<!-- Social icons -->
 		<div class="header-icons">
 			<a class="facebook"
-				href="https://facebook.com/elektronika.jeremic"
+				[href]="facebookLink"
 				target="_blank">
 				<img src="assets\icons\facebook.png"
 					alt="fb"
 					title="ElectroVision na Facebooku">
 			</a>
 			<a class="instagram"
-				href="https://www.instagram.com/elektronika_jeremic/"
+				[href]="instagramLink"
 				target="_blank">
 				<img src="assets\icons\instagram.png"
 					alt="in"
 					title="ElectroVision na Instragramu">
 			</a>
 			<a class="gmail"
-				href="https://mail.google.com/mail/?view=cm&fs=1&to=mihajlo1994kg@gmail.co&su=Electrovision - upit"
+				[href]="gmailLink"
 				target="_blank">
 				<img src="assets\icons\gmail.png"
 					alt="mail"
 					title="Pošalji mejl">
 			</a>
 			<a class="youtube"
-				href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw"
-				target="_blank">
+				[href]="youtubeLink">
 				<img src="assets\icons\youtube.png"
 					alt="yt"
 					title="ElectroVision na Youtube">

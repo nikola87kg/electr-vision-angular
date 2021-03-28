@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SharedService } from '../../_services/shared.service';
+import { facebookLink, gmailLink, instagramLink, youtubeLink } from './../../_services/global-config';
 
 
 declare var $: any;
@@ -14,13 +15,12 @@ declare var $: any;
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-    constructor(
-        private router: Router,
-        public sharedService: SharedService
-    ) { }
+    gmailLink = gmailLink;
+    youtubeLink = youtubeLink;
+    instagramLink = instagramLink;
+    facebookLink = facebookLink;
 
     showResult = false;
-
     searchInput = new FormControl();
     options = [];
     products = [];
@@ -38,6 +38,12 @@ export class HeaderComponent implements OnInit {
         }
         this.sharedService.screenSize$$.next(this.screenSize);
     }
+
+
+    constructor(
+        private router: Router,
+        public sharedService: SharedService
+    ) { }
 
     ngOnInit(): void {
         this.getAllProductsAndFilter();

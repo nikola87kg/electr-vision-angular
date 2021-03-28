@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SeoService } from 'src/app/_services/seo.service';
 import { SnackbarComponent } from './../../partials/snackbar/snackbar.component';
+import { account, address, email, facebook, instagram, phone, youtube } from './../../_services/global-config';
 import { OrderService } from './../../_services/order.service';
 
 
@@ -28,13 +29,13 @@ export class ContactComponent implements OnInit {
     });
 
     info = [
-        { key: 'Adresa', value: 'Jurija Gagarina 12a, 34000 Kragujevac', icon: 'location_on' },
-        { key: 'Telefon', value: '064 306 95 92', icon: 'call' },
-        { key: 'Email', value: 'electrovisionkg@gmail.com', icon: 'email' },
-        { key: 'Facebook', value: 'facebook.com/elektronika.jeremic', icon: 'facebook' },
-        { key: 'Instagram', value: 'instagram.com/electrovision', icon: 'instagram' },
-        { key: 'Youtube', value: 'youtube.com/electrovision', icon: 'play_circle_filled' },
-        { key: 'Tekući račun', value: '160-5300101513175-83', icon: 'account_balance' },
+        { key: 'Adresa', value: address, icon: 'location_on' },
+        { key: 'Telefon', value: phone, icon: 'call' },
+        { key: 'Email', value: email, icon: 'email' },
+        { key: 'Facebook', value: facebook, icon: 'facebook' },
+        { key: 'Instagram', value: instagram, icon: 'instagram' },
+        { key: 'Youtube', value: youtube, icon: 'play_circle_filled' },
+        { key: 'Tekući račun', value: account, icon: 'account_balance' },
     ];
 
     constructor(

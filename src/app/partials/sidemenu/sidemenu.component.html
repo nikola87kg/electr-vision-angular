@@ -2,33 +2,57 @@
 
 <!-- Social icons -->
 <div class="sidebar-icons">
-    <a class="call" routerLink="/kontakt">
-        <img src=" assets\icons\call.png" alt="call" title="Pozovi">
+    <a class="call"
+        routerLink="/kontakt">
+        <img src=" assets\icons\call.png"
+            alt="call"
+            title="Pozovi">
     </a>
-    <a class="facebook" href="https://facebook.com/elektronika.jeremic" target="_blank">
-        <img src="assets\icons\facebook.png" alt="fb" title="ElectroVision na Facebooku">
-    </a>
-    <a class="instagram" href="https://www.instagram.com/elektronika_jeremic/" target="_blank">
-        <img src="assets\icons\instagram.png" alt="in" title="ElectroVision na Instragramu">
-    </a>
-    <a class="gmail" href="https://mail.google.com/mail/?view=cm&fs=1&to=mihajlo1994kg@gmail.co&su=Electrovision - upit"
+    <a class="facebook"
+        [href]="facebookLink"
         target="_blank">
-        <img src="assets\icons\gmail.png" alt="mail" title="Pošalji mejl">
+        <img src="assets\icons\facebook.png"
+            alt="fb"
+            title="ElectroVision na Facebooku">
     </a>
-    <a class="youtube" href="https://www.youtube.com/channel/UCoObKLXoCaL3VWkJeWoUOhw" target="_blank">
-        <img src="assets\icons\youtube.png" alt="yt" title="ElectroVision na Youtube">
+    <a class="instagram"
+        [href]="instagramLink"
+        target="_blank">
+        <img src="assets\icons\instagram.png"
+            alt="in"
+            title="ElectroVision na Instragramu">
     </a>
-    <a class="cart" routerLink="/korpa">
+    <a class="gmail"
+        [href]="gmailLink"
+        target="_blank">
+        <img src="assets\icons\gmail.png"
+            alt="mail"
+            title="Pošalji mejl">
+    </a>
+    <a class="youtube"
+        [href]="youtubeLink"
+        target="_blank">
+        <img src="assets\icons\youtube.png"
+            alt="yt"
+            title="ElectroVision na Youtube">
+    </a>
+    <a class="cart"
+        routerLink="/korpa">
         <mat-icon>shopping_cart</mat-icon>
     </a>
 </div>
 
 <ul class="list">
-    <li class="headline" (click)="goToCategory()">Kategorije</li>
-    <li class="category" *ngFor="let cat of categoryList; let i = index" (click)="goToCategory(cat.slug)">
-        <span class="row-item" [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
+    <li class="headline"
+        (click)="goToCategory()">Kategorije</li>
+    <li class="category"
+        *ngFor="let cat of categoryList; let i = index"
+        (click)="goToCategory(cat.slug)">
+        <span class="row-item"
+            [ngClass]=" { 'small-text-category': screenSize === 'medium' }">
             <div class="icon-wrapper">
-                <img [src]="cat.image" [alt]="cat.name">
+                <img [src]="cat.image"
+                    [alt]="cat.name">
             </div>
             <div class="text-wrapper">
                 {{cat.name}}
