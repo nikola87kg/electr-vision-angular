@@ -65,10 +65,10 @@
           <td mat-cell
             *matCellDef="let element">
             <div class="amount-wrapper">
-              <mat-icon (click)="element.amount = decreaseAmount(element.amount)">
+              <mat-icon (click)="element.amount = decreaseAmount(element)">
                 remove</mat-icon>
               <span class="amount">{{element.amount}}</span>
-              <mat-icon (click)="element.amount = increaseAmount(element.amount)">
+              <mat-icon (click)="element.amount = increaseAmount(element)">
                 add</mat-icon>
             </div>
           </td>

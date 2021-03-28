@@ -20,8 +20,20 @@ export class CartService {
         }
         this.cartCount$$.next(cartArray.length + 1);
         cartArray.push({ [id]: count });
-        localStorage.setItem('new-cart', JSON.stringify(cartArray));
+        this.saveCart(cartArray);
         this.openSnackBar({ action: 'new-cart', type: 'new' });
+    }
+
+    saveCart(cartArray): void {
+        localStorage.setItem('new-cart', JSON.stringify(cartArray));
+    }
+
+    updateAmount(id, count): void {
+        const cartString = localStorage.getItem('new-cart');
+        const cartArray = JSON.parse(cartString) || [];
+        const cartIndex = cartArray.findIndex(e => id in e);
+        cartArray[cartIndex] = { [id]: count };
+        this.saveCart(cartArray);
     }
 
     removeFromCart(id): void {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import jsPDF from 'jspdf';
+import jsPDF, { TextOptionsLight } from 'jspdf';
 import autoTable, { UserOptions } from 'jspdf-autotable';
 import { OrderDialogComponent } from 'src/app/partials/order-dialog/order-dialog.component';
 import { CartService } from './../../_services/cart.service';
@@ -61,8 +61,18 @@ export class CartComponent implements OnInit {
 
 
   exportPDF(): void {
-    const doc = new jsPDF();
-    const head = [['Proizvod', 'Kolicina', 'Iznos', 'Ukupno']];
+    const pdf = new jsPDF();
+    const textOptions: TextOptionsLight = {};
+    pdf.setFontSize(16);
+    pdf.setTextColor('#d32f2f');
+    pdf.text('ElectroVision Kragujevac', 15, 15, textOptions);
+    pdf.setTextColor('#2b2b2b');
+    pdf.setFontSize(12);
+    pdf.text('064 306 95 92', 15, 20, textOptions);
+    pdf.text('electrovisionkg@gmail.com', 15, 25, textOptions);
+    pdf.text('www.electrovision.rs', 15, 30, textOptions);
+    pdf.setFontSize(20);
+    const head = [['Proizvod', 'Iznos', 'Kolicina', 'Ukupno']];
     const body = this.productList.map(product => {
       const dataArray = [];
       dataArray.push(product.name);
@@ -72,17 +82,17 @@ export class CartComponent implements OnInit {
       return dataArray;
     });
     const foot = [['', '', 'Ukupno: ', this.getTotalPrice()]];
-    const tableOptions: UserOptions = { head, body, foot };
-    autoTable(doc, tableOptions);
+    const startY = 35;
+    const tableOptions: UserOptions = { head, body, foot, startY };
+    autoTable(pdf, tableOptions);
     const date = new Date();
-    const dateStr =
-      date.getFullYear() + '-' +
+    const dateStr = date.getFullYear() + '-' +
       ('00' + (date.getMonth() + 1)).slice(-2) + '-' +
       ('00' + date.getDate()).slice(-2) + '-' +
       ('00' + date.getHours()).slice(-2) + '-' +
       ('00' + date.getMinutes()).slice(-2) + '-' +
       ('00' + date.getSeconds()).slice(-2);
-    doc.save(`electrovision-${dateStr}.pdf`);
+    pdf.save(`electrovision-${dateStr}.pdf`);
   }
 
   clearCart(): void {
@@ -121,14 +131,22 @@ export class CartComponent implements OnInit {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
 
-  decreaseAmount(amount): number {
-    const amountNumber = +amount;
-    return amountNumber === 1 ? 1 : amountNumber - 1;
+  decreaseAmount(element): number {
+    const amountNumber = +element.amount;
+    const newAmount = amountNumber === 1 ? 1 : amountNumber - 1;
+    setTimeout(() => {
+      this.cartService.updateAmount(element._id, newAmount);
+    }, 100);
+    return newAmount;
   }
 
-  increaseAmount(amount): number {
-    const amountNumber = +amount;
-    return amountNumber + 1;
+  increaseAmount(element): number {
+    const amountNumber = +element.amount;
+    const newAmount = amountNumber + 1;
+    setTimeout(() => {
+      this.cartService.updateAmount(element._id, newAmount);
+    }, 100);
+    return newAmount;
   }
 
   getTotalPrice(): string {
