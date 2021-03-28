@@ -61,7 +61,6 @@ export class CartComponent implements OnInit {
 
 
   exportPDF(): void {
-    const list = this.productList;
     const doc = new jsPDF();
     const head = [['Proizvod', 'Kolicina', 'Iznos', 'Ukupno']];
     const body = this.productList.map(product => {
@@ -83,7 +82,6 @@ export class CartComponent implements OnInit {
       ('00' + date.getHours()).slice(-2) + '-' +
       ('00' + date.getMinutes()).slice(-2) + '-' +
       ('00' + date.getSeconds()).slice(-2);
-    console.log('dateStr: ', dateStr);
     doc.save(`electrovision-${dateStr}.pdf`);
   }
 
