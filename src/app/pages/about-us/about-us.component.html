@@ -37,41 +37,16 @@
 				kojima smo imali poslovni kontakt.
 			</p>
 			<div class="list">
-				Reference:
-				<ul>
-					<li>
-						Itali Yu Car
-					</li>
-					<li>
-						Interprint
-					</li>
-					<li>
-						Joker
-					</li>
-					<li>
-						s.t.r. Popović
-					</li>
-					<li>
-						s.t.r. Gruja
-					</li>
-					<li>
-						Auto Servis Orlović
-					</li>
-					<li>
-						Tempo d.o.o.
-					</li>
-					<li>
-						Matiko
-					</li>
-					<li>
-						Auto Lider
-					</li>
-				</ul>
+				<strong>Reference: </strong>
+				<span>{{joinReferences()}}</span>...
 			</div>
 			<hr>
-			<div class="list center" *ngIf="brands$  | async as brands">
+			<div class="list center"
+				*ngIf="brands$  | async as brands">
 				<br>
-				<img *ngFor="let brand of brands" [src]="brand.image" [alt]="brand.name">
+				<img *ngFor="let brand of brands"
+					[src]="brand.image"
+					[alt]="brand.name">
 			</div>
 		</div>
 	</div>
