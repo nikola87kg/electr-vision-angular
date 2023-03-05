@@ -1,0 +1,84 @@
+<!-- Navigation -->
+<px-navigation-menu></px-navigation-menu>
+
+<!-- Tolbar -->
+<mat-toolbar color="accent">
+  <mat-toolbar-row>
+    <span class="toolbar-title">Zaposlenje</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<!-- Info -->
+<div class="row info-table">
+  <!-- Data -->
+  <div class="col-md-6 employment-wrapper">
+    <h4>Pronađite svoj novi posao u Electro Vision-u</h4>
+    <p>
+      Potreban radnik za obavljanje poslova instalacije sistema za video nadzor,
+      alarmnih sistema, interfona, motora za kapije, postavljanje kablova.
+    </p>
+    <p>Profil kandidata treba da ispunjava sledeće uslove:
+    </p>
+    <ul>
+      <li>* Minimum srednja stručna sprema elektro struke , elektrotehničari u oblasti računarstva i mreže</li>
+      <li>* Poželjno radno iskustvo na sličnim poslovima (nije obavezno)</li>
+      <li>* Da poseduje vozačku dozvolu B kategorije</li>
+      <li>* Da je spreman za rad na terenu</li>
+      <li>* Da je spreman na prekovremeni rad (po potrebi)</li>
+    </ul>
+    <p>
+      Opis posla:</p>
+    <ul>
+      <li>* U početku obuka i postepeno uvođenje u posao</li>
+      <li>* Nakon toga pripremni radovi, postavljanje kanalica, instalacionih kablova</li>
+      <li>* Nakon svega toga montaža i programiranje sistema.</li>
+    </ul>
+    <p>Nudimo:</p>
+    <ul>
+      <li>* Mogućnost stalnog zaposlenja i napretka</li>
+      <li>* Stalno usavršavanje i obuke</li>
+      <li>* Radno vreme od 8 do 16 h</li>
+      <li>* Plata (dogovor)</li>
+    </ul>
+    <p>CV pošaljite na email <strong>electrovisionkg@gmail.com</strong> ili se prijavite preko našeg upitnika.</p>
+
+  </div>
+  <!-- Map -->
+  <div class="col-md-6 employment-wrapper">
+
+    <h4>Upitnik</h4>
+    <form class="contact-form"
+      [formGroup]="contactForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Ime i prezime</mat-label>
+        <input matInput
+          formControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Telefon</mat-label>
+        <input matInput
+          formControlName="phone">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput
+          formControlName="email">
+      </mat-form-field>
+      <mat-form-field appearance="outline"
+        class="textarea">
+        <mat-label>Poruka</mat-label>
+        <textarea matInput
+          rows="3"
+          formControlName="text">
+            </textarea>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button
+        class="send-message"
+        (click)="sendMessage()"
+        color="primary">Pošalji
+      </button>
+    </form>
+  </div>
+</div>

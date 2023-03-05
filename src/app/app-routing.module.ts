@@ -1,3 +1,4 @@
+import { EmploymentComponent } from './pages/employment/employment.component';
 /* Core modules */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,34 +19,35 @@ import { ServiceComponent } from './pages/service/service.component';
 
 
 const routes: Routes = [
-    { path: 'pocetna', component: HomepageComponent },
-    { path: 'kontakt', component: ContactComponent },
-    { path: 'galerija', component: GalleryComponent },
-    { path: 'cenovnik', component: PricelistComponent },
-    { path: 'info', component: InfoComponent },
-    { path: 'o-nama', component: AboutUsComponent },
-    { path: 'korpa', component: CartComponent },
-    { path: 'servis', component: ServiceComponent },
-    { path: 'proizvod/:slug', component: ProductPageComponent },
-    { path: 'pretraga/:level/:slug', component: SearchComponent },
-    {
-        path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-        canLoad: [AdminGuard]
-    },
-    {
-        path: '',
-        redirectTo: '/pocetna',
-        pathMatch: 'full'
-    },
-    {
-        path: '**',
-        redirectTo: '/pocetna'
-    }
+  { path: 'pocetna', component: HomepageComponent },
+  { path: 'kontakt', component: ContactComponent },
+  { path: 'zaposlenje', component: EmploymentComponent },
+  { path: 'galerija', component: GalleryComponent },
+  { path: 'cenovnik', component: PricelistComponent },
+  { path: 'info', component: InfoComponent },
+  { path: 'o-nama', component: AboutUsComponent },
+  { path: 'korpa', component: CartComponent },
+  { path: 'servis', component: ServiceComponent },
+  { path: 'proizvod/:slug', component: ProductPageComponent },
+  { path: 'pretraga/:level/:slug', component: SearchComponent },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canLoad: [AdminGuard]
+  },
+  {
+    path: '',
+    redirectTo: '/pocetna',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: '/pocetna'
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -35,6 +35,7 @@ import { SnackbarComponent } from './partials/snackbar/snackbar.component';
 import { MiddleClickDirective } from './_directives/middle-click.directive';
 /* Interceptors */
 import { AuthInterceptor } from './_services/auth.intereceptor';
+import { EmploymentComponent } from './pages/employment/employment.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -74,6 +75,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ServiceComponent,
     SnackbarComponent,
     OrderDialogComponent,
+    EmploymentComponent,
   ],
   entryComponents: [
     SnackbarComponent,
