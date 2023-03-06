@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
 import { account, address, email, facebook, instagram, phone, youtube } from 'src/app/_services/global-config';
-import { OrderService } from 'src/app/_services/order.service';
 import { SeoService } from 'src/app/_services/seo.service';
+import { EmploymentService } from './../../_services/employment.service';
 
 @Component({
   selector: 'px-employment',
@@ -15,16 +15,18 @@ export class EmploymentComponent implements OnInit {
 
   // fbIcon = faFacebookSquare;
   // twIcon = faTwitterSquare;
-  url: 'http://electrovision.rs/kontakt';
-  title = 'Kontakt';
-  description = 'Kontakt informacije';
+  url: 'http://electrovision.rs/zaposlenje';
+  title = 'Zaposlenje';
+  description = 'Zaposlenje';
   image = 'http://electrovision.rs/assets/logo/ElectroVision.svg';
-  slug = 'kontakt';
-  contactForm = new FormGroup({
-    name: new FormControl(''),
-    phone: new FormControl(''),
-    email: new FormControl(''),
-    text: new FormControl(''),
+  slug = 'zaposlenje';
+  employmentForm = new FormGroup({
+    name: new FormControl('', Validators.required),
+    phone: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    school: new FormControl('', Validators.required),
+    text: new FormControl('', Validators.required),
+    experience: new FormControl('', Validators.required),
   });
 
   info = [
@@ -40,30 +42,38 @@ export class EmploymentComponent implements OnInit {
   constructor(
     private seo: SeoService,
     public snackBar: MatSnackBar,
-    private orderService: OrderService) {
+    private employmentService: EmploymentService) {
   }
 
   ngOnInit(): void {
 
     /* SEO */
     this.seo.generateTags({
-      title: 'Kontakt',
-      description: 'Kontakt informacije',
+      title: 'Zaposlenje',
+      description: 'Zaposlenje',
       image: 'http://electrovision.rs/assets/logo/ElectroVision.svg',
-      slug: 'kontakt'
+      slug: 'zaposlenje'
     });
   }
 
   sendMessage(): void {
-    this.orderService.post(this.contactForm.value).subscribe(
-      _ => {
-        this.contactForm.reset();
-        this.snackBar.openFromComponent(SnackbarComponent, {
-          duration: 2000,
-          data: { action: 'send', type: 'message' },
-        });
-      }
-    );
+    if (!this.employmentForm.valid) {
+      this.snackBar.open('Sva polja moraju biti popunjena.');
+      return;
+    }
+    this.employmentService.post(this.employmentForm.value)
+      .subscribe(
+        _ => {
+          this.employmentForm.reset();
+          this.snackBar.openFromComponent(SnackbarComponent, {
+            duration: 2000,
+            data: { action: 'send', type: 'message' },
+          });
+        },
+        _ => {
+          this.snackBar.open('Upitnik nije uspešno poslat5.');
+        }
+      );
   }
 
 }

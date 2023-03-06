@@ -1,80 +1,83 @@
 <nav id="admin-navigator"
-     [ngClass]="{ 'text-centered': wideMenu !== 'open' }"
-     [ngStyle]="{'text-align': wideMenu ? 'left' : 'center'}">
-    <div class="admin-menu"
-         *ngIf="screenSize !== 'small' "
-         [ngStyle]="{ 'width': wideMenu === 'open' ? '200px' : '30px' }">
-        <span *ngIf="wideMenu === 'open' ">Admin panel</span>
-        
-        <fa-icon
-            *ngIf=" wideMenu === 'open' "
-            [icon]="faAngleDoubleLeft"
-            class="float-right"
-            (click)="togleMenu()">
-         </fa-icon>
-        
-         <fa-icon
-            *ngIf=" wideMenu === 'closed' "
-            [icon]="faAngleDoubleRight"
-            (click)="togleMenu()">
-         </fa-icon>
+  [ngClass]="{ 'text-centered': wideMenu !== 'open' }"
+  [ngStyle]="{'text-align': wideMenu ? 'left' : 'center'}">
+  <div class="admin-menu"
+    *ngIf="screenSize !== 'small' "
+    [ngStyle]="{ 'width': wideMenu === 'open' ? '200px' : '30px' }">
+    <span *ngIf="wideMenu === 'open' ">Admin panel</span>
 
-    </div>
-    <a routerLink="/admin/pregled"
-       routerLinkActive="active">
-       <fa-icon [icon]="faThLarge"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Pregled</span>
-    </a>
-    <a routerLink="/admin/proizvodi"
-       routerLinkActive="active">
-       <fa-icon [icon]="faPlusCircle"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Proizvodi</span>
-    </a>
-    <a routerLink="/admin/kategorije"
-       routerLinkActive="active">
-       <fa-icon [icon]="faFolder"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Kategorije</span>
+    <fa-icon *ngIf=" wideMenu === 'open' "
+      [icon]="faAngleDoubleLeft"
+      class="float-right"
+      (click)="togleMenu()">
+    </fa-icon>
 
-    </a>
-    <a routerLink="/admin/grupe"
-       routerLinkActive="active">
-       <fa-icon [icon]="faFolderOpen"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Potkategorije</span>
-    </a>
-    <a routerLink="/admin/brendovi"
-       routerLinkActive="active">
-       <fa-icon [icon]="faBold"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Brendovi</span>
-    </a>
-    <a routerLink="/admin/galerija"
-       routerLinkActive="active">
-       <fa-icon [icon]="faImage"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Galerija</span>
-    </a>
-    <a routerLink="/admin/narudzbine"
-       routerLinkActive="active">
-       <fa-icon [icon]="faShoppingCart"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Narudžbine</span>
-    </a>
-    <a routerLink="/admin/cenovnik"
-       routerLinkActive="active">
-       <fa-icon [icon]="faEuroSign"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Cenovnik</span>
-    </a>
-    <a routerLink="/admin/slajdovi"
-       routerLinkActive="active">
-       <fa-icon [icon]="faAddressCard"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Slajdovi</span>
-    </a>
-    <a routerLink="/"
-       class="home-link">
-       <fa-icon [icon]="faHome"></fa-icon>
-        <span *ngIf="wideMenu === 'open' ">Početna</span>
-    </a>
+    <fa-icon *ngIf=" wideMenu === 'closed' "
+      [icon]="faAngleDoubleRight"
+      (click)="togleMenu()">
+    </fa-icon>
+
+  </div>
+  <a routerLink="/admin/pregled"
+    routerLinkActive="active">
+    <fa-icon [icon]="faThLarge"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Pregled</span>
+  </a>
+  <a routerLink="/admin/proizvodi"
+    routerLinkActive="active">
+    <fa-icon [icon]="faPlusCircle"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Proizvodi</span>
+  </a>
+  <a routerLink="/admin/kategorije"
+    routerLinkActive="active">
+    <fa-icon [icon]="faFolder"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Kategorije</span>
+
+  </a>
+  <a routerLink="/admin/grupe"
+    routerLinkActive="active">
+    <fa-icon [icon]="faFolderOpen"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Potkategorije</span>
+  </a>
+  <a routerLink="/admin/brendovi"
+    routerLinkActive="active">
+    <fa-icon [icon]="faBold"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Brendovi</span>
+  </a>
+  <a routerLink="/admin/galerija"
+    routerLinkActive="active">
+    <fa-icon [icon]="faImage"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Galerija</span>
+  </a>
+  <a routerLink="/admin/narudzbine"
+    routerLinkActive="active">
+    <fa-icon [icon]="faShoppingCart"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Narudžbine</span>
+  </a>
+  <a routerLink="/admin/zaposlenje"
+    routerLinkActive="active">
+    <fa-icon [icon]="faUsers"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Zaposlenje</span>
+  </a>
+  <a routerLink="/admin/cenovnik"
+    routerLinkActive="active">
+    <fa-icon [icon]="faEuroSign"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Cenovnik</span>
+  </a>
+  <a routerLink="/admin/slajdovi"
+    routerLinkActive="active">
+    <fa-icon [icon]="faAddressCard"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Slajdovi</span>
+  </a>
+  <a routerLink="/"
+    class="home-link">
+    <fa-icon [icon]="faHome"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Početna</span>
+  </a>
 </nav>
 
 <!-- Admin routes placeholder -->
 <div class="route-wrapper"
-     [ngStyle]="{'margin-left': wideMenu === 'open' ? '210px' : '50px'}">
-    <router-outlet></router-outlet>
+  [ngStyle]="{'margin-left': wideMenu === 'open' ? '210px' : '50px'}">
+  <router-outlet></router-outlet>
 </div>

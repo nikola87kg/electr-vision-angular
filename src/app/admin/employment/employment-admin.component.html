@@ -3,7 +3,7 @@
 <mat-toolbar class="row">
   <!-- Page title -->
   <div class="col-sm-12 col-lg-6">
-    Narudžbine
+    Zaposlenje
   </div>
 </mat-toolbar>
 
@@ -17,7 +17,7 @@
     <ng-container matColumnDef="position">
       <th mat-header-cell
         *matHeaderCellDef>
-        <b>{{ orderList?.length || 0 }}</b>
+        <b>{{ employmentList?.length || 0 }}</b>
       </th>
       <td mat-cell
         *matCellDef="let i = index"> {{ i + 1 }} </td>
@@ -49,42 +49,31 @@
         *matCellDef="let item"> {{ item.email || '--' }} </td>
     </ng-container>
 
-    <!-- Email Column Setup -->
-    <ng-container matColumnDef="address">
+    <!-- School Column Setup -->
+    <ng-container matColumnDef="school">
       <th mat-header-cell
         *matHeaderCellDef
-        mat-sort-header> Adresa </th>
+        mat-sort-header> Stručna sprema </th>
       <td mat-cell
-        *matCellDef="let item"> {{ item.address || '--' }} </td>
+        *matCellDef="let item"> {{ item.school || '--' }} </td>
     </ng-container>
 
-    <!-- Question Column Setup -->
-    <ng-container matColumnDef="question">
+    <!-- Text Column Setup -->
+    <ng-container matColumnDef="text">
       <th mat-header-cell
         *matHeaderCellDef
-        mat-sort-header> Pitanje korisnika </th>
+        mat-sort-header> Kratak opis </th>
       <td mat-cell
-        *matCellDef="let item"> {{ item.question || '--' }} </td>
+        *matCellDef="let item"> {{ item.text || '--' }} </td>
     </ng-container>
 
-    <!-- Cart Column Setup -->
-    <ng-container matColumnDef="cart">
+    <!-- Experience Column Setup -->
+    <ng-container matColumnDef="experience">
       <th mat-header-cell
         *matHeaderCellDef
-        mat-sort-header> Korpa </th>
+        mat-sort-header> Radno iskustvo </th>
       <td mat-cell
-        *matCellDef="let item">
-        <div class="single-order"
-          *ngFor="let order of item.orderList">
-          <img [src]="order.image"
-            [alt]="order.name">
-          <strong>{{order.amount || '1'}} × {{order.name}}</strong>.
-          <span>
-            Cena po komadu: {{order.price || 'nema cene'}}.
-            Katalog: {{order.catalog || 'nema kataloški broj'}}
-          </span>
-        </div>
-      </td>
+        *matCellDef="let item"> {{ item.experience || '--' }} </td>
     </ng-container>
 
     <!-- Created At Column Steup -->
@@ -106,7 +95,7 @@
       <td mat-cell
         *matCellDef="let item">
         <mat-icon class="remove-icon"
-          (click)="deleteOrder(item._id)">
+          (click)="deleteEmployment(item._id)">
           close
         </mat-icon>
       </td>

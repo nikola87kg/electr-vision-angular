@@ -1,17 +1,18 @@
 /* Core modules */
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 /* App components */
 import { AdminComponent } from './admin.component';
-import { ProductsComponent } from './products/products.component';
-import { CategoriesComponent } from './categories/categories.component';
 import { BrandsComponent } from './brands/brands.component';
-import { GroupsComponent } from './groups/groups.component';
-import { PreviewComponent } from './preview/preview.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { EmploymentAdminComponent } from './employment/employment-admin.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
-import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
+import { GroupsComponent } from './groups/groups.component';
 import { OrdersAdminComponent } from './orders/orders-admin.component';
+import { PreviewComponent } from './preview/preview.component';
+import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
+import { ProductsComponent } from './products/products.component';
 import { SlidesComponent } from './slides/slides.component';
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'kategorije', component: CategoriesComponent },
       { path: 'slajdovi', component: SlidesComponent },
       { path: 'narudzbine', component: OrdersAdminComponent },
+      { path: 'zaposlenje', component: EmploymentAdminComponent },
       { path: 'brendovi', component: BrandsComponent },
       { path: 'grupe', component: GroupsComponent },
       { path: '', redirectTo: 'pregled', pathMatch: 'full' }

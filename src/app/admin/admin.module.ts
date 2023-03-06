@@ -11,6 +11,7 @@ import { AdminComponent } from './admin.component';
 import { AdminMaterialModule } from './admin.material.module';
 import { BrandsComponent } from './brands/brands.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { EmploymentAdminComponent } from './employment/employment-admin.component';
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { OrdersAdminComponent } from './orders/orders-admin.component';
@@ -41,6 +42,7 @@ import { SlidesComponent } from './slides/slides.component';
     PricelistAdminComponent,
     OrdersAdminComponent,
     PreviewComponent,
+    EmploymentAdminComponent,
   ]
 })
 export class AdminModule { }

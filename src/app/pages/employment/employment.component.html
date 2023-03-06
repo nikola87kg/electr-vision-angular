@@ -44,32 +44,50 @@
     <p>CV pošaljite na email <strong>electrovisionkg@gmail.com</strong> ili se prijavite preko našeg upitnika.</p>
 
   </div>
-  <!-- Map -->
+
+  <!-- Questionary -->
   <div class="col-md-6 employment-wrapper">
 
     <h4>Upitnik</h4>
-    <form class="contact-form"
-      [formGroup]="contactForm">
-      <mat-form-field appearance="outline">
-        <mat-label>Ime i prezime</mat-label>
-        <input matInput
-          formControlName="name">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Telefon</mat-label>
-        <input matInput
-          formControlName="phone">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput
-          formControlName="email">
+    <form class="employment-form"
+      [formGroup]="employmentForm">
+      <div class="inline">
+        <mat-form-field appearance="outline">
+          <mat-label>Ime i prezime</mat-label>
+          <input matInput
+            formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Telefon</mat-label>
+          <input matInput
+            formControlName="phone">
+        </mat-form-field>
+      </div>
+      <div class="inline">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput
+            formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Stručna sprema</mat-label>
+          <input matInput
+            formControlName="school">
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline"
+        class="textarea">
+        <mat-label>Radno iskustvo</mat-label>
+        <textarea matInput
+          rows="5"
+          formControlName="experience">
+            </textarea>
       </mat-form-field>
       <mat-form-field appearance="outline"
         class="textarea">
-        <mat-label>Poruka</mat-label>
+        <mat-label>Kratak opis o sebi</mat-label>
         <textarea matInput
-          rows="3"
+          rows="5"
           formControlName="text">
             </textarea>
       </mat-form-field>
@@ -81,4 +99,18 @@
       </button>
     </form>
   </div>
+
+  <!-- Images -->
+
+  <div class="employment-images">
+    <img src="./assets/employment/emp_1.jpg"
+      alt="zaposlenje 1">
+    <img src="./assets/employment/emp_3.jpg"
+      alt="zaposlenje 3">
+    <img src="./assets/employment/emp_4.jpg"
+      alt="zaposlenje 4">
+    <img src="./assets/employment/emp_2.jpg"
+      alt="zaposlenje 2">
+  </div>
+
 </div>

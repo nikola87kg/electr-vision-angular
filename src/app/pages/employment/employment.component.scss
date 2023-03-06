@@ -36,19 +36,36 @@ table {
   margin-left: -90px;
 }
 
-.contact-form mat-form-field {
+.employment-form mat-form-field {
   @media screen and (max-width: 700px) {
     min-width: 100%;
   }
 }
 
 .textarea {
-  width: 620px;
+  width: 831px;
   max-width: 100%;
 }
 
 .send-message {
-  width: 620px;
+  width: 831px;
   max-width: 100%;
   margin-left: 10px;
+}
+
+.employment-images {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  img {
+    margin: 10px;
+    height: 250px;
+  }
+}
+
+.inline {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
