@@ -1,12 +1,18 @@
+import { SWIPER_CONFIG, SwiperConfigInterface, SwiperModule } from 'ngx-swiper-wrapper';
+
 /* Core modules */
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NguCarouselModule } from '@ngu/carousel';
-import { SwiperConfigInterface, SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+
+/* Directives */
+import { MiddleClickDirective } from './_directives/middle-click.directive';
+/* Interceptors */
+import { AuthInterceptor } from './_services/auth.intereceptor';
 /* Guards */
 import { AdminGuard } from './admin/admin.guard';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,8 +24,10 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { EmploymentComponent } from './pages/employment/employment.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { InfoComponent } from './pages/info/info.component';
+import { PdfComponent } from './pages/pdf/pdf.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { SearchComponent } from './pages/search/search.component';
@@ -31,11 +39,6 @@ import { NavigationMenuComponent } from './partials/navigation-menu/navigation-m
 import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
 import { SidemenuComponent } from './partials/sidemenu/sidemenu.component';
 import { SnackbarComponent } from './partials/snackbar/snackbar.component';
-/* Directives */
-import { MiddleClickDirective } from './_directives/middle-click.directive';
-/* Interceptors */
-import { AuthInterceptor } from './_services/auth.intereceptor';
-import { EmploymentComponent } from './pages/employment/employment.component';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -66,6 +69,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SearchComponent,
     ContactComponent,
     GalleryComponent,
+    PdfComponent,
     PricelistComponent,
     InfoComponent,
     CartComponent,

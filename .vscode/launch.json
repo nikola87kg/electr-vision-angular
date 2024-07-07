@@ -5,7 +5,7 @@
         "name": "Angular",
         "type": "chrome",
         "request": "launch",
-        "url": "http://localhost:4200",
+        "url": "http://localhost:4444",
     },
     {
         "type": "devtools-for-chrome",

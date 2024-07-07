@@ -1,35 +1,45 @@
 import jsPDF, { TextOptionsLight } from 'jspdf';
 import autoTable, { UserOptions } from 'jspdf-autotable';
-import { OrderDialogComponent } from 'src/app/partials/order-dialog/order-dialog.component';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
+import { DecimalPipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CartService } from '../../_services/cart.service';
 import { SharedService } from '../../_services/shared.service';
 
 @Component({
-  selector: 'px-cart',
-  templateUrl: 'cart.component.html',
-  styleUrls: ['cart.component.scss']
+  selector: 'px-pdf',
+  templateUrl: 'pdf.component.html',
+  styleUrls: ['pdf.component.scss'],
+  providers: [DecimalPipe]
 })
-export class CartComponent implements OnInit {
+export class PdfComponent implements OnInit {
 
   @ViewChild('cartTable') cartTable: ElementRef;
-  productList = [];
+  pdfList = [];
+  allProducts = [];
+  filteredOptions$: Observable<any[]>;
+  searchInput = new FormControl();
   displayedColumns = [
+    'index',
     'image',
+    'catalog',
     'name',
     'price',
     'amount',
     'totalPrice',
+    'rabat',
+    'priceAfterRabat',
     'remove',
   ];
 
   constructor(
     public dialog: MatDialog,
     private sharedService: SharedService,
-    private cartService: CartService
+    private decimalPipe: DecimalPipe,
   ) { }
 
   ngOnInit(): void {
@@ -38,32 +48,60 @@ export class CartComponent implements OnInit {
 
   getProducts(): void {
     this.sharedService.productList$$.subscribe(productList => {
-      this.productList = this.cartService.getCartProducts(productList);
+      this.allProducts = [...(productList || [])];
+
+      this.filteredOptions$ = this.searchInput.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filterSearchResult(value))
+      );
     });
+  }
+
+  private filterSearchResult(searchInputValue: string = ''): any[] {
+    return this.allProducts.filter(
+      option => (`${option.name} ${option.catalog}`)
+        .toLowerCase()
+        .indexOf(searchInputValue.toLowerCase()) !== -1
+    );
+  }
+
+  addArticle() {
+    const selected = this.searchInput.value;
+    const item = this.allProducts.find(p => p.name === selected);
+
+    if (!item) {
+      return;
+    }
+
+    const listNames = this.pdfList.map(I => I.name);
+    if (listNames.includes(selected)) {
+      return;
+    }
+
+    const article = {
+      id: item._id,
+      name: item.name,
+      catalog: item.catalog,
+      price: item.fixPrice,
+      amount: 1,
+      totalPrice: item.fixPrice,
+      rabat: 5,
+      image: item.image,
+      priceAfterRabat: item.fixPrice + 0.95
+    };
+
+    this.pdfList = [...this.pdfList, article];
+    this.searchInput.setValue('');
   }
 
   removeFromCart(id): void {
-    this.cartService.removeFromCart(id);
-    this.productList = this.productList
-      .filter(product => product._id !== id);
+    this.pdfList = this.pdfList.filter(product => product._id !== id);
   }
-
-  sendOrder(): void {
-    const list = this.productList;
-    const dialogRef = this.dialog.open(OrderDialogComponent, {
-      width: '600px',
-      data: { list }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.clearCart();
-      }
-    });
-  }
-
 
   exportPDF(): void {
-    const pdf = new jsPDF();
+    const pdf = new jsPDF({
+      orientation: "landscape",
+    });
     const textOptions: TextOptionsLight = {};
     pdf.setFontSize(16);
     pdf.setTextColor('#d32f2f');
@@ -74,16 +112,21 @@ export class CartComponent implements OnInit {
     pdf.text('electrovisionkg@gmail.com', 15, 25, textOptions);
     pdf.text('www.electrovision.rs', 15, 30, textOptions);
     pdf.setFontSize(20);
-    const head = [['Proizvod', 'Iznos', 'Kolicina', 'Ukupno']];
-    const body = this.productList.map(product => {
+    const head = [['Redni broj', 'Katalog', 'Proizvod', 'Iznos', 'Kolicina', 'Standardna cena', 'Rabat', 'Konacna cena']];
+    const body = this.pdfList.map((product, i) => {
+      const finalPrice = this.decimalPipe.transform(this.calculatePriceAfterRabat(product)) + ' RSD';
       const dataArray = [];
+      dataArray.push(i + 1);
+      dataArray.push(product.catalog);
       dataArray.push(product.name);
       dataArray.push(this.showSinglePrice(product.price));
       dataArray.push(product.amount);
       dataArray.push(this.calculatePrice(product.amount, product.price));
+      dataArray.push(product.rabat + '%');
+      dataArray.push(finalPrice);
       return dataArray;
     });
-    const foot = [['', '', 'Ukupno: ', this.getTotalPrice()]];
+    const foot = [['', '', '', '', '', '', 'Ukupno: ', this.getTotalPrice()]];
     const startY = 35;
     const tableOptions: UserOptions = { head, body, foot, startY };
     autoTable(pdf, tableOptions);
@@ -98,16 +141,22 @@ export class CartComponent implements OnInit {
   }
 
   clearCart(): void {
-    this.cartService.clearCart();
-    this.productList = [];
+    this.pdfList = [];
   }
-
 
   calculatePrice(am, pr): string {
     const amount = this.rawPriceToNumber(am) || 1;
     const price = this.rawPriceToNumber(pr) || 0;
     if (price === 0) { return 'nema cene'; }
     return this.addDotsToPriceNumber(amount * price) + ' RSD';
+  }
+
+  calculatePriceAfterRabat(element) {
+    const amount = this.rawPriceToNumber(element.amount) || 1;
+    const price = this.rawPriceToNumber(element.price) || 0;
+    const totalPrice = amount * price;
+    const rabat = element.rabat;
+    return +totalPrice * 0.01 * (100 - rabat);
   }
 
   showSinglePrice(rawPrice): string {
@@ -136,25 +185,31 @@ export class CartComponent implements OnInit {
   decreaseAmount(element): number {
     const amountNumber = +element.amount;
     const newAmount = amountNumber === 1 ? 1 : amountNumber - 1;
-    setTimeout(() => {
-      this.cartService.updateAmount(element._id, newAmount);
-    }, 100);
     return newAmount;
   }
 
   increaseAmount(element): number {
     const amountNumber = +element.amount;
     const newAmount = amountNumber + 1;
-    setTimeout(() => {
-      this.cartService.updateAmount(element._id, newAmount);
-    }, 100);
     return newAmount;
+  }
+
+  increaseRabat(element) {
+    const rabat = +element.rabat;
+    const newRabat = rabat === 100 ? 100 : rabat + 1;
+    return newRabat;
+  }
+
+  decreaseRabat(element) {
+    const rabat = +element.rabat;
+    const newRabat = rabat === 0 ? 0 : rabat - 1;
+    return newRabat;
   }
 
   getTotalPrice(): string {
     let totalPrice = 0;
-    this.productList?.forEach((product) => {
-      let productTotal = (product.amount * this.rawPriceToNumber(product.price));
+    this.pdfList?.forEach((product) => {
+      let productTotal = (product.amount * this.rawPriceToNumber(product.price) * 0.01 * (100 - product.rabat));
       if (Number.isNaN(productTotal)) {
         productTotal = 0;
       }

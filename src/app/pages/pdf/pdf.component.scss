@@ -1,0 +1,150 @@
+@import "src/px-material-theme.scss";
+
+.cart-wrapper {
+  padding: 10px 20px;
+}
+
+table.cart-table {
+  width: 100%;
+}
+
+.mat-column-image {
+  width: 170px;
+}
+
+.mat-column-remove {
+  width: 50px;
+}
+
+.mat-column-price,
+.mat-column-amount,
+.mat-column-totalPrice {
+  width: 150px;
+}
+
+.amount-dropdown {
+  max-width: 50px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.amount-wrapper {
+  padding: 5px;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d3d3d3;
+}
+
+.amount-wrapper mat-icon {
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  color: gray;
+}
+
+p.single-price {
+  display: inline-block;
+}
+
+p.full-price {
+  display: inline-block;
+  font-weight: bold;
+  color: $px-material-primary;
+}
+
+.product-row {
+  margin: 10px 0;
+  position: relative;
+  border: 1px solid whitesmoke;
+  padding: 5px 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: whitesmoke;
+  }
+}
+
+.product-info {
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: top;
+
+  h3 {
+    font-size: 20px;
+    color: $px-material-primary;
+    margin: 5px;
+    max-width: calc(100vw - 400px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media #{$screen-sm} {
+      max-width: calc(100vw - 100px);
+    }
+  }
+}
+
+img.product-image {
+  text-align: left;
+  vertical-align: top;
+  height: 80px;
+  width: 100px;
+  margin: 5px;
+  object-fit: contain;
+}
+
+.remove-button {
+  color: rgb(253, 139, 139);
+}
+
+.order {
+  display: block;
+  text-align: right;
+  margin: 10px 30px;
+}
+
+.order-button {
+  min-width: 150px;
+}
+
+.clear-button {
+  font-size: 12px;
+  mat-icon {
+    font-size: 20px;
+  }
+}
+
+.empty-cart-message {
+  margin: 10px 20px 30px;
+}
+
+.amount-field {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0 5px;
+  width: 60px;
+  text-align: right;
+  background: rgb(236, 250, 255);
+}
+
+.amount {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
+.total-price {
+  text-align: right;
+  font-weight: bold;
+  font-size: 20px;
+  color: $px-material-primary;
+  padding: 5px 20px 0 20px;
+  margin: 0 10px 0 0;
+}
+
+mat-form-field {
+  width: min(90vw, 50%, 500px);
+}

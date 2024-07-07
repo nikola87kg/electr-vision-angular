@@ -1,8 +1,10 @@
+import { BehaviorSubject } from 'rxjs';
+
 /* Angular */
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
-import { SnackbarComponent } from './../partials/snackbar/snackbar.component';
+
+import { SnackbarComponent } from '../partials/snackbar/snackbar.component';
 
 /* BRAND SERVICE */
 @Injectable({ providedIn: 'root' })
@@ -29,6 +31,14 @@ export class CartService {
     }
 
     updateAmount(id, count): void {
+        const cartString = localStorage.getItem('new-cart');
+        const cartArray = JSON.parse(cartString) || [];
+        const cartIndex = cartArray.findIndex(e => id in e);
+        cartArray[cartIndex] = { [id]: count };
+        this.saveCart(cartArray);
+    }
+
+    updateRabat(id, count): void {
         const cartString = localStorage.getItem('new-cart');
         const cartArray = JSON.parse(cartString) || [];
         const cartIndex = cartArray.findIndex(e => id in e);
