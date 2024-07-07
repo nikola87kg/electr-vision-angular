@@ -166,7 +166,6 @@
           *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-
     </div>
 
     <!-- Order -->
@@ -182,6 +181,18 @@
       </button>
     </div>
 
+
+    <br>
+    <br>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Podaci kupca</mat-label>
+      <textarea matInput
+        [formControl]="buyerInput"
+        rows="4"
+        placeholder="Maximum 4 reda">
+          </textarea>
+    </mat-form-field>
   </div>
 
 </div>

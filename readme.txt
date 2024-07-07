@@ -1,3 +1,6 @@
+COMMAND NEEDED FOR DEV SOMETIMES
+set NODE_OPTIONS=--openssl-legacy-provider
+
 DEPLOY STEPS FRONTEND
 1. ANGULAR - npm run prod
 2. WIN SCP - transfer files (DIST/electro-vision -> electrovision/angular)
