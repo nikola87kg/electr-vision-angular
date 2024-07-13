@@ -120,7 +120,7 @@ export class HomepageComponent implements OnInit {
                 this.vipProductsVisible = this.vipProducts.slice(0, this.maxItems);
 
                 /* change placeholder after timeout */
-                setInterval(() => {
+               /*  setInterval(() => {
                     if (this.currentRoll === 1 && this.maxItems === 4) {
                         this.currentRoll = 0;
                     } else if (this.currentRoll === 2) {
@@ -130,7 +130,7 @@ export class HomepageComponent implements OnInit {
                     }
                     this.vipProductsVisible =
                         this.vipProducts.slice((this.currentRoll * this.maxItems), (this.currentRoll * this.maxItems + this.maxItems));
-                }, 5000);
+                }, 5000); */
             }
         });
     }
