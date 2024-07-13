@@ -1,5 +1,5 @@
 import jsPDF, { TextOptionsLight } from 'jspdf';
-import autoTable, { UserOptions } from 'jspdf-autotable';
+import autoTable, { Styles, UserOptions } from 'jspdf-autotable';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -8,6 +8,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
+import { PdfService } from '../../_services/pdf.service';
 import { SharedService } from '../../_services/shared.service';
 
 @Component({
@@ -19,7 +20,6 @@ import { SharedService } from '../../_services/shared.service';
 export class PdfComponent implements OnInit {
 
   @ViewChild('cartTable') cartTable: ElementRef;
-  pdfList = [];
   allProducts = [];
   filteredOptions$: Observable<any[]>;
   searchInput = new FormControl();
@@ -42,6 +42,7 @@ Maticni broj: `);
 
   constructor(
     public dialog: MatDialog,
+    public pdfService: PdfService,
     private sharedService: SharedService,
     private decimalPipe: DecimalPipe,
   ) { }
@@ -77,7 +78,7 @@ Maticni broj: `);
       return;
     }
 
-    const listNames = this.pdfList.map(I => I.name);
+    const listNames = this.pdfService.pdfList.map(I => I.name);
     if (listNames.includes(selected)) {
       return;
     }
@@ -89,21 +90,22 @@ Maticni broj: `);
       price: item.fixPrice,
       amount: 1,
       totalPrice: item.fixPrice,
-      rabat: 5,
+      rabat: 0,
       image: item.image,
-      priceAfterRabat: item.fixPrice + 0.95
+      priceAfterRabat: item.fixPrice
     };
 
-    this.pdfList = [...this.pdfList, article];
+    this.pdfService.pdfList = [...this.pdfService.pdfList, article];
+    
     this.searchInput.setValue('');
   }
 
   removeFromCart(id): void {
-    this.pdfList = this.pdfList.filter(product => product._id !== id);
+    this.pdfService.pdfList = this.pdfService.pdfList.filter(product => product._id !== id);
   }
 
   clearCart(): void {
-    this.pdfList = [];
+    this.pdfService.pdfList = [];
   }
 
   calculatePrice(am, pr): string {
@@ -170,12 +172,13 @@ Maticni broj: `);
 
   getTotalPrice(): string {
     let totalPrice = 0;
-    this.pdfList?.forEach((product) => {
-      let productTotal = (product.amount * this.rawPriceToNumber(product.price) * 0.01 * (100 - product.rabat));
+    this.pdfService.pdfList?.forEach((product) => {
+      let productTotal =
+        Math.round(product.amount * this.rawPriceToNumber(product.price) * 0.01 * (100 - product.rabat));
       if (Number.isNaN(productTotal)) {
         productTotal = 0;
       }
-      totalPrice += productTotal;
+      totalPrice += Math.round(productTotal);
     });
     return this.addDotsToPriceNumber(totalPrice) + ' RSD';
   }
@@ -218,11 +221,11 @@ Maticni broj: `);
   }
 
 
-  exportPDF(): void {
+  exportPDF() {
     this.convertToBase64('/assets/logo/ElectroVision.png', (imgData: string) => {
 
       const pdfDocument = new jsPDF({
-        orientation: "landscape",
+        orientation: "portrait",
       });
       const textOptions: TextOptionsLight = {};;
 
@@ -231,7 +234,7 @@ Maticni broj: `);
 
       /* Left Side */
       pdfDocument.setTextColor('#2b2b2b');
-      pdfDocument.setFontSize(12);
+      pdfDocument.setFontSize(9);
       pdfDocument.text('064 306 95 92', 15, 30, textOptions);
       pdfDocument.text('electrovisionkg@gmail.com', 15, 35, textOptions);
       pdfDocument.text('www.electrovision.rs', 15, 40, textOptions);
@@ -254,9 +257,9 @@ Maticni broj: `);
 
 
       /* Table */
-      pdfDocument.setFontSize(20);
-      const head = [['Redni broj', 'Katalog', 'Proizvod', 'Iznos', 'Kolicina', 'Standardna cena', 'Rabat', 'Konacna cena']];
-      const body = this.pdfList.map((product, i) => {
+      pdfDocument.setFontSize(16);
+      const head = [['R.br.', 'Kat.', 'Proizvod', 'Iznos', 'Kol.', 'Cena', 'Rabat', 'Konacna cena']];
+      const body = this.pdfService.pdfList.map((product, i) => {
         const finalPrice = this.decimalPipe.transform(this.calculatePriceAfterRabat(product)) + ' RSD';
         const dataArray = [];
         dataArray.push(i + 1);
@@ -271,14 +274,17 @@ Maticni broj: `);
       });
       const foot = [['', '', '', '', '', '', 'Ukupno: ', this.getTotalPrice()]];
       const startY = 45;
-      const tableOptions: UserOptions = { head, body, foot, startY };
+      const bodyStyles: Partial<Styles> = { fontSize: 8 };
+      const headStyles: Partial<Styles> = { fontSize: 8 };
+      const footStyles: Partial<Styles> = { fontSize: 8 };
+      const tableOptions: UserOptions = { head, body, foot, startY, bodyStyles, headStyles, footStyles };
       autoTable(pdfDocument, tableOptions);
 
       /* Text Below table */
       const finalY = (pdfDocument as any).lastAutoTable.finalY;
       const note = 'Predracun je vazeci bez potpisa i pecata. Vaznost ponude 10 radnih dana';
       pdfDocument.setFontSize(10);
-      pdfDocument.text(note, 90, finalY + 10, { align: 'left' });
+      pdfDocument.text(note, 50, finalY + 10, { align: 'left' });
 
 
       // filename

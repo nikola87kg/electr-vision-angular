@@ -8,7 +8,7 @@
         <span class="toolbar-title"> Predračun</span>
         <span class="toolbar-spacer"></span>
         <button class="clear-button"
-          *ngIf="pdfList?.length"
+          *ngIf="pdfService.pdfList?.length"
           (click)="clearCart()"
           mat-stroked-button>
           <mat-icon>delete_forever</mat-icon>
@@ -46,7 +46,7 @@
 
       <table class="cart-table"
         mat-table
-        [dataSource]="pdfList">
+        [dataSource]="pdfService.pdfList">
 
         <!-- Count -->
         <ng-container matColumnDef="index">
@@ -174,7 +174,7 @@
     </h3>
     <div class="order">
       <button class="order-button"
-        *ngIf="pdfList?.length"
+        *ngIf="pdfService.pdfList?.length"
         (click)="exportPDF()"
         mat-raised-button
         color="accent">PDF predračun

@@ -1,16 +1,19 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { faArrowCircleLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft, faPlusCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import * as slugify from '../../../../node_modules/speakingurl/speakingurl.min.js';
-import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 import { BrandInterface, BrandsService } from '../../_services/brands.service';
 import { CategoriesService, CategoryInterface } from '../../_services/categories.service';
 import { GroupInterface, GroupsService } from '../../_services/groups.service';
+import { PdfService } from '../../_services/pdf.service';
 import { ProductInterface, ProductsService } from '../../_services/products.service';
 import { SharedService } from '../../_services/shared.service';
+import { SnackbarComponent } from '../../partials/snackbar/snackbar.component';
 
 @Component({
     selector: 'px-products',
@@ -22,16 +25,10 @@ export class ProductsComponent implements OnInit {
     @ViewChild('categoryFilter', { static: true }) categoryFilter;
     @ViewChild('groupFilter', { static: true }) groupFilter;
     @ViewChild('brandFilter', { static: true }) brandFilter;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-    /* Constructor */
-    constructor(
-        private productService: ProductsService,
-        private groupService: GroupsService,
-        private categoryService: CategoriesService,
-        private brandService: BrandsService,
-        public snackBar: MatSnackBar,
-        public sharedService: SharedService
-    ) { }
+    faPlusCircle = faPlusCircle;
 
     faArrowCircleLeft = faArrowCircleLeft;
     faTimes = faTimes;
@@ -71,8 +68,16 @@ export class ProductsComponent implements OnInit {
     imageindex: number;
     existingImage: string;
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    /* Constructor */
+    constructor(
+        private productService: ProductsService,
+        private groupService: GroupsService,
+        private categoryService: CategoriesService,
+        private brandService: BrandsService,
+        public snackBar: MatSnackBar,
+        public sharedService: SharedService,
+        public pdfService: PdfService,
+    ) { }
 
     /* INIT */
     ngOnInit(): void {
@@ -308,6 +313,35 @@ export class ProductsComponent implements OnInit {
             duration: 2000,
             data: object,
         });
+    }
+
+    onProduct($event, item) {
+        $event.stopPropagation();
+        const listNames = this.pdfService.pdfList.map(I => I.name);
+        const selected = item.name;
+
+        if (listNames.includes(selected)) {
+            return;
+        }
+
+        const article = {
+            id: item._id,
+            name: item.name,
+            catalog: item.catalog,
+            price: item.fixPrice,
+            amount: 1,
+            totalPrice: item.fixPrice,
+            rabat: 0,
+            image: item.image,
+            priceAfterRabat: item.fixPrice
+        };
+
+        this.pdfService.pdfList = [...this.pdfService.pdfList, article];
+    }
+
+    isAdded(item) {
+        const index = this.pdfService.pdfList.findIndex(l => l.name === item.name);
+        return index > -1;
     }
 }
 

@@ -1,5 +1,6 @@
 COMMAND NEEDED FOR DEV SOMETIMES
 set NODE_OPTIONS=--openssl-legacy-provider
+export NODE_OPTIONS=--openssl-legacy-provider
 
 DEPLOY STEPS FRONTEND
 1. ANGULAR - npm run prod

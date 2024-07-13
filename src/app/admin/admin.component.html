@@ -59,6 +59,11 @@
     <fa-icon [icon]="faUsers"></fa-icon>
     <span *ngIf="wideMenu === 'open' ">Zaposlenje</span>
   </a>
+  <a routerLink="/admin/pdf"
+    routerLinkActive="active">
+    <fa-icon [icon]="faPdf"></fa-icon>
+    <span *ngIf="wideMenu === 'open' ">Predračun</span>
+  </a>
   <a routerLink="/admin/cenovnik"
     routerLinkActive="active">
     <fa-icon [icon]="faEuroSign"></fa-icon>

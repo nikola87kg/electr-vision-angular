@@ -37,7 +37,7 @@ export class CartComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.sharedService.productList$$.subscribe(productList => {
+    this.sharedService.productListVip$$.subscribe(productList => {
       this.productList = this.cartService.getCartProducts(productList);
     });
   }

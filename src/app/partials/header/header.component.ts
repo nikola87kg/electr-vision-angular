@@ -1,11 +1,12 @@
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { SharedService } from '../../_services/shared.service';
-import { facebookLink, gmailLink, instagramLink, youtubeLink } from './../../_services/global-config';
 
+import { facebookLink, gmailLink, instagramLink, youtubeLink } from '../../_services/global-config';
+import { SharedService } from '../../_services/shared.service';
 
 declare var $: any;
 
@@ -60,7 +61,7 @@ export class HeaderComponent implements OnInit {
     }
 
     getAllProductsAndFilter(): void {
-        this.sharedService.productList$$.subscribe(result => {
+        this.sharedService.productListVip$$.subscribe(result => {
             if (result) {
                 this.options = result;
                 this.filteredOptions$ = this.searchInput.valueChanges.pipe(

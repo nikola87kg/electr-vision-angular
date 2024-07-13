@@ -1,11 +1,13 @@
+import { BrandsService } from 'src/app/_services/brands.service';
+
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BrandsService } from 'src/app/_services/brands.service';
+
+import { CartService } from '../../_services/cart.service';
 import { CategoriesService } from '../../_services/categories.service';
 import { GroupsService } from '../../_services/groups.service';
 import { SharedService } from '../../_services/shared.service';
-import { CartService } from './../../_services/cart.service';
 
 enum Levels {
   category = 'kategorije',
@@ -212,7 +214,7 @@ export class SearchComponent implements OnInit {
       this.categoryList = response;
       if (brandSlug || this.currentBrand) {
         const brand = brandSlug || this.currentBrand;
-        this.sharedService.productList$$.subscribe(res2 => {
+        this.sharedService.productListVip$$.subscribe(res2 => {
           const filteredProducts = res2?.filter(product => product.brand.slug === brand);
           const catSlugs = filteredProducts.map(product => product.category.slug);
           this.currentList = response?.filter(cat => catSlugs.includes(cat.slug));
@@ -232,7 +234,7 @@ export class SearchComponent implements OnInit {
       this.groupService.get().subscribe(response => {
         if (brandSlug || this.currentBrand) {
           const brand = brandSlug || this.currentBrand;
-          this.sharedService.productList$$.subscribe(res2 => {
+          this.sharedService.productListVip$$.subscribe(res2 => {
             const filteredProducts = res2?.filter(product => product.brand.slug === brand);
             const groupSlugs = filteredProducts.map(product => product.group.slug);
             this.currentList = response
@@ -250,7 +252,7 @@ export class SearchComponent implements OnInit {
         id = res1._id;
         this.groupService.get().subscribe(res2 => {
           if (brandSlug) {
-            this.sharedService.productList$$.subscribe(res3 => {
+            this.sharedService.productListVip$$.subscribe(res3 => {
               const filteredProducts = res3?.filter(product => product.brand.slug === brandSlug);
               const groupSlugs = filteredProducts.map(product => product.group.slug);
               this.currentList = res2?.filter(group => groupSlugs.includes(group.slug));
@@ -268,7 +270,7 @@ export class SearchComponent implements OnInit {
   }
 
   getProductsByGroup(groupId: string): void {
-    this.sharedService.productList$$.subscribe(response => {
+    this.sharedService.productListVip$$.subscribe(response => {
       this.currentList = response?.filter(
         product => {
           const brand = this.currentBrand;
@@ -299,7 +301,7 @@ export class SearchComponent implements OnInit {
       this.lastGroup = res1;
       this.lastCategory = res1.category;
       id = res1._id;
-      this.sharedService.productList$$.subscribe(res2 => {
+      this.sharedService.productListVip$$.subscribe(res2 => {
         this.currentList = res2?.filter(
           (product) => product.group._id === id
         );

@@ -4,12 +4,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { NguCarousel, NguCarouselConfig } from '@ngu/carousel';
+
+import { CartService } from '../_services/cart.service';
 import { SeoService } from '../_services/seo.service';
 /* Services */
 import { SharedService } from '../_services/shared.service';
 import { SlidesService } from '../_services/slides.service';
-import { CartService } from './../_services/cart.service';
-
 
 @Component({
     selector: 'px-homepage',
@@ -114,9 +114,9 @@ export class HomepageComponent implements OnInit {
 
     /* Get products + filter */
     getProducts(): void {
-        this.sharedService.productList$$.subscribe(productsResponse => {
+        this.sharedService.productListVip$$.subscribe(productsResponse => {
             if (productsResponse) {
-                this.vipProducts = productsResponse.filter(item => item.vip);
+                this.vipProducts = productsResponse;
                 this.vipProductsVisible = this.vipProducts.slice(0, this.maxItems);
 
                 /* change placeholder after timeout */

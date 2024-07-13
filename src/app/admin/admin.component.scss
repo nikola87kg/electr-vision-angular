@@ -225,3 +225,13 @@ span.name-text {
     margin-right: 10px;
   }
 }
+
+fa-icon.add-to-pdf {
+  color: $px-material-dark;
+  margin-right: 5px;
+}
+
+fa-icon.add-to-pdf.added {
+  color: $px-material-primary;
+  margin-right: 5px;
+}

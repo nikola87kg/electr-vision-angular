@@ -10,6 +10,7 @@ import { EmploymentAdminComponent } from './employment/employment-admin.componen
 import { GalleryAdminComponent } from './gallery/gallery-admin.component';
 import { GroupsComponent } from './groups/groups.component';
 import { OrdersAdminComponent } from './orders/orders-admin.component';
+import { PdfComponent } from './pdf/pdf.component';
 import { PreviewComponent } from './preview/preview.component';
 import { PricelistAdminComponent } from './pricelist/pricelist-admin.component';
 import { ProductsComponent } from './products/products.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'zaposlenje', component: EmploymentAdminComponent },
       { path: 'brendovi', component: BrandsComponent },
       { path: 'grupe', component: GroupsComponent },
+      { path: 'pdf', component: PdfComponent },
       { path: '', redirectTo: 'pregled', pathMatch: 'full' }
     ]
   }

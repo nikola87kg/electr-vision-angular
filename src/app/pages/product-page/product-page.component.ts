@@ -1,12 +1,14 @@
+import { SeoService } from 'src/app/_services/seo.service';
+import { SharedService } from 'src/app/_services/shared.service';
+import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
+
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { SnackbarComponent } from 'src/app/partials/snackbar/snackbar.component';
-import { SeoService } from 'src/app/_services/seo.service';
-import { SharedService } from 'src/app/_services/shared.service';
+
+import { CartService } from '../../_services/cart.service';
 import { ProductInterface, ProductsService } from '../../_services/products.service';
-import { CartService } from './../../_services/cart.service';
 
 @Component({
   selector: 'px-product-page',
@@ -100,7 +102,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.sharedService.productList$$.subscribe(result => {
+    this.sharedService.productListVip$$.subscribe(result => {
       if (result) {
         if (this.product.group != null) {
           const groupId = this.product.group._id;

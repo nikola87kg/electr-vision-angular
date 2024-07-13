@@ -27,7 +27,6 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { EmploymentComponent } from './pages/employment/employment.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { InfoComponent } from './pages/info/info.component';
-import { PdfComponent } from './pages/pdf/pdf.component';
 import { PricelistComponent } from './pages/pricelist/pricelist.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { SearchComponent } from './pages/search/search.component';
@@ -69,7 +68,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SearchComponent,
     ContactComponent,
     GalleryComponent,
-    PdfComponent,
     PricelistComponent,
     InfoComponent,
     CartComponent,

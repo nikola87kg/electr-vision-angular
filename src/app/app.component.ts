@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
-import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
+
 import { CartService } from './_services/cart.service';
 import { CategoriesService } from './_services/categories.service';
 import { ProductsService } from './_services/products.service';
 import { SharedService } from './_services/shared.service';
+import { OrderDialogComponent } from './partials/order-dialog/order-dialog.component';
 
 @Component({
     selector: 'px-root',
@@ -59,6 +60,8 @@ export class AppComponent implements OnInit {
     getAllProducts(): void {
         this.productService.getFixed().subscribe((products) => {
             this.sharedService.productList$$.next(products);
+            const vip = products.filter(p => p.vip);
+            this.sharedService.productListVip$$.next(vip);
             this.cartService.getCartProducts(products);
         });
     }

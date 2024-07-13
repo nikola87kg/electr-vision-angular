@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -13,8 +14,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatPaginatorIntlSerb } from './admin.material.translations';
 
+import { MatPaginatorIntlSerb } from './admin.material.translations';
 
 const adminMaterialModules = [
     MatTableModule,
@@ -30,6 +31,7 @@ const adminMaterialModules = [
     MatPaginatorModule,
     MatSnackBarModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
     MatGridListModule
 ];
 

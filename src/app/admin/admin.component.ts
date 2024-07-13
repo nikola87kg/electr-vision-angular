@@ -1,15 +1,9 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import {
-  faAddressCard,
-  faAngleDoubleLeft,
-  faAngleDoubleRight, faBold, faEuroSign,
-  faFolder,
-  faFolderOpen,
-  faHome,
-  faImage,
-  faPlusCircle,
-  faShoppingCart, faThLarge, faUsers
+  faAddressCard, faAngleDoubleLeft, faAngleDoubleRight, faBold, faEuroSign, faFilePdf, faFolder,
+  faFolderOpen, faHome, faImage, faPlusCircle, faShoppingCart, faThLarge, faUsers
 } from '@fortawesome/free-solid-svg-icons';
+
 import { SharedService } from '../_services/shared.service';
 
 @Component({
@@ -26,6 +20,7 @@ export class AdminComponent implements OnInit {
   faImage = faImage;
   faShoppingCart = faShoppingCart;
   faUsers = faUsers;
+  faPdf = faFilePdf;
   faEuroSign = faEuroSign;
   faAddressCard = faAddressCard;
   faHome = faHome;
