@@ -323,17 +323,16 @@ export class ProductsComponent implements OnInit {
         if (listNames.includes(selected)) {
             return;
         }
-
         const article = {
             id: item._id,
             name: item.name,
             catalog: item.catalog,
-            price: item.fixPrice,
+            price: item.price,
             amount: 1,
-            totalPrice: item.fixPrice,
+            totalPrice: item.price,
             rabat: 0,
             image: item.image,
-            priceAfterRabat: item.fixPrice
+            priceAfterRabat: item.price
         };
 
         this.pdfService.pdfList = [...this.pdfService.pdfList, article];
